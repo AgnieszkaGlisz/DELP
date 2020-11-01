@@ -1,0 +1,19 @@
+<br>
+<div id="create-wordset">
+<ul class="words">
+    <li *ngFor="let word of words">  
+        <a>
+            <span class="word-id">{{word.id}}</span>
+            <span class="word-left">{{word.original}}</span>
+            <span class="word-right">{{word.translation}}</span> 
+        </a>
+        <button class="delete" title="delete word" (click)="deleteWord(word)">x</button>
+    </li>
+    <li class="input">
+        <button class="add-word" (click)="addWord(original.value, translation.value); original.value=''; translation.value=''">+</button>
+        <input #original placeholder="original"/><input #translation placeholder="translation"/>
+        <!-- <button (click)="addWord(original.value, translation.value); original.value=''; translation.value=''">+</button> -->
+    </li>
+</ul>
+<button class="save" (click)="saveWordset()">Save</button>
+</div>
