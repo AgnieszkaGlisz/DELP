@@ -15,7 +15,6 @@ export class UserLoginComponent implements OnInit {
   ) { }
   login: string;
   password: string;
-  token: string;
 
   ngOnInit(): void {
   }
@@ -25,9 +24,9 @@ export class UserLoginComponent implements OnInit {
       x => {
         console.log("User logged in");
         console.log(x);
-        this.token = x.accessToken;
+        this.userService.setToken(x);
         // this.router.navigateByUrl('main-view');
-        this.userService.getUserInfo(x.accessToken).subscribe(
+        this.userService.getUserInfo().subscribe(
           y => {
             console.log(y);
           }
@@ -36,6 +35,15 @@ export class UserLoginComponent implements OnInit {
     );
 
     // console.log("stop");
+  }
+
+ test(): void {
+    
+        this.userService.getUserInfo().subscribe(
+          y => {
+            console.log(y);
+          }
+        );
   }
 
 }
