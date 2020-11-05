@@ -11,7 +11,7 @@ require('dotenv').config()
 //tworzenie obiektu serwera
 const app = express()
 app.use(cors({origin:"*"}))
-//app.use(express.json())
+app.use(express.json())
 //tworzenie obiektu Bazy danych do wykonywania zapytań
 const db = new Database()
 
@@ -20,6 +20,15 @@ app.get('/', (req, res) => {
     res.send('Hello!') 
 })
 
+// app.post('/token', (req, res) => {
+//     const refreshToken = req.body.token
+//     if(refreshToken == null)
+//     console.log(refreshToken)
+// })
+
+// function generateAccessToken(userInfo:any){
+//     return jwt.sign(userInfo,<string>process.env.ACCESS_TOKEN_SECRET,{expiresIn: '15s'})
+// }
 
 function authenticateToken(req:any,res:any,next:any){
     if(process.env.ADMIN=="admin") console.log('Identyfikacja uzytkownika oraz wyciąganie danych z klucza dostępu.')
@@ -27,14 +36,17 @@ function authenticateToken(req:any,res:any,next:any){
     const token = authHeader && authHeader.split(' ')[1]
     //gdy brak klucza
     if ( token == null) {        
+        if(process.env.ADMIN=="admin") console.log("Brak klucza.")
         return res.sendStatus(401)
     }
     else{
         jwt.verify(token, <string>process.env.ACCESS_TOKEN_SECRET,(err:any,user:any) =>{
             if(err){  
+                if(process.env.ADMIN=="admin") console.log("Klucz nieaktualny.")
                 return res.sendStatus(403)
             }
             else{
+                if(process.env.ADMIN=="admin") console.log("Poprawny klucz.")
                 req.user = user
                 next()
             }
@@ -42,60 +54,68 @@ function authenticateToken(req:any,res:any,next:any){
     }
 }
 
+//pobieranie danych uzytkownika
 app.get('/account', authenticateToken, (req:any, res) => {
-    var sql = 'SELECT * FROM Users where id = ' + req.user.id
+    if(process.env.ADMIN=="admin") console.log("Pobieranie danych uzytkownika.")
+    console.log("ID: "+ req.user.id)
+    var sql = 'SELECT U.id,U.username,U.password,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,U.isBlocked,UP.idColorSets,UP.fontSize,UP.noSound, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.id and U.idFirstLanguage = L.id and U.id = ' + req.user.id
     db.query(sql,function(result:any){
         if(result == 0){
-            res.json({accessToken: 0})
+            res.json({error: "User data error."})//gdy brak preferences lub users moze tez przy languages
             return
         } 
         else {
-            console.log('Creating response.')
-            var userInfo ={
-                id: result[0].id,
-                name: result[0].name,
-                surname: result[0].surname,
-                login: result[0].login,
-                password: result[0].password,
-                email: result[0].email}
-            res.json(userInfo)
+            if(process.env.ADMIN=="admin") console.log('Pobrano dane uzytkownika.')
+            
+            if(result[0].isBlocked == true){
+                if(process.env.ADMIN=="admin") console.log('Uzytkownik zablokowany.')
+                res.json({error: "User is blocked."})
+            }
+            else{
+                if(process.env.ADMIN=="admin") console.log('Przygotowanie i wysylanie danych uzytkownika.')
+                var userPreferences = {
+                    idColorSets: result[0].idColorSets,
+                    fontSize: result[0].fontSize,
+                    noSound: result[0].noSound
+                }
+                var userInfo ={
+                    id: result[0].id,
+                    username: result[0].username,
+                    password: result[0].password,
+                    email: result[0].email,
+                    name: result[0].name,
+                    surname: result[0].surname,
+                    birthday: result[0].birthday,
+                    accountCreation: result[0].accountCreation,
+                    idFirstLanguage:result[0].idFirstLanguage,
+                    firstLanguage: result[0].lanName,
+                    preferences: userPreferences
+                }
+                res.json(userInfo)
+            }
         }
-           // res.contentType('application/json')
-
-          ///  console.log("Sending data to client.")
-          //  res.send(JSON.stringify(JSONObject))
-           // console.log("Data sent.")
     })
 })
 
+//logowanie 
 app.post('/login', (req, res) => {
-    console.log(req)
-    var sql = 'SELECT * FROM Users where login = "' + req.body.username + '" and password = "' + req.body.password + '"'
+    var sql = 'SELECT * FROM Users where username = "' + req.body.username + '" and password = "' + req.body.password + '"'
     db.query(sql,function(result:any){
         if(result == 0){
-            res.json({accessToken: 0})
+            res.json({error: "Invalid login or password."})
             return
         } 
         else {
             var userInfo={
                 id: result[0].id,
-                login: result[0].login,
-                password: result[0].password,
+                username: result[0].username
             }
             const accessToken = jwt.sign(userInfo,<string>process.env.ACCESS_TOKEN_SECRET)
-            res.json({accessToken: accessToken})
+            //const refreshToken = jwt.sign(userInfo,<string>process.env.REFRESH_TOKEN_SECRET)
+            res.json({accessToken: accessToken})//,refreshToken: refreshToken})
         }
         
     })
-
-
-
-
-
-    // const username = req.body.username
-    // const user = {name: username}//new User(username)
-    // const accessToken = jwt.sign(user,<string>process.env.ACCESS_TOKEN_SECRET)
-    // res.json({accessToken: accessToken})
 })
 
 //pobieranie wszystkich użytkowników z bazy
