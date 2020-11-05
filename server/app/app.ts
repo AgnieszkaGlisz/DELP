@@ -20,6 +20,30 @@ app.get('/', (req, res) => {
     res.send('Hello!')
 })
 
+app.get('/wordset', (req, res) =>{
+    var sql = 'SELECT * FROM WordExerciseTemplate'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.json({accessToken: 0})
+            return
+        } 
+        else {
+            console.log('Creating response. - wordset')
+            var wordTemp ={
+                id: result[0].id,
+                idSet: result[0].idSet,
+                word: result[0].word,
+                translation: result[0].translation,
+                videoPath: result[0].videoPath,
+                audioPath: result[0].audioPath,
+                picturePath: result[0].picturePath}
+            res.json(wordTemp)
+        }
+        res.send(JSON.stringify(wordTemp))
+        console.log("data send" + wordTemp)
+    })
+    
+})
 
 function authenticateToken(req:any,res:any,next:any){
     if(process.env.ADMIN=="admin") console.log('Identyfikacja uzytkownika oraz wyciąganie danych z klucza dostępu.')
@@ -41,6 +65,7 @@ function authenticateToken(req:any,res:any,next:any){
         })
     }
 }
+
 
 app.get('/account', authenticateToken, (req:any, res) => {
     var sql = 'SELECT * FROM Users where id = ' + req.user.id
