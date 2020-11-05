@@ -5,10 +5,10 @@ var Database = /** @class */ (function () {
     function Database() {
         this.dbconfig = {
             connectionLimit: 10,
-            host: 'agraleba.pl',
-            user: 'agraleba_delp',
-            password: 'delp2020',
-            database: 'agraleba_delp'
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_DATABASE
         };
         this.pool = mysql.createPool(this.dbconfig);
     }
@@ -21,6 +21,7 @@ var Database = /** @class */ (function () {
                     throw err;
                 }
                 else {
+                    console.log('QUERY SUCCEED');
                     return callback(result);
                 }
             }

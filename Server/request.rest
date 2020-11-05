@@ -1,0 +1,25 @@
+GET http://localhost:3500/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJ3a3VjaHRhIiwicGFzc3dvcmQiOiJ3a3VjaHRhIiwiaWF0IjoxNjA0NDAzNTc2fQ.RoEEOeYhMSuLvTbHHeUV2z0CCmDwB1mK0sYXp0gg04c
+
+###
+
+POST http://localhost:3500/login
+Content-Type: text/plain
+
+{
+    "username": "wkuchta",
+    "password": "wkuchta"
+}
+
+###
+
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+    "username": "cgrabowski",
+    "password": "cgrabowski"
+}
+
+
+###

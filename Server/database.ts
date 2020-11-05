@@ -1,18 +1,18 @@
-var mysql = require('mysql');
+var mysql = require('mysql')
 
 class Database {
 
     private dbconfig = {
         connectionLimit : 10,
-        host: 'agraleba.pl',
-        user: 'agraleba_delp',
-        password: 'delp2020',
-        database:'agraleba_delp'
-    };
-    private pool;
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE
+    }
+    private pool
     //tworzenie połączenia z bazą
     constructor() {
-        this.pool  = mysql.createPool(this.dbconfig);
+        this.pool  = mysql.createPool(this.dbconfig)
     }
     //zapytanie do bazy callback jest funkcją wywoływaną po zakończonym zapytaniu
     //gdy udane zwraca dane z bazy gdy nie udane zwraca 0
@@ -20,17 +20,18 @@ class Database {
         this.pool.query(sql, function (err : any, result : any) {
             try {
                 if (err){ 
-                    throw err;
+                    throw err
                 }
-                else{
-                    return callback(result);
+                else{   
+                    console.log('QUERY SUCCEED')
+                    return callback(result)
                 } 
             }
             catch(err){
-                console.log('ERROR QUERY: ',err);
-                return callback(0);
+                console.log('ERROR QUERY: ',err)
+                return callback(0)
             }
-        });
+        })
     }
 }
-export = Database;
+export = Database

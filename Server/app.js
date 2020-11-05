@@ -1,13 +1,88 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
+var jwt = require("jsonwebtoken");
 var Database = require("./database");
+var cors = require("cors");
+//inicjacja zmiennych srodowiskowych
+require('dotenv').config();
 //tworzenie obiektu serwera
 var app = express();
+app.use(cors({ origin: "*" }));
+//app.use(express.json())
 //tworzenie obiektu Bazy danych do wykonywania zapytań
 var db = new Database();
 app.get('/', function (req, res) {
     res.send('Hello!');
+});
+function authenticateToken(req, res, next) {
+    if (process.env.ADMIN == "admin")
+        console.log('Identyfikacja uzytkownika oraz wyciąganie danych z klucza dostępu.');
+    var authHeader = req.headers['authorization'];
+    var token = authHeader && authHeader.split(' ')[1];
+    //gdy brak klucza
+    if (token == null) {
+        return res.sendStatus(401);
+    }
+    else {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, user) {
+            if (err) {
+                return res.sendStatus(403);
+            }
+            else {
+                req.user = user;
+                next();
+            }
+        });
+    }
+}
+app.get('/account', authenticateToken, function (req, res) {
+    var sql = 'SELECT * FROM Users where id = ' + req.user.id;
+    db.query(sql, function (result) {
+        if (result == 0) {
+            res.json({ accessToken: 0 });
+            return;
+        }
+        else {
+            console.log('Creating response.');
+            var userInfo = {
+                id: result[0].id,
+                name: result[0].name,
+                surname: result[0].surname,
+                login: result[0].login,
+                password: result[0].password,
+                email: result[0].email
+            };
+            res.json(userInfo);
+        }
+        // res.contentType('application/json')
+        ///  console.log("Sending data to client.")
+        //  res.send(JSON.stringify(JSONObject))
+        // console.log("Data sent.")
+    });
+});
+app.post('/login', function (req, res) {
+    console.log(req);
+    var sql = 'SELECT * FROM Users where login = "' + req.body.username + '" and password = "' + req.body.password + '"';
+    db.query(sql, function (result) {
+        if (result == 0) {
+            res.json({ accessToken: 0 });
+            return;
+        }
+        else {
+            var userInfo = {
+                id: result[0].id,
+                login: result[0].login,
+                password: result[0].password,
+            };
+            var accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET);
+            res.json({ accessToken: accessToken });
+        }
+    });
+    // const username = req.body.username
+    // const user = {name: username}//new User(username)
+    // const accessToken = jwt.sign(user,<string>process.env.ACCESS_TOKEN_SECRET)
+    // res.json({accessToken: accessToken})
 });
 //pobieranie wszystkich użytkowników z bazy
 app.get('/users', function (req, res) {
@@ -40,7 +115,7 @@ app.get('/users', function (req, res) {
     });
 });
 //wlaczenie serwera nasluchiwanie na porcie 3000
-var port = 3000; // process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 app.listen(port, function () { return console.log("Listening on PORT: " + port); });
 // app.get('/uzytkownicy/:login', (req, res) => {
 //     console.log('Searching for user: ', req.params.login);

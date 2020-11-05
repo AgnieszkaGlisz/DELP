@@ -1,32 +1,115 @@
-import http = require('http');
-import express = require('express');
-import fs = require('fs');
-import jwt = require('jsonwebtoken');
-import Database = require('./database');
+import express = require('express')
+import fs = require('fs')
+import jwt = require('jsonwebtoken')
+import Database = require('./database')
+import User = require('./user')
+import cors = require('cors')
 
+//inicjacja zmiennych srodowiskowych
+require('dotenv').config()
+ 
 //tworzenie obiektu serwera
-const app = express();
-
+const app = express()
+app.use(cors({origin:"*"}))
+//app.use(express.json())
 //tworzenie obiektu Bazy danych do wykonywania zapytań
-const db = new Database();
+const db = new Database()
 
 
 app.get('/', (req, res) => {
-    res.send('Hello!');
-});
+    res.send('Hello!')
+})
+
+
+function authenticateToken(req:any,res:any,next:any){
+    if(process.env.ADMIN=="admin") console.log('Identyfikacja uzytkownika oraz wyciąganie danych z klucza dostępu.')
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    //gdy brak klucza
+    if ( token == null) {        
+        return res.sendStatus(401)
+    }
+    else{
+        jwt.verify(token, <string>process.env.ACCESS_TOKEN_SECRET,(err:any,user:any) =>{
+            if(err){  
+                return res.sendStatus(403)
+            }
+            else{
+                req.user = user
+                next()
+            }
+        })
+    }
+}
+
+app.get('/account', authenticateToken, (req:any, res) => {
+    var sql = 'SELECT * FROM Users where id = ' + req.user.id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.json({accessToken: 0})
+            return
+        } 
+        else {
+            console.log('Creating response.')
+            var userInfo ={
+                id: result[0].id,
+                name: result[0].name,
+                surname: result[0].surname,
+                login: result[0].login,
+                password: result[0].password,
+                email: result[0].email}
+            res.json(userInfo)
+        }
+           // res.contentType('application/json')
+
+          ///  console.log("Sending data to client.")
+          //  res.send(JSON.stringify(JSONObject))
+           // console.log("Data sent.")
+    })
+})
+
+app.post('/login', (req, res) => {
+    console.log(req)
+    var sql = 'SELECT * FROM Users where login = "' + req.body.username + '" and password = "' + req.body.password + '"'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.json({accessToken: 0})
+            return
+        } 
+        else {
+            var userInfo={
+                id: result[0].id,
+                login: result[0].login,
+                password: result[0].password,
+            }
+            const accessToken = jwt.sign(userInfo,<string>process.env.ACCESS_TOKEN_SECRET)
+            res.json({accessToken: accessToken})
+        }
+        
+    })
+
+
+
+
+
+    // const username = req.body.username
+    // const user = {name: username}//new User(username)
+    // const accessToken = jwt.sign(user,<string>process.env.ACCESS_TOKEN_SECRET)
+    // res.json({accessToken: accessToken})
+})
 
 //pobieranie wszystkich użytkowników z bazy
 app.get('/users', (req, res) => {
-    var sql = 'SELECT * FROM Users';
+    var sql = 'SELECT * FROM Users'
     db.query(sql,function(result:any){
-        if(result == 0) return;
-        var numberOfProducts = result.length;
+        if(result == 0) return
+        var numberOfProducts = result.length
         if (numberOfProducts == 0) {
-            res.send('Brak uzytkownikow.');
+            res.send('Brak uzytkownikow.')
         }
         else {
-            console.log('Creating response.');
-            var JSONObject = [];
+            console.log('Creating response.')
+            var JSONObject = []
             for (var i = 0; i < numberOfProducts; i++) {
                 JSONObject.push({
                     id: result[i].id,
@@ -35,21 +118,22 @@ app.get('/users', (req, res) => {
                     login: result[i].login,
                     password: result[i].password,
                     email: result[i].email
-                });
+                })
             }
-            res.contentType('application/json');
+            res.contentType('application/json')
 
-            console.log("Sending data to client.");
-            res.send(JSON.stringify(JSONObject));
-            console.log("Data sent.");
+            console.log("Sending data to client.")
+            res.send(JSON.stringify(JSONObject))
+            console.log("Data sent.")
         }
         
-    });
-});
+    })
+})
+
 
 //wlaczenie serwera nasluchiwanie na porcie 3000
-const port = 3000;// process.env.PORT || 3000;
-app.listen(port, () => console.log("Listening on PORT: " + port));
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log("Listening on PORT: " + port))
 
 
 

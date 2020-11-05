@@ -1,0 +1,30 @@
+0.Stworzenie folderu.
+1.Inicjalizacja projektu:
+npm init
+2.Ustawić app.ts zamiast index.js
+3.Instalacja typescript: 
+npm install typescript -s
+4.Dodać "tsc": "tsc", w scripts w package.json przed test
+5.Inicjalizacja tsc.
+npm run tsc -- --init
+6.Instalacja express:
+npm install express -s
+npm install @types/express -s
+7.Instalacja mysql:
+npm install mysql -s
+npm install @types/mysql -s
+8.Instalacja jwt:
+npm install jsonwebtoken -s 
+npm install @types/jsonwebtoken -s
+9.Instalacja dotenv:
+npm install dotenv -s 
+
+npm install cors -s
+npm install @types/cors -s
+
+10.Przenieść pliki które wam wysłałem do folderu.
+11.Kompilacja TS do JS: 
+npm run tsc 
+12.Uruchomienie servera:
+node app.js
+
