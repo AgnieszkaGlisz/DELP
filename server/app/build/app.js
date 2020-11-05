@@ -54,11 +54,10 @@ function authenticateToken(req, res, next) {
 app.get('/account', authenticateToken, function (req, res) {
     if (process.env.ADMIN == "admin")
         console.log("Pobieranie danych uzytkownika.");
-    console.log("ID: " + req.user.id);
-    var sql = 'SELECT U.id,U.username,U.password,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,U.isBlocked,UP.idColorSets,UP.fontSize,UP.noSound, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.id and U.idFirstLanguage = L.id and U.id = ' + req.user.id;
+    var sql = 'SELECT U.id,U.username,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,U.isBlocked,UP.idColorSets,UP.fontSize,UP.noSound, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.id and U.idFirstLanguage = L.id and U.id = ' + req.user.id;
     db.query(sql, function (result) {
         if (result == 0) {
-            res.json({ error: "User data error." });
+            res.json({ error: "User data error." }); //gdy brak preferences lub users moze tez przy languages
             return;
         }
         else {
@@ -80,7 +79,6 @@ app.get('/account', authenticateToken, function (req, res) {
                 var userInfo = {
                     id: result[0].id,
                     username: result[0].username,
-                    password: result[0].password,
                     email: result[0].email,
                     name: result[0].name,
                     surname: result[0].surname,
