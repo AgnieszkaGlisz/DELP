@@ -17,7 +17,7 @@ const db = new Database()
 
 
 app.get('/', (req, res) => {
-    res.send('Hello!')
+    res.send('Hello!') 
 })
 
 
