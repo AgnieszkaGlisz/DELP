@@ -1,3 +1,3 @@
 cd server
 cd app
-npm run tsc && node app.js
+npm run tsc && node ./build/app.js
