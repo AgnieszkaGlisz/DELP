@@ -1,3 +1,4 @@
+import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from './message.service';
 import { WORDS } from '../words-mock';
@@ -29,9 +30,9 @@ export class WordsetService {
     return this.http.get(url);
   }
 
-  getWordset(id :number): Observable<any> {
+  getWordset(id :number): Observable<Wordset> {
     this.messageService.add("WordsetService: fetched words");
-    return this.http.get(`${this.url}/wordset/${id}`);
+    return this.http.get<Wordset>(`${this.url}/wordset/${id}`);
   }
 
   // deleteWord()

@@ -19,13 +19,31 @@ export class UserLoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logIn(login: string, password: string): void {
-    this.userService.sendLoginInfo(login, password).subscribe(
-      () => {
+  logIn(username: string, password: string): void {
+    this.userService.sendLoginInfo(username, password).subscribe(
+      x => {
         console.log("User logged in");
+        console.log(x);
+        this.userService.setToken(x);
         // this.router.navigateByUrl('main-view');
+        this.userService.getUserInfo().subscribe(
+          y => {
+            console.log(y);
+          }
+        );
       }
     );
+
+    // console.log("stop");
+  }
+
+ test(): void {
+    
+        this.userService.getUserInfo().subscribe(
+          y => {
+            console.log(y);
+          }
+        );
   }
 
 }
