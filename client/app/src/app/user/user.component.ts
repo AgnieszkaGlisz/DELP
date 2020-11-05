@@ -28,7 +28,7 @@ export class UserComponent implements OnInit {
     let id: number = 1;
     this.messageService.add('getUserInfo()');
     // this.userService.getUserInfo(id).subscribe(users => console.log(users));
-    this.userService.getUserInfo(id).subscribe(users => this.allUsers = users);
+    // this.userService.getUserInfo(id).subscribe(users => this.allUsers = users);
 
     // console.log(this.allUsers[0].name);
   }
