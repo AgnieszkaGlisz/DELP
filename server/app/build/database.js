@@ -1,5 +1,6 @@
 "use strict";
 var mysql = require('mysql');
+var common = require("./common");
 var Database = /** @class */ (function () {
     //tworzenie połączenia z bazą
     function Database() {
@@ -21,12 +22,12 @@ var Database = /** @class */ (function () {
                     throw err;
                 }
                 else {
-                    console.log('QUERY SUCCEED');
+                    common.adminLog('Query succeed.');
                     return callback(result);
                 }
             }
             catch (err) {
-                console.log('ERROR QUERY: ', err);
+                common.adminLog('Query error: ' + err);
                 return callback(0);
             }
         });

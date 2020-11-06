@@ -1,6 +1,6 @@
 ### zalogowany uzytkownik chce swoje dane
 GET http://localhost:3500/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0emFibG9rb3dhbnkiLCJpYXQiOjE2MDQ2MTI4NTF9.8J_t9tyW8LW3if3fpY6VmaM2TI75j4ROdD5DDpkie9M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0emFibG9rb3dhbnkiLCJpYXQiOjE2MDQ2NjUyMjR9.YEpKl5B0JYZU8EcjfmFU6rBpoSh2WS8JRGwZMalm7z4
 
 ### logowanie ok
 
@@ -41,3 +41,7 @@ Content-Type: application/json
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJ3a3VjaHRhIiwicGFzc3dvcmQiOiJ3a3VjaHRhIiwiaWF0IjoxNjA0NjA2MjI3fQ.2Md8hrareKjuAoIPLEpg5_qMlGrxfbSRmgS-bNMuvsM"
 }
+
+###
+
+GET http://localhost:3500/apiinfo

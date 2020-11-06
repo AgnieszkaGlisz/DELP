@@ -1,4 +1,5 @@
 var mysql = require('mysql')
+import common = require("./common")
 
 class Database {
 
@@ -23,12 +24,12 @@ class Database {
                     throw err
                 }
                 else{   
-                    console.log('QUERY SUCCEED')
+                    common.adminLog('Query succeed.')
                     return callback(result)
                 } 
             }
             catch(err){
-                console.log('ERROR QUERY: ',err)
+                common.adminLog('Query error: '+ err)
                 return callback(0)
             }
         })
