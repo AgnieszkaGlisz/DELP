@@ -144,6 +144,17 @@ app.get('/languageinfo/:id', auth.authenticateToken, function (req, res) {
         res.json(language);
     });
 });
+//pobieranie informacji o jezyku
+app.get('/', function (req, res) {
+    var sql = "INSERT INTO `Languages` (`id`, `code`, `name`, `info`) VALUES  (NULL, 'eng', 'English', 'Język Angielski'),(NULL, 'eng', 'English', 'Język Angielski')";
+    db.query(sql, function (result) {
+        common.adminLog("RESULT: " + JSON.stringify(result));
+        if (result == 0) {
+            res.status(404).json({ error: "No result." });
+            return;
+        }
+    });
+});
 //nieobsluzone sciezki
 app.all('*', function (req, res) {
     common.adminLog('Route unhandled.');
@@ -152,5 +163,3 @@ app.all('*', function (req, res) {
 //wlaczenie serwera nasluchiwanie na porcie ustawionym .env lub 3000
 var port = process.env.PORT || 3000;
 app.listen(port, function () { return common.adminLog("Listening on PORT: " + port); });
-// app.get('/uzytkownicy/:login', (req, res) => {
-//     console.log('Searching for user: ', req.params.login);

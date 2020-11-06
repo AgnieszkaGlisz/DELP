@@ -161,6 +161,3 @@ app.all('*', (req, res) => {
 //wlaczenie serwera nasluchiwanie na porcie ustawionym .env lub 3000
 const port = process.env.PORT || 3000
 app.listen(port, () => common.adminLog("Listening on PORT: " + port))
-
-// app.get('/uzytkownicy/:login', (req, res) => {
-//     console.log('Searching for user: ', req.params.login);
