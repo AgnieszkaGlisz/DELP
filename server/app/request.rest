@@ -1,7 +1,6 @@
 ### zalogowany uzytkownik chce swoje dane
 GET http://localhost:3500/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0emFibG9rb3dhbnkiLCJpYXQiOjE2MDQ2NjUyMjR9.YEpKl5B0JYZU8EcjfmFU6rBpoSh2WS8JRGwZMalm7z4
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0emFibG9rb3dhbnkiLCJpYXQiOjE2MDQ2NzMxODV9.mMuAcPkTLzME14Pd_R3zSB3GV7xvq74eMC2eAHkzXn8
 ### logowanie ok
 
 POST http://localhost:3500/login
@@ -32,16 +31,47 @@ Content-Type: application/json
     "password": "cgrabowski"
 }
 
+### logowanie nie ok
 
-### odswiezanie tokena
-
-POST http://localhost:3500/token
+POST http://localhost:3500/login
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJ3a3VjaHRhIiwicGFzc3dvcmQiOiJ3a3VjaHRhIiwiaWF0IjoxNjA0NjA2MjI3fQ.2Md8hrareKjuAoIPLEpg5_qMlGrxfbSRmgS-bNMuvsM"
+    "username": "hnurska",
+    "password": "hnurska"
+}
+
+###
+
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+    "username": "agliszczynska",
+    "password": "agliszczynska"
 }
 
 ###
 
 GET http://localhost:3500/apiinfo
+###
+
+GET http://localhost:3500/favourite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJobnVyc2thIiwiaWF0IjoxNjA0NjY5Mjk5fQ.IVJnExVO6vv62DwFECY1pRNzmFIPVtPRq8ytmG49E2w
+
+###
+
+GET http://localhost:3500/favourite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA0NjY5NDI4fQ.Sw28jrvhiV9vn9CgFC9y-F_KoJhbUoEcRqyTBom_pko
+
+###
+
+GET http://localhost:3500/favourite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
+
+###
+GET http://localhost:3500/languageinfo/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
+
+
+
