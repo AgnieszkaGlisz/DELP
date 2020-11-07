@@ -10,6 +10,7 @@ import { CreateWordsetComponent } from './create-wordset/create-wordset.componen
 import { MessagesComponent } from './messages/messages.component';
 import { UserComponent } from './user/user.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { DisplayWordsetComponent } from './display-wordset/display-wordset.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
     MessagesComponent,
     UserComponent,
     UserLoginComponent,
+    DisplayWordsetComponent,
   ],
   imports: [
     BrowserModule,

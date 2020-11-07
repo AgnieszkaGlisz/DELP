@@ -1,7 +1,7 @@
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MessageService } from '../_services/message.service';
 import { WordsetService } from '../_services/wordset.service';
-import { WORDS } from './../words-mock';
+// import { WORDS } from './../words-mock';
 import { Component, OnInit } from '@angular/core';
 import { TranslateWordTemplate } from '../_interfaces/translateWordTemplate';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -27,20 +27,20 @@ export class CreateWordsetComponent implements OnInit {
   }
 
   getWords(): void {
-    this.wordsetService.getWords1().subscribe(words => this.words = words);
+    // this.wordsetService.getWords1().subscribe(words => this.words = words);
   }
 
-  addWord(original: string, translation: string): void {
+  addWord(word: string, translation: string): void {
     this.messageService.add("addWord create-wordset");
-    if (!original || !translation)
+    if (!word || !translation)
     {
     return;
     }
-    let word = <TranslateWordTemplate>{};
-    word.id = this.genId(this.words);
-    word.original = original;
-    word.translation = translation;
-    this.words.push(word);
+    let translateWord = <TranslateWordTemplate>{};
+    translateWord.id = this.genId(this.words);
+    translateWord.word = word;
+    translateWord.translation = translation;
+    this.words.push(translateWord);
   }
 
   deleteWord(word: TranslateWordTemplate): void {
@@ -49,12 +49,9 @@ export class CreateWordsetComponent implements OnInit {
   
   dupa: string;
   saveWordset(): void {
-    this.messageService.add("before get");
-    this.wordsetService.getWords().subscribe(test => this.dupa = test.text);
-    // this.wordsetService.getWords().subscribe(test => console.log(test.text));
-    console.log(this.dupa);
-    this.messageService.add(this.dupa);
-    this.messageService.add("after get");
+    this.wordsetService.saveWordset(this.words).subscribe(x => {
+      console.log(x);
+    });
   }
 
   // saveWordset(): void {
