@@ -1,5 +1,9 @@
 export interface TranslateWordTemplate {
     id: number;
-    original: string;
+    idSet: number;
+    word: string;
     translation: string;
+    videoPath: string;
+    audioPath: string;
+    picturePath: string;
 }
