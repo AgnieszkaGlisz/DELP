@@ -93,8 +93,8 @@ router.get('/words', (req, res) =>{
     
 })
 
-router.post('/word', (req,res) => {
-    var sql = 'SELECT * FROM WordExerciseTemplate WHERE id=' + req.query.id;
+router.get('/word', (req,res) => {
+    var sql = 'SELECT * FROM WordExerciseTemplate WHERE id=' + req.headers.id;
     db.query(sql,function(result:any){
         if(result == 0){
             res.json({accessToken: 0})
@@ -106,14 +106,14 @@ router.post('/word', (req,res) => {
             console.log(JSON.stringify(wordTemp))
             res.contentType('application/json')
             res.send(JSON.stringify(wordTemp))
-            
+            console.log(req)
         }
     })
     
 })
 
-router.post('/words-in-set', (req, res) =>{
-    var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.query.id;
+router.get('/words-in-set', (req, res) =>{
+    var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.headers.id;
     db.query(sql,function(result:any){
         if(result == 0){
             res.json({accessToken: 0})

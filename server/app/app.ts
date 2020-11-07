@@ -24,13 +24,9 @@ const router = require('./routes/words')
 app.use(router)
 
 
-
-
 app.get('/', (req, res) => {
     res.send('Hello!')
 })
-
-
 
 function authenticateToken(req:any,res:any,next:any){
     if(process.env.ADMIN=="admin") console.log('Identyfikacja uzytkownika oraz wyciąganie danych z klucza dostępu.')
@@ -141,12 +137,9 @@ app.get('/users', (req, res) => {
     })
 })
 
-
 //wlaczenie serwera nasluchiwanie na porcie 3000
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log("Listening on PORT: " + port))
-
-
 
 
 // app.get('/uzytkownicy/:login', (req, res) => {
