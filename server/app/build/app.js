@@ -4,6 +4,7 @@ var express = require("express");
 var jwt = require("jsonwebtoken");
 var Database = require("./database");
 var cors = require("cors");
+//import {Word} from"./words"
 //inicjacja zmiennych srodowiskowych
 require('dotenv').config();
 //tworzenie obiektu serwera
@@ -11,33 +12,15 @@ var app = express();
 app.use(cors({ origin: "*" }));
 //app.use(express.json())
 //tworzenie obiektu Bazy danych do wykonywania zapytań
+// setsexercises wordexercisetemplate i exercisesets
+//select * from TranslateSentanceExerciseTemplate where id in ( SELECT idExercise FROM SetsExercises WHERE idSet = 3 and idTemplate in ( SELECT id from TemplatesInfo where name='TranslateSentanceExerciseTemplate') )
+//wyhciaganie wszystkich zadań typu translate sentenceexercisetemplate z setu o id 3
 var db = new Database();
+module.exports = db;
+var router = require('./routes/words');
+app.use(router);
 app.get('/', function (req, res) {
     res.send('Hello!');
-});
-app.get('/wordset', function (req, res) {
-    var sql = 'SELECT * FROM WordExerciseTemplate';
-    db.query(sql, function (result) {
-        if (result == 0) {
-            res.json({ accessToken: 0 });
-            return;
-        }
-        else {
-            console.log('Creating response. - wordset');
-            var wordTemp = {
-                id: result[0].id,
-                idSet: result[0].idSet,
-                word: result[0].word,
-                translation: result[0].translation,
-                videoPath: result[0].videoPath,
-                audioPath: result[0].audioPath,
-                picturePath: result[0].picturePath
-            };
-            res.json(wordTemp);
-        }
-        res.send(JSON.stringify(wordTemp));
-        console.log("data send" + wordTemp);
-    });
 });
 function authenticateToken(req, res, next) {
     if (process.env.ADMIN == "admin")
