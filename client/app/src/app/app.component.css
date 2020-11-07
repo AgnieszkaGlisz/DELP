@@ -26,6 +26,8 @@ nav a.active {
     color: #039be5;
   }
 
-  @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
-  body{margin-top:20px;}
-  .fa-fw {width: 2em;}
+  ul {
+    list-style-type: none;
+    background-color: aliceblue;
+    height: 100vh;
+  }

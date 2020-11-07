@@ -1,3 +1,4 @@
+import { DisplayWordsetComponent } from './display-wordset/display-wordset.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserComponent } from './user/user.component';
 import { MainViewComponent } from './main-view/main-view.component';
@@ -8,6 +9,7 @@ import { CreateWordsetComponent } from './create-wordset/create-wordset.componen
 const routes: Routes = [
   { path: 'main-view', component: MainViewComponent },
   { path: 'wordset/create', component: CreateWordsetComponent},
+  { path: 'wordset/display', component: DisplayWordsetComponent},
   { path: 'my-profile', component: UserComponent},
   { path: 'login', component: UserLoginComponent},
 ];

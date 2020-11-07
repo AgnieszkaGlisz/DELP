@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var cors = require("cors");
+
 var Database = require("./database");
 var auth = require("./auth");
 var common = require("./common");
+
 //inicjacja zmiennych srodowiskowych
 require('dotenv').config();
 //tworzenie obiektu serwera
@@ -12,7 +14,11 @@ var app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 //tworzenie obiektu Bazy danych do wykonywania zapytań
+// setsexercises wordexercisetemplate i exercisesets
+//select * from TranslateSentanceExerciseTemplate where id in ( SELECT idExercise FROM SetsExercises WHERE idSet = 3 and idTemplate in ( SELECT id from TemplatesInfo where name='TranslateSentanceExerciseTemplate') )
+//wyhciaganie wszystkich zadań typu translate sentenceexercisetemplate z setu o id 3
 var db = new Database();
+
 //informacje o mozliwych funkcjach api
 app.get('/apiinfo', function (req, res) {
     common.adminLog('Preparing routes info for user.');
@@ -24,7 +30,7 @@ app.get('/apiinfo', function (req, res) {
         '/languageinfo/:id': 'Information about language based on id.'
     };
     res.json(info);
-});
+
 //logowanie 
 app.post('/login', function (req, res) {
     var sql = 'SELECT * FROM Users where username = "' + req.body.username + '" and password = "' + req.body.password + '"';

@@ -1,0 +1,14 @@
+<p>display-wordset works!</p>
+<br>
+<div id="display-wordset">
+<ul class="words">
+    <li *ngFor="let word of wordset">
+        <a>
+            <span class="word-id">{{word.id}}</span>
+            <span class="word-left">{{word.word}}</span>
+            <span class="word-right">{{word.translation}}</span> 
+        </a>
+    </li>
+</ul>
+<button class="load" (click)="getWordset()">Load</button>
+</div>
