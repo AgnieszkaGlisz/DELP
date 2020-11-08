@@ -25,20 +25,27 @@ export class UserService {
   urlLogin: string = `http://25.68.211.177:3500/login`;
   urlAccount: string = `http://25.68.211.177:3500/account`;
 
+  setToken(x: any): void{
+    localStorage.setItem('token', JSON.stringify(x));
+  }
+
+  
+
   // TODO: change to get info about only one user
   // getUserInfo(id: number): Observable<User[]> {
   //   return this.http.get<User[]>(this.url);
   // }
-  getUserInfo(token: string): Observable<User[]> {
-      const auth = "Bearer " + token;
+  getUserInfo(): Observable<User[]> {
 
-      const httpOptions1 = {
+      const auth = "Bearer ";// + this.getToken();
+
+      /*const httpOptions1 = {
         headers: new HttpHeaders({
           Authorization: auth
         })
-      };      
+      };*/      
 
-      return this.http.get<User[]>(this.urlAccount, httpOptions1);
+      return this.http.get<User[]>(this.urlAccount, httpOptions);
     }
 
   sendLoginInfo(username: string, password: string): Observable<any> {

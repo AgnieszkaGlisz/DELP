@@ -1,25 +1,23 @@
 import express = require('express')
-const app = express()
-
 const router = express.Router();
-const db = require('../app')
+import {db} from '../database'
 
 function createResponseWord(result:any){
     var wordTemp = [];
-            for (var i = 0; i < result.length ; i++) { 
-                wordTemp.push({
-                    id: result[i].id,
-                    idSet: result[i].idSet,
-                    word: result[i].word,
-                    translation: result[i].translation,
-                    videoPath: result[i].videoPath,
-                    audioPath: result[i].audioPath,
-                    picturePath: result[i].picturePath})
-            }
+        for (var i = 0; i < result.length ; i++) { 
+            wordTemp.push({
+                id: result[i].id,
+                idSet: result[i].idSet,
+                word: result[i].word,
+                translation: result[i].translation,
+                videoPath: result[i].videoPath,
+                audioPath: result[i].audioPath,
+                picturePath: result[i].picturePath})
+        }
     return wordTemp;
 }
 
-app.get('/wordset', (req, res) =>{
+router.get('/wordset', (req, res) =>{
     var sql = 'SELECT * FROM WordExerciseTemplate'
     db.query(sql,function(result:any){
         if(result == 0){
@@ -164,6 +162,4 @@ router.get('/exerciseSets', (req, res) =>{
         }
     })
 })
-
-
 module.exports = router;

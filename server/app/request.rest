@@ -1,17 +1,27 @@
+### zalogowany uzytkownik chce swoje dane
 GET http://localhost:3500/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJ3a3VjaHRhIiwicGFzc3dvcmQiOiJ3a3VjaHRhIiwiaWF0IjoxNjA0NDAzNTc2fQ.RoEEOeYhMSuLvTbHHeUV2z0CCmDwB1mK0sYXp0gg04c
-
-###
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJobnVyc2thIiwiaWF0IjoxNjA0ODM0ODMxfQ.9dO8nCGqTvO7JMT-qFRniioykkgYxxXF7wq5DsuCDPY
+### logowanie ok
 
 POST http://localhost:3500/login
-Content-Type: text/plain
+Content-Type: application/json
 
 {
     "username": "wkuchta",
     "password": "wkuchta"
 }
 
-###
+### logowanie ok
+
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+    "username": "testzablokowany",
+    "password": "testzablokowany"
+}
+
+### logowanie nie ok
 
 POST http://localhost:3500/login
 Content-Type: application/json
@@ -21,5 +31,49 @@ Content-Type: application/json
     "password": "cgrabowski"
 }
 
+### logowanie nie ok
+
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+    "username": "hnurska",
+    "password": "hnurska"
+}
 
 ###
+
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+    "username": "agliszczynska",
+    "password": "agliszczynska"
+}
+
+###
+
+GET http://localhost:3500/apiinfo
+###
+
+GET http://localhost:3500/favourite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJobnVyc2thIiwiaWF0IjoxNjA0NjY5Mjk5fQ.IVJnExVO6vv62DwFECY1pRNzmFIPVtPRq8ytmG49E2w
+
+###
+
+GET http://localhost:3500/favourite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA0NjY5NDI4fQ.Sw28jrvhiV9vn9CgFC9y-F_KoJhbUoEcRqyTBom_pko
+
+###
+
+GET http://localhost:3500/favourite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
+
+###
+GET http://localhost:3500/languageinfo/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
+
+
+
+### 
+GET  http://localhost:3500/wordset
