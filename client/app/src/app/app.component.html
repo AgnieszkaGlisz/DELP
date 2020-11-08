@@ -8,22 +8,26 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
 </head>
 <body>
-    <div class="container">
+    <div>
         <div class="row">
-            <div class="col-3">
-                <nav>
-                    <ul>
-                        <li><a routerLink="/main-view">Main View</a></li>
-                        <li><a routerLink="/wordset/create">Create Wordset</a></li>
-                        <li><a routerLink="/wordset/display">Display Wordset</a></li>
-                        <li><a routerLink="/my-profile">My profile</a></li>
-                        <li><a routerLink="/login">Login</a></li>
-                    </ul>    
+            <div class="col-md-2 nav-menu">
+                <nav>                    
+                    <a routerLink="/main-view">Main View</a>
+                    <a routerLink="/wordset/create">Create Wordset</a>
+                    <a routerLink="/wordset/display">Display Wordset</a>
+                    <a routerLink="/my-profile">My profile</a>
+                    <a routerLink="/login">Login</a>
+                    <a routerLink="/lesson">Lesson</a>
                 </nav>
             </div>
-            <div class="col-9">
+            <div class="col-md-10">
                 <router-outlet></router-outlet>
             </div>
         </div>

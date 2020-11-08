@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateWordsetComponent } from './create-wordset.component';
+import { LessonCreateComponent } from './lesson-create.component';
 
-describe('CreateWordsetComponent', () => {
-  let component: CreateWordsetComponent;
-  let fixture: ComponentFixture<CreateWordsetComponent>;
+describe('LessonCreateComponent', () => {
+  let component: LessonCreateComponent;
+  let fixture: ComponentFixture<LessonCreateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateWordsetComponent ]
+      declarations: [ LessonCreateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateWordsetComponent);
+    fixture = TestBed.createComponent(LessonCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

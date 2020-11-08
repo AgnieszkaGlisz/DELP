@@ -26,6 +26,11 @@ nav a.active {
     color: #039be5;
   }
 
+  .nav-menu {
+    background-color: aliceblue;
+    /* height: 100vh; */
+  }
+
   ul {
     list-style-type: none;
     background-color: aliceblue;

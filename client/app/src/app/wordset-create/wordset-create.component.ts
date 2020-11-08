@@ -8,11 +8,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 @Component({
-  selector: 'app-create-wordset',
-  templateUrl: './create-wordset.component.html',
-  styleUrls: ['./create-wordset.component.css']
+  selector: 'app-wordset-create',
+  templateUrl: './wordset-create.component.html',
+  styleUrls: ['./wordset-create.component.css']
 })
-export class CreateWordsetComponent implements OnInit {
+export class WordsetCreateComponent implements OnInit {
 
   words: TranslateWordTemplate[];
 
@@ -31,7 +31,7 @@ export class CreateWordsetComponent implements OnInit {
   }
 
   addWord(word: string, translation: string): void {
-    this.messageService.add("addWord create-wordset");
+    this.messageService.add("addWord wordset-create");
     if (!word || !translation)
     {
     return;
