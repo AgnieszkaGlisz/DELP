@@ -12,9 +12,12 @@ require('dotenv').config()
 const app = express()
 app.use(cors({origin:"*"}))
 app.use(express.json())
+const routerWords = require('./routes/words')
+app.use(routerWords)
 
 //tworzenie obiektu Bazy danych do wykonywania zapytań
 const db = new Database()
+module.exports = db;
 
 //informacje o mozliwych funkcjach api
 app.get('/apiinfo', (req, res) => {
