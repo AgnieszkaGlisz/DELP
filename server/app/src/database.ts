@@ -35,4 +35,6 @@ class Database {
         })
     }
 }
-export = Database
+//tworzenie obiektu Bazy danych do wykonywania zapytań
+const db = new Database()
+export {db}

@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var app = express();
 var router = express.Router();
-var db = require('../app');
+var database_1 = require("../database");
 function createResponseWord(result) {
     var wordTemp = [];
     for (var i = 0; i < result.length; i++) {
@@ -19,9 +18,9 @@ function createResponseWord(result) {
     }
     return wordTemp;
 }
-app.get('/wordset', function (req, res) {
+router.get('/wordset', function (req, res) {
     var sql = 'SELECT * FROM WordExerciseTemplate';
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.json({ accessToken: 0 });
             return;
@@ -45,7 +44,7 @@ app.get('/wordset', function (req, res) {
 });
 router.get('/save-wordset', function (req, res) {
     var sql = 'INSERT INTO WordExerciseTemplate (id, idSet, word, translation, videoPath, audioPath, picturePath) VALUES(122,122, "krowa", "cow", "p", "p", "p");';
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.json({ accessToken: 0 });
             return;
@@ -57,7 +56,7 @@ router.get('/save-wordset', function (req, res) {
 });
 router.get('/delete', function (req, res) {
     var sql = 'DELETE FROM WordExerciseTemplate WHERE id=122;';
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.json({ accessToken: 0 });
             return;
@@ -69,7 +68,7 @@ router.get('/delete', function (req, res) {
 });
 router.get('/words', function (req, res) {
     var sql = 'SELECT * FROM WordExerciseTemplate';
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.json({ accessToken: 0 });
             return;
@@ -86,7 +85,7 @@ router.get('/words', function (req, res) {
 });
 router.get('/word', function (req, res) {
     var sql = 'SELECT * FROM WordExerciseTemplate WHERE id=' + req.headers.id;
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.json({ accessToken: 0 });
             return;
@@ -103,7 +102,7 @@ router.get('/word', function (req, res) {
 });
 router.get('/words-in-set', function (req, res) {
     var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.headers.id;
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.json({ accessToken: 0 });
             return;
@@ -119,7 +118,7 @@ router.get('/words-in-set', function (req, res) {
 });
 router.get('/exerciseSets', function (req, res) {
     var sql = 'SELECT * FROM ExerciseSets';
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.json({ accessToken: 0 });
             return;

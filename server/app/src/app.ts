@@ -1,7 +1,7 @@
 import express = require('express')
 import cors = require('cors')
 
-import Database = require('./database')
+import {db} from './database'
 import auth = require("./auth")
 import common = require("./common")
 
@@ -14,10 +14,6 @@ app.use(cors({origin:"*"}))
 app.use(express.json())
 const routerWords = require('./routes/words')
 app.use(routerWords)
-
-//tworzenie obiektu Bazy danych do wykonywania zapytań
-const db = new Database()
-module.exports = db;
 
 //informacje o mozliwych funkcjach api
 app.get('/apiinfo', (req, res) => {

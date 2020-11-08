@@ -1,6 +1,6 @@
 import express = require('express')
 const router = express.Router();
-const db = require('../app')
+import {db} from '../database'
 
 function createResponseWord(result:any){
     var wordTemp = [];

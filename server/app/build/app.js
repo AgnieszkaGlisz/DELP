@@ -2,23 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var cors = require("cors");
-
-var Database = require("./database");
 var auth = require("./auth");
 var common = require("./common");
-
 //inicjacja zmiennych srodowiskowych
 require('dotenv').config();
 //tworzenie obiektu serwera
 var app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
+var routerWords = require('./routes/words');
+app.use(routerWords);
 //tworzenie obiektu Bazy danych do wykonywania zapytań
-// setsexercises wordexercisetemplate i exercisesets
-//select * from TranslateSentanceExerciseTemplate where id in ( SELECT idExercise FROM SetsExercises WHERE idSet = 3 and idTemplate in ( SELECT id from TemplatesInfo where name='TranslateSentanceExerciseTemplate') )
-//wyhciaganie wszystkich zadań typu translate sentenceexercisetemplate z setu o id 3
-var db = new Database();
-
+var database_1 = require("./database"); // new Database()
+//module.exports = db;
 //informacje o mozliwych funkcjach api
 app.get('/apiinfo', function (req, res) {
     common.adminLog('Preparing routes info for user.');
@@ -30,11 +26,11 @@ app.get('/apiinfo', function (req, res) {
         '/languageinfo/:id': 'Information about language based on id.'
     };
     res.json(info);
-
+});
 //logowanie 
 app.post('/login', function (req, res) {
     var sql = 'SELECT * FROM Users where username = "' + req.body.username + '" and password = "' + req.body.password + '"';
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.status(401).json({ error: "Invalid login or password." });
             return;
@@ -56,7 +52,7 @@ app.post('/login', function (req, res) {
 app.get('/account', auth.authenticateToken, function (req, res) {
     common.adminLog("User info.");
     var sql = 'SELECT U.id,U.username,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,U.isBlocked,UP.idColorSets,UP.fontSize,UP.noSound, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.id and U.idFirstLanguage = L.id and U.id = ' + req.user.id;
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.status(404).json({ error: "User data error." });
             return;
@@ -86,7 +82,7 @@ app.get('/account', auth.authenticateToken, function (req, res) {
 app.get('/favourite', auth.authenticateToken, function (req, res) {
     common.adminLog("Favourite sets.");
     var sql = 'SELECT ExerciseSets.*, Users.username FROM `Users`,`FavouriteSets`,`ExerciseSets` WHERE ExerciseSets.id=FavouriteSets.idSet AND Users.id = FavouriteSets.idUser AND FavouriteSets.idUser = ' + req.user.id;
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.status(404).json({ error: "No favourite sets." });
             return;
@@ -135,7 +131,7 @@ app.get('/favourite', auth.authenticateToken, function (req, res) {
 app.get('/languageinfo/:id', auth.authenticateToken, function (req, res) {
     common.adminLog("Language info.");
     var sql = 'SELECT * FROM `Languages` WHERE id = ' + req.params.id;
-    db.query(sql, function (result) {
+    database_1.db.query(sql, function (result) {
         if (result == 0) {
             res.status(404).json({ error: "No result." });
             return;
@@ -148,17 +144,6 @@ app.get('/languageinfo/:id', auth.authenticateToken, function (req, res) {
             info: result[0].info
         };
         res.json(language);
-    });
-});
-//pobieranie informacji o jezyku
-app.get('/', function (req, res) {
-    var sql = "INSERT INTO `Languages` (`id`, `code`, `name`, `info`) VALUES  (NULL, 'eng', 'English', 'Język Angielski'),(NULL, 'eng', 'English', 'Język Angielski')";
-    db.query(sql, function (result) {
-        common.adminLog("RESULT: " + JSON.stringify(result));
-        if (result == 0) {
-            res.status(404).json({ error: "No result." });
-            return;
-        }
     });
 });
 //nieobsluzone sciezki

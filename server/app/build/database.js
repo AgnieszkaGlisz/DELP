@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.db = void 0;
 var mysql = require('mysql');
 var common = require("./common");
 var Database = /** @class */ (function () {
@@ -34,4 +36,7 @@ var Database = /** @class */ (function () {
     };
     return Database;
 }());
-module.exports = Database;
+//export = Database
+//tworzenie obiektu Bazy danych do wykonywania zapytań
+var db = new Database();
+exports.db = db;
