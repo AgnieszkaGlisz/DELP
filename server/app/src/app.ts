@@ -1,12 +1,12 @@
+//inicjacja zmiennych srodowiskowych
+require('dotenv').config()
+
 import express = require('express')
 import cors = require('cors')
 
 import {db} from './database'
 import auth = require("./auth")
 import common = require("./common")
-
-//inicjacja zmiennych srodowiskowych
-require('dotenv').config()
  
 //tworzenie obiektu serwera
 const app = express()

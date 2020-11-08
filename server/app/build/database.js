@@ -18,6 +18,10 @@ var Database = /** @class */ (function () {
     //zapytanie do bazy callback jest funkcją wywoływaną po zakończonym zapytaniu
     //gdy udane zwraca dane z bazy gdy nie udane zwraca 0
     Database.prototype.query = function (sql, callback) {
+        console.log(process.env.DB_HOST);
+        console.log(process.env.DB_USER);
+        console.log(process.env.DB_PASSWORD);
+        console.log(process.env.DB_DATABASE);
         this.pool.query(sql, function (err, result) {
             try {
                 if (err) {
@@ -36,7 +40,6 @@ var Database = /** @class */ (function () {
     };
     return Database;
 }());
-//export = Database
 //tworzenie obiektu Bazy danych do wykonywania zapytań
 var db = new Database();
 exports.db = db;

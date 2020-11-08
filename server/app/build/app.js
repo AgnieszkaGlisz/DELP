@@ -1,20 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var cors = require("cors");
-var auth = require("./auth");
-var common = require("./common");
 //inicjacja zmiennych srodowiskowych
 require('dotenv').config();
+var express = require("express");
+var cors = require("cors");
+var database_1 = require("./database");
+var auth = require("./auth");
+var common = require("./common");
 //tworzenie obiektu serwera
 var app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 var routerWords = require('./routes/words');
 app.use(routerWords);
-//tworzenie obiektu Bazy danych do wykonywania zapytań
-var database_1 = require("./database"); // new Database()
-//module.exports = db;
 //informacje o mozliwych funkcjach api
 app.get('/apiinfo', function (req, res) {
     common.adminLog('Preparing routes info for user.');
