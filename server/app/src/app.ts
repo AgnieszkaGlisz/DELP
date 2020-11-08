@@ -41,11 +41,7 @@ app.post('/login', (req, res) => {
             res.status(403).json({error: 'User is blocked.'})
             return
         }
-        var userInfo={
-            id: result[0].id,
-            username: result[0].username
-        }
-        const accessToken = auth.createToken(userInfo)
+        const accessToken = auth.createToken(result[0].id, result[0].username)
         res.json({accessToken: accessToken})
     })
 })

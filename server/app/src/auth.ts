@@ -20,6 +20,10 @@ export function authenticateToken(req:any,res:any,next:any){
     })
 }
 
-export function createToken(userInfo:any){
+export function createToken(id:any, username:any){
+    var userInfo={
+        id: id,
+        username: username
+    }
     return jwt.sign(userInfo,<string>process.env.ACCESS_TOKEN_SECRET)
 }
