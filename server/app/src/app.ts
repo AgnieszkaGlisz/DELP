@@ -12,8 +12,12 @@ import common = require("./common")
 const app = express()
 app.use(cors({origin:"*"}))
 app.use(express.json())
+
+//routing
 const routerWords = require('./routes/words')
 app.use(routerWords)
+const routerLessons = require('./routes/lessons')
+app.use(routerLessons)
 const routerUser = require('./routes/user')
 app.use(routerUser)
 

@@ -4,47 +4,80 @@ import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
-function createResponseWord(result:any){
-    var wordTemp = [];
-        for (var i = 0; i < result.length ; i++) { 
-            wordTemp.push({
-                id: result[i].id,
-                idSet: result[i].idSet,
-                word: result[i].word,
-                translation: result[i].translation,
-                videoPath: result[i].videoPath,
-                audioPath: result[i].audioPath,
-                picturePath: result[i].picturePath})
+function createResponseWord(id:any,exercises:any,length:any,res:any):any{
+    var sql = 'SELECT * FROM WordExerciseTemplate WHERE id = ' + id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            return 0
+        } 
+        var word = {
+            word: result.word,
+            translation: result.translation,
         }
-    return wordTemp;
+        exercises.push(word)
+        sendSet(exercises,length,res)
+        return 1
+    })    
 }
 
-function createResponseTranslateSentence(result:any){
-    
+function createResponseTranslateSentence(id:any,exercises:any,length:any,res:any):any{
+    var sql = 'SELECT * FROM TranslateSentenceExerciseTemplate WHERE id = ' + id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            return 0
+        } 
+        var translateSentence = {
+            oryginalSentence:result[0].oryginalSentence,
+            translatedSentence: result[0].translatedSentence
+        }
+        exercises.push(translateSentence)
+        sendSet(exercises,length,res)
+        return 1
+    })    
 }
-function createResponseFillSentence(result:any){
-    
+function createResponseFillSentence(id:any,exercises:any,length:any,res:any):any{
+    var sql = 'SELECT * FROM FillSentenceExerciseTemplate WHERE id = ' + id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            return 0
+        } 
+        var fillSentence = {
+            leftPartOfSentence:result[0].leftPartOfSentence,
+            wordToFill:result[0].wordToFill,
+            rightPartOfSentence: result[0].rightPartOfSentence,
+            incorrectWords: {}
+        }
+        exercises.push(fillSentence)
+        sendSet(exercises,length,res)
+        return 1
+    })    
 }
 function incorrectWordsFillSentence(result:any){
     
 }
 
-function createResponseSet(result:any){
+function createResponseSet(db_result:any){
     var setTemp = {
-        id: result[0].id,
-        name: result[0].name,
-        info: result[0].info,
-        idCreator: result[0].idCreator,
-        setCreation: result[0].setCreation,
-        idBaseLanguage: result[0].idBaseLanguage,
-        idLearnLanguage: result[0].idLearnLanguage,
-        idWordSet: result[0].idWordSet,
-        popularity: result[0].popularity,
-        ifVideo: result[0].ifVideo,
-        ifAudio: result[0].ifAudio,
-        ifPicture: result[0].ifPicture
+        id: db_result[0].id,
+        name: db_result[0].name,
+        info: db_result[0].info,
+        idCreator: db_result[0].idCreator,
+        setCreation: db_result[0].setCreation,
+        idBaseLanguage: db_result[0].idBaseLanguage,
+        idLearnLanguage: db_result[0].idLearnLanguage,
+        isWordSet: db_result[0].isWordSet,
+        popularity: db_result[0].popularity,
+        ifVideo: db_result[0].ifVideo,
+        ifAudio: db_result[0].ifAudio,
+        ifPicture: db_result[0].ifPicture
     }
     return setTemp;
+}
+
+function sendSet(exercises:any,length:any,res:any){
+    if(exercises.length == length){
+        res.json(exercises)
+    }
 }
 
 router.get('/lesson/:id', auth.authenticateToken, (req, res) =>{
@@ -54,20 +87,36 @@ router.get('/lesson/:id', auth.authenticateToken, (req, res) =>{
             res.status(404).json({error: "No result."})
             return
         } 
-        var wordTemp = createResponseWord(result);
-        var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.params.id;
-        db.query(sql, function(result1:any){
-            if(result1 == 0){
-                res.status(404).json({error: "No result."})
+        var set = createResponseSet(result);
+        if(set.isWordSet == null || set.isWordSet == false){
+            sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,TemplatesInfo.name FROM SetsExercises, TemplatesInfo WHERE TemplatesInfo.id = SetsExercises.idTemplate AND SetsExercises.idSet = ' + req.params.id
+            db.query(sql, function(templates:any){
+                if(templates == 0){
+                    res.status(404).json({error: "No result."})
+                    return
+                } 
+                common.adminLog(templates)
+                var exercises = [{}]
+                exercises.pop()
+                var length = templates.length
+                var iRes = 0;
+                for(var i =0;i<length;i++){
+                    common.adminLog('i: '+i)
+                    if(templates[i].name == 'FillSentenceExerciseTemplate')
+                        iRes = createResponseFillSentence(templates[i].idExercise,exercises,length,res)
+                    else if(templates[i].name == 'TranslateSentenceExerciseTemplate')
+                        iRes = createResponseTranslateSentence(templates[i].idExercise,exercises,length,res)
+                    else if(templates[i].name == 'WordExerciseTemplate')
+                        iRes = createResponseFillSentence(templates[i].idExercise,exercises,length,res)
+                    if( iRes == 1){
+                        iRes = 0
+                        length--
+                    }
+                }
                 return
-            } 
-            var setTemp = createResponseSet(result1);
-            var finalResponse = {
-                setInfo: setTemp,
-                exercises: wordTemp  
-            }
-            res.send(finalResponse);
-        })
+            })
+        }
+        //res.status(404).json({error: "No result."})
     })
 })
 
