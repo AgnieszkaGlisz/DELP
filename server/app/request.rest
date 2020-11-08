@@ -1,6 +1,6 @@
 ### zalogowany uzytkownik chce swoje dane
 GET http://localhost:3500/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0ZXN0emFibG9rb3dhbnkiLCJpYXQiOjE2MDQ2NzMxODV9.mMuAcPkTLzME14Pd_R3zSB3GV7xvq74eMC2eAHkzXn8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJobnVyc2thIiwiaWF0IjoxNjA0ODM0ODMxfQ.9dO8nCGqTvO7JMT-qFRniioykkgYxxXF7wq5DsuCDPY
 ### logowanie ok
 
 POST http://localhost:3500/login
@@ -76,4 +76,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
 
 
 ### 
-GET  http://localhost:3500
+GET  http://localhost:3500/wordset
