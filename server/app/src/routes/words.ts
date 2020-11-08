@@ -1,6 +1,8 @@
 import express = require('express')
 const router = express.Router();
 import {db} from '../database'
+import auth = require("../auth")
+import common = require("../common")
 
 function createResponseWord(result:any){
     var wordTemp = [];
@@ -17,29 +19,46 @@ function createResponseWord(result:any){
     return wordTemp;
 }
 
-router.get('/wordset', (req, res) =>{
-    var sql = 'SELECT * FROM WordExerciseTemplate'
+function createResponseSet(result:any){
+    var setTemp = {
+        id: result[0].id,
+        name: result[0].name,
+        info: result[0].info,
+        idCreator: result[0].idCreator,
+        setCreation: result[0].setCreation,
+        idBaseLanguage: result[0].idBaseLanguage,
+        idLearnLanguage: result[0].idLearnLanguage,
+        idWordSet: result[0].idWordSet,
+        popularity: result[0].popularity,
+        ifVideo: result[0].ifVideo,
+        ifAudio: result[0].ifAudio,
+        ifPicture: result[0].ifPicture
+    }
+    return setTemp;
+}
+
+router.get('/wordset/:id', auth.authenticateToken, (req, res) =>{
+    var sql = 'SELECT * FROM ExerciseSets WHERE id=' +req.params.id
     db.query(sql,function(result:any){
         if(result == 0){
-            res.json({accessToken: 0})
+            res.status(404).json({error: "No result."})
             return
         } 
-        else {
-            console.log('Creating response. - wordset')
-            var wordTemp ={
-                id: result[0].id,
-                idSet: result[0].idSet,
-                word: result[0].word,
-                translation: result[0].translation,
-                videoPath: result[0].videoPath,
-                audioPath: result[0].audioPath,
-                picturePath: result[0].picturePath}
-            res.json(wordTemp)
-        }
-        res.send(JSON.stringify(wordTemp))
-        console.log("data send" + wordTemp)
+        var wordTemp = createResponseWord(result);
+        var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.params.id;
+        db.query(sql, function(result1:any){
+            if(result1 == 0){
+                res.status(404).json({error: "No result."})
+                return
+            } 
+            var setTemp = createResponseSet(result1);
+            var finalResponse = {
+                setInfo: setTemp,
+                exercises: wordTemp  
+            }
+            res.send(finalResponse);
+        })
     })
-    
 })
 
 router.get('/save-wordset', (req,res) => {
@@ -162,4 +181,7 @@ router.get('/exerciseSets', (req, res) =>{
         }
     })
 })
+
+
+
 module.exports = router;
