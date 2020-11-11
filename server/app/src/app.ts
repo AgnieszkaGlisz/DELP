@@ -16,8 +16,8 @@ app.use(express.json())
 //routing
 const routerWords = require('./routes/words')
 app.use(routerWords)
-const routerLessons = require('./routes/lessons')
-app.use(routerLessons)
+const routerSets = require('./routes/sets')
+app.use(routerSets)
 const routerUser = require('./routes/user')
 app.use(routerUser)
 
