@@ -1,9 +1,6 @@
-export interface TranslateWordTemplate {
-    id: number;
+import { IExerciseTemplate } from './exerciseTemplate';
+export interface TranslateWordTemplate extends IExerciseTemplate  {
     idSet: number;
     word: string;
     translation: string;
-    videoPath: string;
-    audioPath: string;
-    picturePath: string;
 }

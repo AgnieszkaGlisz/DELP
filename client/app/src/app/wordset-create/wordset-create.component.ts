@@ -1,3 +1,4 @@
+import { IExerciseTemplate } from './../_interfaces/exerciseTemplate';
 import { UserComponent } from './../user/user.component';
 import { User } from './../_interfaces/user';
 import { TranslateWordTemplate } from './../_interfaces/translateWordTemplate';
@@ -84,7 +85,7 @@ export class WordsetCreateComponent implements OnInit {
 
   // }
     
-  genId(words: TranslateWordTemplate[]): number {
+  genId(words: IExerciseTemplate[]): number {
     return this.wordset.exercises.length > 0 ? Math.max(...this.wordset.exercises.map(word => word.id)) + 1 : 1;
   }
 

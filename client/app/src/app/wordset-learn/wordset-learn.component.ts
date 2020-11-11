@@ -26,7 +26,7 @@ export class WordsetLearnComponent implements OnInit {
   }
 
   getWordset(): void {
-    this.wordsetService.getWordset('1').subscribe(
+    this.wordsetService.getWordset().subscribe(
       x => {
         this.wordset = x;
         // this.words = x.exercises;
@@ -44,7 +44,8 @@ export class WordsetLearnComponent implements OnInit {
     if(this.wordIndex < this.wordset.exercises.length - 1)
     {
       this.wordIndex += 1;
-      this.word = this.wordset.exercises[this.wordIndex];
+      // this.word
+      this.word = <TranslateWordTemplate>this.wordset.exercises[this.wordIndex];
     }
     else
     {

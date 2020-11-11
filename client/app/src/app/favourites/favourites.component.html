@@ -1,11 +1,19 @@
 <p>favourites works!</p>
 <div id="favourites">
+    <!-- {{favourites}} -->
     <ul *ngIf="favourites" class="fav-sets">
-        <li *ngFor="let wordset of wordset.exercises">
+        <li *ngFor="let wordset of favourites.wordsets">
             <a>
-                <span class="word-id">{{word.id}}</span>
-                <span class="word-left">{{word.word}}</span>
-                <span class="word-right">{{word.translation}}</span> 
+                <span class="wordset-id">{{wordset.id}}</span>
+                <span class="wordset-name">{{wordset.name}}</span>
+            </a>
+            <button class="display" title="display" (click)="goToDisplayView(wordset.id)">display</button>
+            <button class="learn" title="learn" (click)="goToLearnView(wordset.id)">learn</button>
+        </li>
+        <li *ngFor="let lesson of favourites.lessons">
+            <a>
+                <span class="lesson-id">{{lesson.id}}</span>
+                <span class="lesson-name">{{lesson.name}}</span>
             </a>
         </li>
     </ul>

@@ -18,10 +18,12 @@ export class WordsetDisplayComponent implements OnInit {
 
   ngOnInit(): void {
     this.wordset = <Wordset>{};
+    this.getWordset();
   }
 
   getWordset(): void {
-    this.wordsetService.getWordset('1').subscribe(
+    this.wordsetService.getWordset().subscribe(
+      // this.wordsetService.getWordset('1').subscribe(
       x => {
         this.wordset = x;
         // this.words = x.exercises;
