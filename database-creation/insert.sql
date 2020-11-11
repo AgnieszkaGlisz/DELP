@@ -19,8 +19,8 @@ INSERT INTO `ExerciseSets` (`id`,`name`, `info`, `idCreator`, `setCreation`, `id
 
 INSERT INTO `TemplatesInfo` (`id`,`name`, `info`) VALUES 
     (NULL, 'WordExerciseTemplate', 'Template zawiera parę: słowo - tłumaczenie'),
-    (NULL, 'FillSentanceExerciseTemplate', 'Template zawiera: prawą storne zdania, lewąstrone zdania, oraz słowo do uzupełnienia, wraz z możliwością dodania słów mylących.'),
-    (NULL, 'TranslateSentanceExerciseTemplate', 'Template zawiera: zdanie oraz jego tłumaczenie.');
+    (NULL, 'FillSentenceExerciseTemplate', 'Template zawiera: prawą storne zdania, lewąstrone zdania, oraz słowo do uzupełnienia, wraz z możliwością dodania słów mylących.'),
+    (NULL, 'TranslateSentenceExerciseTemplate', 'Template zawiera: zdanie oraz jego tłumaczenie.');
 
 INSERT INTO `SetsExercises` (`id`,`idSet`, `idTemplate`, `idExercise`) VALUES 
     (NULL, '1', '1', '1'),
@@ -70,18 +70,18 @@ INSERT INTO `WordExerciseTemplate` (`id`, `idSet`, `word`, `translation`, `video
     (NULL, '2', 'Archery', 'Łucznictwo',NULL,NULL,NULL),
     (NULL, '2', 'Aerobics', 'Aerobik',NULL,NULL,NULL) ;
 
-INSERT INTO `FillSentanceExerciseTemplate` (`id`,`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) VALUES 
+INSERT INTO `FillSentenceExerciseTemplate` (`id`,`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) VALUES 
     (NULL, '3', 'My name', 'is','Czarek.', NULL, NULL, NULL),
     (NULL, '3', 'The sky', 'is','blue.', NULL, NULL, NULL);
 
-INSERT INTO `IncorrectWordsFillSentanceExerciseTemplate` (`id`,`word`, `idFillSentanceExerciseTemplate`) VALUES 
+INSERT INTO `IncorrectWordsFillSentenceExerciseTemplate` (`id`,`word`, `idFillSentenceExerciseTemplate`) VALUES 
     (NULL, 'are', '1'),
     (NULL, 'the', '1'),
     (NULL, 'a', '1'),
     (NULL, 'an', '2'),
     (NULL, 'are', '2');
 
-INSERT INTO `TranslateSentanceExerciseTemplate` (`id`,`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) VALUES 
+INSERT INTO `TranslateSentenceExerciseTemplate` (`id`,`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) VALUES 
     (NULL, '3', 'The sky is blue', 'Niebo jest niebieskie.', NULL, NULL, NULL),
     (NULL, '3', 'The world is beautiful.', 'Świat jest piękny.', NULL, NULL, NULL);
 

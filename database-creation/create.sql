@@ -33,6 +33,8 @@ CREATE TABLE ExerciseSets(
     ifPicture BOOLEAN,
     PRIMARY KEY (id)
 );
+ALTER TABLE `ExerciseSets`
+ADD deleted INT
 
 --tworzenie tabeli SetsExercises by połączyć zestaw z odpowiednim zadaniem 
 CREATE TABLE SetsExercises(
@@ -56,7 +58,7 @@ CREATE TABLE WordExerciseTemplate(
 );
 
 --stworzenie tabeli FillSentanceExerciseTemplate by przechować wszystkie zadania tego typu
-CREATE TABLE FillSentanceExerciseTemplate(
+CREATE TABLE FillSentenceExerciseTemplate(
     id INT NOT NULL AUTO_INCREMENT,
     idSet INT NOT NULL,
     leftPartOfSentence VARCHAR(1000),
@@ -69,15 +71,15 @@ CREATE TABLE FillSentanceExerciseTemplate(
 );
 
 --stworzenie tabeli IncorrectWordsFillSentanceExerciseTemplate by przechować wszystkie dodatkowe słowa do zadania
-CREATE TABLE IncorrectWordsFillSentanceExerciseTemplate(
+CREATE TABLE IncorrectWordsFillSentenceExerciseTemplate(
     id INT NOT NULL AUTO_INCREMENT,
     word VARCHAR(255),
-    idFillSentanceExerciseTemplate INT NOT NULL,
+    idFillSentenceExerciseTemplate INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 --stworzenie tabeli TranslateSentanceExerciseTemplate by przechować wszystkie zadania tego typu
-CREATE TABLE TranslateSentanceExerciseTemplate(
+CREATE TABLE TranslateSentenceExerciseTemplate(
     id INT NOT NULL AUTO_INCREMENT,
     idSet INT NOT NULL,
     oryginalSentence VARCHAR(1000),
