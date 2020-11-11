@@ -39,10 +39,10 @@ function createResponseSet(db_result:any){
 }
 
 router.get('/set/:id', auth.authenticateToken, (req, res) =>{
-    common.adminLog("Lesson with id = "+req.params.id+".")
+    common.adminLog("Set with id = "+req.params.id+".")
     var sql = 'SELECT * FROM ExerciseSets WHERE id=' + req.params.id
     db.query(sql,function(result:any){
-        if(result == 0){
+        if(result == 0 || result[0].deleted == 1){
             res.status(404).json({error: "No result."})
             return
         } 
@@ -254,4 +254,25 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
         }
     })
 })
+
+router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{
+    common.adminLog("Deleting set with id = "+req.params.id+".")
+    var sql = 'SELECT * FROM ExerciseSets WHERE id=' + req.params.id
+    db.query(sql,function(result:any){
+        if(result == 0 || req.user.id != result[0].idCreator){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        sql = 'UPDATE ExerciseSets SET deleted = 1 WHERE id=' + req.params.id
+        db.query(sql,function(result:any){
+            if(result == 0){
+                res.status(404).json({error: "No result."})
+                return
+            } 
+            res.json({OK: "Set deleted."})
+        })
+    })
+})
+
+
 module.exports = router;

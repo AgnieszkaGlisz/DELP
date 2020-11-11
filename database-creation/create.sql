@@ -33,6 +33,8 @@ CREATE TABLE ExerciseSets(
     ifPicture BOOLEAN,
     PRIMARY KEY (id)
 );
+ALTER TABLE `ExerciseSets`
+ADD deleted INT
 
 --tworzenie tabeli SetsExercises by połączyć zestaw z odpowiednim zadaniem 
 CREATE TABLE SetsExercises(
