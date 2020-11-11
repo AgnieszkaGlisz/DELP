@@ -1,7 +1,7 @@
 import { IExerciseTemplate } from './exerciseTemplate';
 import { SetInfo } from './setInfo';
 import { TranslateWordTemplate } from './translateWordTemplate';
-export interface Wordset {
+export interface Set {
     setInfo: SetInfo,
     exercises: IExerciseTemplate[];
 }
