@@ -40,6 +40,7 @@ export class WordsetLearnComponent implements OnInit {
 
   nextWord(): void {
     this.result = "";
+    this.answer.value = '';
     if(this.wordIndex < this.wordset.exercises.length - 1)
     {
       this.wordIndex += 1;
