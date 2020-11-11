@@ -16,13 +16,10 @@ export class WordsetService {
   url: string = `http://25.95.136.77:3500`;
 
   httpOptions = {
-    headers: new HttpHeaders({ observe: 'body', responseType: 'text' })
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
   };
-
-  // getWords1(): Observable<TranslateWordTemplate[]> {
-  //   this.messageService.add("getWords in wordset srv");
-  //   return of(WORDS);
-  // }
 
   getWords(): Observable<any> {
     this.messageService.add("WordsetService: fetched words");
@@ -30,40 +27,30 @@ export class WordsetService {
     return this.http.get(url);
   }
 
-  // getWordset(id :number): Observable<Wordset> {
-  //   this.messageService.add("WordsetService: fetched wordset");
-  //   return this.http.get<Wordset>(`${this.url}/wordset`);
+  // setHttpOptions(): HttpHeaders {
+  //   const headers = new HttpHeaders({
+  //       'Content-Type ': 'application/json',
+  //     });
+
+  //     return headers;
   // }
 
-  setHttpOptions(): HttpHeaders {
-    const headers = new HttpHeaders({
-        'Content-Type ': 'application/json',
-      });
-
-      return headers;
+  getFavourites(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/favourite`, this.httpOptions);
   }
-
 
   getWordset(idNum :string): Observable<Wordset> {
     this.messageService.add("WordsetService: fetched wordset");
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
-    // httpOptions.params.append('id', idNum);
     
-    const httpHeaders = this.setHttpOptions();
+    // const httpHeaders = this.setHttpOptions();
 
-    console.log(httpHeaders);
-    return this.http.get<Wordset>(`${this.url}/wordset/${idNum}`, httpOptions);
-    // return this.http.get<any>(`${this.url}/wordset`, { headers: httpHeaders, params: {id: idNum} });
+    // console.log(httpHeaders);
+    return this.http.get<Wordset>(`${this.url}/wordset/${idNum}`, this.httpOptions);
   }
 
   saveWordset(wordset: TranslateWordTemplate[]): Observable<any> {
     this.messageService.add("Wordset service: POST wordset");
     return this.http.post<TranslateWordTemplate[]>(`${this.url}/wordset`, wordset);
   }
-  // deleteWord()
  
 }
