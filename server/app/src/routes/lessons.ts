@@ -167,19 +167,46 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfAudio = null
     var setIfPicture = null
     var exercises = req.body.exercises
-    common.adminLog(setName)
-    common.adminLog(setInfo)
-    common.adminLog(setCreatorId)
-    common.adminLog(setCreationDate)
-    common.adminLog(setBaseLanId)
-    common.adminLog(setLearnLanId)
-    common.adminLog(setIsWordset)
-    common.adminLog(exercises)
-    common.adminLog(exercises.length)
-    return
+
+    // checking data from client
+    if(setName == undefined){
+        res.status(401).json({error: "Data error."})
+        return
+    }
+    if(setInfo == undefined){
+        res.status(401).json({error: "Data error."})
+        return
+    }
+    if(setBaseLanId == undefined){
+        res.status(401).json({error: "Data error."})
+        return
+    }
+    if(setLearnLanId == undefined){
+        res.status(401).json({error: "Data error."})
+        return
+    }
+    if(exercises == undefined){
+        res.status(401).json({error: "Data error."})
+        return
+    }
+    for(var i =0; i<exercises.length; i++){
+        if(exercises[i].template == 'FillSentenceExerciseTemplate' && (exercises[i].leftPartOfSentence == undefined || exercises[i].wordToFill==undefined || exercises[i].rightPartOfSentence == undefined)){
+            res.status(401).json({error: "Data error."})
+            return
+        }
+        else if(exercises[i].template == 'TranslateSentenceExerciseTemplate' && (exercises[i].oryginalSentence== undefined || exercises[i].translatedSentence == undefined)){
+            res.status(401).json({error: "Data error."})
+            return
+        }
+        else if(exercises[i].template == 'WordExerciseTemplate' && ( exercises[i].word==undefined || exercises[i].translation == undefined)){
+            res.status(401).json({error: "Data error."})
+            return
+        }
+    }
+
+    // Inserting data to database
     var sql = 'INSERT INTO `ExerciseSets` (`name`, `info`, `idCreator`, `setCreation`, `idBaseLanguage`, `idLearnLanguage`,`isWordSet`, `popularity`, `ifVideo`, `ifAudio`, `ifPicture`)'
     sql += 'VALUES ("'+setName+'", "'+setInfo+'", "'+setCreatorId+'","'+setCreationDate+'", '+setBaseLanId+', '+setLearnLanId+', '+setIsWordset+', '+setPopularity+', '+setIfVideo+', '+setIfAudio+', '+setIfPicture+')'
-    common.adminLog(sql)
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(401).json({error: "Insertion error."})
@@ -191,7 +218,6 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
             if(exercises[i].template == 'FillSentenceExerciseTemplate'){
                 sql = 'INSERT INTO `FillSentenceExerciseTemplate` (`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) '
                 sql +='VALUES ('+setId+', "'+exercises[i].leftPartOfSentence+'", "'+exercises[i].wordToFill+'","'+exercises[i].rightPartOfSentence+'", NULL, NULL, NULL)'
-                common.adminLog(sql)
                 db.query(sql,function(result:any){
                     if(result == 0){
                         return
@@ -204,7 +230,6 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
             else if(exercises[i].template == 'TranslateSentenceExerciseTemplate'){
                 sql = ' INSERT INTO `TranslateSentenceExerciseTemplate` (`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) '
                 sql +='VALUES ('+setId+', "'+exercises[i].oryginalSentence+'", "'+exercises[i].translatedSentence+'", NULL, NULL, NULL)'
-                common.adminLog(sql)
                 db.query(sql,function(result:any){
                     if(result == 0){
                         return
@@ -217,7 +242,6 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
             else if(exercises[i].template == 'WordExerciseTemplate'){
                 sql = 'INSERT INTO `WordExerciseTemplate` (`idSet`, `word`, `translation`, `videoPath`, `audioPath`, `picturePath`) '
                 sql +='VALUES ('+setId+', "'+exercises[i].word+'", "'+exercises[i].translation+'", NULL, NULL, NULL)'
-                common.adminLog(sql)
                 db.query(sql,function(result:any){
                     if(result == 0){
                         return

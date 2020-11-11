@@ -54,6 +54,31 @@ app.get('/languageinfo/:id', auth.authenticateToken, (req:any, res) => {
     })
 })
 
+//pobieranie informacji o wszystkich jezykach
+app.get('/languages', auth.authenticateToken, (req:any, res) => {
+    common.adminLog("Language info.")
+    let sql = 'SELECT * FROM `Languages`'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        common.adminLog('Preparing and sending language info.')
+        var languages =[]
+        for(var i=0;i<result.length;i++)
+            languages.push({
+                id: result[i].id,
+                code: result[i].code,
+                name: result[i].name,
+                info: result[i].info
+            })
+        var lanRes={
+            languages:languages
+        }
+        res.json(lanRes)
+    })
+})
+
 //nieobsluzone sciezki
 app.all('*', (req, res) => {
     common.adminLog('Route unhandled.')
