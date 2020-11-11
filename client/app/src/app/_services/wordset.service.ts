@@ -13,7 +13,7 @@ export class WordsetService {
 
   constructor(private messageService: MessageService, private http: HttpClient) { }
 
-  url: string = `http://25.95.136.77:3500`;
+  urlAga: string = `http://25.95.136.77:3500`;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -36,7 +36,7 @@ export class WordsetService {
   // }
 
   getFavourites(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/favourite`, this.httpOptions);
+    return this.http.get<any[]>(`${this.urlAga}/favourite`, this.httpOptions);
   }
 
   getWordset(idNum :string): Observable<Wordset> {
@@ -45,12 +45,12 @@ export class WordsetService {
     // const httpHeaders = this.setHttpOptions();
 
     // console.log(httpHeaders);
-    return this.http.get<Wordset>(`${this.url}/wordset/${idNum}`, this.httpOptions);
+    return this.http.get<Wordset>(`${this.urlAga}/wordset/${idNum}`, this.httpOptions);
   }
 
   saveWordset(wordset: TranslateWordTemplate[]): Observable<any> {
     this.messageService.add("Wordset service: POST wordset");
-    return this.http.post<TranslateWordTemplate[]>(`${this.url}/wordset`, wordset);
+    return this.http.post<TranslateWordTemplate[]>(`${this.urlAga}/wordset`, wordset);
   }
  
 }

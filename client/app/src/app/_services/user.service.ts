@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../_interfaces/user';
 import { Observable, of } from 'rxjs';
+import { WordsetService } from './wordset.service';
 
 
 const httpOptions = {
@@ -17,11 +18,9 @@ const httpOptions = {
 export class UserService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private wordsetService: WordsetService
   ) { }
-  url: string = `http://localhost:3000/users`;
-  urlLogin: string = `http://25.68.211.177:3500/login`;
-  urlAccount: string = `http://25.68.211.177:3500/account`;
 
   setToken(x: any): void{
     localStorage.setItem('token', JSON.stringify(x));
@@ -40,13 +39,11 @@ export class UserService {
   // }
   
   getUserInfo(): Observable<User> {
-      return this.http.get<User>(this.urlAccount, httpOptions);
+      return this.http.get<User>(`${this.wordsetService.urlAga}/account`, httpOptions);
     }
 
   sendLoginInfo(username: string, password: string): Observable<any> {
-    // return this.http.get('http://25.68.211.177:3500/account', httpOptions);
-    return this.http.post(this.urlLogin, {username, password}, httpOptions);
-    // return this.http.post(this.urlLogin, {login, pass});
+    return this.http.post(`${this.wordsetService.urlAga}/login`, {username, password}, httpOptions);
   }
 
 }

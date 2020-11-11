@@ -12,10 +12,10 @@ export class FavouritesComponent implements OnInit {
     private wordsetService: WordsetService
     ) { }
 
-    favouritesWordsets: any[];
+    favourites: any;
 
   ngOnInit(): void {
-    // this.favouritesWordsers = this.getFavourites();
+    this.favourites = this.getFavourites();
   }
 
   getFavourites(): any {
