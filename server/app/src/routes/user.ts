@@ -53,10 +53,10 @@ router.get('/account', auth.authenticateToken, (req:any, res) => {
     })
 })
 
-//pobieranie ulubionych Wordsetow
+//pobieranie ulubionych setow
 router.get('/favourite', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Favourite sets.")
-    let sql = 'SELECT ExerciseSets.*, Users.username FROM `Users`,`FavouriteSets`,`ExerciseSets` WHERE ExerciseSets.id=FavouriteSets.idSet AND Users.id = FavouriteSets.idUser AND FavouriteSets.idUser = ' + req.user.id; 
+    let sql = 'SELECT DISTINCT ExerciseSets.*, Users.username FROM `Users`,`FavouriteSets`,`ExerciseSets` WHERE ExerciseSets.id=FavouriteSets.idSet AND Users.id = FavouriteSets.idUser AND FavouriteSets.idUser = ' + req.user.id; 
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "No favourite sets."})
@@ -100,6 +100,36 @@ router.get('/favourite', auth.authenticateToken, (req:any, res) => {
             lessons: lessons
         }
         res.json(favourite)
+    })
+})
+
+//dodawanie do ulubionych
+router.get('/add-favourite/:id', auth.authenticateToken, (req:any, res) => {
+    common.adminLog("Adding set to favourites.")
+    let sql = 'INSERT INTO `FavouriteSets` (`idSet`, `idUser`) VALUES ("'+req.params.id+'", "'+req.user.id+'")'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        common.adminLog('Set added to favourites.')
+        
+        res.json({OK:"Set added to favourites."})
+    })
+})
+
+//usuwanie z ulubionych
+router.get('/delete-favourite/:id', auth.authenticateToken, (req:any, res) => {
+    common.adminLog("Deleting set from favourites.")
+    let sql = 'DELETE FROM `FavouriteSets` WHERE idSet = '+req.params.id+' AND  idUser = '+req.user.id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        common.adminLog('Set added to favourites.')
+        
+        res.json({OK:"Set added to favourites."})
     })
 })
 
