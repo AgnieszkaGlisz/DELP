@@ -3,123 +3,7 @@ const router = express.Router();
 import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
-/*
-function createResponseWord(id:any,exercises:any,length:any,elemInExercArray:any,res:any):any{
-    var sql = 'SELECT * FROM WordExerciseTemplate WHERE id = ' + id
-    db.query(sql,function(result:any){
-        if(result == 0){
-            return 0
-        } 
-        var word = {
-            order:elemInExercArray,
-            template:'word',
-            word: result.word,
-            translation: result.translation
-        }
-        exercises.push(word)
-        sendSet(exercises,length,res)
-        return 1
-    })    
-}
 
-function createResponseTranslateSentence(id:any,exercises:any,length:any,elemInExercArray:any,res:any):any{
-    var sql = 'SELECT * FROM TranslateSentenceExerciseTemplate WHERE id = ' + id
-    db.query(sql,function(result:any){
-        if(result == 0){
-            return 0
-        } 
-        var translateSentence = {
-            order:elemInExercArray,
-            template:'translateSentence',
-            oryginalSentence:result[0].oryginalSentence,
-            translatedSentence: result[0].translatedSentence
-        }
-        exercises.push(translateSentence)
-        sendSet(exercises,length,res)
-        return 1
-    })    
-}
-function createResponseFillSentence(id:any,exercises:any,length:any,elemInExercArray:any,res:any):any{
-    var sql = 'SELECT * FROM FillSentenceExerciseTemplate WHERE id = ' + id
-    db.query(sql,function(result:any){
-        if(result == 0){
-            return 0
-        } 
-        
-        var fillSentence = {
-            order:elemInExercArray,
-            template:'fillSentence',
-            leftPartOfSentence:result[0].leftPartOfSentence,
-            wordToFill:result[0].wordToFill,
-            rightPartOfSentence: result[0].rightPartOfSentence,
-            incorrectWords: {}
-        }
-        exercises.push(fillSentence)
-        sendSet(exercises,length,res)
-        return 1
-    })    
-}
-function incorrectWordsFillSentence(result:any){
-    
-}
-
-function createResponseWords(allId:any,exercises:any,length:any,res:any):any{
-    var sql = 'SELECT * FROM WordExerciseTemplate WHERE id IN ' + JSON.stringify(allId).replace('[','(').replace(']',')')
-    db.query(sql,function(result:any){
-        if(result == 0){
-            return 0
-        } 
-        for (var i = 0; i < result.length ; i++) { 
-            exercises.push({
-                id:result[i].id,
-                template:'WordExerciseTemplate',
-                word: result[i].word,
-                translation: result[i].translation})
-        }
-        sendSet(exercises,length,res)
-        return 1
-    })    
-}
-
-function createResponseTranslateSentences(allId:any,exercises:any,length:any,res:any):any{
-    var sql = 'SELECT * FROM TranslateSentenceExerciseTemplate WHERE id IN ' + JSON.stringify(allId).replace('[','(').replace(']',')')
-    db.query(sql,function(result:any){
-        if(result == 0){
-            return 0
-        } 
-        for (var i = 0; i < result.length ; i++) { 
-            exercises.push({
-                id:result[i].id,
-                template:'TranslateSentenceExerciseTemplate',
-                oryginalSentence:result[0].oryginalSentence,
-                translatedSentence: result[0].translatedSentence
-            })
-        }
-        sendSet(exercises,length,res)
-        return 1
-    })    
-}
-function createResponseFillSentences(allId:any,exercises:any,length:any,res:any):any{
-    var sql = 'SELECT * FROM FillSentenceExerciseTemplate WHERE id IN ' + JSON.stringify(allId).replace('[','(').replace(']',')')
-    db.query(sql,function(result:any){
-        if(result == 0){
-            return 0
-        } 
-        for (var i = 0; i < result.length ; i++) { 
-            exercises.push({
-                id:result[i].id,
-                template:'FillSentenceExerciseTemplate',
-                leftPartOfSentence:result[0].leftPartOfSentence,
-                wordToFill:result[0].wordToFill,
-                rightPartOfSentence: result[0].rightPartOfSentence,
-                incorrectWords: {}
-            })
-        }
-        sendSet(exercises,length,res)
-        return 1
-    })    
-}
-*/
 function sortExercises(exercises:any,templates:any){
     common.adminLog('Sorting exercises.')
     var tmpExercises = []
@@ -154,7 +38,7 @@ function createResponseSet(db_result:any){
     return setTemp;
 }
 
-router.get('/lesson/:id', auth.authenticateToken, (req, res) =>{
+router.get('/set/:id', auth.authenticateToken, (req, res) =>{
     common.adminLog("Lesson with id = "+req.params.id+".")
     var sql = 'SELECT * FROM ExerciseSets WHERE id=' + req.params.id
     db.query(sql,function(result:any){
@@ -258,4 +142,92 @@ router.get('/lesson/:id', auth.authenticateToken, (req, res) =>{
     })
 })
 
+function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any){
+    var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`)'
+    sql+='VALUES ('+setId+', '+templateId+', '+exerciseId+')'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            return
+        }     
+        common.adminLog("Insert into SetsExercises for setId:"+setId+" and exerciseId:"+exerciseId+".")                    
+    })
+}
+
+router.post('/add-set', auth.authenticateToken, (req:any, res) => {
+    var setName = req.body.setName
+    var setInfo = req.body.setInfo
+    var setCreatorId = req.user.id
+    var date= new Date()
+    var setCreationDate = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay()
+    var setBaseLanId = req.body.setBaseLanId
+    var setLearnLanId = req.body.setLearnLanId
+    var setIsWordset = req.body.setIsWordset
+    var setPopularity = 1
+    var setIfVideo = null
+    var setIfAudio = null
+    var setIfPicture = null
+    var exercises = req.body.exercises
+    common.adminLog(setName)
+    common.adminLog(setInfo)
+    common.adminLog(setCreatorId)
+    common.adminLog(setCreationDate)
+    common.adminLog(setBaseLanId)
+    common.adminLog(setLearnLanId)
+    common.adminLog(setIsWordset)
+    common.adminLog(exercises)
+    common.adminLog(exercises.length)
+    return
+    var sql = 'INSERT INTO `ExerciseSets` (`name`, `info`, `idCreator`, `setCreation`, `idBaseLanguage`, `idLearnLanguage`,`isWordSet`, `popularity`, `ifVideo`, `ifAudio`, `ifPicture`)'
+    sql += 'VALUES ("'+setName+'", "'+setInfo+'", "'+setCreatorId+'","'+setCreationDate+'", '+setBaseLanId+', '+setLearnLanId+', '+setIsWordset+', '+setPopularity+', '+setIfVideo+', '+setIfAudio+', '+setIfPicture+')'
+    common.adminLog(sql)
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(401).json({error: "Insertion error."})
+            return
+        } 
+        var setId = result.insertId
+        common.adminLog("Insert into ExerciseSets.")
+        for(var i = 0; i< exercises.length;i++){
+            if(exercises[i].template == 'FillSentenceExerciseTemplate'){
+                sql = 'INSERT INTO `FillSentenceExerciseTemplate` (`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) '
+                sql +='VALUES ('+setId+', "'+exercises[i].leftPartOfSentence+'", "'+exercises[i].wordToFill+'","'+exercises[i].rightPartOfSentence+'", NULL, NULL, NULL)'
+                common.adminLog(sql)
+                db.query(sql,function(result:any){
+                    if(result == 0){
+                        return
+                    } 
+                    var exerciseId = result.insertId
+                    common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
+                    insertIntoSetsExercises(setId,2,exerciseId)
+                })
+            }
+            else if(exercises[i].template == 'TranslateSentenceExerciseTemplate'){
+                sql = ' INSERT INTO `TranslateSentenceExerciseTemplate` (`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) '
+                sql +='VALUES ('+setId+', "'+exercises[i].oryginalSentence+'", "'+exercises[i].translatedSentence+'", NULL, NULL, NULL)'
+                common.adminLog(sql)
+                db.query(sql,function(result:any){
+                    if(result == 0){
+                        return
+                    } 
+                    var exerciseId = result.insertId
+                    common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
+                    insertIntoSetsExercises(setId,3,exerciseId)
+                })
+            }
+            else if(exercises[i].template == 'WordExerciseTemplate'){
+                sql = 'INSERT INTO `WordExerciseTemplate` (`idSet`, `word`, `translation`, `videoPath`, `audioPath`, `picturePath`) '
+                sql +='VALUES ('+setId+', "'+exercises[i].word+'", "'+exercises[i].translation+'", NULL, NULL, NULL)'
+                common.adminLog(sql)
+                db.query(sql,function(result:any){
+                    if(result == 0){
+                        return
+                    } 
+                    var exerciseId = result.insertId
+                    common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
+                    insertIntoSetsExercises(setId,1,exerciseId)
+                })
+            }
+        }
+    })
+})
 module.exports = router;

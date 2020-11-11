@@ -16,6 +16,7 @@ export function authenticateToken(req:any,res:any,next:any){
         }
         common.adminLog("Token accepted.")
         req.user = user
+        common.adminLog(req.body)
         next()
     })
 }

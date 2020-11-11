@@ -1,0 +1,49 @@
+﻿1.Instalacja GIT:
+https://git-scm.com/download/win
+
+2.Logowanie:
+git config --global user.name "FIRST_NAME LAST_NAME"
+git config --global user.email "OUR_NAME@example.com"
+
+3.Zaczęcie pracy:
+git clone https://github.com/blejs13/Praca-Inzynierska
+cd Praca-Inzynierska
+
+4.Czynności po dodaniu zmian w plikach:
+git status  -  Sprawwdzenie aktualnego stanu plików
+git add .   -  dodanie stworzonych zmian do kolejnego commita
+git commit -m "COMMENT TO DESCRIBE THE INTENTION OF THE COMMIT"  -  stworzenie commita ( taki save aktualnego stanu plików)
+
+5.Tworzenie gałęzi:
+git checkout -b <nazwa gałęzi>
+zmiany w plikach i zapisy z punktu 4.
+
+6.Przełączanie się miedzy gałęziami:
+git checkout <nazwa gałęzi>
+
+7.Zapisywanie zmian gałęzi na githubie:
+git push origin <nazwa gałęzi>
+
+8.Łączenie gałęzi:
+git checkout master
+git merge <nazwa gałęzi>
+
+9.Pobieranie najnowszej wersji i próboawbie scalenia ze swoja:
+git pull origin master
+
+10.Pobieranie najnowszej wersji:
+git fetch
+
+11.wstawianie i usuwanie gałęzi na zdalne repozytorium:
+git push origin --delete <nazwa galezi>
+12. usuwanie galezi na lokalnym:
+git  branch -d <nazwa galezi>
+
+13. delete branch locally
+git branch -d localBranchName
+
+14. delete branch remotely
+git push origin --delete remoteBranchName
+
+15. Kopia gałęzi z gita
+git checkout -b <my_new_branch> origin/<branch_name>
