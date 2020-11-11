@@ -39,11 +39,11 @@ export class UserService {
   // }
   
   getUserInfo(): Observable<User> {
-      return this.http.get<User>(`${this.wordsetService.urlAga}/account`, httpOptions);
+      return this.http.get<User>(`${this.wordsetService.url}/account`, httpOptions);
     }
 
   sendLoginInfo(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.wordsetService.urlAga}/login`, {username, password}, httpOptions);
+    return this.http.post(`${this.wordsetService.url}/login`, {username, password}, httpOptions);
   }
 
 }
