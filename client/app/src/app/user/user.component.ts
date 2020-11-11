@@ -14,19 +14,21 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService
   ) { }
-  allUsers: User[];
+  // allUsers: User[];
   userInfo: User;
 
   ngOnInit(): void {
     this.getUserInfo();
+    this.userInfo = <User>{};
     // this.getUserInfo();
     // console.log(this.allUsers[0].name);
   }
 
 
   getUserInfo(): void {
-    let id: number = 1;
+    // let id: number = 1;
     this.messageService.add('getUserInfo()');
+    
     // this.userService.getUserInfo(id).subscribe(users => console.log(users));
     // this.userService.getUserInfo(id).subscribe(users => this.allUsers = users);
 

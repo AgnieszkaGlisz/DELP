@@ -1,6 +1,6 @@
+import { SetInfo } from './setInfo';
 import { TranslateWordTemplate } from './translateWordTemplate';
 export interface Wordset {
-    // id: number;
-    // idSet: number;
-    words: TranslateWordTemplate[];
+    setInfo: SetInfo,
+    exercises: TranslateWordTemplate[];
 }

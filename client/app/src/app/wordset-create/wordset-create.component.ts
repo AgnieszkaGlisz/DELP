@@ -1,11 +1,15 @@
+import { UserComponent } from './../user/user.component';
+import { User } from './../_interfaces/user';
+import { TranslateWordTemplate } from './../_interfaces/translateWordTemplate';
+import { Wordset } from './../_interfaces/wordset';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MessageService } from '../_services/message.service';
 import { WordsetService } from '../_services/wordset.service';
 // import { WORDS } from './../words-mock';
 import { Component, OnInit } from '@angular/core';
-import { TranslateWordTemplate } from '../_interfaces/translateWordTemplate';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { SetInfo } from '../_interfaces/setInfo';
 
 @Component({
   selector: 'app-wordset-create',
@@ -14,42 +18,61 @@ import { Observable, of } from 'rxjs';
 })
 export class WordsetCreateComponent implements OnInit {
 
-  words: TranslateWordTemplate[];
+  // words: TranslateWordTemplate[];
+  wordset: Wordset;
 
   constructor(
     private wordsetService: WordsetService,
     private messageService: MessageService,
-    private httpClient: HttpClient) { }
+    private httpClient: HttpClient,
+    // private user: UserComponent
+    ) { }
 
   ngOnInit(): void {
-    this.messageService.add("wordset component init");
-    this.getWords();
-  }
+    this.wordset = <Wordset>{};
+    this.wordset.exercises = <TranslateWordTemplate[]>[];
+    this.wordset.setInfo = <SetInfo>{};
 
-  getWords(): void {
-    // this.wordsetService.getWords1().subscribe(words => this.words = words);
+    console.log("wordset component init");
+    this.wordset.setInfo.id = null;
+    this.wordset.setInfo.idBaseLanguage = null;
+    // this.wordset.setInfo.idCreator = this.user.userInfo.id;
+    this.wordset.setInfo.idLearnLanguage = null;
+    this.wordset.setInfo.ifAudio = false;
+    this.wordset.setInfo.ifPicture = false;
+    this.wordset.setInfo.ifVideo = false;
+    this.wordset.setInfo.info = null;
+    this.wordset.setInfo.isWordSet = true;
+    this.wordset.setInfo.name = null;
+    this.wordset.setInfo.popularity = 0;
+    this.wordset.setInfo.setCreation = null;
   }
 
   addWord(word: string, translation: string): void {
-    this.messageService.add("addWord wordset-create");
+    // this.wordset = <Wordset>{};
+    console.log("addWord wordset-create");
     if (!word || !translation)
     {
     return;
     }
     let translateWord = <TranslateWordTemplate>{};
-    translateWord.id = this.genId(this.words);
+    // translateWord.id = 0;
+    translateWord.id = this.genId(this.wordset.exercises);
+    translateWord.idSet = null;
     translateWord.word = word;
     translateWord.translation = translation;
-    this.words.push(translateWord);
+    translateWord.audioPath = '';
+    translateWord.videoPath = '';
+    translateWord.picturePath = '';
+    this.wordset.exercises.push(translateWord);
   }
 
   deleteWord(word: TranslateWordTemplate): void {
-    this.words = this.words.filter(w => w !== word);
+    this.wordset.exercises = this.wordset.exercises.filter(w => w !== word);
   }
   
-  dupa: string;
   saveWordset(): void {
-    this.wordsetService.saveWordset(this.words).subscribe(x => {
+    this.wordsetService.saveWordset(this.wordset.exercises).subscribe(x => {
       console.log(x);
     });
   }
@@ -59,7 +82,7 @@ export class WordsetCreateComponent implements OnInit {
   // }
     
   genId(words: TranslateWordTemplate[]): number {
-    return this.words.length > 0 ? Math.max(...this.words.map(word => word.id)) + 1 : 1;
+    return this.wordset.exercises.length > 0 ? Math.max(...this.wordset.exercises.map(word => word.id)) + 1 : 1;
   }
 
   private handleError<T>(operation = 'operation', result?:T) {

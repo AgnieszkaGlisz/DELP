@@ -1,3 +1,5 @@
+// import { UserComponent } from './../user/user.component';
+import { User } from './../_interfaces/user';
 import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -11,26 +13,28 @@ export class UserLoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: RouterModule
+    private router: RouterModule,
+    // public user: UserComponent
   ) { }
   login: string;
   password: string;
 
   ngOnInit(): void {
+    console.log("ngOnInit");
   }
 
   logIn(username: string, password: string): void {
     this.userService.sendLoginInfo(username, password).subscribe(
       x => {
-        console.log("User logged in");
+        // console.log("User logged in");
         console.log(x);
         this.userService.setToken(x);
         // this.router.navigateByUrl('main-view');
-        this.userService.getUserInfo().subscribe(
-          y => {
-            console.log(y);
-          }
-        );
+        // this.userService.getUserInfo().subscribe(
+        //   y => {
+        //     console.log(y);
+        //   }
+        // );
       }
     );
 

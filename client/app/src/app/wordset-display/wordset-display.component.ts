@@ -14,17 +14,21 @@ export class WordsetDisplayComponent implements OnInit {
     private wordsetService: WordsetService
   ) { }
   wordset: Wordset;
-  words: TranslateWordTemplate[];
+  // words: TranslateWordTemplate[];
 
   ngOnInit(): void {
+    this.wordset = <Wordset>{};
   }
 
   getWordset(): void {
     this.wordsetService.getWordset('1').subscribe(
       x => {
         this.wordset = x;
-        console.log(x);
-      }
+        // this.words = x.exercises;
+        // x.excercises.length;
+        console.log('Wordset: ', x);
+      },
+      err => console.log('HTTP Error: ', err)
     )
   }
 

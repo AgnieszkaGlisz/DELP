@@ -16,6 +16,7 @@ import { LessonComponent } from './lesson/lesson.component';
 import { LessonCreateComponent } from './lesson-create/lesson-create.component';
 
 import { AuthInterceptor } from './interceptor/httpconfig.interceptor';
+import { FavouritesComponent } from './favourites/favourites.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AuthInterceptor } from './interceptor/httpconfig.interceptor';
     WordsetDisplayComponent,
     LessonComponent,
     LessonCreateComponent,
+    FavouritesComponent,
   ],
   imports: [
     BrowserModule,

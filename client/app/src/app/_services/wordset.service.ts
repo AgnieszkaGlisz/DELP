@@ -34,22 +34,30 @@ export class WordsetService {
   //   this.messageService.add("WordsetService: fetched wordset");
   //   return this.http.get<Wordset>(`${this.url}/wordset`);
   // }
-  getWordset(idNum :string): Observable<any> {
+
+  setHttpOptions(): HttpHeaders {
+    const headers = new HttpHeaders({
+        'Content-Type ': 'application/json',
+      });
+
+      return headers;
+  }
+
+
+  getWordset(idNum :string): Observable<Wordset> {
     this.messageService.add("WordsetService: fetched wordset");
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'id': idNum
       })
     };
-    // let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('id', idNum);
-    // let params = new HttpParams();
-    // params.append('id', idNum);
-    // return this.http.get<Wordset>(`${this.url}/words`);
-    console.log(httpOptions.headers);
-    return this.http.get<any>(`${this.url}/words-in-set`, httpOptions);
+    // httpOptions.params.append('id', idNum);
+    
+    const httpHeaders = this.setHttpOptions();
+
+    console.log(httpHeaders);
+    return this.http.get<Wordset>(`${this.url}/wordset/${idNum}`, httpOptions);
+    // return this.http.get<any>(`${this.url}/wordset`, { headers: httpHeaders, params: {id: idNum} });
   }
 
   saveWordset(wordset: TranslateWordTemplate[]): Observable<any> {

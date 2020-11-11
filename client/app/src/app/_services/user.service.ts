@@ -7,8 +7,6 @@ import { Observable, of } from 'rxjs';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
-    // Authorization: 'Bearer eyJhbGiJIUI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJ3a3VjaHRhIiwicGFzc3dvcmQiOiJ3a3VjaHRhIiwiaWF0IjoxNjA0NDAzNTc2fQ.RoEEOeYhMSuLvTbHHeUV2z0CCmDwB1mK0sYXp0gg04c'
-    // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibG9naW4iOiJ3a3VjaHRhIiwicGFzc3dvcmQiOiJ3a3VjaHRhIiwiaWF0IjoxNjA0NDAzNTc2fQ.RoEEOeYhMSuLvTbHHeUV2z0CCmDwB1mK0sYXp0gg04c'
   })
 };
 
@@ -35,17 +33,9 @@ export class UserService {
   // getUserInfo(id: number): Observable<User[]> {
   //   return this.http.get<User[]>(this.url);
   // }
-  getUserInfo(): Observable<User[]> {
-
-      const auth = "Bearer ";// + this.getToken();
-
-      /*const httpOptions1 = {
-        headers: new HttpHeaders({
-          Authorization: auth
-        })
-      };*/      
-
-      return this.http.get<User[]>(this.urlAccount, httpOptions);
+  
+  getUserInfo(): Observable<User> {
+      return this.http.get<User>(this.urlAccount, httpOptions);
     }
 
   sendLoginInfo(username: string, password: string): Observable<any> {
