@@ -21,11 +21,11 @@ export class WordsetService {
     })
   };
 
-  getWords(): Observable<any> {
-    this.messageService.add("WordsetService: fetched words");
-    const url = `http://localhost:3000`;
-    return this.http.get(url);
-  }
+  // getWords(): Observable<any> {
+  //   this.messageService.add("WordsetService: fetched words");
+  //   const url = `http://localhost:3000`;
+  //   return this.http.get(url);
+  // }
 
   // setHttpOptions(): HttpHeaders {
   //   const headers = new HttpHeaders({
