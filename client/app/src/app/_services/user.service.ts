@@ -27,7 +27,12 @@ export class UserService {
     localStorage.setItem('token', JSON.stringify(x));
   }
 
-  
+  getUserData(): any{
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData)
+    return userData;
+}
+
 
   // TODO: change to get info about only one user
   // getUserInfo(id: number): Observable<User[]> {

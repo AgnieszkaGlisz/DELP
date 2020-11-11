@@ -5,11 +5,13 @@ import { Wordset } from './../_interfaces/wordset';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MessageService } from '../_services/message.service';
 import { WordsetService } from '../_services/wordset.service';
+import { UserService } from '../_services/user.service';
 // import { WORDS } from './../words-mock';
 import { Component, OnInit } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { SetInfo } from '../_interfaces/setInfo';
+//import { userInfo } from 'os';
 
 @Component({
   selector: 'app-wordset-create',
@@ -25,7 +27,8 @@ export class WordsetCreateComponent implements OnInit {
     private wordsetService: WordsetService,
     private messageService: MessageService,
     private httpClient: HttpClient,
-    // private user: UserComponent
+    private user: UserService
+    //private user: UserComponent
     ) { }
 
   ngOnInit(): void {
@@ -36,7 +39,7 @@ export class WordsetCreateComponent implements OnInit {
     console.log("wordset component init");
     this.wordset.setInfo.id = null;
     this.wordset.setInfo.idBaseLanguage = null;
-    // this.wordset.setInfo.idCreator = this.user.userInfo.id;
+    this.wordset.setInfo.idCreator = this.user.getUserData().id;
     this.wordset.setInfo.idLearnLanguage = null;
     this.wordset.setInfo.ifAudio = false;
     this.wordset.setInfo.ifPicture = false;
@@ -92,4 +95,5 @@ export class WordsetCreateComponent implements OnInit {
       return of(result as T);
     }
   }
+
 }

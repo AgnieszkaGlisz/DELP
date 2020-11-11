@@ -2,6 +2,7 @@ import { MessageService } from '../_services/message.service';
 import { UserService } from '../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../_interfaces/user';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -35,4 +36,5 @@ export class UserComponent implements OnInit {
     // console.log(this.allUsers[0].name);
   }
 
+ 
 }
