@@ -30,11 +30,12 @@ export class UserLoginComponent implements OnInit {
         console.log(x);
         this.userService.setToken(x);
         // this.router.navigateByUrl('main-view');
-        // this.userService.getUserInfo().subscribe(
-        //   y => {
-        //     console.log(y);
-        //   }
-        // );
+        this.userService.getUserInfo().subscribe(
+          y => {
+            console.log(y);
+            // save in LocalStorage
+          }
+        );
       }
     );
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WordsetService } from '../_services/wordset.service';
 
 @Component({
   selector: 'app-favourites',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavouritesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private wordsetService: WordsetService
+    ) { }
+
+    favouritesWordsets: any[];
 
   ngOnInit(): void {
+    // this.favouritesWordsers = this.getFavourites();
+  }
+
+  getFavourites(): any {
+    return this.wordsetService.getFavourites().subscribe(x => {
+      console.log(x);
+    })
   }
 
 }
