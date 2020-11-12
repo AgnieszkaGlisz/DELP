@@ -158,6 +158,22 @@ router.get('/sets', auth.authenticateToken, (req, res) =>{
     })
 })
 
+router.get('/my-sets', auth.authenticateToken, (req:any, res) =>{
+    common.adminLog("Sets search.")
+    var sql = 'SELECT * FROM `ExerciseSets` WHERE (deleted = 0 OR deleted is null) and idCreator = ' + req.user.id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        var sets =[]
+        for(var i=0;i<result.length;i++){
+            sets.push(createResponseSet(result[i]))
+        }
+        res.json(sets)
+    })
+})
+
 function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any){
     var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`)'
     sql+='VALUES ('+setId+', '+templateId+', '+exerciseId+')'
