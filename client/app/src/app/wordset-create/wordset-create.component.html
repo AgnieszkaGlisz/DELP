@@ -1,7 +1,7 @@
 <br>
 <div id="wordset-create">
-    <input #name placeholder="Wordset Name"/>
-    <input #info placeholder="Wordset Info"/>
+    <input [(ngModel)]="setName" placeholder="Wordset Name"/>
+    <input [(ngModel)]="setInfo" placeholder="Wordset Info"/>
 <ul *ngIf="wordset" class="words">
     <li *ngFor="let word of wordset.exercises">  
         <a>

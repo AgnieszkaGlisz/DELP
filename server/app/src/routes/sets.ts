@@ -183,13 +183,14 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfAudio = null
     var setIfPicture = null
     var exercises = req.body.exercises
-
+    
     common.adminLog(setName)
     common.adminLog(setInfo)
     common.adminLog(setBaseLanId)
     common.adminLog(setLearnLanId)
     common.adminLog(setIsWordset)
     common.adminLog(JSON.stringify(exercises))
+
 
     // checking data from client
     if(setName == undefined){

@@ -38,6 +38,7 @@ export class FavouritesComponent implements OnInit {
 
   goToLearnView(id: string): void {
     this.wordsetService.setToDisplayId = id;
+    console.log(this.wordsetService.setToDisplayId);
     this.router.navigateByUrl('/wordset/learn');
   }
 
