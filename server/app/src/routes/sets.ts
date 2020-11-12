@@ -209,8 +209,8 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfVideo = null
     var setIfAudio = null
     var setIfPicture = null
-    var exercises = req.body.exercises
-
+    var exercises = req.body.Exercises
+    
     // checking data from client
     if(setName == undefined){
         res.status(400).json({error: "Data error - name."})
