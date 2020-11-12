@@ -64,6 +64,9 @@ export class WordsetCreateComponent implements OnInit {
     let translateWord = <TranslateWordTemplate>{};
     // translateWord.id = 0;
     translateWord.id = this.genId(this.wordset.exercises);
+    translateWord.template = "WordExerciseTemplate";
+    // translateWord.template = translateWord.constructor.name.toString();
+    console.log(translateWord.template);
     translateWord.idSet = null;
     translateWord.word = word;
     translateWord.translation = translation;
