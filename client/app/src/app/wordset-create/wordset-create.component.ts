@@ -23,6 +23,8 @@ export class WordsetCreateComponent implements OnInit {
 
   // words: TranslateWordTemplate[];
   wordset: Wordset;
+  setName: string;
+  setInfo: string;
 
   constructor(
     private wordsetService: WordsetService,
@@ -34,22 +36,22 @@ export class WordsetCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.wordset = <Wordset>{};
-    this.wordset.exercises = <TranslateWordTemplate[]>[];
+    this.wordset.exercises = <IExerciseTemplate[]>[];
     this.wordset.setInfo = <SetInfo>{};
 
     console.log("wordset component init");
     this.wordset.setInfo.id = null;
-    this.wordset.setInfo.idBaseLanguage = null;
-    this.wordset.setInfo.idCreator = this.user.getUserData().id;
-    this.wordset.setInfo.idLearnLanguage = null;
+    this.wordset.setInfo.name = null;
+    this.wordset.setInfo.info = null;
+    this.wordset.setInfo.idCreator = null;
+    this.wordset.setInfo.setCreation = null;
+    this.wordset.setInfo.idBaseLanguage = 0;
+    this.wordset.setInfo.idLearnLanguage = 0;
+    this.wordset.setInfo.isWordSet = true;
+    this.wordset.setInfo.popularity = 0;
     this.wordset.setInfo.ifAudio = false;
     this.wordset.setInfo.ifPicture = false;
     this.wordset.setInfo.ifVideo = false;
-    this.wordset.setInfo.info = null;
-    this.wordset.setInfo.isWordSet = true;
-    this.wordset.setInfo.name = null;
-    this.wordset.setInfo.popularity = 0;
-    this.wordset.setInfo.setCreation = null;
   }
 
   addWord(word: string, translation: string): void {
@@ -76,7 +78,9 @@ export class WordsetCreateComponent implements OnInit {
   }
   
   saveWordset(): void {
-    this.wordsetService.saveWordset(this.wordset.exercises).subscribe(x => {
+    this.wordset.setInfo.name = this.setName;
+    this.wordset.setInfo.info = this.setInfo;
+    this.wordsetService.saveWordset(this.wordset).subscribe(x => {
       console.log(x);
     });
   }

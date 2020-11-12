@@ -168,6 +168,8 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfPicture = null
     var exercises = req.body.exercises
 
+    console.log(res);
+
     // checking data from client
     if(setName == undefined){
         res.status(401).json({error: "Data error."})
