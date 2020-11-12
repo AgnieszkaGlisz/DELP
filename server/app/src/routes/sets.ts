@@ -154,14 +154,14 @@ function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any){
 }
 
 router.post('/add-set', auth.authenticateToken, (req:any, res) => {
-    var setName = req.body.setName
-    var setInfo = req.body.setInfo
+    var setName = req.body.setInfo.name
+    var setInfo = req.body.setInfo.info
     var setCreatorId = req.user.id
     var date= new Date()
     var setCreationDate = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay()
-    var setBaseLanId = req.body.setBaseLanId
-    var setLearnLanId = req.body.setLearnLanId
-    var setIsWordset = req.body.setIsWordset
+    var setBaseLanId = req.body.setInfo.idBaseLanguage
+    var setLearnLanId = req.body.setInfo.idLearnLanguage
+    var setIsWordset = req.body.setInfo.isWordSet
     var setPopularity = 1
     var setIfVideo = null
     var setIfAudio = null
