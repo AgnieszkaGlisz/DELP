@@ -142,6 +142,22 @@ router.get('/set/:id', auth.authenticateToken, (req, res) =>{
     })
 })
 
+router.get('/sets', auth.authenticateToken, (req, res) =>{
+    common.adminLog("Sets search.")
+    var sql = 'SELECT * FROM ExerciseSets WHERE deleted = NULL'
+    db.query(sql,function(result:any){
+        if(result == 0 || result[0].deleted == 1){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        var sets =[]
+        for(var i=0;i<result.length;i++){
+            sets.push(createResponseSet(result[i]))
+        }
+        res.json(sets)
+    })
+})
+
 function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any){
     var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`)'
     sql+='VALUES ('+setId+', '+templateId+', '+exerciseId+')'
@@ -168,38 +184,45 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfPicture = null
     var exercises = req.body.exercises
 
+    common.adminLog(setName)
+    common.adminLog(setInfo)
+    common.adminLog(setBaseLanId)
+    common.adminLog(setLearnLanId)
+    common.adminLog(setIsWordset)
+    common.adminLog(JSON.stringify(exercises))
+
     // checking data from client
     if(setName == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - name."})
         return
     }
     if(setInfo == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - info."})
         return
     }
     if(setBaseLanId == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - language."})
         return
     }
     if(setLearnLanId == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - language."})
         return
     }
     if(exercises == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - exercises."})
         return
     }
     for(var i =0; i<exercises.length; i++){
         if(exercises[i].template == 'FillSentenceExerciseTemplate' && (exercises[i].leftPartOfSentence == undefined || exercises[i].wordToFill==undefined || exercises[i].rightPartOfSentence == undefined)){
-            res.status(401).json({error: "Data error."})
+            res.status(400).json({error: "Data error."})
             return
         }
         else if(exercises[i].template == 'TranslateSentenceExerciseTemplate' && (exercises[i].oryginalSentence== undefined || exercises[i].translatedSentence == undefined)){
-            res.status(401).json({error: "Data error."})
+            res.status(400).json({error: "Data error."})
             return
         }
         else if(exercises[i].template == 'WordExerciseTemplate' && ( exercises[i].word==undefined || exercises[i].translation == undefined)){
-            res.status(401).json({error: "Data error."})
+            res.status(400).json({error: "Data error."})
             return
         }
     }
@@ -273,6 +296,5 @@ router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{
         })
     })
 })
-
 
 module.exports = router;
