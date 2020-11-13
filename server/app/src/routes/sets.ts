@@ -22,18 +22,18 @@ function sortExercises(exercises:any,templates:any){
 
 function createResponseSet(db_result:any){
     var setTemp = {
-        id: db_result[0].id,
-        name: db_result[0].name,
-        info: db_result[0].info,
-        idCreator: db_result[0].idCreator,
-        setCreation: db_result[0].setCreation,
-        idBaseLanguage: db_result[0].idBaseLanguage,
-        idLearnLanguage: db_result[0].idLearnLanguage,
-        isWordSet: db_result[0].isWordSet,
-        popularity: db_result[0].popularity,
-        ifVideo: db_result[0].ifVideo,
-        ifAudio: db_result[0].ifAudio,
-        ifPicture: db_result[0].ifPicture
+        id: db_result.id,
+        name: db_result.name,
+        info: db_result.info,
+        idCreator: db_result.idCreator,
+        setCreation: db_result.setCreation,
+        idBaseLanguage: db_result.idBaseLanguage,
+        idLearnLanguage: db_result.idLearnLanguage,
+        isWordSet: db_result.isWordSet,
+        popularity: db_result.popularity,
+        ifVideo: db_result.ifVideo,
+        ifAudio: db_result.ifAudio,
+        ifPicture: db_result.ifPicture
     }
     return setTemp;
 }
@@ -47,7 +47,7 @@ router.get('/set/:id', auth.authenticateToken, (req, res) =>{
             return
         } 
         common.adminLog('Preparing and sending lesson and all exercises.')
-        var set = createResponseSet(result);
+        var set = createResponseSet(result[0]);
         sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,TemplatesInfo.name FROM SetsExercises, TemplatesInfo WHERE TemplatesInfo.id = SetsExercises.idTemplate AND SetsExercises.idSet = ' + req.params.id
         db.query(sql, function(templates:any){
             if(templates == 0){
@@ -142,6 +142,38 @@ router.get('/set/:id', auth.authenticateToken, (req, res) =>{
     })
 })
 
+router.get('/sets', auth.authenticateToken, (req, res) =>{
+    common.adminLog("Sets search.")
+    var sql = 'SELECT * FROM `ExerciseSets` WHERE deleted = 0 OR deleted is null'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        var sets =[]
+        for(var i=0;i<result.length;i++){
+            sets.push(createResponseSet(result[i]))
+        }
+        res.json(sets)
+    })
+})
+
+router.get('/my-sets', auth.authenticateToken, (req:any, res) =>{
+    common.adminLog("Sets search.")
+    var sql = 'SELECT * FROM `ExerciseSets` WHERE (deleted = 0 OR deleted is null) and idCreator = ' + req.user.id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        var sets =[]
+        for(var i=0;i<result.length;i++){
+            sets.push(createResponseSet(result[i]))
+        }
+        res.json(sets)
+    })
+})
+
 function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any){
     var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`)'
     sql+='VALUES ('+setId+', '+templateId+', '+exerciseId+')'
@@ -150,6 +182,33 @@ function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any){
             return
         }     
         common.adminLog("Insert into SetsExercises for setId:"+setId+" and exerciseId:"+exerciseId+".")                    
+    })
+}
+
+function insertIntoIncorrectWords(exerciseId:any,words:any){
+    for(var i=0;i<words.length;i++){
+        var sql='INSERT INTO `IncorrectWordsFillSentenceExerciseTemplate` (`word`, `idFillSentenceExerciseTemplate`)'
+        sql+='VALUES ("'+words[i].word+'", '+exerciseId+')'
+        db.query(sql,function(result:any){
+            if(result == 0){
+                return
+            }     
+            common.adminLog("Insert into IncorrectWordsFillSentenceExerciseTemplate for exerciseId:"+exerciseId+".")                    
+        })
+    }   
+}
+
+function insertIntoFillSentenceTemplate(exercises:any,setId:any){
+    var sql = 'INSERT INTO `FillSentenceExerciseTemplate` (`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) '
+    sql +='VALUES ('+setId+', "'+exercises.leftPartOfSentence+'", "'+exercises.wordToFill+'","'+exercises.rightPartOfSentence+'", NULL, NULL, NULL)'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            return
+        } 
+        var exerciseId = result.insertId
+        common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
+        insertIntoSetsExercises(setId,2,exerciseId)
+        insertIntoIncorrectWords(exerciseId,exercises.incorrectWords)
     })
 }
 
@@ -166,42 +225,44 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfVideo = null
     var setIfAudio = null
     var setIfPicture = null
-    var exercises = req.body.exercises
-
-    console.log(res);
-
+    var exercises = req.body.Exercises
+    
     // checking data from client
     if(setName == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - name."})
         return
     }
     if(setInfo == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - info."})
         return
     }
     if(setBaseLanId == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - language."})
         return
     }
     if(setLearnLanId == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - language."})
         return
     }
     if(exercises == undefined){
-        res.status(401).json({error: "Data error."})
+        res.status(400).json({error: "Data error - exercises."})
         return
     }
     for(var i =0; i<exercises.length; i++){
-        if(exercises[i].template == 'FillSentenceExerciseTemplate' && (exercises[i].leftPartOfSentence == undefined || exercises[i].wordToFill==undefined || exercises[i].rightPartOfSentence == undefined)){
-            res.status(401).json({error: "Data error."})
+        if(exercises[i].template == undefined){
+            res.status(400).json({error: "Data error."})
             return
         }
         else if(exercises[i].template == 'TranslateSentenceExerciseTemplate' && (exercises[i].oryginalSentence== undefined || exercises[i].translatedSentence == undefined)){
-            res.status(401).json({error: "Data error."})
+            res.status(400).json({error: "Data error."})
             return
         }
         else if(exercises[i].template == 'WordExerciseTemplate' && ( exercises[i].word==undefined || exercises[i].translation == undefined)){
-            res.status(401).json({error: "Data error."})
+            res.status(400).json({error: "Data error."})
+            return
+        }
+        else if(exercises[i].template == 'FillSentenceExerciseTemplate' && (exercises[i].leftPartOfSentence == undefined || exercises[i].wordToFill==undefined || exercises[i].rightPartOfSentence == undefined)){
+            res.status(400).json({error: "Data error."})
             return
         }
     }
@@ -218,16 +279,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
         common.adminLog("Insert into ExerciseSets.")
         for(var i = 0; i< exercises.length;i++){
             if(exercises[i].template == 'FillSentenceExerciseTemplate'){
-                sql = 'INSERT INTO `FillSentenceExerciseTemplate` (`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) '
-                sql +='VALUES ('+setId+', "'+exercises[i].leftPartOfSentence+'", "'+exercises[i].wordToFill+'","'+exercises[i].rightPartOfSentence+'", NULL, NULL, NULL)'
-                db.query(sql,function(result:any){
-                    if(result == 0){
-                        return
-                    } 
-                    var exerciseId = result.insertId
-                    common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
-                    insertIntoSetsExercises(setId,2,exerciseId)
-                })
+                insertIntoFillSentenceTemplate(exercises[i],setId)
             }
             else if(exercises[i].template == 'TranslateSentenceExerciseTemplate'){
                 sql = ' INSERT INTO `TranslateSentenceExerciseTemplate` (`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) '
@@ -237,7 +289,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
                         return
                     } 
                     var exerciseId = result.insertId
-                    common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
+                    common.adminLog("Insert into TranslateSentenceExerciseTemplate for setId:"+setId+" .")
                     insertIntoSetsExercises(setId,3,exerciseId)
                 })
             }
@@ -249,7 +301,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
                         return
                     } 
                     var exerciseId = result.insertId
-                    common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
+                    common.adminLog("Insert into WordExerciseTemplate for setId:"+setId+" .")
                     insertIntoSetsExercises(setId,1,exerciseId)
                 })
             }
@@ -275,6 +327,5 @@ router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{
         })
     })
 })
-
 
 module.exports = router;
