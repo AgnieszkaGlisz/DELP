@@ -17,7 +17,7 @@
 <body>
     <div>
         <div class="row">
-            <div class="col-md-2 nav-menu">
+            <div *ngIf="logged" class="col-md-2 nav-menu">
                 <nav>                    
                     <a routerLink="/main-view">Main View</a>
                     <a routerLink="/favourites">Favourites</a>
