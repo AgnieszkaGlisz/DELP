@@ -18,6 +18,7 @@ import { LessonCreateComponent } from './lesson-create/lesson-create.component';
 import { AuthInterceptor } from './interceptor/httpconfig.interceptor';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { WordsetLearnComponent } from './wordset-learn/wordset-learn.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { WordsetLearnComponent } from './wordset-learn/wordset-learn.component';
     LessonCreateComponent,
     FavouritesComponent,
     WordsetLearnComponent,
+    UserLogoutComponent,
   ],
   imports: [
     BrowserModule,

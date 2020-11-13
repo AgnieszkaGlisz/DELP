@@ -3,6 +3,7 @@ import { LessonCreateComponent } from './lesson-create/lesson-create.component';
 import { LessonComponent } from './lesson/lesson.component';
 import { WordsetDisplayComponent } from './wordset-display/wordset-display.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserComponent } from './user/user.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'login', component: UserLoginComponent},
   { path: 'lesson', component: LessonComponent},
   { path: 'lesson/create', component: LessonCreateComponent},
+  { path: 'logout', component: UserLogoutComponent},
   // { path: 'lesson/create', component: LessonCreateComponent},
 ];
 

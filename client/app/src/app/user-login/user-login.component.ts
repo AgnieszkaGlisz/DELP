@@ -2,7 +2,7 @@
 import { User } from './../_interfaces/user';
 import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -13,7 +13,7 @@ export class UserLoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: RouterModule,
+    private router: Router,
     // public user: UserComponent
   ) { }
   login: string;
@@ -33,7 +33,8 @@ export class UserLoginComponent implements OnInit {
         this.userService.getUserInfo().subscribe(
           y => {
             localStorage.setItem('userData', JSON.stringify(y));
-            console.log(y);
+            //console.log(y);
+            this.router.navigateByUrl('favourites');
            }
         );
       }
@@ -41,14 +42,4 @@ export class UserLoginComponent implements OnInit {
 
     // console.log("stop");
   }
-
- test(): void {
-    
-        this.userService.getUserInfo().subscribe(
-          y => {
-            console.log(y);
-          }
-        );
-  }
-
 }

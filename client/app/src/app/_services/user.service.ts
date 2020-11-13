@@ -26,6 +26,10 @@ export class UserService {
     localStorage.setItem('token', JSON.stringify(x));
   }
 
+  deleteToken(): void{
+    localStorage.removeItem('token');
+  }
+
   getUserData(): any{
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData)
