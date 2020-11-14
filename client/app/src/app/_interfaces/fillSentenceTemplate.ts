@@ -1,5 +1,8 @@
 import { IExerciseTemplate } from './exerciseTemplate';
 export interface FillSentenceExerciseTemplate extends IExerciseTemplate {
-    originalSentence: string;
-    translatedSentance: string;
+    leftPartOfSentence: string;
+    wordToFill: string;
+    rightPartOfSentance: string;
+    incorrectWords: {"word": string}[];
+    template: "FillSentenceExerciseTemplate";
 }

@@ -44,8 +44,6 @@ export class WordsetService {
 
   saveWordset(wordset: Wordset): Observable<Wordset> {
     // this.messageService.add("Wordset service: POST wordset");
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log(wordset);
     return this.http.post<Wordset>(`${this.url}/add-set`, wordset, this.httpOptions);
   }
  
