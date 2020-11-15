@@ -24,8 +24,13 @@ export class WordsetService {
       'Content-Type': 'application/json',
     })
   };
+
   getFavourites(): Observable<Set[]> {
     return this.http.get<Set[]>(`${this.url}/favourite`, this.httpOptions);
+  }
+
+  getUserSets(): Observable<Set[]> {
+    return this.http.get<Set[]>(`${this.url}/my-sets`, this.httpOptions);
   }
 
   // getWordset(idNum :string): Observable<Set> {

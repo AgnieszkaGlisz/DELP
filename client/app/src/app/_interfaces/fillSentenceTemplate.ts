@@ -16,6 +16,32 @@ export class FillSentenceExerciseTemplate extends ExerciseTemplate {
     incorrectWords: {"word": string}[];
 
     addExerciseToSet(set: Set) {
-        // TODO: implementation of method
+        super.addExerciseToSet(set);
+        this.template = "FillSentenceExerciseTemplate";
+        let exerciseCopy = new FillSentenceExerciseTemplate();
+        let sth = Object.assign(exerciseCopy, this);
+        
+        set.exercises.push(exerciseCopy);
+    }
+
+    public displayExerciseHTML() {
+        let listOfExercises = document.getElementById("exercise-in-lesson-create");
+        listOfExercises.innerHTML += "\
+        <a>\
+            <span>{{exercise.id}}</span>\
+            <span>{{exercise.leftPartOfSentence}}</span>\
+            <span>{{exercise.wordToFill}}</span>\
+            <span>{{exercise.rightPartOfSentance}}</span>\
+        </a>\
+        ";
+    }
+
+    public createExerciseInputHTML() {
+        let createExDiv = document.getElementById("create-exercise");
+        createExDiv.innerHTML = "\
+        <input [(ngModel)]='exercise.leftPartOfSentence' placeholder='leftPartOfSentence'/> \
+        <input [(ngModel)]='exercise.wordToFill' placeholder='wordToFill'/> \
+        <input [(ngModel)]='exercise.rightPartOfSentance' placeholder='rightPartOfSentance'/> \
+        ";
     }
 }

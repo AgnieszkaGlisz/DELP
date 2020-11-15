@@ -1,1 +1,14 @@
 <p>user-sets works!</p>
+<div>
+    <ul *ngIf="userSets">
+        <li *ngFor="let set of userSets">
+            <a>
+                <span class="set-id">{{set.id}}</span>
+                <span class="set-name">{{set.name}}</span>
+            </a>
+            <button class="display" title="display" (click)="goToDisplayView(set.id)">display</button>
+            <button class="learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
+        </li>
+    </ul>
+    <!-- <button class="load" (click)="getWordset()">Load</button> -->
+</div>

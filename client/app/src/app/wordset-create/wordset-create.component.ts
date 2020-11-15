@@ -33,14 +33,9 @@ export class WordsetCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.set = new Wordset();
-    // this.set = <Wordset>{};
     this.set.exercises = Array<WordExerciseTemplate>();
-    // this.set.exercises = <WordExerciseTemplate[]>{};
-    // this.set.setInfo = new SetInfo();
     this.set.setInfo = new SetInfo();
-
     this.exercise = new WordExerciseTemplate();
-    // this.exercise = <WordExerciseTemplate>{};
 
     console.log("wordset component init");
   }
@@ -51,11 +46,9 @@ export class WordsetCreateComponent implements OnInit {
   }
 
   saveSet(): void {
-    console.log("przed");
     this.set.saveSet();
-    console.log("po");
     this.wordsetService.saveWordset(this.set).subscribe(x => {
-      console.log(x);
+      // console.log(x);
     });
   }
 

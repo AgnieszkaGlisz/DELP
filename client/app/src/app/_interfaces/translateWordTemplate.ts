@@ -11,10 +11,26 @@ export class WordExerciseTemplate extends ExerciseTemplate  {
         this.template = "WordExerciseTemplate";
         let exerciseCopy = new WordExerciseTemplate();
         let sth = Object.assign(exerciseCopy, this);
-
-        console.log("exerciseCopy", exerciseCopy);
-        console.log("sth", sth);
-
+        
         set.exercises.push(exerciseCopy);
+    }
+
+    public displayExerciseHTML() {
+        let listOfExercises = document.getElementById("exercise-in-lesson-create");
+        listOfExercises.innerHTML += "\
+        <a>\
+            <span>{{exercise.id}}</span>\
+            <span>{{exercise.word}}</span>\
+            <span>{{exercise.translation}}</span>\
+        </a>\
+        ";
+    }
+
+    public createExerciseInputHTML() {
+        let createExDiv = document.getElementById("create-exercise");
+        createExDiv.innerHTML = "\
+        <input [(ngModel)]='exercise.word' placeholder='word'/> \
+        <input [(ngModel)]='exercise.translation' placeholder='translation'/> \
+        ";
     }
 }

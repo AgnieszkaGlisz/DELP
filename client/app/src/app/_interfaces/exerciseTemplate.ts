@@ -18,6 +18,10 @@ export class ExerciseTemplate {
         this.id = set.generateId();
     };
 
+    displayExerciseHTML() { }
+
+    createExerciseInputHTML() { }
+
     deleteWord(set: Set): void {
         set.exercises = set.exercises.filter(w => w !== this);
     }

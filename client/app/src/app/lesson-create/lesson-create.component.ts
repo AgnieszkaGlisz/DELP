@@ -1,7 +1,9 @@
+import { ExerciseTemplate } from './../_interfaces/exerciseTemplate';
 import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
 import { Component, OnInit } from '@angular/core';
 import { Set } from '../_interfaces/set';
 import { TranslateSentenceExerciseTemplate } from '../_interfaces/translateSentenceTemplate';
+import { WordExerciseTemplate } from '../_interfaces/translateWordTemplate';
 
 @Component({
   selector: 'app-lesson-create',
@@ -13,6 +15,7 @@ export class LessonCreateComponent implements OnInit {
   constructor() { }
 
   set: Set;
+  exercise: ExerciseTemplate;
   // set = <Set>{};
   // setName: string;
   // setInfo: string;
@@ -20,45 +23,47 @@ export class LessonCreateComponent implements OnInit {
   
   
   ngOnInit(): void {
-    this.set = <Set>{};
+    this.set = new Set();
   }
   
   // deleteExercise(exercise: IExerciseTemplate): void {
   //   // TODO: implemantation of method
   // }
   
-  // wordExercise: TranslateWordTemplate;
-  // createWordExercise(): void {
-  //   // TODO: implementation of method
-  //   let createExDiv = document.getElementById("create-exercise");
-  //   createExDiv.innerHTML = "\
-  //   <input [(ngModel)]='wordExercise.word' placeholder='word'/> \
-  //   <input [(ngModel)]='wordExercise.translation' placeholder='translation'/> \
-  //   ";
+  createWordExercise(): void {
+    this.exercise = new WordExerciseTemplate();
+    this.exercise.createExerciseInputHTML();
 
-  //   this.createAddExerciseButton();
-  // }
+    this.createAddExerciseButton();
+  }
   
-  // translateExercise: TranslateSentenceExerciseTemplate;
-  // createTranslateSentenceExercise(): void {
-  //   // TODO: implementation of method
-  // }
+  createTranslateSentenceExercise(): void {
+    this.exercise = new TranslateSentenceExerciseTemplate();
+    this.exercise.createExerciseInputHTML();
+
+    this.createAddExerciseButton();
+  }
   
-  // fillSentenceExercise: FillSentenceExerciseTemplate;
-  // createFillSentenceExercise(): void {
-  //   // TODO: implementation of method
-  // }
+  createFillSentenceExercise(): void {
+    this.exercise = new FillSentenceExerciseTemplate();
+    this.exercise.createExerciseInputHTML();
 
-  // createAddExerciseButton(): void {
-  //   let createExDiv = document.getElementById("create-exercise");
-  //   createExDiv.innerHTML += "\
-  //   <button (click)='addExercise()'>+</button>";
-  // }
+    this.createAddExerciseButton();
+  }
 
-  // addExercise(): void {
-  // }
+  createAddExerciseButton(): void {
+    let createExDiv = document.getElementById("create-exercise");
+    createExDiv.innerHTML += "\
+    <button (click)='addExerciseToSet()'>+</button>";
+    // FIXME: to nie działa, trzeba znaleźc inne rozwiązanie na dynamiczne tworzenie guzików
+  }
 
-  // saveLesson(): void {
-  //   // TODO: implementation of method
-  // }
+  addExerciseToSet(): void {
+    // console.log("no hej");
+    this.exercise.addExerciseToSet(this.set)
+  }
+
+  saveLesson(): void {
+    // TODO: implementation of method
+  }
 }

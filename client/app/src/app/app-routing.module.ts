@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WordsetCreateComponent } from './wordset-create/wordset-create.component';
 import { WordsetLearnComponent } from './wordset-learn/wordset-learn.component';
+import { UserSetsComponent } from './user-sets/user-sets.component';
 
 const routes: Routes = [
   { path: 'main-view', component: MainViewComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'login', component: UserLoginComponent},
   { path: 'lesson', component: LessonComponent},
   { path: 'lesson/create', component: LessonCreateComponent},
+  { path: 'my-sets', component: UserSetsComponent},
   // { path: 'lesson/create', component: LessonCreateComponent},
 ];
 
