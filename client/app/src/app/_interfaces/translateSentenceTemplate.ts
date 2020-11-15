@@ -1,7 +1,11 @@
-import { TranslateWordTemplate } from './translateWordTemplate';
-import { IExerciseTemplate } from './exerciseTemplate';
-export interface TranslateSentenceExerciseTemplate extends IExerciseTemplate {
+import { Set } from './set';
+import { ExerciseTemplate } from './exerciseTemplate';
+export class TranslateSentenceExerciseTemplate extends ExerciseTemplate {
+    template: "TranslateSentenceExerciseTemplate";
     originalSentence: string;
     translatedSentance: string;
-    template: "TranslateSentenceExerciseTemplate";
+
+    addExerciseToSet(set: Set) {
+        // TODO: implementation of method
+    }
 }

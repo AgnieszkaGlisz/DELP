@@ -1,7 +1,7 @@
-import { TranslateWordTemplate } from '../_interfaces/translateWordTemplate';
 import { Wordset } from '../_interfaces/wordset';
 import { WordsetService } from '../_services/wordset.service';
 import { Component, OnInit } from '@angular/core';
+import { WordExerciseTemplate } from '../_interfaces/translateWordTemplate';
 
 @Component({
   selector: 'app-wordset-learn',
@@ -14,7 +14,7 @@ export class WordsetLearnComponent implements OnInit {
     private wordsetService: WordsetService
   ) { }
   wordset: Wordset;
-  word: TranslateWordTemplate;
+  word: WordExerciseTemplate;
   answer: any = { value: ''};
   wordIndex: number;
   result: string = "";
@@ -45,7 +45,7 @@ export class WordsetLearnComponent implements OnInit {
     {
       this.wordIndex += 1;
       // this.word
-      this.word = <TranslateWordTemplate>this.wordset.exercises[this.wordIndex];
+      this.word = <WordExerciseTemplate>this.wordset.exercises[this.wordIndex];
     }
     else
     {

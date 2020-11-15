@@ -1,6 +1,4 @@
 import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
-import { TranslateWordTemplate } from './../_interfaces/translateWordTemplate';
-import { IExerciseTemplate } from './../_interfaces/exerciseTemplate';
 import { Component, OnInit } from '@angular/core';
 import { Set } from '../_interfaces/set';
 import { TranslateSentenceExerciseTemplate } from '../_interfaces/translateSentenceTemplate';
@@ -25,42 +23,42 @@ export class LessonCreateComponent implements OnInit {
     this.set = <Set>{};
   }
   
-  deleteExercise(exercise: IExerciseTemplate): void {
-    // TODO: implemantation of method
-  }
+  // deleteExercise(exercise: IExerciseTemplate): void {
+  //   // TODO: implemantation of method
+  // }
   
-  wordExercise: TranslateWordTemplate;
-  createWordExercise(): void {
-    // TODO: implementation of method
-    let createExDiv = document.getElementById("create-exercise");
-    createExDiv.innerHTML = "\
-    <input [(ngModel)]='wordExercise.word' placeholder='word'/> \
-    <input [(ngModel)]='wordExercise.translation' placeholder='translation'/> \
-    ";
+  // wordExercise: TranslateWordTemplate;
+  // createWordExercise(): void {
+  //   // TODO: implementation of method
+  //   let createExDiv = document.getElementById("create-exercise");
+  //   createExDiv.innerHTML = "\
+  //   <input [(ngModel)]='wordExercise.word' placeholder='word'/> \
+  //   <input [(ngModel)]='wordExercise.translation' placeholder='translation'/> \
+  //   ";
 
-    this.createAddExerciseButton();
-  }
+  //   this.createAddExerciseButton();
+  // }
   
-  translateExercise: TranslateSentenceExerciseTemplate;
-  createTranslateSentenceExercise(): void {
-    // TODO: implementation of method
-  }
+  // translateExercise: TranslateSentenceExerciseTemplate;
+  // createTranslateSentenceExercise(): void {
+  //   // TODO: implementation of method
+  // }
   
-  fillSentenceExercise: FillSentenceExerciseTemplate;
-  createFillSentenceExercise(): void {
-    // TODO: implementation of method
-  }
+  // fillSentenceExercise: FillSentenceExerciseTemplate;
+  // createFillSentenceExercise(): void {
+  //   // TODO: implementation of method
+  // }
 
-  createAddExerciseButton(): void {
-    let createExDiv = document.getElementById("create-exercise");
-    createExDiv.innerHTML += "\
-    <button (click)='addExercise()'>+</button>";
-  }
+  // createAddExerciseButton(): void {
+  //   let createExDiv = document.getElementById("create-exercise");
+  //   createExDiv.innerHTML += "\
+  //   <button (click)='addExercise()'>+</button>";
+  // }
 
-  addExercise(): void {
-  }
+  // addExercise(): void {
+  // }
 
-  saveLesson(): void {
-    // TODO: implementation of method
-  }
+  // saveLesson(): void {
+  //   // TODO: implementation of method
+  // }
 }
