@@ -1,5 +1,3 @@
-import { IExerciseTemplate } from './../_interfaces/exerciseTemplate';
-import { TranslateWordTemplate } from './../_interfaces/translateWordTemplate';
 import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MessageService } from './message.service';
@@ -26,8 +24,13 @@ export class WordsetService {
       'Content-Type': 'application/json',
     })
   };
+
   getFavourites(): Observable<Set[]> {
     return this.http.get<Set[]>(`${this.url}/favourite`, this.httpOptions);
+  }
+
+  getUserSets(): Observable<Set[]> {
+    return this.http.get<Set[]>(`${this.url}/my-sets`, this.httpOptions);
   }
 
   // getWordset(idNum :string): Observable<Set> {
@@ -44,7 +47,6 @@ export class WordsetService {
 
   saveWordset(wordset: Wordset): Observable<Wordset> {
     // this.messageService.add("Wordset service: POST wordset");
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA");
     console.log(wordset);
     return this.http.post<Wordset>(`${this.url}/add-set`, wordset, this.httpOptions);
   }

@@ -1,1 +1,35 @@
 <p>lesson-create works!</p>
+
+<div id="lesson-create">
+    <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.name" placeholder="Lesson Name"/>
+    <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.info" placeholder="Lesson Info"/>
+
+    <ul *ngIf="set">
+        <li *ngFor="let exercise of set.exercises" id="exercise-in-lesson-create">
+            {{exercise.displayExerciseHTML()}}
+            <!-- <a *ngIf="exercise.template=='WordExerciseTemplate'">
+                <span>{{exercise.id}}</span>
+                <span>{{exercise.word}}</span>
+                <span>{{exercise.translation}}</span>
+            </a>
+            <a *ngIf="exercise.template=='TranslateSentenceExerciseTemplate'">
+                <span>{{exercise.id}}</span>
+                <span>{{exercise.originalSentence}}</span>
+                <span>{{exercise.translatedSentance}}</span>
+            </a>
+            <a *ngIf="exercise.template=='FillSentenceExerciseTemplate'">
+                <span>{{exercise.id}}</span>
+                <span>{{exercise.leftPartOfSentence}}</span>
+                <span>{{exercise.wordToFill}}</span>
+                <span>{{exercise.rightPartOfSentance}}</span>
+            </a> -->
+        <button class="delete" title="delete exercise" (click)="exercise.deleteExercise(set)">x</button>
+        </li>
+    </ul>
+    <div id="create-exercise"></div>
+    <button title="WordExerciseTemplate" (click)="createWordExercise()">WordExerciseTemplate</button>
+    <button title="TranslateSentenceExerciseTemplate" (click)="createTranslateSentenceExercise()">TranslateSentenceExerciseTemplate</button>
+    <button title="FillSentenceExerciseTemplate" (click)="createFillSentenceExercise()">FillSentenceExerciseTemplate</button>
+    
+    <button class="save" (click)="saveLesson()">Save</button>
+</div>

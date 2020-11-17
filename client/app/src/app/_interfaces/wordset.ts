@@ -1,7 +1,9 @@
-import { IExerciseTemplate } from './exerciseTemplate';
-import { SetInfo } from './setInfo';
-import { TranslateWordTemplate } from './translateWordTemplate';
-export interface Wordset {
-    setInfo: SetInfo,
-    exercises: IExerciseTemplate[];
+import { Set } from './set';
+export class Wordset extends Set {
+    
+    saveSet(): void {
+        console.log("heeeelo");
+        this.setInfo.isWordSet = true;
+        super.saveSet();
+    }
 }

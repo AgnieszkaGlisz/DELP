@@ -1,4 +1,3 @@
-import { TranslateWordTemplate } from '../_interfaces/translateWordTemplate';
 import { Wordset } from '../_interfaces/wordset';
 import { WordsetService } from '../_services/wordset.service';
 import { Component, OnInit } from '@angular/core';

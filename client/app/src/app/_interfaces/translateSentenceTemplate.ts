@@ -1,15 +1,14 @@
 import { Set } from './set';
 import { ExerciseTemplate } from './exerciseTemplate';
-export class WordExerciseTemplate extends ExerciseTemplate  {
-    template: "WordExerciseTemplate";
-    idSet: number;
-    word: string;
-    translation: string;
+export class TranslateSentenceExerciseTemplate extends ExerciseTemplate {
+    template: "TranslateSentenceExerciseTemplate";
+    originalSentence: string;
+    translatedSentance: string;
 
     public addExerciseToSet(set: Set) {
         super.addExerciseToSet(set);
-        this.template = "WordExerciseTemplate";
-        let exerciseCopy = new WordExerciseTemplate();
+        this.template = "TranslateSentenceExerciseTemplate";
+        let exerciseCopy = new TranslateSentenceExerciseTemplate();
         let sth = Object.assign(exerciseCopy, this);
         
         set.exercises.push(exerciseCopy);
@@ -20,8 +19,8 @@ export class WordExerciseTemplate extends ExerciseTemplate  {
         listOfExercises.innerHTML += "\
         <a>\
             <span>{{exercise.id}}</span>\
-            <span>{{exercise.word}}</span>\
-            <span>{{exercise.translation}}</span>\
+            <span>{{exercise.originalSentence}}</span>\
+            <span>{{exercise.translatedSentance}}</span>\
         </a>\
         ";
     }
@@ -29,8 +28,8 @@ export class WordExerciseTemplate extends ExerciseTemplate  {
     public createExerciseInputHTML() {
         let createExDiv = document.getElementById("create-exercise");
         createExDiv.innerHTML = "\
-        <input [(ngModel)]='exercise.word' placeholder='word'/> \
-        <input [(ngModel)]='exercise.translation' placeholder='translation'/> \
+        <input [(ngModel)]='exercise.originalSentence' placeholder='originalSentence'/> \
+        <input [(ngModel)]='exercise.translatedSentance' placeholder='translatedSentance'/> \
         ";
     }
 }
