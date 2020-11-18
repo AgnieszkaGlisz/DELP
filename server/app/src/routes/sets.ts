@@ -372,17 +372,17 @@ router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{
     })
 })
 
-function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
-    common.adminLog("Updating info about audio in set "+ idSet + " in exercise " + exerciseOrder + ".")
-    var sql = 'UPDATE `ExerciseSets`' 
-    sql+= ' SET ifAudio = 1 '
-    sql+= ' WHERE id= ' + idSet
-    db.query(sql,function(result:any){})
-    var sql = 'UPDATE `ExerciseSets`' 
-    sql+= ' SET ifAudio = 1 '
-    sql+= ' WHERE id= ' + idSet
-    db.query(sql,function(result:any){})
-}
+// function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
+//     common.adminLog("Updating info about audio in set "+ idSet + " in exercise " + exerciseOrder + ".")
+//     var sql = 'UPDATE `ExerciseSets`' 
+//     sql+= ' SET ifAudio = 1 '
+//     sql+= ' WHERE id= ' + idSet
+//     db.query(sql,function(result:any){})
+//     var sql = 'UPDATE `ExerciseSets`' 
+//     sql+= ' SET ifAudio = 1 '
+//     sql+= ' WHERE id= ' + idSet
+//     db.query(sql,function(result:any){})
+// }
 
 function updateVideoFileInfo(idSet:number,exerciseOrder:number,path:string){
     var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
@@ -420,9 +420,9 @@ function updateVideoFileInfo(idSet:number,exerciseOrder:number,path:string){
     })
 }
 
-function updatePictureFileInfo(idSet:number,exerciseOrder:number,path:string){
+// function updatePictureFileInfo(idSet:number,exerciseOrder:number,path:string){
     
-}
+// }
 
 
 module.exports = router;
