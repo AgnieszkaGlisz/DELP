@@ -44,6 +44,8 @@ CREATE TABLE SetsExercises(
     idExercise INT,
     PRIMARY KEY (id)
 );
+ALTER TABLE `SetsExercises`
+ADD exerciseOrder INT
 
 --stworzenie tabeli WordExerciseTemplate by przechować wszystkie zadania tego typu
 CREATE TABLE WordExerciseTemplate(
@@ -56,6 +58,7 @@ CREATE TABLE WordExerciseTemplate(
     picturePath VARCHAR(255),
     PRIMARY KEY (id)
 );
+
 
 --stworzenie tabeli FillSentanceExerciseTemplate by przechować wszystkie zadania tego typu
 CREATE TABLE FillSentenceExerciseTemplate(
