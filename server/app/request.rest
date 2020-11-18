@@ -103,7 +103,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
         "ifPicture": null
     },
     "exercises":[
-        {
+        {   
+            "id":1,
             "template": "FillSentenceExerciseTemplate",
             "leftPartOfSentence": "test left part",
             "wordToFill": "test word",
@@ -111,11 +112,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
             "incorrectWords": [{"word":"wrongtestword"},{"word":"wrongtestword2"}] 
         },
         {
+            "id":2,
             "template": "TranslateSentenceExerciseTemplate",
             "oryginalSentence": "test sentence",
             "translatedSentence": "test translation."
         },
         {
+            "id":3,
             "template": "WordExerciseTemplate",
             "word": "test word",
             "translation": "test translation"
@@ -135,7 +138,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
 
 ###
 
-GET  http://localhost:3500/set/14
+GET  http://localhost:3500/set/41
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
 
 ###
@@ -163,9 +166,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hb
 
 ###
 GET http://localhost:3500/my-sets
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA
 
-
-
-
-
+SELECT FillSentenceExerciseTemplate.*,IncorrectWordsFillSentenceExerciseTemplate.word AS incorrect FROM FillSentenceExerciseTemplate, IncorrectWordsFillSentenceExerciseTemplate WHERE FillSentenceExerciseTemplate.id IN (20,2) AND IncorrectWordsFillSentenceExerciseTemplate.idFillSentenceExerciseTemplate = FillSentenceExerciseTemplate.id

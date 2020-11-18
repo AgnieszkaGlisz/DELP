@@ -6,11 +6,17 @@ import common = require("../common")
 
 function sortExercises(exercises:any,templates:any){
     common.adminLog('Sorting exercises.')
-    var tmpExercises = []
+    var tmpExercises = new Array(templates.length);
     for(var i =0 ; i< templates.length; i++){
+        if(templates[i].exerciseOrder == null){
+            common.adminLog("Random exercise order.")
+            return
+        }
+    }
+    for(var i =0 ; i < templates.length; i++){
         for(var j =0 ; j< exercises.length; j++){
-            if(templates[i].name == exercises[j].template && templates[i].idExercise == exercises[j].id) { 
-                tmpExercises.push(exercises[j])
+            if(templates[i].idExercise == exercises[j].id){
+                tmpExercises[templates[i].exerciseOrder-1] = exercises[j]
                 continue
             }
         }
@@ -48,7 +54,7 @@ router.get('/set/:id', auth.authenticateToken, (req, res) =>{
         } 
         common.adminLog('Preparing and sending lesson and all exercises.')
         var set = createResponseSet(result[0]);
-        sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,TemplatesInfo.name FROM SetsExercises, TemplatesInfo WHERE TemplatesInfo.id = SetsExercises.idTemplate AND SetsExercises.idSet = ' + req.params.id
+        sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,TemplatesInfo.name,SetsExercises.exerciseOrder FROM SetsExercises, TemplatesInfo WHERE TemplatesInfo.id = SetsExercises.idTemplate AND SetsExercises.idSet = ' + req.params.id
         db.query(sql, function(templates:any){
             if(templates == 0){
                 res.status(404).json({error: "No result."})
@@ -70,18 +76,40 @@ router.get('/set/:id', auth.authenticateToken, (req, res) =>{
             if(fillSentenceTemplates.length != 0){
                 common.adminLog('Preparing FillSentenceExerciseTemplate Exercises.')
                 var ids = JSON.stringify(fillSentenceTemplates).replace('[','(').replace(']',')')
-                sql = 'SELECT * FROM FillSentenceExerciseTemplate WHERE id IN ' + ids
+                sql = 'SELECT `FillSentenceExerciseTemplate`.*,`IncorrectWordsFillSentenceExerciseTemplate`.word AS incorrect '
+                sql += ' FROM `FillSentenceExerciseTemplate`' 
+                sql += ' LEFT JOIN IncorrectWordsFillSentenceExerciseTemplate '
+                sql += ' ON `FillSentenceExerciseTemplate`.id=`IncorrectWordsFillSentenceExerciseTemplate`.idFillSentenceExerciseTemplate '
+                sql += ' WHERE FillSentenceExerciseTemplate.id IN ' + ids
                 db.query(sql,function(result:any){
                     if(result == 0)
                         return 
-                    for (var i = 0; i < result.length ; i++) 
+                    var readyExercises=[{}]
+                    readyExercises.pop()
+                    var next = false
+                    for (var i = 0; i < result.length ; i++){ 
+                        next = false
+                        for(var j = 0;j<readyExercises.length;j++){
+                            if(readyExercises[j]==result[i].id){
+                                var next = true
+                                continue
+                            }
+                        }
+                        if(next) continue  
+                        readyExercises.push(result[i].id)
+                        var incorrectWords =[]
+                        for (var j = 0; j < result.length ; j++){
+                            if(result[j].id == result[i].id && result[j].incorrect != null)
+                                incorrectWords.push(result[j].incorrect)
+                        }
                         exercises.push({
                             id:result[i].id,
                             template:'FillSentenceExerciseTemplate',
                             leftPartOfSentence:result[i].leftPartOfSentence,
                             wordToFill:result[i].wordToFill,
                             rightPartOfSentence: result[i].rightPartOfSentence,
-                            incorrectWords: {}})
+                            incorrectWords: incorrectWords})
+                    }
                     if(exercises.length == templates.length){
                         sortExercises(exercises,templates)
                         var lessonRes = {
@@ -159,7 +187,7 @@ router.get('/sets', auth.authenticateToken, (req, res) =>{
 })
 
 router.get('/my-sets', auth.authenticateToken, (req:any, res) =>{
-    common.adminLog("Sets search.")
+    common.adminLog("User sets search.")
     var sql = 'SELECT * FROM `ExerciseSets` WHERE (deleted = 0 OR deleted is null) and idCreator = ' + req.user.id
     db.query(sql,function(result:any){
         if(result == 0){
@@ -174,9 +202,9 @@ router.get('/my-sets', auth.authenticateToken, (req:any, res) =>{
     })
 })
 
-function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any){
-    var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`)'
-    sql+='VALUES ('+setId+', '+templateId+', '+exerciseId+')'
+function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any,exerciseOrder:any){
+    var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`,`exerciseOrder`)'
+    sql+='VALUES ('+setId+', '+templateId+', '+exerciseId+','+exerciseOrder+')'
     db.query(sql,function(result:any){
         if(result == 0){
             return
@@ -198,17 +226,42 @@ function insertIntoIncorrectWords(exerciseId:any,words:any){
     }   
 }
 
-function insertIntoFillSentenceTemplate(exercises:any,setId:any){
+function insertIntoFillSentenceTemplate(exercise:any,setId:any){
     var sql = 'INSERT INTO `FillSentenceExerciseTemplate` (`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) '
-    sql +='VALUES ('+setId+', "'+exercises.leftPartOfSentence+'", "'+exercises.wordToFill+'","'+exercises.rightPartOfSentence+'", NULL, NULL, NULL)'
+    sql +='VALUES ('+setId+', "'+exercise.leftPartOfSentence+'", "'+exercise.wordToFill+'","'+exercise.rightPartOfSentence+'", NULL, NULL, NULL)'
     db.query(sql,function(result:any){
         if(result == 0){
             return
         } 
         var exerciseId = result.insertId
         common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
-        insertIntoSetsExercises(setId,2,exerciseId)
-        insertIntoIncorrectWords(exerciseId,exercises.incorrectWords)
+        insertIntoSetsExercises(setId,2,exerciseId,exercise.id)
+        insertIntoIncorrectWords(exerciseId,exercise.incorrectWords)
+    })
+}
+
+function insertIntoWordTemplate(exercise:any,setId:any){
+    var sql = 'INSERT INTO `WordExerciseTemplate` (`idSet`, `word`, `translation`, `videoPath`, `audioPath`, `picturePath`) '
+    sql +='VALUES ('+setId+', "'+exercise.word+'", "'+exercise.translation+'", NULL, NULL, NULL)'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            return
+        } 
+        var exerciseId = result.insertId
+        common.adminLog("Insert into WordExerciseTemplate for setId:"+setId+" .")
+        insertIntoSetsExercises(setId,1,exerciseId,exercise.id)
+    })
+}
+function insertTranslateSentenceTemplate(exercise:any,setId:any){
+    var sql = ' INSERT INTO `TranslateSentenceExerciseTemplate` (`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) '
+    sql +='VALUES ('+setId+', "'+exercise.oryginalSentence+'", "'+exercise.translatedSentence+'", NULL, NULL, NULL)'
+    db.query(sql,function(result:any){
+        if(result == 0){
+            return
+        } 
+        var exerciseId = result.insertId
+        common.adminLog("Insert into TranslateSentenceExerciseTemplate for setId:"+setId+" .")
+        insertIntoSetsExercises(setId,3,exerciseId,exercise.id)
     })
 }
 
@@ -225,8 +278,8 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfVideo = null
     var setIfAudio = null
     var setIfPicture = null
-    var exercises = req.body.Exercises
-    
+    var exercises = req.body.exercises
+
     // checking data from client
     if(setName == undefined){
         res.status(400).json({error: "Data error - name."})
@@ -250,60 +303,50 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     }
     for(var i =0; i<exercises.length; i++){
         if(exercises[i].template == undefined){
-            res.status(400).json({error: "Data error."})
+            res.status(400).json({error: "Data error - template."})
+            return
+        }
+        else if(exercises[i].id == undefined){
+            res.status(400).json({error: "Data error - id."})
             return
         }
         else if(exercises[i].template == 'TranslateSentenceExerciseTemplate' && (exercises[i].oryginalSentence== undefined || exercises[i].translatedSentence == undefined)){
-            res.status(400).json({error: "Data error."})
+            res.status(400).json({error: "Data error - TranslateSentenceExerciseTemplate."})
             return
         }
         else if(exercises[i].template == 'WordExerciseTemplate' && ( exercises[i].word==undefined || exercises[i].translation == undefined)){
-            res.status(400).json({error: "Data error."})
+            res.status(400).json({error: "Data error - WordExerciseTemplate."})
             return
         }
         else if(exercises[i].template == 'FillSentenceExerciseTemplate' && (exercises[i].leftPartOfSentence == undefined || exercises[i].wordToFill==undefined || exercises[i].rightPartOfSentence == undefined)){
-            res.status(400).json({error: "Data error."})
+            res.status(400).json({error: "Data error - FillSentenceExerciseTemplate."})
             return
         }
     }
+    if(setIsWordset == undefined) setIsWordset = null
 
+   
     // Inserting data to database
     var sql = 'INSERT INTO `ExerciseSets` (`name`, `info`, `idCreator`, `setCreation`, `idBaseLanguage`, `idLearnLanguage`,`isWordSet`, `popularity`, `ifVideo`, `ifAudio`, `ifPicture`)'
     sql += 'VALUES ("'+setName+'", "'+setInfo+'", "'+setCreatorId+'","'+setCreationDate+'", '+setBaseLanId+', '+setLearnLanId+', '+setIsWordset+', '+setPopularity+', '+setIfVideo+', '+setIfAudio+', '+setIfPicture+')'
+    
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(401).json({error: "Insertion error."})
             return
         } 
         var setId = result.insertId
+        res.status(200).json({setId: setId})
         common.adminLog("Insert into ExerciseSets.")
         for(var i = 0; i< exercises.length;i++){
             if(exercises[i].template == 'FillSentenceExerciseTemplate'){
                 insertIntoFillSentenceTemplate(exercises[i],setId)
             }
             else if(exercises[i].template == 'TranslateSentenceExerciseTemplate'){
-                sql = ' INSERT INTO `TranslateSentenceExerciseTemplate` (`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) '
-                sql +='VALUES ('+setId+', "'+exercises[i].oryginalSentence+'", "'+exercises[i].translatedSentence+'", NULL, NULL, NULL)'
-                db.query(sql,function(result:any){
-                    if(result == 0){
-                        return
-                    } 
-                    var exerciseId = result.insertId
-                    common.adminLog("Insert into TranslateSentenceExerciseTemplate for setId:"+setId+" .")
-                    insertIntoSetsExercises(setId,3,exerciseId)
-                })
+                insertTranslateSentenceTemplate(exercises[i],setId)
             }
             else if(exercises[i].template == 'WordExerciseTemplate'){
-                sql = 'INSERT INTO `WordExerciseTemplate` (`idSet`, `word`, `translation`, `videoPath`, `audioPath`, `picturePath`) '
-                sql +='VALUES ('+setId+', "'+exercises[i].word+'", "'+exercises[i].translation+'", NULL, NULL, NULL)'
-                db.query(sql,function(result:any){
-                    if(result == 0){
-                        return
-                    } 
-                    var exerciseId = result.insertId
-                    common.adminLog("Insert into WordExerciseTemplate for setId:"+setId+" .")
-                    insertIntoSetsExercises(setId,1,exerciseId)
-                })
+                insertIntoWordTemplate(exercises[i],setId)
             }
         }
     })
