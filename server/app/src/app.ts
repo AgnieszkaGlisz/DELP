@@ -26,4 +26,4 @@ app.use(routerBasic)
 const port = process.env.PORT || 3000
 app.listen(port, () => common.adminLog("Listening on PORT: " + port))
 
-module.exports = app
+module.exports = {app}

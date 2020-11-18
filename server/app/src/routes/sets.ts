@@ -225,7 +225,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfVideo = null
     var setIfAudio = null
     var setIfPicture = null
-    var exercises = req.body.Exercises
+    var exercises = req.body.exercises
     
     // checking data from client
     if(setName == undefined){

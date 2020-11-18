@@ -6,6 +6,16 @@ import common = require("../common")
 
 //logowanie 
 router.post('/login', (req, res) => {
+    try{
+        if(req.body.username == undefined || req.body.password==undefined){
+            res.status(403).json({error: "No login or password."})
+            return
+        }
+    }
+    catch(err){
+        console.log(err)
+        return
+    }
     var sql = 'SELECT * FROM Users where username = "' + req.body.username + '" and password = "' + req.body.password + '"'
     db.query(sql,function(result:any){
         if(result == 0){
