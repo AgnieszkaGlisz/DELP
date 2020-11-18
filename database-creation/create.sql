@@ -57,7 +57,7 @@ CREATE TABLE WordExerciseTemplate(
     PRIMARY KEY (id)
 );
 
---stworzenie tabeli FillSentanceExerciseTemplate by przechować wszystkie zadania tego typu
+--stworzenie tabeli FillSentenceExerciseTemplate by przechować wszystkie zadania tego typu
 CREATE TABLE FillSentenceExerciseTemplate(
     id INT NOT NULL AUTO_INCREMENT,
     idSet INT NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE FillSentenceExerciseTemplate(
     PRIMARY KEY (id)
 );
 
---stworzenie tabeli IncorrectWordsFillSentanceExerciseTemplate by przechować wszystkie dodatkowe słowa do zadania
+--stworzenie tabeli IncorrectWordsFillSentenceExerciseTemplate by przechować wszystkie dodatkowe słowa do zadania
 CREATE TABLE IncorrectWordsFillSentenceExerciseTemplate(
     id INT NOT NULL AUTO_INCREMENT,
     word VARCHAR(255),
@@ -78,7 +78,7 @@ CREATE TABLE IncorrectWordsFillSentenceExerciseTemplate(
     PRIMARY KEY (id)
 );
 
---stworzenie tabeli TranslateSentanceExerciseTemplate by przechować wszystkie zadania tego typu
+--stworzenie tabeli TranslateSentenceExerciseTemplate by przechować wszystkie zadania tego typu
 CREATE TABLE TranslateSentenceExerciseTemplate(
     id INT NOT NULL AUTO_INCREMENT,
     idSet INT NOT NULL,

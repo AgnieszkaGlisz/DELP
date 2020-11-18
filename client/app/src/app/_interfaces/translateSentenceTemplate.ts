@@ -2,8 +2,8 @@ import { Set } from './set';
 import { ExerciseTemplate } from './exerciseTemplate';
 export class TranslateSentenceExerciseTemplate extends ExerciseTemplate {
     template: "TranslateSentenceExerciseTemplate";
-    originalSentence: string;
-    translatedSentance: string;
+    oryginalSentence: string;
+    translatedSentence: string;
 
     public addExerciseToSet(set: Set) {
         super.addExerciseToSet(set);
@@ -19,8 +19,8 @@ export class TranslateSentenceExerciseTemplate extends ExerciseTemplate {
         listOfExercises.innerHTML += "\
         <a>\
             <span>{{exercise.id}}</span>\
-            <span>{{exercise.originalSentence}}</span>\
-            <span>{{exercise.translatedSentance}}</span>\
+            <span>{{exercise.oryginalSentence}}</span>\
+            <span>{{exercise.translatedSentence}}</span>\
         </a>\
         ";
     }
@@ -28,8 +28,8 @@ export class TranslateSentenceExerciseTemplate extends ExerciseTemplate {
     public createExerciseInputHTML() {
         let createExDiv = document.getElementById("create-exercise");
         createExDiv.innerHTML = "\
-        <input [(ngModel)]='exercise.originalSentence' placeholder='originalSentence'/> \
-        <input [(ngModel)]='exercise.translatedSentance' placeholder='translatedSentance'/> \
+        <input [(ngModel)]='exercise.oryginalSentence' placeholder='oryginalSentence'/> \
+        <input [(ngModel)]='exercise.translatedSentence' placeholder='translatedSentence'/> \
         ";
     }
 }

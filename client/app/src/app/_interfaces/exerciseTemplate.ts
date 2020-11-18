@@ -22,7 +22,7 @@ export class ExerciseTemplate {
 
     createExerciseInputHTML() { }
 
-    deleteWord(set: Set): void {
+    deleteExercise(set: Set): void {
         set.exercises = set.exercises.filter(w => w !== this);
     }
 }

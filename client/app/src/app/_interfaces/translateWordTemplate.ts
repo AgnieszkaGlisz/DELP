@@ -1,5 +1,7 @@
 import { Set } from './set';
 import { ExerciseTemplate } from './exerciseTemplate';
+import { DomSanitizer } from '@angular/platform-browser';
+
 export class WordExerciseTemplate extends ExerciseTemplate  {
     template: "WordExerciseTemplate";
     idSet: number;

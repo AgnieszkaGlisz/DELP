@@ -21,7 +21,7 @@ export class WordsetLearnComponent implements OnInit {
 
   ngOnInit(): void {
     this.wordIndex = -1;
-    this.wordset = <Wordset>{};
+    this.wordset = new Wordset();
     this.getWordset();
   }
 

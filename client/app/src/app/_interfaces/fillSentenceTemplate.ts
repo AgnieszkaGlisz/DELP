@@ -3,7 +3,7 @@ import { ExerciseTemplate } from './exerciseTemplate';
 // export interface FillSentenceExerciseTemplate extends IExerciseTemplate {
 //     leftPartOfSentence: string;
 //     wordToFill: string;
-//     rightPartOfSentance: string;
+//     rightPartOfSentence: string;
 //     incorrectWords: {"word": string}[];
 //     template: "FillSentenceExerciseTemplate";
 // }
@@ -12,7 +12,7 @@ export class FillSentenceExerciseTemplate extends ExerciseTemplate {
     template: "FillSentenceExerciseTemplate";
     leftPartOfSentence: string;
     wordToFill: string;
-    rightPartOfSentance: string;
+    rightPartOfSentence: string;
     incorrectWords: {"word": string}[];
 
     addExerciseToSet(set: Set) {
@@ -31,7 +31,7 @@ export class FillSentenceExerciseTemplate extends ExerciseTemplate {
             <span>{{exercise.id}}</span>\
             <span>{{exercise.leftPartOfSentence}}</span>\
             <span>{{exercise.wordToFill}}</span>\
-            <span>{{exercise.rightPartOfSentance}}</span>\
+            <span>{{exercise.rightPartOfSentence}}</span>\
         </a>\
         ";
     }
@@ -41,7 +41,7 @@ export class FillSentenceExerciseTemplate extends ExerciseTemplate {
         createExDiv.innerHTML = "\
         <input [(ngModel)]='exercise.leftPartOfSentence' placeholder='leftPartOfSentence'/> \
         <input [(ngModel)]='exercise.wordToFill' placeholder='wordToFill'/> \
-        <input [(ngModel)]='exercise.rightPartOfSentance' placeholder='rightPartOfSentance'/> \
+        <input [(ngModel)]='exercise.rightPartOfSentence' placeholder='rightPartOfSentence'/> \
         ";
     }
 }
