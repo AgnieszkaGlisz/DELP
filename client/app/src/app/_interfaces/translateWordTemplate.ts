@@ -13,6 +13,7 @@ export class WordExerciseTemplate extends ExerciseTemplate  {
         let sth = Object.assign(exerciseCopy, this);
         
         set.exercises.push(exerciseCopy);
+        return exerciseCopy.id;
     }
 
     public displayExerciseHTML() {

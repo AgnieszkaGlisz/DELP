@@ -17,6 +17,7 @@
             <button class="add-word" (click)="addExercise()">+</button>
             <!-- <button class="add-word" (click)="addWord(word.value, translation.value); word.value=''; translation.value=''">+</button> -->
             <input [(ngModel)]="exercise.word" placeholder="word"/><input [(ngModel)]="exercise.translation" placeholder="translation"/>
+            <input #fileInput type="file">
             <!-- <input *ngIf="exercise.word" [(ngModel)]="exercise.word" placeholder="word"/><input *ngIf="exercise.translation" [(ngModel)]="exercise.translation" placeholder="translation"/> -->
             <!-- <button (click)="addWord(original.value, translation.value); original.value=''; translation.value=''">+</button> -->
         </li>

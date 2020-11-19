@@ -281,7 +281,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setIfAudio = null
     var setIfPicture = null
     var exercises = req.body.exercises
-
+    var setId;
     // checking data from client
     if(setName == undefined){
         res.status(400).json({error: "Data error - name."})
@@ -336,7 +336,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
             res.status(401).json({error: "Insertion error."})
             return
         } 
-        var setId = result.insertId
+        setId = result.insertId
         res.status(200).json({setId: setId})
         common.adminLog("Insert into ExerciseSets.")
         for(var i = 0; i< exercises.length;i++){
@@ -350,7 +350,9 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
                 insertIntoWordTemplate(exercises[i],setId)
             }
         }
+        
     })
+    
 })
 
 router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{

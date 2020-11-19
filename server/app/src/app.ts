@@ -14,13 +14,18 @@ app.use(express.json())
 //routing
 const routerWords = require('./routes/words')
 app.use(routerWords)
+
 const routerSets = require('./routes/sets')
 app.use(routerSets)
+
 const routerUser = require('./routes/user')
 app.use(routerUser)
+
 const routerBasic = require('./routes/basic')
 app.use(routerBasic)
 
+const routerFiles = require('./routes/files')
+app.use(routerFiles)
 
 //wlaczenie serwera nasluchiwanie na porcie ustawionym .env lub 3000
 const port = process.env.PORT || 3000
