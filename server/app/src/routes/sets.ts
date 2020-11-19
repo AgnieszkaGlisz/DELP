@@ -372,17 +372,41 @@ router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{
     })
 })
 
-// function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
-//     common.adminLog("Updating info about audio in set "+ idSet + " in exercise " + exerciseOrder + ".")
-//     var sql = 'UPDATE `ExerciseSets`' 
-//     sql+= ' SET ifAudio = 1 '
-//     sql+= ' WHERE id= ' + idSet
-//     db.query(sql,function(result:any){})
-//     var sql = 'UPDATE `ExerciseSets`' 
-//     sql+= ' SET ifAudio = 1 '
-//     sql+= ' WHERE id= ' + idSet
-//     db.query(sql,function(result:any){})
-// }
+function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
+    var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
+    sql += ' FROM SetsExercises '
+    sql += ' WHERE  SetsExercises.idSet = ' + idSet
+    db.query(sql, function(result:any){
+        if(result == 0) 
+            return
+        for(var i = 0; i < result.length;i++){
+            if( result[i].exerciseOrder == exerciseOrder){
+                var template
+                if(result[i].idTemplate == 1){
+                    template = 'WordExerciseTemplate'
+                }
+                else if(result[i].idTemplate == 2){
+                    template = 'FillSentenceExerciseTemplate'
+                }
+                else if(result[i].idTemplate == 3){
+                    template = 'TranslateSentenceExerciseTemplate'
+                }
+                if(template != undefined){
+                    sql = 'UPDATE `'+template+'`'
+                    sql+= ' SET audioPath = "' + path + '"'
+                    sql+= ' WHERE id=' + result[i].idExercise
+                    db.query(sql, function(result:any){})
+
+                    sql = 'UPDATE `ExerciseSets`' 
+                    sql+= ' SET ifAudio = 1 '
+                    sql+= ' WHERE id= ' + idSet
+                    db.query(sql,function(result:any){})
+                    }
+                break
+            }
+        }
+    })
+}
 
 function updateVideoFileInfo(idSet:number,exerciseOrder:number,path:string){
     var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
@@ -404,7 +428,7 @@ function updateVideoFileInfo(idSet:number,exerciseOrder:number,path:string){
                     template = 'TranslateSentenceExerciseTemplate'
                 }
                 if(template != undefined){
-                    sql = 'UPDATE `ExerciseSets`'
+                    sql = 'UPDATE `'+template+'`'
                     sql+= ' SET videoPath = "' + path + '"'
                     sql+= ' WHERE id=' + result[i].idExercise
                     db.query(sql, function(result:any){})
@@ -420,9 +444,40 @@ function updateVideoFileInfo(idSet:number,exerciseOrder:number,path:string){
     })
 }
 
-// function updatePictureFileInfo(idSet:number,exerciseOrder:number,path:string){
-    
-// }
+function updatePictureFileInfo(idSet:number,exerciseOrder:number,path:string){
+    var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
+    sql += ' FROM SetsExercises '
+    sql += ' WHERE  SetsExercises.idSet = ' + idSet
+    db.query(sql, function(result:any){
+        if(result == 0) 
+            return
+        for(var i = 0; i < result.length;i++){
+            if( result[i].exerciseOrder == exerciseOrder){
+                var template
+                if(result[i].idTemplate == 1){
+                    template = 'WordExerciseTemplate'
+                }
+                else if(result[i].idTemplate == 2){
+                    template = 'FillSentenceExerciseTemplate'
+                }
+                else if(result[i].idTemplate == 3){
+                    template = 'TranslateSentenceExerciseTemplate'
+                }
+                if(template != undefined){
+                    sql = 'UPDATE `'+template+'`'
+                    sql+= ' SET picturePath = "' + path + '"'
+                    sql+= ' WHERE id=' + result[i].idExercise
+                    db.query(sql, function(result:any){})
 
+                    sql = 'UPDATE `ExerciseSets`' 
+                    sql+= ' SET ifPicture = 1 '
+                    sql+= ' WHERE id= ' + idSet
+                    db.query(sql,function(result:any){})
+                    }
+                break
+            }
+        }
+    })
+}
 
 module.exports = router;
