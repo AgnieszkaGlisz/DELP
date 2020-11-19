@@ -4,6 +4,7 @@ import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
+
 function sortExercises(exercises:any,templates:any){
     common.adminLog('Sorting exercises.')
     var tmpExercises = new Array(templates.length);
@@ -353,6 +354,11 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
         
     })
     
+})
+
+router.get('/xd', (req,res) => {
+    
+    res.send("xd");
 })
 
 router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{

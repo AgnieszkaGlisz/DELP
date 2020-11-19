@@ -4,6 +4,26 @@ import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
+const multer = require('multer')
+
+
+const storage = multer.diskStorage({
+    destination: './userMedia/pictures',
+    filename: function(req:any,file:any,cb:any){
+        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
+    }
+})
+const upload = multer({storage: storage})
+
+
+router.post('/image', auth.authenticateToken, upload.single('image'), (req:any,res) => { // 
+    console.log("in the image")
+    common.adminLog(req.file)
+    common.adminLog(req.query)
+    res.send({message: "ok"})
+})
+
+
 function createResponseWord(result:any){
     var wordTemp = [];
         for (var i = 0; i < result.length ; i++) { 

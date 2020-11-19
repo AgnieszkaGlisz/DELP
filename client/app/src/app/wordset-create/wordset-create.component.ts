@@ -57,15 +57,15 @@ export class WordsetCreateComponent implements OnInit {
 
   saveSet(): void {
     this.set.saveSet();
-    
-    //this.wordsetService.saveWordset(this.set).subscribe(x => {
-    //   console.log("in save set");
-    //   console.log(x['setId'])
-       //this.files.forEach(function(val){
-       //  this.wordsetService.sendFile(val, x['setId'] )
-       //})
-    //});
-    this.wordsetService.sendFile(this.files.pop(), 6)
+    this.wordsetService.saveWordset(this.set).subscribe(x => {
+       console.log("in save set");
+       console.log()
+       while(this.files.length > 0){
+        this.wordsetService.sendFile(this.files.pop(), x['setId']).subscribe(x => {
+            console.log(x)
+        });
+       }
+    });
   }
 
   // addWord(word: string, translation: string): void {

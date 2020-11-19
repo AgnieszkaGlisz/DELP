@@ -24,6 +24,11 @@ export class WordsetService {
       'Content-Type': 'application/json',
     })
   };
+  httpOptionsFile = {
+    headers: new HttpHeaders({
+      'Content-Type': ''
+    })
+  }
 
   getFavourites(): Observable<Set[]> {
     return this.http.get<Set[]>(`${this.url}/favourite`, this.httpOptions);
@@ -51,11 +56,10 @@ export class WordsetService {
     return this.http.post<JSON>(`${this.url}/add-set`, wordset, this.httpOptions);
   }
   
-  sendFile(file: fileInfo, setId: number): Observable<fileInfo> {
-    // this.messageService.add("Wordset service: POST wordset");
-    console.log("in send file" + file + setId);
-    console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
-    return this.http.post<fileInfo>(`${this.url}/file/`+ file.type, file, this.httpOptions);
+  sendFile(file: fileInfo, setId: number): Observable<any> {
+    //console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
+    console.log(`${this.url}/image`)
+    return this.http.post<any>(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
   }
  
 }

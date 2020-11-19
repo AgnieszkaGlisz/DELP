@@ -169,3 +169,7 @@ GET http://localhost:3500/my-sets
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA
 
 SELECT FillSentenceExerciseTemplate.*,IncorrectWordsFillSentenceExerciseTemplate.word AS incorrect FROM FillSentenceExerciseTemplate, IncorrectWordsFillSentenceExerciseTemplate WHERE FillSentenceExerciseTemplate.id IN (20,2) AND IncorrectWordsFillSentenceExerciseTemplate.idFillSentenceExerciseTemplate = FillSentenceExerciseTemplate.id
+
+###
+POST http://localhost:3500/image
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA

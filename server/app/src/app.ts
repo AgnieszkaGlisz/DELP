@@ -24,11 +24,13 @@ app.use(routerUser)
 const routerBasic = require('./routes/basic')
 app.use(routerBasic)
 
-const routerFiles = require('./routes/files')
-app.use(routerFiles)
+//const routerFiles = require('./routes/files')
+//app.use('/set', routerFiles)
 
 //wlaczenie serwera nasluchiwanie na porcie ustawionym .env lub 3000
 const port = process.env.PORT || 3000
 app.listen(port, () => common.adminLog("Listening on PORT: " + port))
+
+
 
 module.exports = {app}
