@@ -5,61 +5,78 @@ import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
-// bcrypt.hash("hnurska", 10, (err, hash) => {
-//     console.log("hnurska: "+ hash)
-//   });
-//   bcrypt.hash("cgrabowski", 10, (err, hash) => {
-//     console.log("cgrabowski: "+ hash)
-//   });
-//   bcrypt.hash("agliszczynska", 10, (err, hash) => {
-//     console.log("agliszczynska: "+ hash)
-//   });
-//   bcrypt.hash("wkuchta", 10, (err, hash) => {
-//     console.log("wkuchta: "+ hash)
-//   });
-//   bcrypt.hash("testniedoslyszacy", 10, (err, hash) => {
-//     console.log("testniedoslyszacy: "+ hash)
-//   });
-//   bcrypt.hash("testniedowidzacy", 10, (err, hash) => {
-//     console.log("testniedowidzacy: "+ hash)
-//   });
-//   bcrypt.hash("testdaltonista", 10, (err, hash) => {
-//     console.log("testdaltonista: "+ hash)
-//   });
-//   bcrypt.hash("testzablokowany", 10, (err, hash) => {
-//     console.log("testzablokowany: "+ hash)
-//   });
+router.post('/register', (req, res) => {
+    var username = req.body.userInfo.username
+    var password = req.body.userInfo.password
+    var email = req.body.userInfo.email
+    var name = req.body.userInfo.name
+    var surname  = req.body.userInfo.surname
+    var birthday  = req.body.userInfo.birthday
+    var idFirstLanguage = req.body.userInfo.idFirstLanguage
+    var idColorSets = req.body.preferences.idColorSets
+    var fontSize = req.body.preferences.fontSize
+    var noSound  = req.body.preferences.noSound
+    var date = new Date()
+    var accountCreation = date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()
+    try{
+        if(username == undefined || password==undefined || email == undefined || idFirstLanguage==undefined){
+            res.status(403).json({error: "Data error."})
+            return
+        }
+        if(name == undefined){
+            name = "";
+        }
+        if(surname == undefined){
+            surname = "";
+        }
+        if(birthday == undefined){
+            birthday = accountCreation;
+        }
+        if(idColorSets == undefined){
+            idColorSets = 1;
+        }
+        if(fontSize == undefined){
+            fontSize = null;
+        }
+        if(noSound == undefined){
+            noSound = null;
+        }
+    }
+    
+    catch(err){
+        console.log(err)
+        return
+    }
+    var sql = 'SELECT * FROM Users where username = "' + username + '"'
+    db.query(sql,function(result:any){
+        if(result != 0){
+            res.status(401).json({error: "User already exists."})
+            return
+        } 
+        bcrypt.hash(password, 10, (err, hash) => {
+            sql = 'INSERT INTO `Users` (`username`, `password`, `email`, `name`, `surname`, `birthday`, `accountCreation`, `idFirstLanguage`)'
+            sql +=' VALUES ("'+username+'", "'+hash+'", "'+email+'", "'+name+'", "'+surname+'", "'+birthday+'", "'+accountCreation+'",'+idFirstLanguage+')'
+            db.query(sql,function(result:any){
+                if(result == 0){
+                    res.status(401).json({error: "Error."})
+                    return
+                } 
+                var userId = result.insertId
+                sql = 'INSERT INTO `UserPreferences` (`idUser`, `idColorSets`, `fontSize`,`noSound`) '
+                sql +='VALUES ('+userId+', '+idColorSets+',' +fontSize+','+noSound+')'
+                db.query(sql,function(result:any){
+                    if(result == 0){
+                        res.status(401).json({error: "Error."})
+                        return
+                    } 
+                    res.json({message: "User registered."})
+                })
+            })
+        })
+    })
+})
 
-   
-
-// //logowanie 
-// router.post('/login', (req, res) => {
-//     try{
-//         if(req.body.username == undefined || req.body.password==undefined){
-//             res.status(403).json({error: "No login or password."})
-//             return
-//         }
-//     }
-//     catch(err){
-//         console.log(err)
-//         return
-//     }
-//     var sql = 'SELECT * FROM Users where username = "' + req.body.username + '" and password = "' + req.body.password + '"'
-//     db.query(sql,function(result:any){
-//         if(result == 0){
-//             res.status(401).json({error: "Invalid login or password."})
-//             return
-//         } 
-//         if(result[0].isBlocked == true){
-//             common.adminLog('User is blocked.')
-//             res.status(403).json({error: 'User is blocked.'})
-//             return
-//         }
-//         const accessToken = auth.createToken(result[0].id, result[0].username)
-//         res.json({accessToken: accessToken})
-//     })
-// })
-
+//logowanie
 router.post('/login', (req, res) => {
     try{
         if(req.body.username == undefined || req.body.password==undefined){

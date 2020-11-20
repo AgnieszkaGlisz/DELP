@@ -52,6 +52,16 @@ Content-Type: application/json
 }
 
 ###
+###
+
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+    "username": "test",
+    "password": "test"
+}
+###
 
 GET http://localhost:3500/apiinfo
 ###
@@ -170,6 +180,53 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
 
 SELECT FillSentenceExerciseTemplate.*,IncorrectWordsFillSentenceExerciseTemplate.word AS incorrect FROM FillSentenceExerciseTemplate, IncorrectWordsFillSentenceExerciseTemplate WHERE FillSentenceExerciseTemplate.id IN (20,2) AND IncorrectWordsFillSentenceExerciseTemplate.idFillSentenceExerciseTemplate = FillSentenceExerciseTemplate.id
 
+
+SELECT `FillSentenceExerciseTemplate`.*,`IncorrectWordsFillSentenceExerciseTemplate`.word AS incorrect 
+FROM `FillSentenceExerciseTemplate`, `IncorrectWordsFillSentenceExerciseTemplate` 
+FULL OUTER JOIN FillSentenceExerciseTemplate ON FillSentenceExerciseTemplate.id = IncorrectWordsFillSentenceExerciseTemplate.idFillSentenceExerciseTemplate
+WHERE FillSentenceExerciseTemplate.id IN (16)
+
+
+
 ###
-POST http://localhost:3500/image
+GET http://localhost:3500/aa/apiinfoo
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA
+
+
+###
+
+POST http://localhost:3500/register
+Content-Type: application/json
+
+{
+    "userInfo":{
+        "username": "test",
+        "password": "test",
+        "email": "test@test.test",
+        "name": "Test",
+        "surname": "Test",
+        "birthday": "2010-10-10",
+        "idFirstLanguage": 1
+    },
+    "preferences":{
+        "idColorSets":1,
+        "fontSize":null,
+        "noSound":null
+    }
+}
+
+###
+"userInfo":{
+        "username": null,
+        "password": "test",
+        "email": null,
+        "name": "Test",
+        "surname": "Test",
+        "birthday": 2010-10-10,
+        "idFirstLanguage": 1
+    },
+    "preferences":{
+        "idColorSets":1,
+        "fontSize":null,
+        "noSound":null
+    }
