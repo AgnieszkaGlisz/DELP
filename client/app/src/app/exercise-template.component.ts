@@ -4,11 +4,11 @@ export interface ExerciseTemplateComponent {
     data: any;
     component: Type<any>;
 
+    picturePath: string
     id: number;
     template: string;
     videoPath: string;
     audioPath: string;
-    picturePath: string;
     
     // addExerciseToSet(set: Set);
 

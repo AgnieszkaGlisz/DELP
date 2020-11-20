@@ -21,15 +21,15 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   }
 
   @Input() data: any = {word: 'xd', translation: 'heh'};
-  set: Set;
-
-  template: "WordExerciseTemplate";
-  idSet: number;
   word: string;
   translation: string;
+  
+  set: Set;
+  idSet: number;
   component: Type<any>;
 
   id: number;
+  template: string = "WordExerciseTemplate";
   videoPath: string;
   audioPath: string;
   picturePath: string;
