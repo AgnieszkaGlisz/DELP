@@ -1,6 +1,7 @@
 <br>
 <div id="wordset-create">
-    <input [(ngModel)]="set.setInfo.name" placeholder="Wordset Name"/>
+    <input name="wordsetName" [(ngModel)]="set.setInfo.name" placeholder="Wordset Name" />
+    <!-- <span ng-show="wordsetName.$error.required">Please enter the name</span> required=""-->
     <!-- <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.name" placeholder="Wordset Name"/> -->
     <input [(ngModel)]="set.setInfo.info" placeholder="Wordset Info"/>
     <!-- <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.info" placeholder="Wordset Info"/> -->
@@ -17,10 +18,21 @@
             <button class="add-word" (click)="addExercise()">+</button>
             <!-- <button class="add-word" (click)="addWord(word.value, translation.value); word.value=''; translation.value=''">+</button> -->
             <input [(ngModel)]="exercise.word" placeholder="word"/><input [(ngModel)]="exercise.translation" placeholder="translation"/>
-            <input #fileInput type="file">
+            
+            <div class = "dropzone">
+                <h6>Drop the file here</h6>
+                <input #fileInput type="file" accept="image/*" class="imageDrop" >
+                <input #audioInput type="file" accept="audio/*" class="imageDrop">
+                <input #videoInput type="file" accept="video/*" class="imageDrop">
+                <!-- <img src="C:\Users\Angie\Documents\GitHub\DELP\client\app\defaultPic.webp" alt=""> 
+                (change)="onSelectImage($event)"
+                -->
+                
+            </div>
             <!-- <input *ngIf="exercise.word" [(ngModel)]="exercise.word" placeholder="word"/><input *ngIf="exercise.translation" [(ngModel)]="exercise.translation" placeholder="translation"/> -->
             <!-- <button (click)="addWord(original.value, translation.value); original.value=''; translation.value=''">+</button> -->
         </li>
     </ul>
 <button class="save" (click)="saveSet()">Save</button>
+
 </div>

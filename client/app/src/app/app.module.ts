@@ -20,6 +20,8 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { WordsetLearnComponent } from './wordset-learn/wordset-learn.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserSetsComponent } from './user-sets/user-sets.component';
+import { AlertComponent } from './alert/alert.component';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { UserSetsComponent } from './user-sets/user-sets.component';
     WordsetLearnComponent,
     UserLogoutComponent,
     UserSetsComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

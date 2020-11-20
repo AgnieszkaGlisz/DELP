@@ -10,9 +10,11 @@ import { UserService } from '../_services/user.service';
 // import { WORDS } from './../words-mock';
 import { Component, OnInit,ElementRef, ViewChild } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 //import { userInfo } from 'os';
+import {AlertService} from'../alert/alert.service'
 import {fileInfo} from '../_interfaces/files'
+
 @Component({
   selector: 'app-wordset-create',
   templateUrl: './wordset-create.component.html',
@@ -29,7 +31,8 @@ export class WordsetCreateComponent implements OnInit {
     private wordsetService: WordsetService,
     private messageService: MessageService,
     private httpClient: HttpClient,
-    private user: UserService
+    private user: UserService,
+    private alertService: AlertService
     //private user: UserComponent
     ) { }
 
@@ -57,17 +60,34 @@ export class WordsetCreateComponent implements OnInit {
 
   saveSet(): void {
     this.set.saveSet();
-    this.wordsetService.saveWordset(this.set).subscribe(x => {
-       console.log("in save set");
-       console.log()
-       while(this.files.length > 0){
-        this.wordsetService.sendFile(this.files.pop(), x['setId']).subscribe(x => {
-            console.log(x)
-        });
-       }
-    });
+    if (this.set.setInfo.name){
+      this.wordsetService.saveWordset(this.set).subscribe(x => {
+        console.log("in save set");
+        console.log()
+        while(this.files.length > 0){
+         this.wordsetService.sendFile(this.files.pop(), x['setId']).subscribe(x => {
+             console.log(x)
+         });
+        }
+     });
+    }
+    else {
+      console.log("in else")
+        this.alertService.error("Fill set name!")
+    }
   }
 
+  /*onSelectImage(event) { // called each time file input changes
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+       console.log(event.target.result);
+      }
+    }
+}*/
   // addWord(word: string, translation: string): void {
   //   console.log("addWord wordset-create");
   //   if (!word || !translation)
