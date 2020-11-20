@@ -11,15 +11,13 @@
                 <span class="word-left">{{exercise.word}}</span>
                 <span class="word-right">{{exercise.translation}}</span> 
             </a>
-            <button class="delete" title="delete word" (click)="exercise.deleteExercise(set)">x</button>
+            <button class="delete" title="delete word" (click)="deleteExercise(exercise)">x</button>
         </li>
-        <li class="input">
-            <button class="add-word" (click)="addExercise()">+</button>
-            <!-- <button class="add-word" (click)="addWord(word.value, translation.value); word.value=''; translation.value=''">+</button> -->
-            <input [(ngModel)]="exercise.word" placeholder="word"/><input [(ngModel)]="exercise.translation" placeholder="translation"/>
-            <!-- <input *ngIf="exercise.word" [(ngModel)]="exercise.word" placeholder="word"/><input *ngIf="exercise.translation" [(ngModel)]="exercise.translation" placeholder="translation"/> -->
-            <!-- <button (click)="addWord(original.value, translation.value); original.value=''; translation.value=''">+</button> -->
+        <li>
+            <ng-template exerciseHost></ng-template>
+<!-- <input #wordInput1 [(ngModel)]="exercise.word" placeholder="word"/><input #wordInput2 [(ngModel)]="exercise.translation" placeholder="translation"/> -->
+            <button (click)="addExercise(); wordInput1.value=''; wordInput2.value=''">+</button>
         </li>
     </ul>
-<button class="save" (click)="saveSet()">Save</button>
+<button (click)="saveSet()">Save</button>
 </div>

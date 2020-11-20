@@ -20,6 +20,10 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { WordsetLearnComponent } from './wordset-learn/wordset-learn.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserSetsComponent } from './user-sets/user-sets.component';
+import { ExerciseDirective } from './exercise.directive';
+import { WordExerciseTemplateComponent } from './word-exercise-template/word-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { FillSentenceExerciseTemplateComponent } from './fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,10 @@ import { UserSetsComponent } from './user-sets/user-sets.component';
     WordsetLearnComponent,
     UserLogoutComponent,
     UserSetsComponent,
+    ExerciseDirective,
+    WordExerciseTemplateComponent,
+    TranslateSentenceExerciseTemplateComponent,
+    FillSentenceExerciseTemplateComponent,
   ],
   imports: [
     BrowserModule,

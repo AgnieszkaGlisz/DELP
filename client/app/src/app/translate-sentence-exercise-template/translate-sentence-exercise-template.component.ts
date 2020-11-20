@@ -1,14 +1,35 @@
-import { Set } from './set';
-import { ExerciseTemplate } from './exerciseTemplate';
-export class TranslateSentenceExerciseTemplate extends ExerciseTemplate {
-    template: "TranslateSentenceExerciseTemplate";
+import { ExerciseTemplateComponent } from './../exercise-template.component';
+import { Set } from './../_interfaces/set';
+import { Component, Input, OnInit, Type } from '@angular/core';
+
+@Component({
+  selector: 'app-translate-sentence-exercise-template',
+  templateUrl: './translate-sentence-exercise-template.component.html',
+  styleUrls: ['./translate-sentence-exercise-template.component.css']
+})
+export class TranslateSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
+
+  // constructor() {
+  //   super();
+  // }
+
+
+
+  template: "TranslateSentenceExerciseTemplate";
     oryginalSentence: string;
     translatedSentence: string;
+    @Input() data: any;
+    component: Type<any>;
+
+    id: number;
+    videoPath: string;
+    audioPath: string;
+    picturePath: string;
 
     public addExerciseToSet(set: Set) {
-        super.addExerciseToSet(set);
+        // super.addExerciseToSet(set);
         this.template = "TranslateSentenceExerciseTemplate";
-        let exerciseCopy = new TranslateSentenceExerciseTemplate();
+        let exerciseCopy = new TranslateSentenceExerciseTemplateComponent();
         let sth = Object.assign(exerciseCopy, this);
         
         set.exercises.push(exerciseCopy);
@@ -32,4 +53,5 @@ export class TranslateSentenceExerciseTemplate extends ExerciseTemplate {
         <input [(ngModel)]='exercise.translatedSentence' placeholder='translatedSentence'/> \
         ";
     }
+
 }

@@ -1,11 +1,11 @@
+import { ExerciseTemplateComponent } from './../exercise-template.component';
+import { FillSentenceExerciseTemplateComponent } from './../fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './../translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { WordExerciseTemplateComponent } from './../word-exercise-template/word-exercise-template.component';
 import { WordsetService } from './../_services/wordset.service';
 import { SetInfo } from './../_interfaces/setInfo';
-import { ExerciseTemplate } from './../_interfaces/exerciseTemplate';
-import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
 import { Component, OnInit } from '@angular/core';
 import { Set } from '../_interfaces/set';
-import { TranslateSentenceExerciseTemplate } from '../_interfaces/translateSentenceTemplate';
-import { WordExerciseTemplate } from '../_interfaces/translateWordTemplate';
 import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
@@ -22,14 +22,14 @@ export class LessonCreateComponent implements OnInit {
   ) { }
 
   set: Set;
-  exercise: ExerciseTemplate;
+  exercise: ExerciseTemplateComponent;
   createExercise: any;
 
   exerciseInput: boolean;  
   
   ngOnInit(): void {
     this.set = new Set();
-    this.set.exercises = new Array<ExerciseTemplate>();
+    this.set.exercises = new Array<ExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
     this.exerciseInput = false;
   }
@@ -39,13 +39,13 @@ export class LessonCreateComponent implements OnInit {
   // }
   
   createWordExercise(): void {
-    this.exercise = new WordExerciseTemplate();
-    this.exercise.template = "WordExerciseTemplate";
-    this.exerciseInput = true;
+    // this.exercise = new WordExerciseTemplateComponent();
+    // this.exercise.template = "WordExerciseTemplate";
+    // this.exerciseInput = true;
   }
   
   createTranslateSentenceExercise(): void {
-    this.exercise = new TranslateSentenceExerciseTemplate();
+    this.exercise = new TranslateSentenceExerciseTemplateComponent();
     this.exercise.template = "TranslateSentenceExerciseTemplate";
     this.exerciseInput = true;
     // this.exercise.createExerciseInputHTML();
@@ -54,7 +54,7 @@ export class LessonCreateComponent implements OnInit {
   }
   
   createFillSentenceExercise(): void {
-    this.exercise = new FillSentenceExerciseTemplate();
+    this.exercise = new FillSentenceExerciseTemplateComponent();
     this.exercise.template = "FillSentenceExerciseTemplate";
     this.exerciseInput = true;
     // this.exercise.createExerciseInputHTML();
@@ -71,7 +71,7 @@ export class LessonCreateComponent implements OnInit {
   addExerciseToSet(): void {
     console.log("no hej");
     this.exerciseInput = false;
-    this.exercise.addExerciseToSet(this.set);
+    // this.exercise.addExerciseToSet(this.set);
   }
 
   saveLesson(): void {
