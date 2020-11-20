@@ -20,7 +20,7 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   //   // console.log(this.data);
   }
 
-  @Input() data: any;
+  @Input() data: any = {word: 'xd', translation: 'heh'};
   set: Set;
 
   template: "WordExerciseTemplate";

@@ -23,38 +23,45 @@ import { send } from 'process';
 })
 export class WordsetCreateComponent implements OnInit {
 
-  set: Wordset;
-  exercise: WordExerciseTemplateComponent;
-
-  // @Input() exerciseItems: ExerciseItem[];
-  @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
-
   constructor(
+    private userService: UserService,
     private wordsetService: WordsetService,
     private componentFactoryResolver: ComponentFactoryResolver,
     ) { }
+
+  set: Wordset;
+  exercise: WordExerciseTemplateComponent;
+
+  //@Input() exerciseItems: ExerciseItem[];
+  @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
+
+  
 
   ngOnInit(): void {
     this.set = new Wordset();
     this.set.exercises = Array<WordExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
     this.exercise = new WordExerciseTemplateComponent();
-    // this.exerciseItems = new Array<ExerciseItem>();
+    // this.exerciseItems = new Array<ExerciseItem>(); 
     this.loadComponent();
   }
 
   loadComponent(): void {
     // const currentExercise = this.exe
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordExerciseTemplateComponent);
+    console.log(this);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
-
     componentRef.instance.data = this.exercise.data; 
+    console.log(this.exercise.data);
   }
 
   addExercise(): void {
-    this.set.addExerciseToSet(this.exercise);
+    const tmp = new WordExerciseTemplateComponent();
+    Object.assign(tmp.data, this.exercise.data)
+    this.set.addExerciseToSet(tmp);
+    this.loadComponent();
   }
 
   saveSet(): void {

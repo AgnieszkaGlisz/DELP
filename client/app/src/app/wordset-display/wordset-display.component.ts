@@ -59,7 +59,7 @@ export class WordsetDisplayComponent implements OnInit {
         // this.loadComponent();
       },
       err => console.log('HTTP Error: ', err)
-    )
+    );
   }
 
   
@@ -68,7 +68,7 @@ export class WordsetDisplayComponent implements OnInit {
     
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exerciseItems[0].component);
     this.idToDis++;
-    // console.log(this.idToDis);
+    console.log(this);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
