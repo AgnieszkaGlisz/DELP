@@ -1,10 +1,65 @@
 import express = require('express')
+import bcrypt = require('bcrypt')
 const router = express.Router();
 import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
-//logowanie 
+// bcrypt.hash("hnurska", 10, (err, hash) => {
+//     console.log("hnurska: "+ hash)
+//   });
+//   bcrypt.hash("cgrabowski", 10, (err, hash) => {
+//     console.log("cgrabowski: "+ hash)
+//   });
+//   bcrypt.hash("agliszczynska", 10, (err, hash) => {
+//     console.log("agliszczynska: "+ hash)
+//   });
+//   bcrypt.hash("wkuchta", 10, (err, hash) => {
+//     console.log("wkuchta: "+ hash)
+//   });
+//   bcrypt.hash("testniedoslyszacy", 10, (err, hash) => {
+//     console.log("testniedoslyszacy: "+ hash)
+//   });
+//   bcrypt.hash("testniedowidzacy", 10, (err, hash) => {
+//     console.log("testniedowidzacy: "+ hash)
+//   });
+//   bcrypt.hash("testdaltonista", 10, (err, hash) => {
+//     console.log("testdaltonista: "+ hash)
+//   });
+//   bcrypt.hash("testzablokowany", 10, (err, hash) => {
+//     console.log("testzablokowany: "+ hash)
+//   });
+
+   
+
+// //logowanie 
+// router.post('/login', (req, res) => {
+//     try{
+//         if(req.body.username == undefined || req.body.password==undefined){
+//             res.status(403).json({error: "No login or password."})
+//             return
+//         }
+//     }
+//     catch(err){
+//         console.log(err)
+//         return
+//     }
+//     var sql = 'SELECT * FROM Users where username = "' + req.body.username + '" and password = "' + req.body.password + '"'
+//     db.query(sql,function(result:any){
+//         if(result == 0){
+//             res.status(401).json({error: "Invalid login or password."})
+//             return
+//         } 
+//         if(result[0].isBlocked == true){
+//             common.adminLog('User is blocked.')
+//             res.status(403).json({error: 'User is blocked.'})
+//             return
+//         }
+//         const accessToken = auth.createToken(result[0].id, result[0].username)
+//         res.json({accessToken: accessToken})
+//     })
+// })
+
 router.post('/login', (req, res) => {
     try{
         if(req.body.username == undefined || req.body.password==undefined){
@@ -16,21 +71,28 @@ router.post('/login', (req, res) => {
         console.log(err)
         return
     }
-    var sql = 'SELECT * FROM Users where username = "' + req.body.username + '" and password = "' + req.body.password + '"'
+    var sql = 'SELECT * FROM Users where username = "' + req.body.username + '"'
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(401).json({error: "Invalid login or password."})
             return
         } 
-        if(result[0].isBlocked == true){
-            common.adminLog('User is blocked.')
-            res.status(403).json({error: 'User is blocked.'})
+        bcrypt.compare(req.body.password, result[0].password, function(err, goodPassword) {
+            if(goodPassword==true){
+                if(result[0].isBlocked == true){
+                    common.adminLog('User is blocked.')
+                    res.status(403).json({error: 'User is blocked.'})
+                    return
+                }
+                const accessToken = auth.createToken(result[0].id, result[0].username)
+                res.json({accessToken: accessToken})
+            }
+            else res.status(401).json({error: "Invalid login or password.1"})
             return
-        }
-        const accessToken = auth.createToken(result[0].id, result[0].username)
-        res.json({accessToken: accessToken})
+          });
     })
 })
+
 
 //pobieranie danych uzytkownika
 router.get('/account', auth.authenticateToken, (req:any, res) => {
