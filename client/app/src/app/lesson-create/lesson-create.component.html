@@ -3,29 +3,33 @@
 <div id="lesson-create">
     <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.name" placeholder="Lesson Name"/>
     <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.info" placeholder="Lesson Info"/>
-
-    <ul *ngIf="set">
-        <li *ngFor="let exercise of set.exercises" id="exercise-in-lesson-create">
-            <a *ngIf="exercise.template=='WordExerciseTemplate'">
-                <span>{{exercise.data.id}}  </span>
-                <span>{{exercise.data.word}}  </span>
-                <span>{{exercise.data.translation}}  </span>
-            </a>
-            <a *ngIf="exercise.template=='TranslateSentenceExerciseTemplate'">
-                <span>{{exercise.data.id}}  </span>
-                <span>{{exercise.data.oryginalSentence}}  </span>
-                <span>{{exercise.data.translatedSentence}}  </span>
-            </a>
-            <a *ngIf="exercise.template=='FillSentenceExerciseTemplate'">
-                <span>{{exercise.data.id}}  </span>
-                <span>{{exercise.data.leftPartOfSentence}}  </span>
-                <span>{{exercise.data.wordToFill}}  </span>
-                <span>{{exercise.data.rightPartOfSentence}}  </span>
-            </a>
-        <button class="delete" title="delete exercise" (click)="exercise.deleteExercise(set)">x</button>
+    <ul class="words">
+        <li>
+            <ng-template exerciseHost></ng-template><button (click)="addExercise();">+</button>
         </li>
     </ul>
-    <div *ngIf="exerciseInput">
+    <ul *ngIf="set" class="words">
+        <li *ngFor="let exerciseI of set.exercises" id="exercise-in-lesson-create">
+            <a *ngIf="exerciseI.template=='WordExerciseTemplate'">
+                <span>{{exerciseI.data.id}}  </span>
+                <span>{{exerciseI.data.word}}  </span>
+                <span>{{exerciseI.data.translation}}  </span>
+            </a>
+            <a *ngIf="exerciseI.template=='TranslateSentenceExerciseTemplate'">
+                <span>{{exerciseI.data.id}}  </span>
+                <span>{{exerciseI.data.oryginalSentence}}  </span>
+                <span>{{exerciseI.data.translatedSentence}}  </span>
+            </a>
+            <a *ngIf="exerciseI.template=='FillSentenceExerciseTemplate'">
+                <span>{{exerciseI.data.id}}  </span>
+                <span>{{exerciseI.data.leftPartOfSentence}}  </span>
+                <span>{{exerciseI.data.wordToFill}}  </span>
+                <span>{{exerciseI.data.rightPartOfSentence}}  </span>
+            </a>
+        <button class="delete" title="delete exercise" (click)="deleteExercise(exerciseI)">x</button>
+        </li>
+    </ul>
+    <!--div *ngIf="exerciseInput">
         <a *ngIf="exercise.template=='WordExerciseTemplate'">
             <input [(ngModel)]='exercise.data.word' placeholder='word'/>
             <input [(ngModel)]='exercise.data.translation' placeholder='translation'/>
@@ -40,7 +44,7 @@
             <input [(ngModel)]='exercise.data.rightPartOfSentence' placeholder='rightPartOfSentence'/>
         </a>
         <button (click)='addExercise()'>+</button>
-    </div>
+    </div-->
     <!-- <div [innerHTML]="createExercise"></div> -->
     <!-- <button (click)='test()'>siema2</button> -->
     <!-- <div [innerHTML]="createExercise | safeHtml"></div> -->

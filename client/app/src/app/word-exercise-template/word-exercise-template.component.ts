@@ -1,6 +1,5 @@
 import { ExerciseTemplateComponent } from './../exercise-template.component';
 import { Set } from './../_interfaces/set';
-import { notJsoned } from './../_interfaces/set';
 import { Component, Input, OnInit, Type } from '@angular/core';
 
 @Component({

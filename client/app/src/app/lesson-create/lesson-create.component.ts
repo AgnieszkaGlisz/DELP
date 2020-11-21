@@ -42,7 +42,7 @@ export class LessonCreateComponent implements OnInit {
   }
   
   loadComponent(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordExerciseTemplateComponent);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     console.log(this);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
@@ -57,14 +57,16 @@ export class LessonCreateComponent implements OnInit {
   
   createWordExercise(): void {
     this.exercise = new WordExerciseTemplateComponent();
-    this.exercise.template = "WordExerciseTemplate";
-    this.exerciseInput = true;
+    this.loadComponent();
+    //this.exercise.template = "WordExerciseTemplate";
+    //this.exerciseInput = true;
   }
   
   createTranslateSentenceExercise(): void {
     this.exercise = new TranslateSentenceExerciseTemplateComponent();
-    this.exercise.template = "TranslateSentenceExerciseTemplate";
-    this.exerciseInput = true;
+    this.loadComponent();
+    //this.exercise.template = "TranslateSentenceExerciseTemplate";
+    //this.exerciseInput = true;
     // this.exercise.createExerciseInputHTML();
 
     // this.createAddExerciseButton();
@@ -72,32 +74,19 @@ export class LessonCreateComponent implements OnInit {
   
   createFillSentenceExercise(): void {
     this.exercise = new FillSentenceExerciseTemplateComponent();
-    this.exercise.template = "FillSentenceExerciseTemplate";
-    this.exerciseInput = true;
+    this.loadComponent();
+    //this.exercise.template = "FillSentenceExerciseTemplate";
+    //this.exerciseInput = true;
     // this.exercise.createExerciseInputHTML();
 
     // this.createAddExerciseButton();
   }
 
-  /*addExerciseToSet(): void {
-    console.log("no hej");
-    this.exerciseInput = false;
-    // this.exercise.addExerciseToSet(this.set);
-  }
-
-  saveLesson(): void {
-    this.set.saveSet();
-    console.log("lesson: ", this.set);
-    this.wordsetService.saveWordset(this.set).subscribe( x=> {
-      console.log("set id ", x);
-    });
-  }*/
-
   addExercise(): void {
-    const tmp = new WordExerciseTemplateComponent();
-    Object.assign(tmp.data, this.exercise.data)
-    this.set.addExerciseToSet(tmp);
-    //this.loadComponent();
+    //const tmp = new WordExerciseTemplateComponent();
+    //Object.assign(tmp.data, this.exercise.data)
+    this.set.addExerciseToSet(this.exercise);
+    this.loadComponent();
   }
 
   saveLesson(): void {
@@ -106,7 +95,7 @@ export class LessonCreateComponent implements OnInit {
     });
   }
 
-  deleteExercise(): void {
-    this.set.deleteExercise(this.exercise);
+  deleteExercise(exerciseI: ExerciseTemplateComponent): void {
+    this.set.deleteExercise(exerciseI);
   }
 }

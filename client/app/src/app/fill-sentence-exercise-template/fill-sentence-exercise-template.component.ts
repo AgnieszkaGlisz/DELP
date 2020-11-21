@@ -11,9 +11,12 @@ import { Component, Input, OnInit, Type } from '@angular/core';
 })
 export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-  // constructor() {
-  //   super();
-  // }
+  constructor() {
+    //   super();
+      //this.template = "WordExerciseTemplate";
+      this.component = FillSentenceExerciseTemplateComponent;
+      //this.data = this;
+    }
 
   ngOnInit(): void {
   }
@@ -23,7 +26,7 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
   wordToFill: string;
   rightPartOfSentence: string;
   incorrectWords: {"word": string}[];
-  @Input() data: any;
+  @Input() data: any = this;
   component: Type<any>;
 
   id: number;

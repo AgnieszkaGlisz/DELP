@@ -60,8 +60,8 @@ export class WordsetCreateComponent implements OnInit {
   addExercise(): void {
     //const tmp = new WordExerciseTemplateComponent();
     //Object.assign(tmp.data, this.exercise.data);
-    this.exercise.word = this.exercise.data.word;
-    this.exercise.translation = this.exercise.data.translation;
+    //this.exercise.word = this.exercise.data.word;
+    //this.exercise.translation = this.exercise.data.translation;
     this.set.addExerciseToSet(this.exercise);
     this.loadComponent();
   }
@@ -74,7 +74,6 @@ export class WordsetCreateComponent implements OnInit {
 
   deleteExercise(exerciseI: WordExerciseTemplateComponent): void {
     this.set.deleteExercise(exerciseI);
-    //FIXME: add parameter
   }
   
 }

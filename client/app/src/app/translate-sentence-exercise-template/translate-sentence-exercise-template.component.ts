@@ -9,16 +9,18 @@ import { Component, Input, OnInit, Type } from '@angular/core';
 })
 export class TranslateSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-  // constructor() {
-  //   super();
-  // }
-
+    constructor() {
+        //   super();
+          //this.template = "WordExerciseTemplate";
+          this.component = TranslateSentenceExerciseTemplateComponent;
+          //this.data = this;
+        }
 
 
   template: "TranslateSentenceExerciseTemplate";
     oryginalSentence: string;
     translatedSentence: string;
-    @Input() data: any;
+    @Input() data: any = this;
     component: Type<any>;
 
     id: number;
