@@ -1,5 +1,23 @@
 import { ExerciseTemplateComponent } from './../exercise-template.component';
 import { SetInfo } from './setInfo';
+
+export function notJsoned() : any{
+    return function (target: any, propertyKey: string) {
+        let descriptor = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
+        if (descriptor.writable == false) {
+            //descriptor.enumerable = false;
+            descriptor.writable = true;
+            Object.defineProperty(target, propertyKey, descriptor)
+        }
+        descriptor = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
+        if (descriptor.enumerable == true) {
+            descriptor.enumerable = false;
+            //descriptor.writable = true;
+            Object.defineProperty(target, propertyKey, descriptor)
+        }
+    };
+}
+
 export class Set {
     setInfo: SetInfo;
     exercises: ExerciseTemplateComponent[];

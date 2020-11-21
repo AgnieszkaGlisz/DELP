@@ -1,5 +1,6 @@
 import { ExerciseTemplateComponent } from './../exercise-template.component';
 import { Set } from './../_interfaces/set';
+import { notJsoned } from './../_interfaces/set';
 import { Component, Input, OnInit, Type } from '@angular/core';
 
 @Component({
@@ -13,14 +14,11 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   //   super();
     this.template = "WordExerciseTemplate";
     this.component = WordExerciseTemplateComponent;
-    
-  //   // console.log("jestem w konstruktorze");
-  //   // super(WordExerciseTemplateComponent, {});
-  //   // this.data = {template: "WordExerciseTemplateContent"}
-  //   // console.log(this.data);
+    this.data = this;
   }
 
-  @Input() data: any = {word: 'xd', translation: 'heh'};
+  //@notJsoned() 
+  @Input() data: any;//{word: 'xd', translation: 'heh'};
   word: string;
   translation: string;
   
@@ -33,6 +31,10 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   videoPath: string;
   audioPath: string;
   picturePath: string;
+
+  toJSON(){
+    return { "id" : this.id, "template" : this.template, "word": this.word, "translation" : this.translation};
+  }
 
   // public addExerciseToSet() {
   //   this.id = this.set.generateId();

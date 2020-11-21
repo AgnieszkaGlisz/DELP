@@ -10,9 +10,4 @@ export interface ExerciseTemplateComponent {
     videoPath: string;
     audioPath: string;
     
-    // addExerciseToSet(set: Set);
-
-    // addExerciseToSet(set: Set) {
-    //     this.id = set.generateId();
-    // }
 }
