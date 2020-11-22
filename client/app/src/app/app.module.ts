@@ -6,29 +6,27 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainViewComponent } from './main-view/main-view.component';
-import { WordsetCreateComponent } from './wordset-create/wordset-create.component';
+import { WordsetCreateComponent } from './_wordsetComponents/wordset-create/wordset-create.component';
 import { MessagesComponent } from './messages/messages.component';
 import { UserComponent } from './user/user.component';
 import { UserLoginComponent } from './user-login/user-login.component';
-import { WordsetDisplayComponent } from './wordset-display/wordset-display.component';
+import { WordsetDisplayComponent } from './_wordsetComponents/wordset-display/wordset-display.component';
 import { LessonComponent } from './lesson/lesson.component';
-import { LessonCreateComponent } from './lesson-create/lesson-create.component';
+import { LessonCreateComponent } from './_lessonComponents/lesson-create/lesson-create.component';
 
 import { AuthInterceptor } from './interceptor/httpconfig.interceptor';
 import { FavouritesComponent } from './favourites/favourites.component';
-import { WordsetLearnComponent } from './wordset-learn/wordset-learn.component';
+import { WordsetLearnComponent } from './_wordsetComponents/wordset-learn/wordset-learn.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserSetsComponent } from './user-sets/user-sets.component';
 import { ExerciseDirective } from './exercise.directive';
-import { WordExerciseTemplateComponent } from './word-exercise-template/word-exercise-template.component';
-import { TranslateSentenceExerciseTemplateComponent } from './translate-sentence-exercise-template/translate-sentence-exercise-template.component';
-import { FillSentenceExerciseTemplateComponent } from './fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { WordExerciseTemplateComponent } from './_exercisesComponents/word-exercise-template/word-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainViewComponent,
     WordsetCreateComponent,
     MessagesComponent,
     UserComponent,

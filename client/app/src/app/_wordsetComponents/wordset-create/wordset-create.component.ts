@@ -1,16 +1,16 @@
-import { ExerciseTemplateComponent } from './../exercise-template.component';
-import { ExerciseDirective } from './../exercise.directive';
-import { ExerciseItem } from './../exercise-item';
-import { WordExerciseTemplateComponent } from './../word-exercise-template/word-exercise-template.component';
-import { SetInfo } from './../_interfaces/setInfo';
-import { Wordset } from './../_interfaces/wordset';
-import { Set } from './../_interfaces/set';
+import { ExerciseTemplateComponent } from './../../exercise-template.component';
+import { ExerciseDirective } from './../../exercise.directive';
+import { ExerciseItem } from './../../exercise-item';
+import { WordExerciseTemplateComponent } from './../../_exercisesComponents/word-exercise-template/word-exercise-template.component';
+import { SetInfo } from './../../_interfaces/setInfo';
+import { Wordset } from './../../_interfaces/wordset';
+import { Set } from './../../_interfaces/set';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { MessageService } from '../_services/message.service';
-import { WordsetService } from '../_services/wordset.service';
-import { UserService } from '../_services/user.service';
+import { MessageService } from './../../_services/message.service';
+import { WordsetService } from '../../_services/wordset.service';
+import { UserService } from './../../_services/user.service';
 // import { WORDS } from './../words-mock';
-import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, QueryList } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { send } from 'process';
@@ -33,6 +33,10 @@ export class WordsetCreateComponent implements OnInit {
 
   //@Input() exerciseItems: ExerciseItem[];
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
+
+  ///////////
+  @ViewChildren(ExerciseDirective) exersiseHosts!: QueryList<ExerciseDirective>;
+  ///////////
 
   
 

@@ -1,13 +1,14 @@
-import { ExerciseTemplateComponent } from './../exercise-template.component';
-import { ExerciseDirective } from './../exercise.directive';
-import { ExerciseItem } from './../exercise-item';
-import { FillSentenceExerciseTemplateComponent } from './../fill-sentence-exercise-template/fill-sentence-exercise-template.component';
-import { TranslateSentenceExerciseTemplateComponent } from './../translate-sentence-exercise-template/translate-sentence-exercise-template.component';
-import { WordExerciseTemplateComponent } from './../word-exercise-template/word-exercise-template.component';
-import { WordsetService } from './../_services/wordset.service';
-import { SetInfo } from './../_interfaces/setInfo';
+import { FillSentenceExerciseTemplateComponent } from './../../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { ExerciseTemplateComponent } from './../../exercise-template.component';
+import { ExerciseDirective } from './../../exercise.directive';
+import { ExerciseItem } from './../../exercise-item';
+// import { FillSentenceExerciseTemplateComponent } from './../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './../../_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { WordExerciseTemplateComponent } from './../../_exercisesComponents/word-exercise-template/word-exercise-template.component';
+import { WordsetService } from './../../_services/wordset.service';
+import { SetInfo } from './../../_interfaces/setInfo';
 import { Component, OnInit } from '@angular/core';
-import { Set } from '../_interfaces/set';
+import { Set } from '../../_interfaces/set';
 import { DomSanitizer } from '@angular/platform-browser'
 import { ComponentFactoryResolver } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -50,10 +51,6 @@ export class LessonCreateComponent implements OnInit {
     componentRef.instance.data = this.exercise.data; 
     console.log(this.exercise.data);
   }
-
-  // deleteExercise(exercise: IExerciseTemplate): void {
-  //   // TODO: implemantation of method
-  // }
   
   createWordExercise(): void {
     this.exercise = new WordExerciseTemplateComponent();
@@ -85,6 +82,7 @@ export class LessonCreateComponent implements OnInit {
   addExercise(): void {
     //const tmp = new WordExerciseTemplateComponent();
     //Object.assign(tmp.data, this.exercise.data)
+    console.log(this.exercise);
     this.set.addExerciseToSet(this.exercise);
     this.loadComponent();
   }

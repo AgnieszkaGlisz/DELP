@@ -1,4 +1,4 @@
-.words {
+/* .words {
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
@@ -41,7 +41,7 @@
     color:#607D8B;
   }
   
-  .words .word-id {
+  .word-id {
     display: inline-block;
     font-size: small;
     color: white;
@@ -54,11 +54,10 @@
     height: 1.8em;
     min-width: 16px;
     text-align: right;
-    /* margin-right: .8em; */
     border-radius: 4px 0 0 4px;
   }
 
-  .words .word-left {
+  .word-left {
     display: inline-block;
     font-size: small;
     color: rgb(0, 0, 0);
@@ -75,7 +74,7 @@
     border-radius: 0px 4px 4px 0px;
   }
 
-  .words .word-right {
+  .word-right {
     display: inline-block;
     font-size: small;
     color: rgb(0, 0, 0);
@@ -117,4 +116,4 @@
     top: -32px;
     background-color: gray !important;
     color: white;
-  }
+  } */

@@ -1,11 +1,10 @@
 import { ExerciseTemplateComponent } from './../exercise-template.component';
-import { FillSentenceExerciseTemplateComponent } from './../fill-sentence-exercise-template/fill-sentence-exercise-template.component';
-import { TranslateSentenceExerciseTemplateComponent } from './../translate-sentence-exercise-template/translate-sentence-exercise-template.component';
-import { WordExerciseTemplateComponent } from './../word-exercise-template/word-exercise-template.component';
+import { FillSentenceExerciseTemplateComponent } from './../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './../_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { WordExerciseTemplateComponent } from './../_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MessageService } from './message.service';
-// import { WORDS } from '../words-mock';
 import { Injectable, Type } from '@angular/core';
 import { identity, Observable, of } from 'rxjs';
 import { Set } from '../_interfaces/set';
@@ -49,22 +48,16 @@ export class WordsetService {
   }
 
 
-  // getWordset(idNum :string): Observable<Set> {
-    getWordset(): Observable<Set> {
+  getWordset(): Observable<Set> {
     this.messageService.add("WordsetService: fetched wordset");
     
-    // const httpHeaders = this.setHttpOptions();
-
-    console.log("setToDisplayId: ", this.setToDisplayId);
-
     return this.http.get<Set>(`${this.url}/set/${this.setToDisplayId}`, this.httpOptions);
-    // return this.http.get<Set>(`${this.urlAga}/wordset/${idNum}`, this.httpOptions);
   }
 
   saveWordset(wordset: Wordset): Observable<Set> {
     this.messageService.add("Wordset service: POST wordset");
     console.log(wordset);
-    console.log("it's cool");
+    // console.log("it's cool");
     return this.http.post<Set>(`${this.url}/add-set`, wordset, this.httpOptions);
   }
  

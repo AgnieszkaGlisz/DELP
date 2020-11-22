@@ -1,5 +1,5 @@
-import { ExerciseTemplateComponent } from './../exercise-template.component';
-import { Set } from './../_interfaces/set';
+import { ExerciseTemplateComponent } from './../../exercise-template.component';
+import { Set } from './../../_interfaces/set';
 // import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
 // import { ExerciseTemplate } from '../_interfaces/exerciseTemplate';
 import { Component, Input, OnInit, Type } from '@angular/core';
@@ -13,7 +13,7 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
 
   constructor() {
     //   super();
-      //this.template = "WordExerciseTemplate";
+      this.template = "FillSentenceExerciseTemplate";
       this.component = FillSentenceExerciseTemplateComponent;
       //this.data = this;
     }
@@ -41,6 +41,15 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
     let sth = Object.assign(exerciseCopy, this);
     
     set.exercises.push(exerciseCopy);
+  }
+
+  toJSON() {
+    return {
+      "id": this.id,
+      "template": this.template,
+      "leftPartOfSentence": this.leftPartOfSentence,
+      "wordToFill": this.wordToFill,
+      "rightPartOfSentence": this.rightPartOfSentence };
   }
 
   public displayExerciseHTML() {

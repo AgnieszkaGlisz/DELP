@@ -1,6 +1,6 @@
-import { WordExerciseTemplateComponent } from './../word-exercise-template/word-exercise-template.component';
-import { Wordset } from '../_interfaces/wordset';
-import { WordsetService } from '../_services/wordset.service';
+import { WordExerciseTemplateComponent } from './../../_exercisesComponents/word-exercise-template/word-exercise-template.component';
+import { Wordset } from './../../_interfaces/wordset';
+import { WordsetService } from './../../_services/wordset.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,5 +1,5 @@
-import { ExerciseTemplateComponent } from './../exercise-template.component';
-import { Set } from './../_interfaces/set';
+import { ExerciseTemplateComponent } from './../../exercise-template.component';
+import { Set } from './../../_interfaces/set';
 import { Component, Input, OnInit, Type } from '@angular/core';
 
 @Component({
@@ -11,13 +11,13 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
 
     constructor() {
         //   super();
-          //this.template = "WordExerciseTemplate";
+          this.template = "TranslateSentenceExerciseTemplate";
           this.component = TranslateSentenceExerciseTemplateComponent;
           //this.data = this;
         }
 
 
-  template: "TranslateSentenceExerciseTemplate";
+    template: "TranslateSentenceExerciseTemplate";
     oryginalSentence: string;
     translatedSentence: string;
     @Input() data: any = this;
@@ -35,6 +35,15 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
         let sth = Object.assign(exerciseCopy, this);
         
         set.exercises.push(exerciseCopy);
+    }
+
+    toJSON() {
+        return {
+          "id": this.id,
+          "template": this.template,
+          "oryginalSentence": this.oryginalSentence,
+          "translatedSentence": this.translatedSentence,
+      }
     }
 
     public displayExerciseHTML() {
