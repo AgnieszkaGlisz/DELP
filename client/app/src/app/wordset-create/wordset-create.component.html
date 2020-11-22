@@ -19,20 +19,27 @@
             <!-- <button class="add-word" (click)="addWord(word.value, translation.value); word.value=''; translation.value=''">+</button> -->
             <input [(ngModel)]="exercise.word" placeholder="word"/><input [(ngModel)]="exercise.translation" placeholder="translation"/>
             
-            <div class = "dropzone">
+            <!-- <div class = "dropzone" >
                 <h6>Drop the file here</h6>
                 <input #fileInput type="file" accept="image/*" class="imageDrop" >
                 <input #audioInput type="file" accept="audio/*" class="imageDrop">
-                <input #videoInput type="file" accept="video/*" class="imageDrop">
+                <input #videoInput type="file" accept="video/*" class="imageDrop"> -->
                 <!-- <img src="C:\Users\Angie\Documents\GitHub\DELP\client\app\defaultPic.webp" alt=""> 
                 (change)="onSelectImage($event)"
                 -->
                 
-            </div>
+            <!-- </div> -->
             <!-- <input *ngIf="exercise.word" [(ngModel)]="exercise.word" placeholder="word"/><input *ngIf="exercise.translation" [(ngModel)]="exercise.translation" placeholder="translation"/> -->
             <!-- <button (click)="addWord(original.value, translation.value); original.value=''; translation.value=''">+</button> -->
+            <ngx-dropzone class="customDropzone" (change)="onSelect($event)">
+                <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                <ngx-dropzone-preview class="customFilesPreview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
         </li>
     </ul>
 <button class="save" (click)="saveSet()">Save</button>
+
 
 </div>

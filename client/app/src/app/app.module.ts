@@ -21,7 +21,7 @@ import { WordsetLearnComponent } from './wordset-learn/wordset-learn.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserSetsComponent } from './user-sets/user-sets.component';
 import { AlertComponent } from './alert/alert.component';
-
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { AlertComponent } from './alert/alert.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NgxDropzoneModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

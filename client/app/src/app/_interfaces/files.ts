@@ -9,7 +9,7 @@ export class fileInfo {
         var splitted = type.split("/", 1);
 
         if (splitted[0] == "image"){
-            this.file.set('image', imageBulb, );
+            this.file.set('image', imageBulb);
             //console.log(splitted[0])
         }
         else
