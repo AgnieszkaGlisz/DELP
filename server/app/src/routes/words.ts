@@ -13,11 +13,40 @@ const storage = multer.diskStorage({
         cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
     }
 })
-const upload = multer({storage: storage})
 
+const videoStorage = multer.diskStorage({
+    destination: './userMedia/video',
+    filename: function(req:any,file:any,cb:any){
+        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
+    }
+})
+
+const audioStorage = multer.diskStorage({
+    destination: './userMedia/audio',
+    filename: function(req:any,file:any,cb:any){
+        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
+    }
+})
+const upload = multer({storage: storage})
+const uploadVideo = multer({storage: videoStorage})
+const uploadAudio = multer({storage: audioStorage})
 
 router.post('/image', auth.authenticateToken, upload.single('image'), (req:any,res) => { // 
     console.log("in the image")
+    common.adminLog(req.file)
+    common.adminLog(req.query)
+    res.send({message: "ok"})
+})
+
+router.post('/video', auth.authenticateToken, uploadVideo.single('video'), (req:any,res) => { // 
+    console.log("in the video")
+    common.adminLog(req.file)
+    common.adminLog(req.query)
+    res.send({message: "ok"})
+})
+
+router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:any,res) => { // 
+    console.log("in the audio")
     common.adminLog(req.file)
     common.adminLog(req.query)
     res.send({message: "ok"})

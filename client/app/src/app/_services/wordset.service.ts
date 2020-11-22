@@ -1,8 +1,12 @@
+import { ExerciseTemplateComponent } from './../exercise-template.component';
+import { FillSentenceExerciseTemplateComponent } from './../fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './../translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { WordExerciseTemplateComponent } from './../word-exercise-template/word-exercise-template.component';
 import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MessageService } from './message.service';
 // import { WORDS } from '../words-mock';
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { identity, Observable, of } from 'rxjs';
 import { Set } from '../_interfaces/set';
 import {fileInfo} from '../_interfaces/files'
@@ -38,6 +42,18 @@ export class WordsetService {
     return this.http.get<Set[]>(`${this.url}/my-sets`, this.httpOptions);
   }
 
+  getExerciseComponent(exerciseTemplate: string) : Type<any> {
+    switch (exerciseTemplate) {
+      case "WordExerciseTemplate":
+        return WordExerciseTemplateComponent;
+      case "TranslateSentenceExerciseTemplate":
+        return TranslateSentenceExerciseTemplateComponent;
+      case "FillSentenceExerciseTemplate":
+        return FillSentenceExerciseTemplateComponent;
+    }
+  }
+
+
   // getWordset(idNum :string): Observable<Set> {
     getWordset(): Observable<Set> {
     this.messageService.add("WordsetService: fetched wordset");
@@ -58,8 +74,16 @@ export class WordsetService {
   
   sendFile(file: fileInfo, setId: number): Observable<any> {
     //console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
-    console.log(`${this.url}/image`)
+    console.log(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id)
     return this.http.post<any>(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
   }
+// =======
+//   saveWordset(wordset: Wordset): Observable<Set> {
+//     this.messageService.add("Wordset service: POST wordset");
+//     console.log(wordset);
+//     console.log("it's cool");
+//     return this.http.post<Set>(`${this.url}/add-set`, wordset, this.httpOptions);
+// >>>>>>> origin/front-view-container
+//   }
  
 }

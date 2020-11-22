@@ -4,23 +4,28 @@
     <!-- <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.name" placeholder="Wordset Name"/> -->
     <input [(ngModel)]="set.setInfo.info" placeholder="Wordset Info"/>
     <!-- <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.info" placeholder="Wordset Info"/> -->
-    <ul *ngIf="set" class="words">
-        <li *ngFor="let exercise of set.exercises">  
-            <a>
-                <span class="word-id">{{exercise.id}}</span>
-                <span class="word-left">{{exercise.word}}</span>
-                <span class="word-right">{{exercise.translation}}</span> 
-            </a>
-            <button class="delete" title="delete word" (click)="exercise.deleteExercise(set)">x</button>
-        </li>
-        <li class="input">
-            <button class="add-word" (click)="addExercise()">+</button>
-            <!-- <button class="add-word" (click)="addWord(word.value, translation.value); word.value=''; translation.value=''">+</button> -->
-            <input [(ngModel)]="exercise.word" placeholder="word"/><input [(ngModel)]="exercise.translation" placeholder="translation"/>
-            <input #fileInput type="file">
-            <!-- <input *ngIf="exercise.word" [(ngModel)]="exercise.word" placeholder="word"/><input *ngIf="exercise.translation" [(ngModel)]="exercise.translation" placeholder="translation"/> -->
-            <!-- <button (click)="addWord(original.value, translation.value); original.value=''; translation.value=''">+</button> -->
+    <ul class="words">
+        <li>
+            <ng-template exerciseHost></ng-template><button (click)="addExercise();">+</button>
         </li>
     </ul>
-<button class="save" (click)="saveSet()">Save</button>
+    <ul *ngIf="set" class="words">
+        <ngx-dropzone class="customDropzone" (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+            <ngx-dropzone-preview class="customFilesPreview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
+        <li *ngFor="let exerciseI of set.exercises">  
+            <a>
+                <span class="word-id">{{exerciseI.id}}  </span>
+                <span class="word-left">{{exerciseI.data.word}}  </span>
+                <span class="word-right">{{exerciseI.data.translation}}  </span> 
+                <button class="delete" title="delete word" (click)="deleteExercise(exerciseI)">x</button>
+            </a>
+        </li>
+
+    </ul>
+<br>
+<button (click)="saveSet()">Save</button>
 </div>

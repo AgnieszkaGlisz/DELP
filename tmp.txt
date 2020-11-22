@@ -1,0 +1,31 @@
+//Dragover listener
+  @HostListener('dragover', ['$event']) ondragover(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+  
+    console.log("Drag Over");
+  }
+
+  //Dragleave listener
+  @HostListener('dragleave', ['$event']) public ondragleave(evt){
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    console.log("Drag leave")
+  }
+
+  @HostListener('drop', ['$event']) public ondrop(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    const files = evt.dataTransfer.files;
+    if(files.length > 0){
+      console.log(`You fropped ${files.length} files`);
+    }
+  }
+
+@Directive({
+  selector: '[appDnd]'
+})
+
+appDnd

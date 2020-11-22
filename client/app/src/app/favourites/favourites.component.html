@@ -4,16 +4,16 @@
     <ul *ngIf="favourites" class="fav-sets">
         <li *ngFor="let wordset of favourites.wordsets">
             <a>
-                <span class="wordset-id">{{wordset.id}}</span>
-                <span class="wordset-name">{{wordset.name}}</span>
+                <span class="wordset-id">{{wordset.id}}  </span>
+                <span class="wordset-name">{{wordset.name}}  </span>
             </a>
             <button class="display" title="display" (click)="goToDisplayView(wordset.id)">display</button>
             <button class="learn" title="learn" (click)="goToLearnView(wordset.id)">learn</button>
         </li>
         <li *ngFor="let lesson of favourites.lessons">
             <a>
-                <span class="lesson-id">{{lesson.id}}</span>
-                <span class="lesson-name">{{lesson.name}}</span>
+                <span class="lesson-id">{{lesson.id}}  </span>
+                <span class="lesson-name">{{lesson.name}}  </span>
             </a>
         </li>
     </ul>
