@@ -3,14 +3,16 @@
 <div id="wordset-display">
 <ul *ngIf="wordset" class="words">
     <li *ngFor="let word of wordset.exercises">
-        <!-- {{wordset.excercises.length}}
-        {{this.words.length}} -->
         <a>
-            <span class="word-id">{{word.id}}</span>
-            <span class="word-left">{{word.word}}</span>
-            <span class="word-right">{{word.translation}}</span> 
+            <span class="word-id">{{word.id}}  </span>
+            <span class="word-left">{{word.word}}  </span>
+            <span class="word-right">{{word.translation}}  </span> 
         </a>
     </li>
 </ul>
-<button class="load" (click)="getWordset()">Load</button>
+<!-- 1 zadanie
+2 zadanie
+3 zadanie -->
+<ng-template exerciseHost></ng-template>
+<!-- <button class="load" (click)="loadComponent()">Load</button> -->
 </div>

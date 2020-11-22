@@ -1,5 +1,4 @@
 /* .words {
-
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
@@ -11,20 +10,20 @@
     background-color: #EEE;
     margin: .5em;
     padding: .3em 0;
-    height: 2.3em;
+    height: 1.6em;
     border-radius: 4px;
-  } */
+  }
 
-  /* input {
+  input {
     border-radius: 4px;
     width: 5.2em;
     height: 1.8em;
     position: relative;
     left: 5px;
     top: -3px;
-  } */
+  }
   
-  /* .words li:hover {
+  .words li:hover {
     color: #607D8B;
     background-color: #DDD;
     left: .1em;
@@ -42,7 +41,7 @@
     color:#607D8B;
   }
   
-  .words .word-id {
+  .word-id {
     display: inline-block;
     font-size: small;
     color: white;
@@ -56,9 +55,9 @@
     min-width: 16px;
     text-align: right;
     border-radius: 4px 0 0 4px;
-  } */
+  }
 
-  /* .words .word-left {
+  .word-left {
     display: inline-block;
     font-size: small;
     color: rgb(0, 0, 0);
@@ -73,9 +72,9 @@
     text-align: right;
     width: 5em;
     border-radius: 0px 4px 4px 0px;
-  } */
+  }
 
-  /* .words .word-right {
+  .word-right {
     display: inline-block;
     font-size: small;
     color: rgb(0, 0, 0);
@@ -91,9 +90,9 @@
     margin-right: .8em;
     width: 4em;
     border-radius: 4px 4px 4px 4px;
-  } */
+  }
 
-  /* button {
+  button {
     color: white;
     background-color: gray;
     border: none;
@@ -103,15 +102,9 @@
     cursor: hand;
     font-family: Arial;
     position: relative;
-    left: +65px;
+    left: -1px;
     top: -3px;
-    z-index: 2; */
-    /* width: 20px; */
-/* =======
-    top: -3px;
->>>>>>> origin/front-view-container
-  } */
-/* }
+  }
   
   button:hover {
     background-color: #cfd8dc;
@@ -123,52 +116,4 @@
     top: -32px;
     background-color: gray !important;
     color: white;
-  }
-
-  button.add-word {
-
-    display: inline-block;
-    font-size: small;
-    color: white;
-    height: 2.6em;
-    width: 2.6em;
-    background-color:#405061;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    text-align: right;
-    border-radius: 4px 0 0 4px;
   } */
-
-  /* .dropzone{
-    border: dashed 1px #333;
-    position: relative;
-    text-align: center;
-    height: 50px;
-  }
-
- #h6{
-   top: +11px;
- }
-
- .imageDrop{
-   left: +200px;
- } */
-
- .customDropzone{
-  height: 100px;  
-  width: 500px;
- }
-
- .customFilesPreview {
-  height: 80px !important;
-  min-height: 40px !important;
-  min-width: 40px !important;
-  max-width: 90px !important;
- }
-
- .customFilesNamesText{
-   font-size: 10px;
- }
-

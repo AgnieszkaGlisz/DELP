@@ -22,6 +22,11 @@ import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { UserSetsComponent } from './user-sets/user-sets.component';
 import { AlertComponent } from './alert/alert.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ExerciseDirective } from './exercise.directive';
+import { WordExerciseTemplateComponent } from './word-exercise-template/word-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { FillSentenceExerciseTemplateComponent } from './fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +44,10 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     UserLogoutComponent,
     UserSetsComponent,
     AlertComponent,
+    ExerciseDirective,
+    WordExerciseTemplateComponent,
+    TranslateSentenceExerciseTemplateComponent,
+    FillSentenceExerciseTemplateComponent,
   ],
   imports: [
     BrowserModule,

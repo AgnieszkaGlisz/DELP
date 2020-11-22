@@ -1,8 +1,9 @@
-import { ExerciseTemplate } from './exerciseTemplate';
+import { ExerciseTemplateComponent } from './../exercise-template.component';
 import { SetInfo } from './setInfo';
+
 export class Set {
     setInfo: SetInfo;
-    exercises: ExerciseTemplate[];
+    exercises: ExerciseTemplateComponent[];
 
     saveSet(): void {
         this.setInfo.id = null;
@@ -21,4 +22,17 @@ export class Set {
     generateId(): number {
         return this.exercises.length > 0 ? Math.max(...this.exercises.map(word => word.id)) + 1 : 1;
     }
+
+    deleteExercise(exercise: ExerciseTemplateComponent) {
+        this.exercises = this.exercises.filter(w => w.id !== exercise.id);
+    }
+
+    public addExerciseToSet(exercise: ExerciseTemplateComponent) {
+        exercise.id = this.generateId();
+        let exerciseCopy = new exercise.component();
+        let sth = Object.assign(exerciseCopy, exercise);
+        
+        this.exercises.push(exerciseCopy);
+  }
+
 }
