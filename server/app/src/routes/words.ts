@@ -4,54 +4,6 @@ import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
-const multer = require('multer')
-
-
-const storage = multer.diskStorage({
-    destination: './userMedia/pictures',
-    filename: function(req:any,file:any,cb:any){
-        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
-    }
-})
-
-const videoStorage = multer.diskStorage({
-    destination: './userMedia/video',
-    filename: function(req:any,file:any,cb:any){
-        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
-    }
-})
-
-const audioStorage = multer.diskStorage({
-    destination: './userMedia/audio',
-    filename: function(req:any,file:any,cb:any){
-        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
-    }
-})
-const upload = multer({storage: storage})
-const uploadVideo = multer({storage: videoStorage})
-const uploadAudio = multer({storage: audioStorage})
-
-router.post('/image', auth.authenticateToken, upload.single('image'), (req:any,res) => { // 
-    console.log("in the image")
-    common.adminLog(req.file)
-    common.adminLog(req.query)
-    res.send({message: "ok"})
-})
-
-router.post('/video', auth.authenticateToken, uploadVideo.single('video'), (req:any,res) => { // 
-    console.log("in the video")
-    common.adminLog(req.file)
-    common.adminLog(req.query)
-    res.send({message: "ok"})
-})
-
-router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:any,res) => { // 
-    console.log("in the audio")
-    common.adminLog(req.file)
-    common.adminLog(req.query)
-    res.send({message: "ok"})
-})
-
 
 function createResponseWord(result:any){
     var wordTemp = [];
@@ -179,7 +131,7 @@ router.get('/word', (req,res) => {
 })
 
 router.get('/words-in-set', (req, res) =>{
-    var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.headers.id;
+    var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.query.id;
     db.query(sql,function(result:any){
         if(result == 0){
             res.json({accessToken: 0})

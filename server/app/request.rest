@@ -274,3 +274,7 @@ Content-Type: application/json
         "fontSize":null,
         "noSound":null
     }
+
+
+###
+GET  http://localhost:3500/words-in-set?id=88
