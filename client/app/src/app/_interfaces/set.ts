@@ -33,6 +33,7 @@ export class Set {
         let sth = Object.assign(exerciseCopy, exercise);
         
         this.exercises.push(exerciseCopy);
+        return exerciseCopy.id;
   }
 
 }

@@ -269,6 +269,7 @@ function insertTranslateSentenceTemplate(exercise:any,setId:any){
 
 
 router.post('/add-set', auth.authenticateToken, (req:any, res) => {
+    common.adminLog(req.body)
     var setName = req.body.setInfo.name
     var setInfo = req.body.setInfo.info
     var setCreatorId = req.user.id
@@ -294,10 +295,12 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     }
     if(setBaseLanId == undefined){
         res.status(400).json({error: "Data error - language."})
+        common.adminLog(setBaseLanId)
         return
     }
     if(setLearnLanId == undefined){
         res.status(400).json({error: "Data error - language."})
+        common.adminLog(setLearnLanId)
         return
     }
     if(exercises == undefined){

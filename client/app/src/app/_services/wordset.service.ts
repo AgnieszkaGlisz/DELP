@@ -20,7 +20,7 @@ export class WordsetService {
   urlAga: string = `http://25.95.136.77:3500`;
   urlCezar: string = `http://25.68.211.177:3500`;
   urlLocal: string = `http://localhost:3500`;
-  url: string = this.urlCezar;
+  url: string = this.urlAga;
   setToDisplayId: string = '0';
 
   httpOptions = {
@@ -74,7 +74,7 @@ export class WordsetService {
   
   sendFile(file: fileInfo, setId: number): Observable<any> {
     //console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
-    console.log(`${this.url}/image`)
+    console.log(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id)
     return this.http.post<any>(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
   }
 // =======

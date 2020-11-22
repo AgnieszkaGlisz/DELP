@@ -68,19 +68,15 @@ export class WordsetCreateComponent implements OnInit {
 
 
   addExercise(): void {
-    this.set.addExerciseToSet(this.exercise);
-    this.loadComponent();
-
-    /*let id = this.exercise.addExerciseToSet(this.set);
-    let imageBuble = this.fileInput.nativeElement.files[0];
-
-    if(imageBuble){
+    let id = this.set.addExerciseToSet(this.exercise);
+    while (this.files.length != 0){
       let newFile = new fileInfo();
-      newFile.add(imageBuble, id, this.fileInput.nativeElement.files[0].type);
-      //console.log(this.fileInput.nativeElement.files[0].type)
-      this.files.push(newFile)
+      let imageBuble = this.files.pop();
+      newFile.add(imageBuble, id, imageBuble.type)
+      this.addedFile.push(newFile);
     }
-    console.log(this.set);*/
+    console.log(this.set);
+    this.loadComponent();
   }
 
   saveSet(): void {
@@ -89,11 +85,11 @@ export class WordsetCreateComponent implements OnInit {
       this.wordsetService.saveWordset(this.set).subscribe(x => {
         console.log("in save set");
         console.log()
-        //while(this.files.length > 0){
-        // this.wordsetService.sendFile(this.files.pop(), x['setId']).subscribe(x => {
-        //     console.log(x)
-        // });
-       // }
+        while(this.addedFile.length > 0){
+            this.wordsetService.sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {
+             console.log(x)
+         });
+        }
      });
     }
     else {
@@ -107,18 +103,27 @@ export class WordsetCreateComponent implements OnInit {
   console.log("In the on select" + this.files.length)
   if (this.files.length < 3) {
     let canAddTheFile = true;
+    let correctTypes = true;
     let imageBuble = event.addedFiles[0];
 
     console.log(event.addedFiles[0])
     this.files.forEach(function(value){
-      console.log(value.type.split("/", 1) +" == " + imageBuble.type.split("/", 1))
-      if(value.type.split("/", 1) == imageBuble.type.split("/", 1)){
-        this.alertService.warn("There is already one audio!");
+      console.log(value.type.split("/", 1)[0] == imageBuble.type.split("/", 1)[0])
+      if(value.type.split("/", 1)[0] == imageBuble.type.split("/", 1)[0]){
         canAddTheFile = false;
       }
     })
-    if(canAddTheFile){
+    if( imageBuble.type.split("/", 1)[0] != 'image' && imageBuble.type.split("/", 1)[0] != 'video' && imageBuble.type.split("/", 1)[0] != 'audio'){
+      correctTypes = false;
+      this.alertService.error("Can't add the file of a type " + imageBuble.type.split("/", 1)[0] + '!')
+    }
+
+    if(canAddTheFile && correctTypes){
       this.files.push(...event.addedFiles);
+    }
+
+    if (!canAddTheFile) {
+      this.alertService.error("There is already one " + imageBuble.type.split("/", 1)[0] + '!')
     }
   }
   else {
@@ -180,6 +185,8 @@ onRemove(event) {
   // }
   deleteExercise(exerciseI: WordExerciseTemplateComponent): void {
     this.set.deleteExercise(exerciseI);
+    this.addedFile = this.addedFile.filter(iteam => iteam.id !== exerciseI.id);
+    console.log(this.addedFile.length)
   } 
   
 }

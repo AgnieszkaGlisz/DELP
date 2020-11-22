@@ -10,6 +10,12 @@
         </li>
     </ul>
     <ul *ngIf="set" class="words">
+        <ngx-dropzone class="customDropzone" (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+            <ngx-dropzone-preview class="customFilesPreview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+        </ngx-dropzone>
         <li *ngFor="let exerciseI of set.exercises">  
             <a>
                 <span class="word-id">{{exerciseI.id}}  </span>
@@ -18,12 +24,7 @@
                 <button class="delete" title="delete word" (click)="deleteExercise(exerciseI)">x</button>
             </a>
         </li>
-        <ngx-dropzone class="customDropzone" (change)="onSelect($event)">
-            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
-            <ngx-dropzone-preview class="customFilesPreview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
-        </ngx-dropzone>
+
     </ul>
 <br>
 <button (click)="saveSet()">Save</button>
