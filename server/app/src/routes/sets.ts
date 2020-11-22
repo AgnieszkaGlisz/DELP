@@ -215,6 +215,7 @@ function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any,exercis
 }
 
 function insertIntoIncorrectWords(exerciseId:any,words:any){
+    if(words == undefined) return 
     for(var i=0;i<words.length;i++){
         var sql='INSERT INTO `IncorrectWordsFillSentenceExerciseTemplate` (`word`, `idFillSentenceExerciseTemplate`)'
         sql+='VALUES ("'+words[i].word+'", '+exerciseId+')'
@@ -274,7 +275,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     var setInfo = req.body.setInfo.info
     var setCreatorId = req.user.id
     var date= new Date()
-    var setCreationDate = date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay()
+    var setCreationDate = date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()
     var setBaseLanId = req.body.setInfo.idBaseLanguage
     var setLearnLanId = req.body.setInfo.idLearnLanguage
     var setIsWordset = req.body.setInfo.isWordSet
@@ -357,11 +358,6 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
         
     })
     
-})
-
-router.get('/xd', (req,res) => {
-    
-    res.send("xd");
 })
 
 router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{
