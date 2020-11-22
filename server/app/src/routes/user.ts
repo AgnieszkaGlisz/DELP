@@ -216,9 +216,9 @@ router.get('/delete-favourite/:id', auth.authenticateToken, (req:any, res) => {
             res.status(404).json({error: "No result."})
             return
         } 
-        common.adminLog('Set added to favourites.')
+        common.adminLog('Set deleted from favourites.')
         
-        res.json({OK:"Set added to favourites."})
+        res.json({OK:"Set deleted from favourites."})
     })
 })
 

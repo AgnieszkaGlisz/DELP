@@ -1,6 +1,6 @@
 ### zalogowany uzytkownik chce swoje dane
 GET http://localhost:3500/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJobnVyc2thIiwiaWF0IjoxNjA0ODM0ODMxfQ.9dO8nCGqTvO7JMT-qFRniioykkgYxxXF7wq5DsuCDPY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
 ### logowanie ok
 
 POST http://localhost:3500/login
@@ -78,8 +78,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hb
 
 GET http://localhost:3500/favourite
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
+###
 
-    ###
 GET http://localhost:3500/languageinfo/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
 
@@ -88,7 +88,7 @@ GET http://localhost:3500/languages
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
 ###
 
-GET  http://localhost:3500/set/13
+GET  http://localhost:3500/set/0
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
 
 ###
@@ -136,7 +136,49 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
     ]
 }
 
+###
 
+POST http://localhost:3500/add-set
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "setInfo":{
+        "id": null,
+        "name": "setname",
+        "info": "setinfo",
+        "idCreator": null,
+        "setCreation": null,
+        "idBaseLanguage": 1,
+        "idLearnLanguage": 2,
+        "isWordSet": null,
+        "popularity": null,
+        "ifVideo": null,
+        "ifAudio": null,
+        "ifPicture": null
+    },
+    "exercises":[
+        {   
+            "id":1,
+            "template": "FillSentenceExerciseTemplate",
+            "leftPartOfSentence": "test left part",
+            "wordToFill": "test word",
+            "rightPartOfSentence": "test rightpart."
+        },
+        {
+            "id":2,
+            "template": "TranslateSentenceExerciseTemplate",
+            "oryginalSentence": "test sentence",
+            "translatedSentence": "test translation."
+        },
+        {
+            "id":3,
+            "template": "WordExerciseTemplate",
+            "word": "test word",
+            "translation": "test translation"
+        }
+    ]
+}
 ###
 POST http://localhost:3500/add-set
 Content-Type: application/json
@@ -161,10 +203,12 @@ GET  http://localhost:3500/delete-set/14
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
 ###
-GET  http://localhost:3500/add-favourite/3
+GET  http://localhost:3500/add-favourite/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 ###
-
+GET  http://localhost:3500/delete-favourite/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+###
 GET http://localhost:3500/favourite
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
