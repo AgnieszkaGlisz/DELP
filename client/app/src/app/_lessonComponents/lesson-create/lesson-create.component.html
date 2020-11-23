@@ -10,7 +10,8 @@
     </ul>
     <ul *ngIf="set" class="words">
         <li *ngFor="let exerciseI of set.exercises" id="exercise-in-lesson-create">
-            <a *ngIf="exerciseI.template=='WordExerciseTemplate'">
+            <br/><ng-template exerciseHost></ng-template>
+            <!-- <a *ngIf="exerciseI.template=='WordExerciseTemplate'">
                 <span>{{exerciseI.data.id}}  </span>
                 <span>{{exerciseI.data.word}}  </span>
                 <span>{{exerciseI.data.translation}}  </span>
@@ -25,7 +26,7 @@
                 <span>{{exerciseI.data.leftPartOfSentence}}  </span>
                 <span>{{exerciseI.data.wordToFill}}  </span>
                 <span>{{exerciseI.data.rightPartOfSentence}}  </span>
-            </a>
+            </a> -->
         <button class="delete" title="delete exercise" (click)="deleteExercise(exerciseI)">x</button>
         </li>
     </ul>

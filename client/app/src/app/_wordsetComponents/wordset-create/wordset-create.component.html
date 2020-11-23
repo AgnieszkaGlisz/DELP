@@ -10,13 +10,15 @@
         </li>
     </ul>
     <ul *ngIf="set" class="words">
-        <li *ngFor="let exerciseI of set.exercises">  
-            <a>
-                <span class="word-id">{{exerciseI.id}}</span>
-                <span class="word-left">{{exerciseI.data.word}}</span>
-                <span class="word-right">{{exerciseI.data.translation}}</span> 
+        <li *ngFor="let exerciseI of set.exercises">
+            <ng-template exerciseHost></ng-template><br/>
+            <!-- <exerciseHost [exerciseI]="exerciseI"></exerciseHost> -->
+            <!-- <a>
+                <span class="word-id">{{exerciseI.id}}  </span>
+                <span class="word-left">{{exerciseI.data.word}}  </span>
+                <span class="word-right">{{exerciseI.data.translation}}  </span> 
                 <button class="delete" title="delete word" (click)="deleteExercise(exerciseI)">x</button>
-            </a>
+            </a> -->
         </li>
     </ul>
 <br>

@@ -10,7 +10,7 @@ import { MessageService } from './../../_services/message.service';
 import { WordsetService } from '../../_services/wordset.service';
 import { UserService } from './../../_services/user.service';
 // import { WORDS } from './../words-mock';
-import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, QueryList, ViewContainerRef } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { send } from 'process';
@@ -35,7 +35,7 @@ export class WordsetCreateComponent implements OnInit {
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
 
   ///////////
-  @ViewChildren(ExerciseDirective) exersiseHosts!: QueryList<ExerciseDirective>;
+  @ViewChildren(ExerciseDirective) exersiseHosts: QueryList<ExerciseDirective>;
   ///////////
 
   
@@ -57,7 +57,23 @@ export class WordsetCreateComponent implements OnInit {
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
     componentRef.instance.data = this.exercise.data; 
-    console.log(this.exercise.data);
+    // console.log(this.exercise.data);
+
+    if(this.exersiseHosts){
+      // this.exersiseHosts.reset.
+      // this.exersiseHosts.viewContainerRef.clear();
+      this.exersiseHosts.map(
+        (item: ExerciseDirective, index: number) => {
+          const factory = this.componentFactoryResolver.resolveComponentFactory(
+            this.set.exercises[index].component);
+            item.viewContainerRef.createComponent(factory);
+          }
+        )
+    }
+
+    // const componentFactory2 = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
+
+
   }
 
 

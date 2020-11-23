@@ -4,7 +4,7 @@ import { Directive, ViewContainerRef } from '@angular/core';
   selector: '[exerciseHost]'
 })
 export class ExerciseDirective {
-
+  
   constructor(public viewContainerRef: ViewContainerRef) { }
 
 }
