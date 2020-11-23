@@ -50,7 +50,11 @@ export class WordsetCreateComponent implements OnInit {
   }
 
   loadComponent(): void {
+    let tmp = new WordExerciseTemplateComponent();
+    Object.assign(tmp, this.exercise);
     this.exercise = new WordExerciseTemplateComponent();
+    Object.assign(this.exercise, tmp);
+    
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     console.log(this);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
@@ -59,17 +63,19 @@ export class WordsetCreateComponent implements OnInit {
     componentRef.instance.data = this.exercise.data; 
     // console.log(this.exercise.data);
 
-    if(this.exersiseHosts){
-      // this.exersiseHosts.reset.
-      // this.exersiseHosts.viewContainerRef.clear();
-      this.exersiseHosts.map(
-        (item: ExerciseDirective, index: number) => {
-          const factory = this.componentFactoryResolver.resolveComponentFactory(
-            this.set.exercises[index].component);
-            item.viewContainerRef.createComponent(factory);
-          }
-        )
-    }
+    let index = 0;
+      this.exersiseHosts.toArray().forEach(ex => {
+        // console.log("this.exersiseHosts.length", this.exersiseHosts.length);
+        // console.log("index", index);
+        let currExercise = this.set.exercises[index++];
+        const viewContainer = ex.viewContainerRef;
+        viewContainer.clear();
+        const factory = this.componentFactoryResolver.resolveComponentFactory(currExercise.component);
+        const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
+        console.log("currExercise", currExercise);
+        compRef.instance.data = currExercise.data;
+
+      });
 
     // const componentFactory2 = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
 
