@@ -24,7 +24,6 @@ import { Observable } from 'rxjs';
 export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   constructor(
-    private sanitizer: DomSanitizer,
     private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
   ) { }
@@ -76,17 +75,12 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   loadComponent2(): void {
     if(this.exerciseHosts){
-      console.log("load2", this.exerciseHosts);
       let index = 0;
       this.exerciseHosts.forEach(ex => {
-        //let currExercise = this.newExercise(this.set.exercises[index].template);
-        ///currExercise.data = currExercise;
-        //Object.assign(currExercise, this.set.exercises[index]) 
         const viewContainer = ex.viewContainerRef;
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
-        //console.log("load2", currExercise);
         compRef.instance.data = this.set.exercises[index].data;
         index += 1;
       });
@@ -109,9 +103,9 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   addExercise(): void {
-    console.log(this.exercise);
+    // console.log(this.exercise);
     this.set.addExerciseToSet(this.exercise);   
-    console.log("this.set",this.set.exercises[0]);
+    // console.log("this.set",this.set.exercises[0]);
     this.loadComponent();
     this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
   }

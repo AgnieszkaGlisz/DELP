@@ -31,7 +31,7 @@ export class Set {
         exercise.id = this.generateId();
         let exerciseCopy = new exercise.component();
         Object.assign(exerciseCopy, exercise);
-        exerciseCopy.data = exerciseCopy;
+        // exerciseCopy.data = exerciseCopy;
         this.exercises.push(exerciseCopy);
         return true;
     }

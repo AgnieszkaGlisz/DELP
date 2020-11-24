@@ -1,3 +1,4 @@
+import { ExerciseListDirective } from './../../exercise-list.directive';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { ExerciseDirective } from './../../exercise.directive';
 import { ExerciseItem } from './../../exercise-item';
@@ -10,7 +11,7 @@ import { MessageService } from './../../_services/message.service';
 import { WordsetService } from '../../_services/wordset.service';
 import { UserService } from './../../_services/user.service';
 // import { WORDS } from './../words-mock';
-import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, QueryList, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, QueryList, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { send } from 'process';
@@ -21,78 +22,93 @@ import { send } from 'process';
   templateUrl: './wordset-create.component.html',
   styleUrls: ['./wordset-create.component.css']
 })
-export class WordsetCreateComponent implements OnInit {
+export class WordsetCreateComponent implements OnInit, AfterViewInit {
 
   constructor(
-    private wordsetService: WordsetService,
+    private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
-    ) { }
+  ) { }
 
-  set: Wordset;
-  exercise: WordExerciseTemplateComponent;
+  set: Set;
+  exercise: ExerciseTemplateComponent;
+  createExercise: any;
 
-  //@Input() exerciseItems: ExerciseItem[];
-  @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
-
-  ///////////
-  @ViewChildren(ExerciseDirective) exerciseHosts: QueryList<ExerciseDirective>;
-  ///////////
-
+  exerciseInput: boolean;  
   
+  @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
+  @ViewChildren(ExerciseListDirective) exerciseHosts: QueryList<ExerciseListDirective>;
+  //proxy1: any; 
 
   ngOnInit(): void {
-    this.set = new Wordset();
-    this.set.exercises = Array<WordExerciseTemplateComponent>();
+    this.set = new Set();
+    this.set.exercises = new Array<ExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
-    
-    // this.exerciseItems = new Array<ExerciseItem>(); 
+    this.exerciseInput = false;
+    //this.proxy1 = new Proxy(this.exerciseHosts, {set: this.loadComponent2();}); 
+  }
+
+  ngAfterViewInit(): void {
     this.loadComponent();
   }
 
+  newExercise(template: string) {
+    switch (template) {
+      case "WordExerciseTemplate":
+        return new WordExerciseTemplateComponent();
+
+      // case "TranslateSentenceExerciseTemplate":
+      //   return new TranslateSentenceExerciseTemplateComponent();
+
+      // case "FillSentenceExerciseTemplate":
+      //   return new FillSentenceExerciseTemplateComponent();
+    }
+  }
+  
   loadComponent(): void {
-    let tmp = new WordExerciseTemplateComponent();
-    Object.assign(tmp, this.exercise);
     this.exercise = new WordExerciseTemplateComponent();
-    Object.assign(this.exercise, tmp);
-    
+    this.exercise.data = this.exercise;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
-    console.log(this);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
-    componentRef.instance.data = this.exercise.data; 
-    // console.log(this.exercise.data);
-
-    if (this.exerciseHosts) {
-
-      let index = 0;
-      this.exerciseHosts.toArray().forEach(ex => {
-        // console.log("this.exerciseHosts.length", this.exerciseHosts.length);
-        // console.log("index", index);
-        let currExercise = new WordExerciseTemplateComponent();
-        Object.assign(currExercise, this.set.exercises[index++]);
-        // let currExercise = this.set.exercises[index++];
-        const viewContainer = ex.viewContainerRef;
-        viewContainer.clear();
-        const factory = this.componentFactoryResolver.resolveComponentFactory(currExercise.component);
-        const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
-        console.log("currExercise", currExercise);
-        compRef.instance.data = currExercise.data;
-        // index++;
-      });
-    }
-
-    // const componentFactory2 = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
-
-
+    componentRef.instance.data = this.exercise.data;    
   }
 
+  loadComponent2(): void {
+    if(this.exerciseHosts){
+      let index = 0;
+      this.exerciseHosts.forEach(ex => {
+        const viewContainer = ex.viewContainerRef;
+        viewContainer.clear();
+        const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
+        const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
+        compRef.instance.data = this.set.exercises[index].data;
+        index += 1;
+      });
+    }
+  }
+  
+  createWordExercise(): void {
+    this.exercise = new WordExerciseTemplateComponent();
+    this.loadComponent();
+  }
+  
+  // createTranslateSentenceExercise(): void {
+  //   this.exercise = new TranslateSentenceExerciseTemplateComponent();
+  //   this.loadComponent();
+  // }
+  
+  // createFillSentenceExercise(): void {
+  //   this.exercise = new FillSentenceExerciseTemplateComponent();
+  //   this.loadComponent();
+  // }
 
   addExercise(): void {
-    const tmp = new WordExerciseTemplateComponent();
-    Object.assign(tmp, this.exercise);
-    this.set.addExerciseToSet(tmp);
-    this.loadComponent();
+    this.set.addExerciseToSet(this.exercise);
+    this.createWordExercise(); 
+    // this.loadComponent();
+    // this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
+    this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
   }
 
   saveSet(): void {
@@ -101,7 +117,7 @@ export class WordsetCreateComponent implements OnInit {
     });
   }
 
-  deleteExercise(exerciseI: WordExerciseTemplateComponent): void {
+  deleteExercise(exerciseI: ExerciseTemplateComponent): void {
     this.set.deleteExercise(exerciseI);
   }
   
