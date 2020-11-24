@@ -228,7 +228,7 @@ function insertIntoIncorrectWords(exerciseId:any,words:any){
     }   
 }
 
-function insertIntoFillSentenceTemplate(exercise:any,setId:any){
+function insertIntoFillSentenceTemplate(exercise:any,setId:any,insertedExercises:any,clientRes:any,exercisesLength:number){
     var sql = 'INSERT INTO `FillSentenceExerciseTemplate` (`idSet`, `leftPartOfSentence`, `wordToFill`,`rightPartOfSentence`,`videoPath`, `audioPath`, `picturePath`) '
     sql +='VALUES ('+setId+', "'+exercise.leftPartOfSentence+'", "'+exercise.wordToFill+'","'+exercise.rightPartOfSentence+'", NULL, NULL, NULL)'
     db.query(sql,function(result:any){
@@ -236,13 +236,16 @@ function insertIntoFillSentenceTemplate(exercise:any,setId:any){
             return
         } 
         var exerciseId = result.insertId
+        insertedExercises.push(exerciseId)
+        resSetInserted(insertedExercises.length,exercisesLength,setId,clientRes)
         common.adminLog("Insert into FillSentenceExerciseTemplate for setId:"+setId+" .")
         insertIntoSetsExercises(setId,2,exerciseId,exercise.id)
         insertIntoIncorrectWords(exerciseId,exercise.incorrectWords)
+
     })
 }
 
-function insertIntoWordTemplate(exercise:any,setId:any){
+function insertIntoWordTemplate(exercise:any,setId:any,insertedExercises:any,clientRes:any,exercisesLength:number){
     var sql = 'INSERT INTO `WordExerciseTemplate` (`idSet`, `word`, `translation`, `videoPath`, `audioPath`, `picturePath`) '
     sql +='VALUES ('+setId+', "'+exercise.word+'", "'+exercise.translation+'", NULL, NULL, NULL)'
     db.query(sql,function(result:any){
@@ -250,11 +253,13 @@ function insertIntoWordTemplate(exercise:any,setId:any){
             return
         } 
         var exerciseId = result.insertId
+        insertedExercises.push(exerciseId)
+        resSetInserted(insertedExercises.length,exercisesLength,setId,clientRes)
         common.adminLog("Insert into WordExerciseTemplate for setId:"+setId+" .")
         insertIntoSetsExercises(setId,1,exerciseId,exercise.id)
     })
 }
-function insertTranslateSentenceTemplate(exercise:any,setId:any){
+function insertTranslateSentenceTemplate(exercise:any,setId:any,insertedExercises:any,clientRes:any,exercisesLength:number){
     var sql = ' INSERT INTO `TranslateSentenceExerciseTemplate` (`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) '
     sql +='VALUES ('+setId+', "'+exercise.oryginalSentence+'", "'+exercise.translatedSentence+'", NULL, NULL, NULL)'
     db.query(sql,function(result:any){
@@ -262,11 +267,17 @@ function insertTranslateSentenceTemplate(exercise:any,setId:any){
             return
         } 
         var exerciseId = result.insertId
+        insertedExercises.push(exerciseId)
+        resSetInserted(insertedExercises.length,exercisesLength,setId,clientRes)
         common.adminLog("Insert into TranslateSentenceExerciseTemplate for setId:"+setId+" .")
         insertIntoSetsExercises(setId,3,exerciseId,exercise.id)
     })
 }
 
+function resSetInserted(insertedExercises:number,allExercises:number,setId:number,res:any){
+    if(insertedExercises>=allExercises)
+        res.status(200).json({setId: setId})
+}
 
 
 router.post('/add-set', auth.authenticateToken, (req:any, res) => {
@@ -342,17 +353,18 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
             return
         } 
         setId = result.insertId
-        res.status(200).json({setId: setId})
         common.adminLog("Insert into ExerciseSets.")
+        var insertedExercises =[{}]
+        insertedExercises.pop()
         for(var i = 0; i< exercises.length;i++){
             if(exercises[i].template == 'FillSentenceExerciseTemplate'){
-                insertIntoFillSentenceTemplate(exercises[i],setId)
+                insertIntoFillSentenceTemplate(exercises[i],setId,insertedExercises,res,exercises.length)
             }
             else if(exercises[i].template == 'TranslateSentenceExerciseTemplate'){
-                insertTranslateSentenceTemplate(exercises[i],setId)
+                insertTranslateSentenceTemplate(exercises[i],setId,insertedExercises,res,exercises.length)
             }
             else if(exercises[i].template == 'WordExerciseTemplate'){
-                insertIntoWordTemplate(exercises[i],setId)
+                insertIntoWordTemplate(exercises[i],setId,insertedExercises,res,exercises.length)
             }
         }
         
