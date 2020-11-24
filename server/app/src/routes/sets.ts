@@ -522,6 +522,7 @@ const audioStorage = multer.diskStorage({
         cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
     }
 })
+
 const upload = multer({storage: storage})
 const uploadVideo = multer({storage: videoStorage})
 const uploadAudio = multer({storage: audioStorage})
@@ -537,7 +538,6 @@ router.post('/image', auth.authenticateToken, upload.single('image'), (req:any,r
     else {
         res.send({message: "Couldn't save the file, received undefined"})
     }
-    
 })
 
 router.post('/video', auth.authenticateToken, uploadVideo.single('video'), (req:any,res) => { // 

@@ -2,7 +2,7 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, async, inject, tick, fakeAsync } from '@angular/core/testing';
 import {By} from '@angular/platform-browser'
 
-import { WordsetDisplayComponent } from './wordset-display.component';
+import { WordsetDisplayComponent } from '../src/app/wordset-display/wordset-display.component'
 
 describe('DisplayWordsetComponent', () => {
   let component: WordsetDisplayComponent;

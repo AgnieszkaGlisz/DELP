@@ -11,7 +11,7 @@
     </ul>
     <ul *ngIf="set" class="words">
         <ngx-dropzone class="customDropzone" (change)="onSelect($event)">
-            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+            <ngx-dropzone-label>Drop files here!</ngx-dropzone-label>
             <ngx-dropzone-preview class="customFilesPreview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                 <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>

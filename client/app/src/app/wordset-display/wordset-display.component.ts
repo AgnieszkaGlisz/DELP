@@ -51,7 +51,7 @@ export class WordsetDisplayComponent implements OnInit {
         
         this.exerciseItems.push(new ExerciseItem(this.wordsetService.getExerciseComponent(this.wordset.exercises[0].template), this.wordset.exercises[0]))
         this.loadComponent();
-    // this.words = x.exercises;
+        // this.words = x.exercises;
         // x.excercises.length;
         // console.log('Wordset: ', x);
         // this.exerciseItems.push(new ExerciseItem(x.exercises[0].component, x.exercises[0]));
