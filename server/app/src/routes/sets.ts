@@ -519,7 +519,7 @@ router.post('/image', auth.authenticateToken, upload.single('image'), (req:any,r
     common.adminLog(req.file)
     common.adminLog(req.query)
     if(req.file){
-        updatePictureFileInfo(req.query.idSet, req.query.id, req.file.path);
+        updatePictureFileInfo(req.query.idSet, req.query.id, req.file.destination + '/' + req.file.filename);
         res.send({message: "ok"})
     }
     else {
@@ -532,14 +532,25 @@ router.post('/video', auth.authenticateToken, uploadVideo.single('video'), (req:
     console.log("in the video")
     common.adminLog(req.file)
     common.adminLog(req.query)
-    res.send({message: "ok"})
-})
+    if(req.file){
+        updateVideoFileInfo(req.query.idSet, req.query.id, req.file.destination + '/' + req.file.filename);
+        res.send({message: "ok"})
+    }
+    else {
+        res.send({message: "Couldn't save the file, received undefined"})
+    }
 
 router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:any,res) => { // 
     console.log("in the audio")
     common.adminLog(req.file)
     common.adminLog(req.query)
-    res.send({message: "ok"})
+    if(req.file){
+        updateAudioFileInfo(req.query.idSet, req.query.id, req.file.destination + '/' + req.file.filename);
+        res.send({message: "ok"})
+    }
+    else {
+        res.send({message: "Couldn't save the file, received undefined"})
+    }
 })
 
 

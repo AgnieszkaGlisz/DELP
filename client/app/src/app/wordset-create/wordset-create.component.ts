@@ -84,7 +84,7 @@ export class WordsetCreateComponent implements OnInit {
     if (this.set.setInfo.name){
       this.wordsetService.saveWordset(this.set).subscribe(x => {
         console.log("in save set");
-        console.log()
+        console.log(this.addedFile.length)
         while(this.addedFile.length > 0){
             this.wordsetService.sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {
              console.log(x)
