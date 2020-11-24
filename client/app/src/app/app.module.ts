@@ -23,6 +23,7 @@ import { ExerciseDirective } from './exercise.directive';
 import { WordExerciseTemplateComponent } from './_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { TranslateSentenceExerciseTemplateComponent } from './_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
 import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { ExerciseListDirective } from './exercise-list.directive';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fi
     WordExerciseTemplateComponent,
     TranslateSentenceExerciseTemplateComponent,
     FillSentenceExerciseTemplateComponent,
+    ExerciseListDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { ExerciseListDirective } from './../../exercise-list.directive';
 import { FillSentenceExerciseTemplateComponent } from './../../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { ExerciseDirective } from './../../exercise.directive';
@@ -34,7 +35,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   exerciseInput: boolean;  
   
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
-  @ViewChildren(ExerciseDirective) exersiseHosts: QueryList<ExerciseDirective>;
+  @ViewChildren(ExerciseListDirective) exerciseHosts: QueryList<ExerciseListDirective>;
 
   ngOnInit(): void {
     this.set = new Set();
@@ -61,72 +62,59 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
   
   loadComponent(template: string): void {
-
+    this.exercise = this.newExercise(template);
+    let temp = this.newExercise(template);
+    Object.assign(temp, this.exercise);
+    // let temp = Object.create(this.exercise);
+    temp.data = temp;
+    // temp.component = this.exercise.component;
     // this.exercise = new exerciseType();
     // this.exercise = this.newExercise(template)
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
+    // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     // console.log(this);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
-    componentRef.instance.data = this.exercise.data; 
+    componentRef.instance.data = temp.data; 
     // console.log(this.set.exercises);
-
-    console.log(this.set);
-
-    
+    // console.log(this.set);
   }
 
   loadComponent2(): void {
-    if(this.exersiseHosts && this.set.exercises[0] != undefined){
-      // this.exersiseHosts.ViewContainerRef
-      // this.exersiseHosts.viewContainerRef.clear();
-      // this.set.exercises.forEach(ex => {
-      //   const factory = this.componentFactoryResolver.resolveComponentFactory(ex.component);
-      //   this.exersiseHosts.
-      // })
+    if(this.exerciseHosts){
       let index = 0;
-      this.exersiseHosts.toArray().forEach(ex => {
-        // console.log("this.exersiseHosts.length", this.exersiseHosts.length);
-        // console.log("index", index);
-        let currExercise = this.set.exercises[index++];
+      this.exerciseHosts.forEach(ex => {
+
+        // let currExercise = Object.create(this.set.exercises[index]);
+        let currExercise = this.newExercise(this.set.exercises[index].template);
+        currExercise.data = currExercise;
+        Object.assign(currExercise, this.set.exercises[index]) 
+        // let currExercise = this.set.exercises[index++];
         const viewContainer = ex.viewContainerRef;
         viewContainer.clear();
-        const factory = this.componentFactoryResolver.resolveComponentFactory(currExercise.component);
+        const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
-        console.log("currExercise", currExercise);
+        // console.log("currExercise", currExercise);
         compRef.instance.data = currExercise.data;
-
+        // console.log("index: ", index);
       });
-      // index++;
     }
   }
   
   createWordExercise(): void {
     this.exercise = new WordExerciseTemplateComponent();
     this.loadComponent(this.exercise.template);
-    //this.exercise.template = "WordExerciseTemplate";
-    //this.exerciseInput = true;
   }
   
   createTranslateSentenceExercise(): void {
     this.exercise = new TranslateSentenceExerciseTemplateComponent();
     this.loadComponent(this.exercise.template);
-    //this.exercise.template = "TranslateSentenceExerciseTemplate";
-    //this.exerciseInput = true;
-    // this.exercise.createExerciseInputHTML();
-
-    // this.createAddExerciseButton();
   }
   
   createFillSentenceExercise(): void {
     this.exercise = new FillSentenceExerciseTemplateComponent();
     this.loadComponent(this.exercise.template);
-    //this.exercise.template = "FillSentenceExerciseTemplate";
-    //this.exerciseInput = true;
-    // this.exercise.createExerciseInputHTML();
-
-    // this.createAddExerciseButton();
   }
 
   addExercise(): void {
@@ -136,7 +124,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.set.addExerciseToSet(this.exercise);
     console.log("this.set",this.set);
     // this.exercise = this.newExercise(this.exercise.template);
-    this.loadComponent2();
+    // this.loadComponent2();
   }
 
   saveLesson(): void {

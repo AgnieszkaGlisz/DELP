@@ -35,7 +35,7 @@ export class WordsetCreateComponent implements OnInit {
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
 
   ///////////
-  @ViewChildren(ExerciseDirective) exersiseHosts: QueryList<ExerciseDirective>;
+  @ViewChildren(ExerciseDirective) exerciseHosts: QueryList<ExerciseDirective>;
   ///////////
 
   
@@ -63,19 +63,24 @@ export class WordsetCreateComponent implements OnInit {
     componentRef.instance.data = this.exercise.data; 
     // console.log(this.exercise.data);
 
-    let index = 0;
-      this.exersiseHosts.toArray().forEach(ex => {
-        // console.log("this.exersiseHosts.length", this.exersiseHosts.length);
+    if (this.exerciseHosts) {
+
+      let index = 0;
+      this.exerciseHosts.toArray().forEach(ex => {
+        // console.log("this.exerciseHosts.length", this.exerciseHosts.length);
         // console.log("index", index);
-        let currExercise = this.set.exercises[index++];
+        let currExercise = new WordExerciseTemplateComponent();
+        Object.assign(currExercise, this.set.exercises[index++]);
+        // let currExercise = this.set.exercises[index++];
         const viewContainer = ex.viewContainerRef;
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(currExercise.component);
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
         console.log("currExercise", currExercise);
         compRef.instance.data = currExercise.data;
-
+        // index++;
       });
+    }
 
     // const componentFactory2 = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
 
@@ -84,11 +89,12 @@ export class WordsetCreateComponent implements OnInit {
 
 
   addExercise(): void {
-    //const tmp = new WordExerciseTemplateComponent();
-    //Object.assign(tmp.data, this.exercise.data);
+    const tmp = new WordExerciseTemplateComponent();
+    Object.assign(tmp, this.exercise);
     //this.exercise.word = this.exercise.data.word;
     //this.exercise.translation = this.exercise.data.translation;
-    this.set.addExerciseToSet(this.exercise);
+    this.set.addExerciseToSet(tmp);
+    // this.set.addExerciseToSet(this.exercise);
     this.loadComponent();
   }
 
