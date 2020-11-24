@@ -222,4 +222,44 @@ router.get('/delete-favourite/:id', auth.authenticateToken, (req:any, res) => {
     })
 })
 
+function createSqlUpdatePreferences(req:any):string{
+    var sql = 'UPDATE `UserPreferences` SET '
+    var first = true
+    if((req.body.fontSize!=undefined || req.body.fontSize!=null)){
+        sql += ' fontSize = ' +  req.body.fontSize
+        first = false
+    }
+    if((req.body.noSound!=undefined || req.body.noSound!=null)){
+        if(!first) sql += ","
+        sql += ' noSound = ' +  req.body.noSound
+        first = false
+    }
+    if((req.body.idColorSets!=undefined || req.body.idColorSets!=null)){
+        if(!first) sql += ","
+        sql += ' idColorSets = ' +  req.body.idColorSets
+    }
+    sql += ' WHERE idUser = ' + req.user.id
+    return sql
+}
+
+//zmiana preferences uzytkownika 
+router.post('/preferences', auth.authenticateToken, (req:any, res) => {
+    common.adminLog("Updating preferences.")
+    if((req.body.fontSize==undefined || req.body.fontSize==null) && 
+       (req.body.noSound==undefined || req.body.noSound==null) && 
+       (req.body.idColorSets==undefined || req.body.idColorSets==null)){
+        res.status(404).json({error: "Data error."})
+        return
+    }
+    var sql = createSqlUpdatePreferences(req)
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        common.adminLog('Preferences updated.')
+        res.json({message:"Preferences updated."})
+    })
+})
+
 module.exports = router;

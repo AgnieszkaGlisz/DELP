@@ -278,3 +278,122 @@ Content-Type: application/json
 
 ###
 GET  http://localhost:3500/words-in-set?id=98
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "fontSize":12,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": null,
+    "fontSize":null,
+    "idColorSets":null
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": null,
+    "fontSize":null
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "fontSize": 1
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "idColorSets": 1
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "fontSize":12
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "fontSize":12,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "fontSize":12
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "fontSize":12,
+    "idColorSets":2
+}
