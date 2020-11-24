@@ -27,12 +27,13 @@ export class Set {
         this.exercises = this.exercises.filter(w => w.id !== exercise.id);
     }
 
-    public addExerciseToSet(exercise: ExerciseTemplateComponent) {
+    public addExerciseToSet(exercise: ExerciseTemplateComponent) : boolean{
         exercise.id = this.generateId();
         let exerciseCopy = new exercise.component();
         let sth = Object.assign(exerciseCopy, exercise);
         
         this.exercises.push(exerciseCopy);
-  }
+        return true;
+    }
 
 }

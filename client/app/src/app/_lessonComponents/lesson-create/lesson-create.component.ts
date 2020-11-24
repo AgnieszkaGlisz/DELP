@@ -13,6 +13,7 @@ import { Set } from '../../_interfaces/set';
 import { DomSanitizer } from '@angular/platform-browser'
 import { ComponentFactoryResolver } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-lesson-create',
@@ -61,70 +62,62 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     }
   }
   
-  loadComponent(template: string): void {
-    this.exercise = this.newExercise(template);
-    let temp = this.newExercise(template);
-    Object.assign(temp, this.exercise);
-    // let temp = Object.create(this.exercise);
-    temp.data = temp;
-    // temp.component = this.exercise.component;
-    // this.exercise = new exerciseType();
-    // this.exercise = this.newExercise(template)
+  loadComponent(): void {
+    this.exercise = this.newExercise(this.exercise.template);
+    this.exercise.data = this.exercise;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
-    // const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
-    // console.log(this);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
-    componentRef.instance.data = temp.data; 
-    // console.log(this.set.exercises);
-    // console.log(this.set);
+    componentRef.instance.data = this.exercise.data; 
   }
 
   loadComponent2(): void {
     if(this.exerciseHosts){
       let index = 0;
       this.exerciseHosts.forEach(ex => {
-
-        // let currExercise = Object.create(this.set.exercises[index]);
         let currExercise = this.newExercise(this.set.exercises[index].template);
         currExercise.data = currExercise;
         Object.assign(currExercise, this.set.exercises[index]) 
-        // let currExercise = this.set.exercises[index++];
         const viewContainer = ex.viewContainerRef;
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
-        // console.log("currExercise", currExercise);
         compRef.instance.data = currExercise.data;
-        // console.log("index: ", index);
+        index += 1;
       });
     }
   }
   
   createWordExercise(): void {
     this.exercise = new WordExerciseTemplateComponent();
-    this.loadComponent(this.exercise.template);
+    this.loadComponent();
   }
   
   createTranslateSentenceExercise(): void {
     this.exercise = new TranslateSentenceExerciseTemplateComponent();
-    this.loadComponent(this.exercise.template);
+    this.loadComponent();
   }
   
   createFillSentenceExercise(): void {
     this.exercise = new FillSentenceExerciseTemplateComponent();
-    this.loadComponent(this.exercise.template);
+    this.loadComponent();
   }
 
   addExercise(): void {
-    // const tmp = new WordExerciseTemplateComponent();
-    // Object.assign(tmp.data, this.exercise.data)
     console.log(this.exercise);
-    this.set.addExerciseToSet(this.exercise);
-    console.log("this.set",this.set);
-    // this.exercise = this.newExercise(this.exercise.template);
-    // this.loadComponent2();
+    const observe = new Observable((observer) => 
+    {
+      if(this.set.addExerciseToSet(this.exercise) == true)
+      {
+        observer.next();
+      }
+    });
+    observe.subscribe(x => {
+      this.loadComponent2();
+      console.log("this.set",this.set);
+    });
+    this.loadComponent();
   }
 
   saveLesson(): void {
