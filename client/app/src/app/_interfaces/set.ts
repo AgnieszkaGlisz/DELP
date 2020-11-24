@@ -30,8 +30,8 @@ export class Set {
     public addExerciseToSet(exercise: ExerciseTemplateComponent) : boolean{
         exercise.id = this.generateId();
         let exerciseCopy = new exercise.component();
-        let sth = Object.assign(exerciseCopy, exercise);
-        
+        Object.assign(exerciseCopy, exercise);
+        exerciseCopy.data = exerciseCopy;
         this.exercises.push(exerciseCopy);
         return true;
     }

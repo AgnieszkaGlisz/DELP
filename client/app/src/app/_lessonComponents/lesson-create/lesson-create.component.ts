@@ -37,12 +37,14 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
   @ViewChildren(ExerciseListDirective) exerciseHosts: QueryList<ExerciseListDirective>;
+  //proxy1: any; 
 
   ngOnInit(): void {
     this.set = new Set();
     this.set.exercises = new Array<ExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
     this.exerciseInput = false;
+    //this.proxy1 = new Proxy(this.exerciseHosts, {set: this.loadComponent2();}); 
   }
 
   ngAfterViewInit(): void {
@@ -69,21 +71,23 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
-    componentRef.instance.data = this.exercise.data; 
+    componentRef.instance.data = this.exercise.data;    
   }
 
   loadComponent2(): void {
     if(this.exerciseHosts){
+      console.log("load2", this.exerciseHosts);
       let index = 0;
       this.exerciseHosts.forEach(ex => {
-        let currExercise = this.newExercise(this.set.exercises[index].template);
-        currExercise.data = currExercise;
-        Object.assign(currExercise, this.set.exercises[index]) 
+        //let currExercise = this.newExercise(this.set.exercises[index].template);
+        ///currExercise.data = currExercise;
+        //Object.assign(currExercise, this.set.exercises[index]) 
         const viewContainer = ex.viewContainerRef;
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
-        compRef.instance.data = currExercise.data;
+        //console.log("load2", currExercise);
+        compRef.instance.data = this.set.exercises[index].data;
         index += 1;
       });
     }
@@ -106,18 +110,10 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   addExercise(): void {
     console.log(this.exercise);
-    const observe = new Observable((observer) => 
-    {
-      if(this.set.addExerciseToSet(this.exercise) == true)
-      {
-        observer.next();
-      }
-    });
-    observe.subscribe(x => {
-      this.loadComponent2();
-      console.log("this.set",this.set);
-    });
+    this.set.addExerciseToSet(this.exercise);   
+    console.log("this.set",this.set.exercises[0]);
     this.loadComponent();
+    this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
   }
 
   saveLesson(): void {
