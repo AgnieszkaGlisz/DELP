@@ -539,6 +539,7 @@ router.post('/video', auth.authenticateToken, uploadVideo.single('video'), (req:
     else {
         res.send({message: "Couldn't save the file, received undefined"})
     }
+})
 
 router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:any,res) => { // 
     console.log("in the audio")
