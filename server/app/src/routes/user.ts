@@ -201,6 +201,8 @@ router.get('/add-favourite/:id', auth.authenticateToken, (req:any, res) => {
             res.status(404).json({error: "No result."})
             return
         } 
+        sql = 'UPDATE `ExerciseSets` SET popularity = popularity + 1 WHERE id = ' + req.params.id
+        db.query(sql,function(result:any){})
         common.adminLog('Set added to favourites.')
         
         res.json({OK:"Set added to favourites."})
@@ -216,6 +218,8 @@ router.get('/delete-favourite/:id', auth.authenticateToken, (req:any, res) => {
             res.status(404).json({error: "No result."})
             return
         } 
+        sql = 'UPDATE `ExerciseSets` SET popularity = popularity - ' + result.affectedRows + ' WHERE id = ' + req.params.id
+        db.query(sql,function(result:any){})
         common.adminLog('Set deleted from favourites.')
         
         res.json({OK:"Set deleted from favourites."})
@@ -262,4 +266,4 @@ router.post('/preferences', auth.authenticateToken, (req:any, res) => {
     })
 })
 
-module.exports = router;
+module.exports = router
