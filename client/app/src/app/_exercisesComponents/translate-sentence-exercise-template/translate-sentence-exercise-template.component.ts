@@ -1,3 +1,4 @@
+import { View, ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
 import { Component, Input, OnInit, Type } from '@angular/core';
@@ -13,7 +14,9 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
         //   super();
           this.template = "TranslateSentenceExerciseTemplate";
           this.component = TranslateSentenceExerciseTemplateComponent;
-          //this.data = this;
+          this.data = this;
+
+        this.viewOption = new View(ViewOption.Create);
         }
 
 
@@ -22,6 +25,8 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
     translatedSentence: string;
     @Input() data: any = this;
     component: Type<any>;
+    viewOption: any;
+    ViewOption = ViewOption;
 
     id: number;
     videoPath: string;
@@ -37,6 +42,10 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
         set.exercises.push(exerciseCopy);
     }
 
+    setViewOption(view: ViewOption) {
+      this.viewOption.type = view;
+    }
+
     toJSON() {
         return {
           "id": this.id,
@@ -45,24 +54,4 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
           "translatedSentence": this.translatedSentence,
       }
     }
-
-    public displayExerciseHTML() {
-        let listOfExercises = document.getElementById("exercise-in-lesson-create");
-        listOfExercises.innerHTML += "\
-        <a>\
-            <span>{{exercise.id}}</span>\
-            <span>{{exercise.oryginalSentence}}</span>\
-            <span>{{exercise.translatedSentence}}</span>\
-        </a>\
-        ";
-    }
-
-    public createExerciseInputHTML() {
-        let createExDiv = document.getElementById("create-exercise");
-        createExDiv.innerHTML = "\
-        <input [(ngModel)]='exercise.oryginalSentence' placeholder='oryginalSentence'/> \
-        <input [(ngModel)]='exercise.translatedSentence' placeholder='translatedSentence'/> \
-        ";
-    }
-
 }

@@ -1,3 +1,4 @@
+import { ViewOption } from './_exercisesComponents/view-option-enum';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';

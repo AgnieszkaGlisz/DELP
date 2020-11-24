@@ -1,3 +1,4 @@
+import { ViewOption } from './_exercisesComponents/view-option-enum';
 import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 import { TranslateSentenceExerciseTemplateComponent } from './_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
 import { WordExerciseTemplateComponent } from './_exercisesComponents/word-exercise-template/word-exercise-template.component';
@@ -13,8 +14,6 @@ export interface ExerciseTemplateComponent {
     videoPath: string;
     audioPath: string;
 
-    // new(): WordExerciseTemplateComponent;
-    // new(): TranslateSentenceExerciseTemplateComponent;
-    // new(): FillSentenceExerciseTemplateComponent;
-    
+    setViewOption(view: ViewOption);
+    // viewOption: ViewOption;
 }

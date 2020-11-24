@@ -1,3 +1,4 @@
+import { ViewOption } from './../../_exercisesComponents/view-option-enum';
 import { ExerciseListDirective } from './../../exercise-list.directive';
 import { FillSentenceExerciseTemplateComponent } from './../../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
@@ -89,21 +90,25 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   
   createWordExercise(): void {
     this.exercise = new WordExerciseTemplateComponent();
+    this.exercise.setViewOption(ViewOption.Create);
     this.loadComponent();
   }
   
   createTranslateSentenceExercise(): void {
     this.exercise = new TranslateSentenceExerciseTemplateComponent();
+    this.exercise.setViewOption(ViewOption.Create);
     this.loadComponent();
   }
   
   createFillSentenceExercise(): void {
     this.exercise = new FillSentenceExerciseTemplateComponent();
+    this.exercise.setViewOption(ViewOption.Create);
     this.loadComponent();
   }
 
   addExercise(): void {
     // console.log(this.exercise);
+    this.exercise.setViewOption(ViewOption.Display);
     this.set.addExerciseToSet(this.exercise);   
     // console.log("this.set",this.set.exercises[0]);
     this.loadComponent();

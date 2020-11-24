@@ -1,3 +1,4 @@
+import { ViewOption } from './../../_exercisesComponents/view-option-enum';
 import { ExerciseListDirective } from './../../exercise-list.directive';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { ExerciseDirective } from './../../exercise.directive';
@@ -50,22 +51,10 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.loadComponent();
   }
-
-  newExercise(template: string) {
-    switch (template) {
-      case "WordExerciseTemplate":
-        return new WordExerciseTemplateComponent();
-
-      // case "TranslateSentenceExerciseTemplate":
-      //   return new TranslateSentenceExerciseTemplateComponent();
-
-      // case "FillSentenceExerciseTemplate":
-      //   return new FillSentenceExerciseTemplateComponent();
-    }
-  }
   
   loadComponent(): void {
     this.exercise = new WordExerciseTemplateComponent();
+    // this.exercise = new WordExerciseTemplateComponent(ViewOption.Create);
     this.exercise.data = this.exercise;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
@@ -90,24 +79,16 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
   
   createWordExercise(): void {
     this.exercise = new WordExerciseTemplateComponent();
+    this.exercise.setViewOption(ViewOption.Create);
+    // this.exercise = new WordExerciseTemplateComponent(ViewOption.Create);
     this.loadComponent();
   }
   
-  // createTranslateSentenceExercise(): void {
-  //   this.exercise = new TranslateSentenceExerciseTemplateComponent();
-  //   this.loadComponent();
-  // }
-  
-  // createFillSentenceExercise(): void {
-  //   this.exercise = new FillSentenceExerciseTemplateComponent();
-  //   this.loadComponent();
-  // }
 
   addExercise(): void {
+    this.exercise.setViewOption(ViewOption.Display);
     this.set.addExerciseToSet(this.exercise);
     this.createWordExercise(); 
-    // this.loadComponent();
-    // this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
     this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
   }
 

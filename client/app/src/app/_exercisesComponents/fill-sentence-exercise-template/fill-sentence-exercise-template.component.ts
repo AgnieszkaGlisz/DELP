@@ -1,3 +1,4 @@
+import { View, ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
 // import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
@@ -15,7 +16,9 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
     //   super();
       this.template = "FillSentenceExerciseTemplate";
       this.component = FillSentenceExerciseTemplateComponent;
-      //this.data = this;
+      this.data = this;
+
+      this.viewOption = new View(ViewOption.Create);
     }
 
   ngOnInit(): void {
@@ -28,11 +31,13 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
   incorrectWords: {"word": string}[];
   @Input() data: any = this;
   component: Type<any>;
+  viewOption: View;
+  ViewOption = ViewOption;
 
   id: number;
-    videoPath: string;
-    audioPath: string;
-    picturePath: string;
+  videoPath: string;
+  audioPath: string;
+  picturePath: string;
 
   addExerciseToSet(set: Set) {
     // super.addExerciseToSet(set);
@@ -43,6 +48,10 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
     set.exercises.push(exerciseCopy);
   }
 
+  setViewOption(view: ViewOption) {
+    this.viewOption.type = view;
+  }
+
   toJSON() {
     return {
       "id": this.id,
@@ -51,26 +60,5 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
       "wordToFill": this.wordToFill,
       "rightPartOfSentence": this.rightPartOfSentence };
   }
-
-  public displayExerciseHTML() {
-    let listOfExercises = document.getElementById("exercise-in-lesson-create");
-    listOfExercises.innerHTML += "\
-    <a>\
-        <span>{{exercise.id}}</span>\
-        <span>{{exercise.leftPartOfSentence}}</span>\
-        <span>{{exercise.wordToFill}}</span>\
-        <span>{{exercise.rightPartOfSentence}}</span>\
-    </a>\
-    ";
-  }
-
-  public createExerciseInputHTML() {
-    let createExDiv = document.getElementById("create-exercise");
-    createExDiv.innerHTML = "\
-    <input [(ngModel)]='exercise.leftPartOfSentence' placeholder='leftPartOfSentence'/> \
-    <input [(ngModel)]='exercise.wordToFill' placeholder='wordToFill'/> \
-    <input [(ngModel)]='exercise.rightPartOfSentence' placeholder='rightPartOfSentence'/> \
-    ";
-  }
-
+  
 }
