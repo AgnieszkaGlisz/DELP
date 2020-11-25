@@ -49,16 +49,24 @@ export class WordsetService {
 
 
   getWordset(): Observable<Set> {
-    this.messageService.add("WordsetService: fetched wordset");
-    
     return this.http.get<Set>(`${this.url}/set/${this.setToDisplayId}`, this.httpOptions);
   }
 
   saveWordset(wordset: Wordset): Observable<Set> {
-    this.messageService.add("Wordset service: POST wordset");
-    console.log(wordset);
-    // console.log("it's cool");
     return this.http.post<Set>(`${this.url}/add-set`, wordset, this.httpOptions);
+  }
+
+  newExercise(template: string) {
+    switch (template) {
+      case "WordExerciseTemplate":
+        return new WordExerciseTemplateComponent();
+
+      case "TranslateSentenceExerciseTemplate":
+        return new TranslateSentenceExerciseTemplateComponent();
+
+      case "FillSentenceExerciseTemplate":
+        return new FillSentenceExerciseTemplateComponent();
+    }
   }
  
 }

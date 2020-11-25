@@ -1,13 +1,13 @@
 <p>wordset-learn works!</p>
 <br>
 <div id="wordset-display">
-<ul *ngIf="word" class="words">
-    <li>
-        <a>
+    <ul class="words">
+        <li>
+            <ng-template exerciseHost></ng-template>
+        <!-- <a>
             <span class="word-left">{{word.word}}</span>
-            <!--span >{{answer}}</span--> 
             <input [(ngModel)]="answer.value" placeholder="answer" class="word-right" />
-        </a>
+        </a> -->
     </li>
 </ul>
 <div>{{result}}</div>

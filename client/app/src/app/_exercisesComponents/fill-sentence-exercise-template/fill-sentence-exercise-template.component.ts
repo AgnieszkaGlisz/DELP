@@ -27,7 +27,9 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
   template: "FillSentenceExerciseTemplate";
   leftPartOfSentence: string;
   wordToFill: string;
+  answer: string;
   rightPartOfSentence: string;
+
   incorrectWords: {"word": string}[];
   @Input() data: any = this;
   component: Type<any>;

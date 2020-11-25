@@ -11,10 +11,9 @@ import { Component, Input, OnInit, Type } from '@angular/core';
 export class TranslateSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
     constructor() {
-        //   super();
-          this.template = "TranslateSentenceExerciseTemplate";
-          this.component = TranslateSentenceExerciseTemplateComponent;
-          this.data = this;
+        this.template = "TranslateSentenceExerciseTemplate";
+        this.component = TranslateSentenceExerciseTemplateComponent;
+        this.data = this;
 
         this.viewOption = new View(ViewOption.Create);
         }
@@ -23,6 +22,8 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
     template: "TranslateSentenceExerciseTemplate";
     oryginalSentence: string;
     translatedSentence: string;
+    answer: string;
+
     @Input() data: any = this;
     component: Type<any>;
     viewOption: any;

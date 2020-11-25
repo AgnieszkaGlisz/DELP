@@ -11,3 +11,9 @@
         <span>translated: {{data.translatedSentence}}  </span>
     </a>
 </div>
+
+<div *ngIf="data.viewOption.type==ViewOption.Learn">
+    <span>{{data.id}}</span>
+    <span>{{data.oryginalSentence}}  </span>
+    <input class="word-right" [(ngModel)]='data.answer' placeholder='translation'/>
+</div>

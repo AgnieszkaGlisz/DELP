@@ -33,6 +33,7 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   @Input() data: any;
   word: string;
   translation: string;
+  answer: string
   
   set: Set;
   idSet: number;

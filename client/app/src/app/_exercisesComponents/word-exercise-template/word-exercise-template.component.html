@@ -12,3 +12,9 @@
         <span>translation: {{data.translation}}  </span>
     </a>
 </div>
+
+<div *ngIf="data.viewOption.type==ViewOption.Learn">
+    <span>{{data.id}}</span>
+    <span class="word-left">{{data.word}}</span>
+    <input [(ngModel)]="data.answer" placeholder="answer" class="word-right" />
+</div>

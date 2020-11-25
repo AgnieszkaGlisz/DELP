@@ -60,7 +60,9 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
-    componentRef.instance.data = this.exercise.data;    
+    componentRef.changeDetectorRef.detach();
+    componentRef.instance.data = this.exercise.data;
+    componentRef.changeDetectorRef.detectChanges();
   }
 
   loadComponent2(): void {
@@ -71,7 +73,9 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
+        compRef.changeDetectorRef.detach();
         compRef.instance.data = this.set.exercises[index].data;
+        compRef.changeDetectorRef.detectChanges();
         index += 1;
       });
     }

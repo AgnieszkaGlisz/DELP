@@ -50,28 +50,17 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
   }
-
-  newExercise(template: string) {
-    switch (template) {
-      case "WordExerciseTemplate":
-        return new WordExerciseTemplateComponent();
-
-      case "TranslateSentenceExerciseTemplate":
-        return new TranslateSentenceExerciseTemplateComponent();
-
-      case "FillSentenceExerciseTemplate":
-        return new FillSentenceExerciseTemplateComponent();
-    }
-  }
   
   loadComponent(): void {
-    this.exercise = this.newExercise(this.exercise.template);
+    this.exercise = this.wordsetService.newExercise(this.exercise.template);
     this.exercise.data = this.exercise;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
-    componentRef.instance.data = this.exercise.data;    
+    componentRef.changeDetectorRef.detach();
+    componentRef.instance.data = this.exercise.data;
+    componentRef.changeDetectorRef.detectChanges();    
   }
 
   loadComponent2(): void {
@@ -82,7 +71,9 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
+        compRef.changeDetectorRef.detach();
         compRef.instance.data = this.set.exercises[index].data;
+        compRef.changeDetectorRef.detectChanges();
         index += 1;
       });
     }
