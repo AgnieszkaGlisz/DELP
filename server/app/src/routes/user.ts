@@ -114,7 +114,7 @@ router.post('/login', (req, res) => {
 //pobieranie danych uzytkownika
 router.get('/account', auth.authenticateToken, (req:any, res) => {
     common.adminLog("User info.")
-    let sql = 'SELECT U.id,U.username,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,U.isBlocked,UP.idColorSets,UP.fontSize,UP.noSound, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.id and U.idFirstLanguage = L.id and U.id = ' + req.user.id
+    let sql = 'SELECT U.id,U.username,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,U.isBlocked,UP.idColorSets,UP.fontSize,UP.noSound,UP.noSight, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.id and U.idFirstLanguage = L.id and U.id = ' + req.user.id
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "User data error."})
@@ -124,7 +124,8 @@ router.get('/account', auth.authenticateToken, (req:any, res) => {
         var userPreferences = {
             idColorSets: result[0].idColorSets,
             fontSize: result[0].fontSize,
-            noSound: result[0].noSound
+            noSound: result[0].noSound,
+            noSight: result[0].noSight
         }
         var userInfo = {
             id: result[0].id,
@@ -238,6 +239,11 @@ function createSqlUpdatePreferences(req:any):string{
         sql += ' noSound = ' +  req.body.noSound
         first = false
     }
+    if((req.body.noSight!=undefined || req.body.noSight!=null)){
+        if(!first) sql += ","
+        sql += ' noSight = ' +  req.body.noSight
+        first = false
+    }
     if((req.body.idColorSets!=undefined || req.body.idColorSets!=null)){
         if(!first) sql += ","
         sql += ' idColorSets = ' +  req.body.idColorSets
@@ -251,7 +257,8 @@ router.post('/preferences', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Updating preferences.")
     if((req.body.fontSize==undefined || req.body.fontSize==null) && 
        (req.body.noSound==undefined || req.body.noSound==null) && 
-       (req.body.idColorSets==undefined || req.body.idColorSets==null)){
+       (req.body.idColorSets==undefined || req.body.idColorSets==null) && 
+       (req.body.noSight==undefined || req.body.noSight==null)){
         res.status(404).json({error: "Data error."})
         return
     }
