@@ -12,9 +12,6 @@ app.use(cors({origin:"*"}))
 app.use(express.json())
 
 //routing
-const routerWords = require('./routes/words')
-app.use(routerWords)
-
 const routerSets = require('./routes/sets')
 app.use(routerSets)
 

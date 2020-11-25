@@ -170,10 +170,47 @@ router.get('/set/:id', auth.authenticateToken, (req, res) =>{
         })
     })
 })
+/*Tworzenie zapytania do tabeli exercisesets
+var sql = 'SELECT * FROM `ExerciseSets` '
+sql += 'WHERE deleted = 0 OR deleted is null '
+AND name LIKE 'ptaki%' OR name LIKE 'a%'
+ORDER BY ifAudio DESC,ifVideo DESC,popularity DESC,ifPicture DESC 
+LIMIT 20 OFFSET 1*/
+function createSqlForSets(wordsToFind:any,deaf:boolean,blind:boolean,page:number):string{
+    var limit = 20 
+    var offset = 20 * page
+    var sql = 'SELECT * FROM `ExerciseSets` '
+    sql += 'WHERE deleted = 0 OR deleted is null '
+    for(var i = 0;i<wordsToFind.length;i++){
+        if(i==0){
+            sql+= ' AND name LIKE "' + wordsToFind[i] + '%"'
+        }
+        else{
+            sql+= ' OR name LIKE "' + wordsToFind[i] + '%"'
+        }
+    }
+    sql+= ' ORDER BY '
+    if (blind) sql+= ' ifAudio DESC,'
+    if (deaf) sql+= ' ifVideo DESC,'
+    sql += ' popularity DESC,ifPicture DESC'
+    sql += ' LIMIT ' + limit + ' OFFSET ' + offset
+    return sql
+}
 
-router.get('/sets', auth.authenticateToken, (req, res) =>{
+router.post('/sets', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Sets search.")
-    var sql = 'SELECT * FROM `ExerciseSets` WHERE deleted = 0 OR deleted is null'
+    var page = 0
+    var deaf = false 
+    var blind = false
+    var wordsToFind
+    if(req.body.page!= null && req.body.page!= undefined) page = req.body.page
+    if(req.body.noSound == 1) deaf = true
+    if(req.body.noSight == 1) blind = true
+    if(req.body.userQuery!= null && req.body.userQuery!= undefined)
+        wordsToFind = req.body.userQuery.split(" ")
+    else 
+        wordsToFind = [""]
+    var sql = createSqlForSets(wordsToFind,deaf,blind,page)
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "No result."})

@@ -203,10 +203,10 @@ GET  http://localhost:3500/delete-set/14
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
 ###
-GET  http://localhost:3500/add-favourite/1
+GET  http://localhost:3500/add-favourite/39
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 ###
-GET  http://localhost:3500/delete-favourite/1
+GET  http://localhost:3500/delete-favourite/39
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 ###
 GET http://localhost:3500/favourite
@@ -400,9 +400,51 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
 
 ###
 POST http://localhost:3500/sets
+Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
 {
     "userQuery":"koty aaa",
-    "noSound":1 //null // uindefined // 0
+    "noSound":1 
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+
+{
+    "noSound":1 
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+
+{
+    "userQuery":"ptaki a",
+    "noSound":1,
+    "noSight":1,
+    "page":1
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+
+{
+    "userQuery":"",
+    "noSound":0,
+    "noSight":0,
+    "page":1
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+
+{
+    "userQuery":null,
+    "noSound":1,
+    "noSight":1,
+    "page":12
 }
