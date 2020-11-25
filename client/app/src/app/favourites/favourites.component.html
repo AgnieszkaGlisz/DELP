@@ -15,6 +15,7 @@
                 <span class="lesson-id">{{lesson.id}}  </span>
                 <span class="lesson-name">{{lesson.name}}  </span>
             </a>
+            <button class="learn" title="learn" (click)="goToLearnView(lesson.id)">learn</button>
         </li>
     </ul>
     <!-- <button class="load" (click)="getWordset()">Load</button> -->

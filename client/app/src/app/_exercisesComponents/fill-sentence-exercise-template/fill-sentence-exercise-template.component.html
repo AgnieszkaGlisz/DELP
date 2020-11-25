@@ -15,8 +15,8 @@
 </div>
 
 <div *ngIf="data.viewOption.type==ViewOption.Learn">
-    <span>{{data.id}}</span>
-    <span>{{data.leftPartOfSentence}}  </span>
+    <a>{{data.id}}</a>
+    <a>{{data.leftPartOfSentence}}  </a>
     <input class="word-right" [(ngModel)]='data.answer' placeholder='word'/>
-    <span>{{data.rightPartOfSentence}}  </span>
+    <a>{{data.rightPartOfSentence}}  </a>
 </div>

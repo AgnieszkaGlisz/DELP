@@ -54,4 +54,11 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   setViewOption(view: ViewOption) {
     this.viewOption.type = view;
   }
+
+  checkAnswer(): boolean {
+    if (this.data.answer == this.translation) {
+      return true;
+    }
+    else return false;
+  }
 }

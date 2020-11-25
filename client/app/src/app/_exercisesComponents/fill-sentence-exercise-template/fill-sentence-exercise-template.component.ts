@@ -41,14 +41,14 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
   audioPath: string;
   picturePath: string;
 
-  addExerciseToSet(set: Set) {
-    // super.addExerciseToSet(set);
-    this.template = "FillSentenceExerciseTemplate";
-    let exerciseCopy = new FillSentenceExerciseTemplateComponent();
-    let sth = Object.assign(exerciseCopy, this);
+  // addExerciseToSet(set: Set) {
+  //   // super.addExerciseToSet(set);
+  //   this.template = "FillSentenceExerciseTemplate";
+  //   let exerciseCopy = new FillSentenceExerciseTemplateComponent();
+  //   let sth = Object.assign(exerciseCopy, this);
     
-    set.exercises.push(exerciseCopy);
-  }
+  //   set.exercises.push(exerciseCopy);
+  // }
 
   setViewOption(view: ViewOption) {
     this.viewOption.type = view;
@@ -61,6 +61,13 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
       "leftPartOfSentence": this.leftPartOfSentence,
       "wordToFill": this.wordToFill,
       "rightPartOfSentence": this.rightPartOfSentence };
+  }
+
+  checkAnswer(): boolean {
+    if(this.data.answer == this.wordToFill) {
+      return true;
+    }
+    else return false;
   }
   
 }

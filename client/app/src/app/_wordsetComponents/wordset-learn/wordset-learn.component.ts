@@ -1,3 +1,4 @@
+import { Set } from './../../_interfaces/set';
 import { ExerciseDirective } from './../../exercise.directive';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { WordExerciseTemplateComponent } from './../../_exercisesComponents/word-exercise-template/word-exercise-template.component';
@@ -17,9 +18,9 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     private wordsetService: WordsetService,
     private componentFactoryResolver: ComponentFactoryResolver,
     ) { }
-  wordset: Wordset;
+  set: Set;
   // exercise: ExerciseTemplateComponent;
-  exercise: WordExerciseTemplateComponent = new WordExerciseTemplateComponent();
+  exercise: ExerciseTemplateComponent;// = new ExerciseTemplateComponent();
   // answer: any = { value: ''};
   wordIndex: number;
   result: string = "";
@@ -28,7 +29,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.wordIndex = -1;
-    this.wordset = new Wordset();
+    this.set = new Set();
     // this.exercise= new ExerciseTemplateComponent();
     // this.exercise= new WordExerciseTemplateComponent();
     // this.getWordset();
@@ -36,15 +37,15 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.loadComponent();
     this.getWordset();
+    // this.loadComponent();
   }
 
   loadComponent(): void {
     this.exercise.data = this.exercise;
     this.exercise.setViewOption(ViewOption.Learn);
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(WordExerciseTemplateComponent);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent<ExerciseTemplateComponent>(componentFactory);
@@ -57,20 +58,20 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   getWordset(): void {
     this.wordsetService.getWordset().subscribe(
       x => {
-        this.wordset = new Wordset();
-        Object.assign(this.wordset, x);
-        this.wordset = x;
+        this.set = new Set();
+        Object.assign(this.set, x);
+        this.set = x;
         let idx = 0;
+        this.exercise = this.wordsetService.newExercise(this.set.exercises[0].template);
         x.exercises.forEach(exer => {
-          console.log("exer", exer);
-          console.log(this.wordset.exercises[idx]);
-          this.wordset.exercises[idx] = new WordExerciseTemplateComponent();
-          Object.assign(this.wordset.exercises[idx], exer);
+          this.set.exercises[idx] = this.wordsetService.newExercise(exer.template);
+          Object.assign(this.set.exercises[idx], exer);
           idx++;
         })
 
         this.nextWord();
-      },
+        // this.loadComponent();
+  },
       err => console.log('HTTP Error: ', err)
     )
   }
@@ -78,11 +79,11 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   nextWord(): void {
     this.result = "";
     this.exercise.data.answer = '';
-    if(this.wordIndex < this.wordset.exercises.length - 1)
+    if(this.wordIndex < this.set.exercises.length - 1)
     {
       this.wordIndex += 1;
       // this.word
-      this.exercise= <WordExerciseTemplateComponent>this.wordset.exercises[this.wordIndex];
+      this.exercise= this.set.exercises[this.wordIndex];
     }
     else
     {
@@ -92,15 +93,20 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   }
 
   checkWord(): void {
-    console.log("this.exercise.data.answer", this.exercise.data.answer)
-    if (this.exercise.data.answer == this.exercise.translation.toString())
-    {
-        this.result = "Correct!";
+    if (this.exercise.checkAnswer()) {
+      this.result = "Correct!";
     }
-    else
-    {
-        this.result = "Wrong :c";
+    else {
+      this.result = "Wrong :c";
     }
+    // if (this.exercise.data.answer == this.exercise.translation.toString())
+    // {
+    //     this.result = "Correct!";
+    // }
+    // else
+    // {
+    //     this.result = "Wrong :c";
+    // }
     // console.log(this.exercise.translation);
     // console.log(this.answer.value);
   }

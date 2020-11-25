@@ -34,14 +34,14 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
     audioPath: string;
     picturePath: string;
 
-    public addExerciseToSet(set: Set) {
-        // super.addExerciseToSet(set);
-        this.template = "TranslateSentenceExerciseTemplate";
-        let exerciseCopy = new TranslateSentenceExerciseTemplateComponent();
-        let sth = Object.assign(exerciseCopy, this);
+    // public addExerciseToSet(set: Set) {
+    //     // super.addExerciseToSet(set);
+    //     this.template = "TranslateSentenceExerciseTemplate";
+    //     let exerciseCopy = new TranslateSentenceExerciseTemplateComponent();
+    //     let sth = Object.assign(exerciseCopy, this);
         
-        set.exercises.push(exerciseCopy);
-    }
+    //     set.exercises.push(exerciseCopy);
+    // }
 
     setViewOption(view: ViewOption) {
       this.viewOption.type = view;
@@ -54,5 +54,13 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
           "oryginalSentence": this.oryginalSentence,
           "translatedSentence": this.translatedSentence,
       }
+    }
+
+    checkAnswer(): boolean {
+      if (this.data.answer == this.translatedSentence)
+      {
+        return true;
+      }
+      else return false;
     }
 }

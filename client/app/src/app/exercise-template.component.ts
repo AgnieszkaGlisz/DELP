@@ -15,5 +15,6 @@ export interface ExerciseTemplateComponent {
     audioPath: string;
 
     setViewOption(view: ViewOption);
+    checkAnswer(): boolean;
     // viewOption: ViewOption;
 }
