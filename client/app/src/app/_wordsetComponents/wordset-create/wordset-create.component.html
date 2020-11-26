@@ -1,9 +1,7 @@
 <br>
 <div id="wordset-create">
     <input [(ngModel)]="set.setInfo.name" placeholder="Wordset Name"/>
-    <!-- <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.name" placeholder="Wordset Name"/> -->
     <input [(ngModel)]="set.setInfo.info" placeholder="Wordset Info"/>
-    <!-- <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.info" placeholder="Wordset Info"/> -->
     <ul class="words">
         <li>
             <ng-template exerciseHost></ng-template><button (click)="addExercise();">+</button>
@@ -18,16 +16,6 @@
     <ul *ngIf="set" class="words">
         <li *ngFor="let exerciseI of set.exercises">
             <ng-template exerciseListHost></ng-template><br/>
-            
-            <!-- <exerciseHost [exerciseI]="exerciseI"></exerciseHost> -->
-            <!-- <a>
-        <li *ngFor="let exerciseI of set.exercises">  
-            <a>
-                <span class="word-id">{{exerciseI.id}}  </span>
-                <span class="word-left">{{exerciseI.data.word}}  </span>
-                <span class="word-right">{{exerciseI.data.translation}}  </span> 
-                <button class="delete" title="delete word" (click)="deleteExercise(exerciseI)">x</button>
-            </a> -->
         </li>
 
     </ul>

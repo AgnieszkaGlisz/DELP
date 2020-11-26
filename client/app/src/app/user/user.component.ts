@@ -1,4 +1,3 @@
-import { MessageService } from '../_services/message.service';
 import { UserService } from '../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../_interfaces/user';
@@ -13,7 +12,6 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private messageService: MessageService
   ) { }
   // allUsers: User[];
   userInfo: User;
@@ -28,7 +26,6 @@ export class UserComponent implements OnInit {
 
   getUserInfo(): void {
     // let id: number = 1;
-    this.messageService.add('getUserInfo()');
     
     // this.userService.getUserInfo(id).subscribe(users => console.log(users));
     // this.userService.getUserInfo(id).subscribe(users => this.allUsers = users);

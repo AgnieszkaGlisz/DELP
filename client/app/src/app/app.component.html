@@ -24,6 +24,7 @@
     <div>
         <div class="row">
             <div *ngIf="logged" class="col-md-2 nav-menu">
+                <input #keyword placeholder="search for sets"/> <button (click)="goToSearchedSets(keyword.value)">Search</button>
                 <nav>                    
                     <a routerLink="/favourites">Favourites</a>
                     <a routerLink="/my-sets">My-sets</a>

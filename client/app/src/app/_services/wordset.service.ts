@@ -4,7 +4,6 @@ import { TranslateSentenceExerciseTemplateComponent } from './../_exercisesCompo
 import { WordExerciseTemplateComponent } from './../_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { MessageService } from './message.service';
 import { Injectable, Type } from '@angular/core';
 import { identity, Observable, of } from 'rxjs';
 import { Set } from '../_interfaces/set';
@@ -14,13 +13,14 @@ import {fileInfo} from '../_interfaces/files'
 })
 export class WordsetService {
 
-  constructor(private messageService: MessageService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   urlAga: string = `http://25.95.136.77:3500`;
   urlCezar: string = `http://25.68.211.177:3500`;
   urlLocal: string = `http://localhost:3500`;
-  url: string = this.urlAga;
+  url: string = this.urlCezar;
   setToDisplayId: string = '0';
+  searchSetsKeyword: string = '';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -35,6 +35,19 @@ export class WordsetService {
 
   getFavourites(): Observable<Set[]> {
     return this.http.get<Set[]>(`${this.url}/favourite`, this.httpOptions);
+  }
+
+  getSearchedSets(): Observable<Set[]> {
+    let data = {
+      "userQuery": this.searchSetsKeyword,
+      "noSound": 0,
+      "noSight": 0,
+      "page": 0
+    }
+
+    console.log(data);
+
+    return this.http.post<Set[]>(`${this.url}/sets`, data, this.httpOptions);
   }
 
   getUserSets(): Observable<Set[]> {
@@ -52,6 +65,17 @@ export class WordsetService {
     }
   }
 
+  addSetToFavourites(id: string): Observable<any> {
+    return this.http.get(`${this.url}/add-favourite/${id}`)
+  }
+
+  deleteSetFromFavourites(id:string): Observable<any> {
+    return this.http.get(`${this.url}/delete-favourite/${id}`);
+  }
+
+  deleteSet(id:string): Observable<any> {
+    return this.http.get(`${this.url}/delete-set/${id}`);
+  }
 
   getWordset(): Observable<Set> {
     return this.http.get<Set>(`${this.url}/set/${this.setToDisplayId}`, this.httpOptions);
