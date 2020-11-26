@@ -1,3 +1,11 @@
-<p>user-login works!</p>
-<input #username placeholder="username"/><input #password placeholder="password"/>
-<button (click)="logIn(username.value, password.value); username.value=''; password.value=''">Login</button>
+<div class="login bg-dark ">
+    <div class=" d-flex justify-content-center align-items-center login-page">
+        <div class="d-flex bg-white flex-column  p-5 rounded">
+            <h1>Delp Login</h1>
+            <input class="p-2 m-2" #username placeholder="username" />
+            <input class="p-2 m-2" #password placeholder="password" />
+            <button class="p-2 m-2 btn btn-dark"
+                (click)="logIn(username.value, password.value); username.value=''; password.value=''">Login</button>
+        </div>
+    </div>
+</div>

@@ -1,47 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
-</head>
-<body>
-    <div class="jumbotron p-4">
-        <div class="container text-center">
-            <alert></alert>
-            <router-outlet></router-outlet>
+<!-- <div class="jumbotron p-4">
+    <div class="text-center">
+        <alert></alert>
+        <router-outlet></router-outlet>
+    </div>
+</div> -->
+<div class="d-flex" id="wrapper">
+    <div *ngIf="logged" class=" nav-menu">
+        <nav class="" >
+            <div class="bg-dark text-white border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading darker">Delp</div>
+                <div class="list-group list-group-flush">
+                    <a routerLink="/favourites"
+                        class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        routerLink="/favourites">Favourites</a>
+                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        routerLink="/my-sets">My sets</a>
+                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        routerLink="/wordset/create">Create
+                        Wordset</a>
+                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        routerLink="/lesson/create">Create
+                        Lesson</a>
+                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        routerLink="/logout">Log Out</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="m-4" id="page-content-wrapper">
+        <div *ngIf="logged">
+        <div class=" menu-toggle sidebar-heading darker text-white text-center " id="menu-toggle" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">
+            <span class="" >☰</span>
         </div>
     </div>
-    <div>
-        <div class="row">
-            <div *ngIf="logged" class="col-md-2 nav-menu">
-                <nav>                    
-                    <a routerLink="/favourites">Favourites</a>
-                    <a routerLink="/my-sets">My-sets</a>
-                    <a routerLink="/wordset/create">Create Wordset</a>
-                    <a routerLink="/lesson/create">Create Lesson</a>
-                    <!-- <a routerLink="/wordset/display">Display Wordset</a> -->
-                    <!-- <a routerLink="/wordset/learn">Learn Wordset</a> -->
-                    <a routerLink="/my-profile">My profile</a>
-                    <!--a routerLink="/login">Login</a-->
-                    <a routerLink="/lesson">Lesson</a>
-                    <a routerLink="/logout">Log Out</a>
-                </nav>
-            </div>
-            <div class="col-md-10">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-    <!-- <app-messages></app-messages> -->
+        <router-outlet class=""></router-outlet>
     </div>
-
-</body>
+</div>
