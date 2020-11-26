@@ -22,9 +22,14 @@ npm install dotenv -s
 npm install cors -s
 npm install @types/cors -s
 
+npm install bcrypt -s
+npm install @types/bcrypt -s
+
 10.Przenieść pliki które wam wysłałem do folderu.
 11.Kompilacja TS do JS: 
 npm run tsc 
 12.Uruchomienie servera:
 node app.js
+
+
 

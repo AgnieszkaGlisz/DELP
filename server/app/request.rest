@@ -1,6 +1,6 @@
 ### zalogowany uzytkownik chce swoje dane
 GET http://localhost:3500/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJobnVyc2thIiwiaWF0IjoxNjA0ODM0ODMxfQ.9dO8nCGqTvO7JMT-qFRniioykkgYxxXF7wq5DsuCDPY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
 ### logowanie ok
 
 POST http://localhost:3500/login
@@ -52,6 +52,16 @@ Content-Type: application/json
 }
 
 ###
+###
+
+POST http://localhost:3500/login
+Content-Type: application/json
+
+{
+    "username": "test",
+    "password": "test"
+}
+###
 
 GET http://localhost:3500/apiinfo
 ###
@@ -68,8 +78,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hb
 
 GET http://localhost:3500/favourite
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
+###
 
-    ###
 GET http://localhost:3500/languageinfo/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
 
@@ -78,7 +88,7 @@ GET http://localhost:3500/languages
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0NjczMzMxfQ.7KkSLLKiXiBQgFFhd9IkPh_l0I6IdkIqHptCZNKx5Ko
 ###
 
-GET  http://localhost:3500/set/13
+GET  http://localhost:3500/set/0
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
 
 ###
@@ -103,7 +113,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
         "ifPicture": null
     },
     "exercises":[
-        {
+        {   
+            "id":1,
             "template": "FillSentenceExerciseTemplate",
             "leftPartOfSentence": "test left part",
             "wordToFill": "test word",
@@ -111,11 +122,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
             "incorrectWords": [{"word":"wrongtestword"},{"word":"wrongtestword2"}] 
         },
         {
+            "id":2,
             "template": "TranslateSentenceExerciseTemplate",
             "oryginalSentence": "test sentence",
             "translatedSentence": "test translation."
         },
         {
+            "id":3,
             "template": "WordExerciseTemplate",
             "word": "test word",
             "translation": "test translation"
@@ -123,7 +136,49 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
     ]
 }
 
+###
 
+POST http://localhost:3500/add-set
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "setInfo":{
+        "id": null,
+        "name": "setname",
+        "info": "setinfo",
+        "idCreator": null,
+        "setCreation": null,
+        "idBaseLanguage": 1,
+        "idLearnLanguage": 2,
+        "isWordSet": null,
+        "popularity": null,
+        "ifVideo": null,
+        "ifAudio": null,
+        "ifPicture": null
+    },
+    "exercises":[
+        {   
+            "id":1,
+            "template": "FillSentenceExerciseTemplate",
+            "leftPartOfSentence": "test left part",
+            "wordToFill": "test word",
+            "rightPartOfSentence": "test rightpart."
+        },
+        {
+            "id":2,
+            "template": "TranslateSentenceExerciseTemplate",
+            "oryginalSentence": "test sentence",
+            "translatedSentence": "test translation."
+        },
+        {
+            "id":3,
+            "template": "WordExerciseTemplate",
+            "word": "test word",
+            "translation": "test translation"
+        }
+    ]
+}
 ###
 POST http://localhost:3500/add-set
 Content-Type: application/json
@@ -135,7 +190,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
 
 ###
 
-GET  http://localhost:3500/set/14
+GET  http://localhost:3500/set/41
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
 
 ###
@@ -148,10 +203,12 @@ GET  http://localhost:3500/delete-set/14
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
 ###
-GET  http://localhost:3500/add-favourite/3
+GET  http://localhost:3500/add-favourite/39
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 ###
-
+GET  http://localhost:3500/delete-favourite/39
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+###
 GET http://localhost:3500/favourite
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
@@ -163,9 +220,232 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hb
 
 ###
 GET http://localhost:3500/my-sets
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA
+
+SELECT FillSentenceExerciseTemplate.*,IncorrectWordsFillSentenceExerciseTemplate.word AS incorrect FROM FillSentenceExerciseTemplate, IncorrectWordsFillSentenceExerciseTemplate WHERE FillSentenceExerciseTemplate.id IN (20,2) AND IncorrectWordsFillSentenceExerciseTemplate.idFillSentenceExerciseTemplate = FillSentenceExerciseTemplate.id
+
+
+SELECT `FillSentenceExerciseTemplate`.*,`IncorrectWordsFillSentenceExerciseTemplate`.word AS incorrect 
+FROM `FillSentenceExerciseTemplate`, `IncorrectWordsFillSentenceExerciseTemplate` 
+FULL OUTER JOIN FillSentenceExerciseTemplate ON FillSentenceExerciseTemplate.id = IncorrectWordsFillSentenceExerciseTemplate.idFillSentenceExerciseTemplate
+WHERE FillSentenceExerciseTemplate.id IN (16)
+
+
+
+###
+GET http://localhost:3500/aa/apiinfoo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA
+
+
+###
+
+POST http://localhost:3500/register
+Content-Type: application/json
+
+{
+    "userInfo":{
+        "username": "test",
+        "password": "test",
+        "email": "test@test.test",
+        "name": "Test",
+        "surname": "Test",
+        "birthday": "2010-10-10",
+        "idFirstLanguage": 1
+    },
+    "preferences":{
+        "idColorSets":1,
+        "fontSize":null,
+        "noSound":null
+    }
+}
+
+###
+"userInfo":{
+        "username": null,
+        "password": "test",
+        "email": null,
+        "name": "Test",
+        "surname": "Test",
+        "birthday": 2010-10-10,
+        "idFirstLanguage": 1
+    },
+    "preferences":{
+        "idColorSets":1,
+        "fontSize":null,
+        "noSound":null
+    }
+
+
+###
+GET  http://localhost:3500/words-in-set?id=98
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "noSight": 1,
+    "fontSize":12,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": null,
+    "fontSize":null,
+    "idColorSets":null
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": null,
+    "fontSize":null
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "fontSize": 1
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "idColorSets": 1
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "fontSize":12
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "fontSize":12,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "fontSize":12
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "noSound": 1,
+    "idColorSets":2
+}
+###
+
+POST http://localhost:3500/preferences
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+
+{
+    "fontSize":12,
+    "idColorSets":2
+}
+
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
+{
+    "userQuery":"koty aaa",
+    "noSound":1 
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
+{
+    "noSound":1 
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
+{
+    "userQuery":"ptaki a",
+    "noSound":1,
+    "noSight":0,
+    "page":1
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
+{
+    "userQuery":"",
+    "noSound":0,
+    "noSight":0,
+    "page":1
+}
+###
+POST http://localhost:3500/sets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
+{
+    "userQuery":null,
+    "noSound":1,
+    "noSight":1,
+    "page":0
+}

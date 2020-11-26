@@ -8,7 +8,7 @@ import { MessageService } from './message.service';
 import { Injectable, Type } from '@angular/core';
 import { identity, Observable, of } from 'rxjs';
 import { Set } from '../_interfaces/set';
-
+import {fileInfo} from '../_interfaces/files'
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +27,11 @@ export class WordsetService {
       'Content-Type': 'application/json',
     })
   };
+  httpOptionsFile = {
+    headers: new HttpHeaders({
+      'Content-Type': ''
+    })
+  }
 
   getFavourites(): Observable<Set[]> {
     return this.http.get<Set[]>(`${this.url}/favourite`, this.httpOptions);
@@ -52,10 +57,6 @@ export class WordsetService {
     return this.http.get<Set>(`${this.url}/set/${this.setToDisplayId}`, this.httpOptions);
   }
 
-  saveWordset(wordset: Wordset): Observable<Set> {
-    return this.http.post<Set>(`${this.url}/add-set`, wordset, this.httpOptions);
-  }
-
   newExercise(template: string) {
     switch (template) {
       case "WordExerciseTemplate":
@@ -67,6 +68,17 @@ export class WordsetService {
       case "FillSentenceExerciseTemplate":
         return new FillSentenceExerciseTemplateComponent();
     }
+  }
+
+  saveWordset(wordset: Wordset): Observable<JSON> {
+    console.log(wordset);
+    return this.http.post<JSON>(`${this.url}/add-set`, wordset, this.httpOptions);
+  }
+  
+  sendFile(file: fileInfo, setId: number): Observable<any> {
+    //console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
+    console.log(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id)
+    return this.http.post<any>(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
   }
  
 }

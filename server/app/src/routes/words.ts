@@ -4,6 +4,7 @@ import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
+
 function createResponseWord(result:any){
     var wordTemp = [];
         for (var i = 0; i < result.length ; i++) { 
@@ -130,7 +131,7 @@ router.get('/word', (req,res) => {
 })
 
 router.get('/words-in-set', (req, res) =>{
-    var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.headers.id;
+    var sql = 'SELECT * FROM WordExerciseTemplate WHERE idSet=' + req.query.id;
     db.query(sql,function(result:any){
         if(result == 0){
             res.json({accessToken: 0})
@@ -181,7 +182,6 @@ router.get('/exerciseSets', (req, res) =>{
         }
     })
 })
-
 
 
 module.exports = router;

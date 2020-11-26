@@ -33,7 +33,7 @@ export class Set {
         Object.assign(exerciseCopy, exercise);
         // exerciseCopy.data = exerciseCopy;
         this.exercises.push(exerciseCopy);
-        return true;
-    }
+        return exerciseCopy.id;
+  }
 
 }
