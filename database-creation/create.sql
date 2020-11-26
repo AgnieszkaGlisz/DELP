@@ -130,6 +130,8 @@ CREATE TABLE UserPreferences(
     noSound BOOLEAN,
     PRIMARY KEY (id)
 );
+ALTER TABLE `UserPreferences`
+ADD noSight BOOLEAN
 
 --tworzenie tabeli Languages przechowujacej dane o wszystkich mozliwych jezykach do uzycia przez uzytkownikow
 CREATE TABLE Languages(
