@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'lesson/create', component: LessonCreateComponent},
   { path: 'user/logout', component: UserLogoutComponent},
   { path: 'user/sets', component: UserSetsComponent},
-  { path: 'sets/search', component: SearchedSetsComponent},
+  { path: 'sets/search', component: SearchedSetsComponent, runGuardsAndResolvers: 'always'},
 ];
 
 @NgModule({

@@ -16,7 +16,11 @@ export class SearchedSetsComponent implements OnInit {
   constructor(
     private wordsetService: WordsetService,
     private router: Router,
-    ) { }
+    ) {
+      router.events.subscribe(x => {
+        this.getSearchedSets();
+      })
+     }
 
   searchedSets: SetInfo[];
   favourites: SetInfo[];
@@ -28,6 +32,7 @@ export class SearchedSetsComponent implements OnInit {
   }
 
   getSearchedSets() {
+    this.searchedSets = new Array<SetInfo>();
     this.wordsetService.getSearchedSets().subscribe(x => {
       Object.assign(this.searchedSets, x);
       let index = 0;
@@ -52,7 +57,7 @@ export class SearchedSetsComponent implements OnInit {
 
 isFavourite(id: string): boolean {
   let isFav: boolean = false;
-  if (this.favourites.length != 0) {
+  if (this.favourites) {
     this.favourites.forEach(fav => {
       var idNum: number = +id;
       if (idNum == fav.id) {
