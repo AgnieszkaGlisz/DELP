@@ -18,15 +18,20 @@ export class UserSetsComponent implements OnInit {
   userSets: Set[];
 
   ngOnInit(): void {
-    this.userSets = new Array<Set>();
     this.getUserSets();
   }
 
   getUserSets(): void {
+    this.userSets = new Array<Set>();
     this.wordsetService.getUserSets().subscribe(x => {
-      console.log(x);
-      this.userSets = x;
-    })
+    this.userSets = new Array<Set>();
+    Object.assign(this.userSets, x);
+      let index = 0;
+      x.forEach(set => {
+        this.userSets[index] = new Set();
+        Object.assign(this.userSets[index++], set);
+      });
+    });
   }
 
   goToDisplayView(id: string): void {
@@ -38,4 +43,12 @@ export class UserSetsComponent implements OnInit {
     this.wordsetService.setToDisplayId = id;
     this.router.navigateByUrl('/wordset/learn');
   }
+
+  deleteSet(id: string): void {
+    this.wordsetService.deleteSet(id).subscribe(x => {
+      this.getUserSets();
+    });
+    // this.userSets = new Array<Set>();
+  }
+
 }

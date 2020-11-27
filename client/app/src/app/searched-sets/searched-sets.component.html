@@ -1,0 +1,17 @@
+<p>searched-sets works!</p>
+
+<div>
+    <ul *ngIf="searchedSets">
+        <li *ngFor="let set of searchedSets">
+            <a>
+                <span class="wordset-id">{{set.id}}  </span>
+                <span class="wordset-name">{{set.name}}  </span>
+                <!-- <span class="wordset-name">{{set.isWordSet}}  </span> -->
+                
+            </a>
+            <button class="learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
+            <button (click)="addToFavourites(set.id)">Add to Favourites</button>
+            <!-- <button *ngIf="isFavourite(set)==false" (click)="addToFavourites(set.id)">Add to Favourites</button> -->
+        </li>
+    </ul>
+</div>

@@ -8,11 +8,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WordsetCreateComponent } from './_wordsetComponents/wordset-create/wordset-create.component';
-import { MessagesComponent } from './messages/messages.component';
 import { UserComponent } from './user/user.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { WordsetDisplayComponent } from './_wordsetComponents/wordset-display/wordset-display.component';
-import { LessonComponent } from './lesson/lesson.component';
 import { LessonCreateComponent } from './_lessonComponents/lesson-create/lesson-create.component';
 
 import { AuthInterceptor } from './interceptor/httpconfig.interceptor';
@@ -27,17 +25,16 @@ import { WordExerciseTemplateComponent } from './_exercisesComponents/word-exerc
 import { TranslateSentenceExerciseTemplateComponent } from './_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
 import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 import { ExerciseListDirective } from './exercise-list.directive';
+import { SearchedSetsComponent } from './searched-sets/searched-sets.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     WordsetCreateComponent,
-    MessagesComponent,
     UserComponent,
     UserLoginComponent,
     WordsetDisplayComponent,
-    LessonComponent,
     LessonCreateComponent,
     FavouritesComponent,
     WordsetLearnComponent,
@@ -49,6 +46,7 @@ import { ExerciseListDirective } from './exercise-list.directive';
     TranslateSentenceExerciseTemplateComponent,
     FillSentenceExerciseTemplateComponent,
     ExerciseListDirective,
+    SearchedSetsComponent,
   ],
   imports: [
     BrowserModule,

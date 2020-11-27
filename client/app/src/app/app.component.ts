@@ -1,3 +1,4 @@
+import { WordsetService } from './_services/wordset.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './_services/user.service';
@@ -12,6 +13,7 @@ export class AppComponent  implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private wordsetService: WordsetService,
     ) {
       this.router.events.subscribe( x => {
         if (this.router.url.indexOf('login') > -1) 
@@ -34,5 +36,15 @@ export class AppComponent  implements OnInit {
         this.router.navigateByUrl('favourites');
        }
     );
+  }
+
+  goToSearchedSets(keyword: string) {
+    this.wordsetService.searchSetsKeyword = keyword;
+    if (this.router.url == 'searched-sets') {
+      this.router.onSameUrlNavigation = 'reload';
+    }
+    else {
+      this.router.navigateByUrl('searched-sets');
+    }
   }
 }

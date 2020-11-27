@@ -29,10 +29,11 @@
     </div>
     <div class="m-4" id="page-content-wrapper">
         <div *ngIf="logged">
-        <div class=" menu-toggle sidebar-heading darker text-white text-center " id="menu-toggle" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">
-            <span class="" >☰</span>
+            <div class=" menu-toggle sidebar-heading darker text-white text-center " id="menu-toggle" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">
+                <span class="" >☰</span>
+            </div>
         </div>
-    </div>
+        <input #keyword placeholder="search for sets"/> <button (click)="goToSearchedSets(keyword.value); keyword.value=''">Search</button>
         <router-outlet class=""></router-outlet>
     </div>
 </div>

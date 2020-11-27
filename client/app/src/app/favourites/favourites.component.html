@@ -2,21 +2,23 @@
 <div id="favourites">
     <!-- {{favourites}} -->
     <ul *ngIf="favourites" class="fav-sets">
-        <li *ngFor="let wordset of favourites.wordsets">
+        <li *ngFor="let set of favourites">
             <a>
-                <span class="wordset-id">{{wordset.id}}  </span>
-                <span class="wordset-name">{{wordset.name}}  </span>
+                <span class="wordset-id">{{set.id}}  </span>
+                <span class="wordset-name">{{set.name}}  </span>
             </a>
-            <button class="display" title="display" (click)="goToDisplayView(wordset.id)">display</button>
-            <button class="learn" title="learn" (click)="goToLearnView(wordset.id)">learn</button>
+            <button class="display" title="display" (click)="goToDisplayView(set.id)">display</button>
+            <button class="learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
+            <button (click)="deleteSetFromFavourites(set.id)">Delete from Favourites</button>
+            
         </li>
-        <li *ngFor="let lesson of favourites.lessons">
+        <!-- <li *ngFor="let lesson of favourites.lessons">
             <a>
                 <span class="lesson-id">{{lesson.id}}  </span>
                 <span class="lesson-name">{{lesson.name}}  </span>
             </a>
             <button class="learn" title="learn" (click)="goToLearnView(lesson.id)">learn</button>
-        </li>
+        </li> -->
     </ul>
     <!-- <button class="load" (click)="getWordset()">Load</button> -->
 </div>
