@@ -3,9 +3,9 @@
 <div id="wordset-display">
     <ul *ngIf="set" class="words">
         <li *ngFor="let exerciseI of set.exercises">
+            <!-- {{exerciseI.id}} -->
             <ng-template exerciseListHost></ng-template><br/>
         </li>
-
     </ul>
 
     <!-- <ul *ngIf="set" class="words">

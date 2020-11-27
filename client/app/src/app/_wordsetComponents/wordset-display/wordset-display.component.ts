@@ -25,7 +25,6 @@ export class WordsetDisplayComponent implements OnInit, AfterViewInit {
   ) { }
 
   set: Set;
-  exercise: ExerciseTemplateComponent;
 
   @ViewChildren(ExerciseListDirective) exerciseHosts: QueryList<ExerciseListDirective>;
 
@@ -33,48 +32,47 @@ export class WordsetDisplayComponent implements OnInit, AfterViewInit {
     this.set = new Set();
     this.set.exercises = new Array<ExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
-    this.getWordset();
+    // this.getWordset();
   }
 
   ngAfterViewInit(): void {
     // console.log(this.set.exercises)
-    // this.getWordset();
+    this.getWordset();
     // this.loadComponent2();
+    this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
   }
 
   getWordset(): void {
-    this.wordsetService.getWordset().subscribe(
-      x => {
-        this.set = new Set();
-        Object.assign(this.set, x);
+    this.wordsetService.getWordset().subscribe(x => {
+        // this.set = new Set();
+        // this.set.exercises = new Array<ExerciseTemplateComponent>();
+        // Object.assign(this.set, x);
         // this.set = x;
         let idx = 0;
-        this.exercise = this.wordsetService.newExercise(this.set.exercises[0].template);
         x.exercises.forEach(exer => {
           this.set.exercises[idx] = this.wordsetService.newExercise(exer.template);
           Object.assign(this.set.exercises[idx], exer);
           this.set.exercises[idx].setViewOption(ViewOption.Display);
           idx++;
         });
-        this.loadComponent2();
+        // console.log(this.set.exercises);
+        // this.loadComponent2();
       },
       err => console.log('HTTP Error: ', err)
     )
   }
 
   loadComponent2(): void {
-    while (this.set.exercises.length == 0) {
-    }
-    console.log(this.set.exercises)
+    console.log(this.set.exercises);
     if(this.exerciseHosts){
       let index = 0;
-      console.log("before loop")
+      console.log(this.exerciseHosts)
+      console.log(this.exerciseHosts.length)
       this.exerciseHosts.forEach(ex => {
-        console.log("in loop")
+        console.log("jestem w pętli")
         const viewContainer = ex.viewContainerRef;
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);
-        console.log(this.set.exercises[index])
         const compRef = viewContainer.createComponent<ExerciseTemplateComponent>(factory);
         compRef.changeDetectorRef.detach();
         compRef.instance.data = this.set.exercises[index].data;

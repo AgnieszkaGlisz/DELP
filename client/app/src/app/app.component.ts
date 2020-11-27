@@ -33,18 +33,18 @@ export class AppComponent  implements OnInit {
   ngOnInit(): void {
     this.userService.getUserInfo().subscribe(
       y => {
-        this.router.navigateByUrl('favourites');
+        this.router.navigateByUrl('user/favourite');
        }
     );
   }
 
   goToSearchedSets(keyword: string) {
     this.wordsetService.searchSetsKeyword = keyword;
-    if (this.router.url == 'searched-sets') {
-      this.router.onSameUrlNavigation = 'reload';
-    }
-    else {
-      this.router.navigateByUrl('searched-sets');
-    }
+    // if (this.router.url == 'searched-sets') {
+    //   this.router.onSameUrlNavigation = 'reload';
+    // }
+    // else {
+    this.router.navigateByUrl('sets/search');
+    // }
   }
 }

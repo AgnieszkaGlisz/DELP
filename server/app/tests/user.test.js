@@ -130,7 +130,7 @@ test('Should not login no password or login',async () => {
 //ACCOUNT
 test('Should return user info',async () => {
     await request(app)
-    .get('/account')
+    .get('/user/account')
     .set('authorization', good_token)
     .expect(200)
     .expect('Content-Type', 'application/json; charset=utf-8')
