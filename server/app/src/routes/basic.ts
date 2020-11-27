@@ -5,7 +5,7 @@ import auth = require("../auth")
 import common = require("../common")
 
 //informacje o mozliwych funkcjach api
-router.get('/apiinfo', (req, res) => {
+router.get('/info', (req, res) => {
     common.adminLog('Preparing routes info for user.')
     let info = {
         '/apiinfo':'Information about api routes.',
@@ -62,10 +62,6 @@ router.get('/languages', auth.authenticateToken, (req:any, res) => {
     })
 })
 
-//nieobsluzone sciezki
-router.all('*', (req, res) => {
-    common.adminLog('Route unhandled.')
-    res.status(404).json({error: "Are you lost?"})
-})
+
 
 module.exports = router

@@ -45,7 +45,7 @@ function createResponseSet(db_result:any){
     return setTemp;
 }
 
-router.get('/set/:id', auth.authenticateToken, (req, res) =>{
+router.get('/:id', auth.authenticateToken, (req, res) =>{
     common.adminLog("Set with id = "+req.params.id+".")
     var sql = 'SELECT * FROM ExerciseSets WHERE id=' + req.params.id
     db.query(sql,function(result:any){
@@ -197,7 +197,7 @@ function createSqlForSets(wordsToFind:any,deaf:boolean,blind:boolean,page:number
     return sql
 }
 
-router.post('/sets', auth.authenticateToken, (req:any, res) => {
+router.post('/search', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Sets search.")
     var page = 0
     var deaf = false 
@@ -224,21 +224,6 @@ router.post('/sets', auth.authenticateToken, (req:any, res) => {
     })
 })
 
-router.get('/my-sets', auth.authenticateToken, (req:any, res) =>{
-    common.adminLog("User sets search.")
-    var sql = 'SELECT * FROM `ExerciseSets` WHERE (deleted = 0 OR deleted is null) and idCreator = ' + req.user.id
-    db.query(sql,function(result:any){
-        if(result == 0){
-            res.status(404).json({error: "No result."})
-            return
-        } 
-        var sets =[]
-        for(var i=0;i<result.length;i++){
-            sets.push(createResponseSet(result[i]))
-        }
-        res.json(sets)
-    })
-})
 
 function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any,exerciseOrder:any){
     var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`,`exerciseOrder`)'
@@ -317,7 +302,7 @@ function resSetInserted(insertedExercises:number,allExercises:number,setId:numbe
 }
 
 
-router.post('/add-set', auth.authenticateToken, (req:any, res) => {
+router.post('/add', auth.authenticateToken, (req:any, res) => {
     common.adminLog(req.body)
     var setName = req.body.setInfo.name
     var setInfo = req.body.setInfo.info
@@ -409,7 +394,7 @@ router.post('/add-set', auth.authenticateToken, (req:any, res) => {
     
 })
 
-router.get('/delete-set/:id', auth.authenticateToken, (req:any, res) =>{
+router.get('/delete/:id', auth.authenticateToken, (req:any, res) =>{
     common.adminLog("Deleting set with id = "+req.params.id+".")
     var sql = 'SELECT * FROM ExerciseSets WHERE id=' + req.params.id
     db.query(sql,function(result:any){

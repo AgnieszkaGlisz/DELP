@@ -153,48 +153,28 @@ router.get('/favourite', auth.authenticateToken, (req:any, res) => {
             return
         } 
         common.adminLog('Preparing and sending favourite sets.')
-        var wordsets = []
-        var lessons = []
+        var sets = []
         for (var i = 0; i< result.length; i++){
-            if(result[i].isWordSet == true)
-                wordsets.push({
-                    id: result[i].id,
-                    name: result[i].name,
-                    info: result[i].info,
-                    idCreator: result[i].idCreator,
-                    usernameCreator: result[i].username,
-                    idBaseLanguage: result[i].idBaseLanguage,
-                    idLearnLanguage: result[i].idLearnLanguage,
-                    ifVideo: result[i].ifVideo,
-                    ifAudio: result[i].ifAudio,
-                    ifPicture: result[i].ifPicture
-                })
-            else
-                lessons.push({
-                    id: result[i].id,
-                    name: result[i].name,
-                    info: result[i].info,
-                    idCreator: result[i].idCreator,
-                    nickCreator: result[i].nickCreator,
-                    idBaseLanguage: result[i].idBaseLanguage,
-                    idLearnLanguage: result[i].idLearnLanguage,
-                    BaseLanguage: result[i].BaseLanguage,
-                    LearnLanguage: result[i].LearnLanguage,
-                    ifVideo: result[i].ifVideo,
-                    ifAudio: result[i].ifAudio,
-                    ifPicture: result[i].ifPicture
-                })     
+            sets.push({
+                id: result[i].id,
+                name: result[i].name,
+                info: result[i].info,
+                idCreator: result[i].idCreator,
+                usernameCreator: result[i].username,
+                isWordSet:  result[i].isWordSet,
+                idBaseLanguage: result[i].idBaseLanguage,
+                idLearnLanguage: result[i].idLearnLanguage,
+                ifVideo: result[i].ifVideo,
+                ifAudio: result[i].ifAudio,
+                ifPicture: result[i].ifPicture
+            })  
         }
-        var favourite = {
-            wordsets: wordsets,
-            lessons: lessons
-        }
-        res.json(favourite)
+        res.json(sets)
     })
 })
 
 //dodawanie do ulubionych
-router.get('/add-favourite/:id', auth.authenticateToken, (req:any, res) => {
+router.get('/favourite/add/:id', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Adding set to favourites.")
     let sql = 'INSERT INTO `FavouriteSets` (`idSet`, `idUser`) VALUES ("'+req.params.id+'", "'+req.user.id+'")'
     db.query(sql,function(result:any){
@@ -211,7 +191,7 @@ router.get('/add-favourite/:id', auth.authenticateToken, (req:any, res) => {
 })
 
 //usuwanie z ulubionych
-router.get('/delete-favourite/:id', auth.authenticateToken, (req:any, res) => {
+router.get('/favourite/delete/:id', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Deleting set from favourites.")
     let sql = 'DELETE FROM `FavouriteSets` WHERE idSet = '+req.params.id+' AND  idUser = '+req.user.id
     db.query(sql,function(result:any){
@@ -270,6 +250,39 @@ router.post('/preferences', auth.authenticateToken, (req:any, res) => {
         } 
         common.adminLog('Preferences updated.')
         res.json({message:"Preferences updated."})
+    })
+})
+function createResponseSet(db_result:any){
+    var setTemp = {
+        id: db_result.id,
+        name: db_result.name,
+        info: db_result.info,
+        idCreator: db_result.idCreator,
+        setCreation: db_result.setCreation,
+        idBaseLanguage: db_result.idBaseLanguage,
+        idLearnLanguage: db_result.idLearnLanguage,
+        isWordSet: db_result.isWordSet,
+        popularity: db_result.popularity,
+        ifVideo: db_result.ifVideo,
+        ifAudio: db_result.ifAudio,
+        ifPicture: db_result.ifPicture
+    }
+    return setTemp;
+}
+
+router.get('/sets', auth.authenticateToken, (req:any, res) =>{
+    common.adminLog("User sets search.")
+    var sql = 'SELECT * FROM `ExerciseSets` WHERE (deleted = 0 OR deleted is null) and idCreator = ' + req.user.id
+    db.query(sql,function(result:any){
+        if(result == 0){
+            res.status(404).json({error: "No result."})
+            return
+        } 
+        var sets =[]
+        for(var i=0;i<result.length;i++){
+            sets.push(createResponseSet(result[i]))
+        }
+        res.json(sets)
     })
 })
 
