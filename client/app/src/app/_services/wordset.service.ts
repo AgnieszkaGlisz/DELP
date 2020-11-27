@@ -45,8 +45,6 @@ export class WordsetService {
       "page": 0
     }
 
-    console.log(data);
-
     return this.http.post<Set[]>(`${this.url}/sets/search`, data, this.httpOptions);
   }
 

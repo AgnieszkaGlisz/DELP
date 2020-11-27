@@ -9,6 +9,7 @@
                 <!-- <span class="wordset-name">{{set.isWordSet}}  </span> -->
                 
             </a>
+            <button class="display" title="display" (click)="goToDisplayView(setI.id)">display</button>
             <button class="learn" title="learn" (click)="goToLearnView(setI.id)">learn</button>
             <button  *ngIf="isFavourite(setI.id)===false" (click)="addToFavourites(setI.id)">Add to Favourites</button>
             <a  *ngIf="isFavourite(setI.id)===true">Set already in Favourites!</a>

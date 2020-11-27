@@ -2,14 +2,14 @@
 <div id="favourites">
     <!-- {{favourites}} -->
     <ul *ngIf="favourites" class="fav-sets">
-        <li *ngFor="let set of favourites">
+        <li *ngFor="let setI of favourites">
             <a>
-                <span class="wordset-id">{{set.id}}  </span>
-                <span class="wordset-name">{{set.name}}  </span>
+                <span class="wordset-id">{{setI.id}}  </span>
+                <span class="wordset-name">{{setI.name}}  </span>
             </a>
-            <button class="display" title="display" (click)="goToDisplayView(set.id)">display</button>
-            <button class="learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
-            <button (click)="deleteSetFromFavourites(set.id)">Delete from Favourites</button>
+            <button class="display" title="display" (click)="goToDisplayView(setI.id)">display</button>
+            <button class="learn" title="learn" (click)="goToLearnView(setI.id)">learn</button>
+            <button (click)="deleteSetFromFavourites(setI.id)">Delete from Favourites</button>
             
         </li>
         <!-- <li *ngFor="let lesson of favourites.lessons">

@@ -68,6 +68,11 @@ isFavourite(id: string): boolean {
     return isFav;
   }
 
+  goToDisplayView(id: string): void {
+    this.wordsetService.setToDisplayId = id;
+    this.router.navigateByUrl('/wordset/display');
+  }
+
   goToLearnView(id: string): void {
     this.wordsetService.setToDisplayId = id;
     this.router.navigateByUrl('/wordset/learn');
@@ -75,6 +80,10 @@ isFavourite(id: string): boolean {
 
   addToFavourites(id: string): void {
     this.wordsetService.addSetToFavourites(id).subscribe(x => {
+      let setInfoTmp = new SetInfo();
+      let idNum: number = + id;
+      setInfoTmp.id = idNum;
+      this.favourites.push(setInfoTmp)
     });
   }
 
