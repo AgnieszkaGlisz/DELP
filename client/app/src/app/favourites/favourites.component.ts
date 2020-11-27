@@ -1,3 +1,4 @@
+import { SetInfo } from './../_interfaces/setInfo';
 import { Lesson } from './../_interfaces/lesson';
 import { Wordset } from './../_interfaces/wordset';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +18,7 @@ export class FavouritesComponent implements OnInit {
     private router: Router,
     ) { }
 
-  favourites: Set[];
+  favourites: SetInfo[];
 
   ngOnInit(): void {
     // this.favourites = <Set[]>{};
@@ -25,13 +26,13 @@ export class FavouritesComponent implements OnInit {
   }
 
   getFavourites(): void {
-    this.favourites = new Array<Set>();
+    this.favourites = new Array<SetInfo>();
     this.wordsetService.getFavourites().subscribe(x => {
-      this.favourites = new Array<Set>();
+      this.favourites = new Array<SetInfo>();
       Object.assign(this.favourites, x);
       let index = 0;
       x.forEach(set => {
-        this.favourites[index] = new Set();
+        this.favourites[index] = new SetInfo();
         Object.assign(this.favourites[index++], set);
       });
     });
@@ -49,7 +50,11 @@ export class FavouritesComponent implements OnInit {
 
   deleteSetFromFavourites(id: string): void {
     this.wordsetService.deleteSetFromFavourites(id).subscribe(x => {
-      this.getFavourites();
+      this.favourites = this.favourites.filter(it => {
+        let idNum: number = +id;
+        return idNum !== it.id;
+      })
+      //this.getFavourites();
     });
   }
 
