@@ -4,6 +4,7 @@ import { WordsetService } from './../_services/wordset.service';
 import { Set } from './../_interfaces/set';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SetInfo } from '../_interfaces/setInfo';
 
 @Component({
   selector: 'app-searched-sets',
@@ -17,14 +18,13 @@ export class SearchedSetsComponent implements OnInit {
     private router: Router,
     ) { }
 
-  searchedSets: Set[];
-  favourites: Set[];
+  searchedSets: SetInfo[];
+  favourites: SetInfo[];
 
   ngOnInit(): void {
-    this.searchedSets = new Array<Set>();
+    this.searchedSets = new Array<SetInfo>();
     this.getFavourites();
     this.getSearchedSets()
-    console.log("sieeeeeeeeeeema")
   }
 
   getSearchedSets() {
@@ -32,7 +32,7 @@ export class SearchedSetsComponent implements OnInit {
       Object.assign(this.searchedSets, x);
       let index = 0;
       x.forEach(set => {
-        this.searchedSets[index] = new Set();
+        this.searchedSets[index] = new SetInfo();
         Object.assign(this.searchedSets[index++], set);
       })
     })
@@ -40,16 +40,27 @@ export class SearchedSetsComponent implements OnInit {
 
   getFavourites(): void {
     this.wordsetService.getFavourites().subscribe(x => {
-      console.log(x)
-      this.favourites = new Array<Set>();
+      this.favourites = new Array<SetInfo>();
       Object.assign(this.favourites, x);
       let index = 0;
       x.forEach(set => {
-        console.log(index)
-        this.favourites[index] = new Set();
+        this.favourites[index] = new SetInfo();
         Object.assign(this.favourites[index++], set);
       });
     });
+  }
+
+isFavourite(id: string): boolean {
+  let isFav: boolean = false;
+  if (this.favourites.length != 0) {
+    this.favourites.forEach(fav => {
+      var idNum: number = +id;
+      if (idNum == fav.id) {
+        isFav = true;;
+      }
+    });
+  }
+    return isFav;
   }
 
   goToLearnView(id: string): void {
@@ -57,13 +68,8 @@ export class SearchedSetsComponent implements OnInit {
     this.router.navigateByUrl('/wordset/learn');
   }
 
-  // isFavourite(set: Set): boolean {
-  //   if ()
-  // }
-
   addToFavourites(id: string): void {
     this.wordsetService.addSetToFavourites(id).subscribe(x => {
-      // console.log("stupid");
     });
   }
 

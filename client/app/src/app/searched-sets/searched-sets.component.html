@@ -2,15 +2,16 @@
 
 <div>
     <ul *ngIf="searchedSets">
-        <li *ngFor="let set of searchedSets">
+        <li *ngFor="let setI of searchedSets">
             <a>
-                <span class="wordset-id">{{set.id}}  </span>
-                <span class="wordset-name">{{set.name}}  </span>
+                <span class="wordset-id">{{setI.id}}  </span>
+                <span class="wordset-name">{{setI.name}}  </span>
                 <!-- <span class="wordset-name">{{set.isWordSet}}  </span> -->
                 
             </a>
-            <button class="learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
-            <button (click)="addToFavourites(set.id)">Add to Favourites</button>
+            <button class="learn" title="learn" (click)="goToLearnView(setI.id)">learn</button>
+            <button  *ngIf="isFavourite(setI.id)===false" (click)="addToFavourites(setI.id)">Add to Favourites</button>
+            <a  *ngIf="isFavourite(setI.id)===true">Set already in Favourites!</a>
             <!-- <button *ngIf="isFavourite(set)==false" (click)="addToFavourites(set.id)">Add to Favourites</button> -->
         </li>
     </ul>

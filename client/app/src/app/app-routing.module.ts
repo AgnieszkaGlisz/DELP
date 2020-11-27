@@ -12,17 +12,16 @@ import { UserSetsComponent } from './user-sets/user-sets.component';
 import { SearchedSetsComponent } from './searched-sets/searched-sets.component';
 
 const routes: Routes = [
-  { path: 'favourites', component: FavouritesComponent},
+  { path: 'user/favourite', component: FavouritesComponent},
   { path: 'wordset/create', component: WordsetCreateComponent},
   { path: 'wordset/display', component: WordsetDisplayComponent},
   { path: 'wordset/learn', component: WordsetLearnComponent},
-  { path: 'my-profile', component: UserComponent},
-  { path: 'login', component: UserLoginComponent},
+  { path: 'user/account', component: UserComponent},
+  { path: 'user/login', component: UserLoginComponent},
   { path: 'lesson/create', component: LessonCreateComponent},
-  { path: 'logout', component: UserLogoutComponent},
-  { path: 'my-sets', component: UserSetsComponent},
-  { path: 'searched-sets', component: SearchedSetsComponent},
-  // { path: 'lesson/create', component: LessonCreateComponent},
+  { path: 'user/logout', component: UserLogoutComponent},
+  { path: 'user/sets', component: UserSetsComponent},
+  { path: 'sets/search', component: SearchedSetsComponent},
 ];
 
 @NgModule({

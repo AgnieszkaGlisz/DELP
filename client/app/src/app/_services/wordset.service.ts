@@ -34,7 +34,7 @@ export class WordsetService {
   }
 
   getFavourites(): Observable<Set[]> {
-    return this.http.get<Set[]>(`${this.url}/favourite`, this.httpOptions);
+    return this.http.get<Set[]>(`${this.url}/user/favourite`, this.httpOptions);
   }
 
   getSearchedSets(): Observable<Set[]> {
@@ -47,11 +47,11 @@ export class WordsetService {
 
     console.log(data);
 
-    return this.http.post<Set[]>(`${this.url}/sets`, data, this.httpOptions);
+    return this.http.post<Set[]>(`${this.url}/sets/search`, data, this.httpOptions);
   }
 
   getUserSets(): Observable<Set[]> {
-    return this.http.get<Set[]>(`${this.url}/my-sets`, this.httpOptions);
+    return this.http.get<Set[]>(`${this.url}/user/sets`, this.httpOptions);
   }
 
   getExerciseComponent(exerciseTemplate: string) : Type<any> {
@@ -66,19 +66,19 @@ export class WordsetService {
   }
 
   addSetToFavourites(id: string): Observable<any> {
-    return this.http.get(`${this.url}/add-favourite/${id}`)
+    return this.http.get(`${this.url}/user/favourite/add/${id}`)
   }
 
   deleteSetFromFavourites(id:string): Observable<any> {
-    return this.http.get(`${this.url}/delete-favourite/${id}`);
+    return this.http.get(`${this.url}/user/favourite/delete/${id}`);
   }
 
   deleteSet(id:string): Observable<any> {
-    return this.http.get(`${this.url}/delete-set/${id}`);
+    return this.http.get(`${this.url}/sets/delete/${id}`);
   }
 
   getWordset(): Observable<Set> {
-    return this.http.get<Set>(`${this.url}/set/${this.setToDisplayId}`, this.httpOptions);
+    return this.http.get<Set>(`${this.url}/sets/${this.setToDisplayId}`, this.httpOptions);
   }
 
   newExercise(template: string) {
@@ -96,13 +96,13 @@ export class WordsetService {
 
   saveWordset(wordset: Wordset): Observable<JSON> {
     console.log(wordset);
-    return this.http.post<JSON>(`${this.url}/add-set`, wordset, this.httpOptions);
+    return this.http.post<JSON>(`${this.url}/sets/add`, wordset, this.httpOptions);
   }
   
   sendFile(file: fileInfo, setId: number): Observable<any> {
     //console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
     console.log(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id)
-    return this.http.post<any>(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
+    return this.http.post<any>(`${this.url}/sets/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
   }
  
 }

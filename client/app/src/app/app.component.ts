@@ -33,7 +33,7 @@ export class AppComponent  implements OnInit {
   ngOnInit(): void {
     this.userService.getUserInfo().subscribe(
       y => {
-        this.router.navigateByUrl('favourites');
+        this.router.navigateByUrl('user/favourite');
        }
     );
   }
@@ -44,7 +44,7 @@ export class AppComponent  implements OnInit {
       this.router.onSameUrlNavigation = 'reload';
     }
     else {
-      this.router.navigateByUrl('searched-sets');
+      this.router.navigateByUrl('sets/search');
     }
   }
 }
