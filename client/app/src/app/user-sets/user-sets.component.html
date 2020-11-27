@@ -1,14 +1,14 @@
 <p>user-sets works!</p>
 <div>
     <ul *ngIf="userSets">
-        <li *ngFor="let set of userSets">
+        <li class=" list-group-item " *ngFor="let set of userSets">
             <a>
                 <span class="set-id">{{set.id}}</span>
                 <span class="set-name">{{set.name}}</span>
             </a>
-            <button class="display" title="display" (click)="goToDisplayView(set.id)">display</button>
-            <button class="learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
-            <button (click)="deleteSet(set.id)">Delete set</button>
+            <button class="btn btn-dark mr-1 display" title="display" (click)="goToDisplayView(set.id)">display</button>
+            <button class="btn btn-dark mr-1 learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
+            <button class="btn btn-dark mr-1" (click)="deleteSet(set.id)">Delete set</button>
         </li>
     </ul>
 </div>

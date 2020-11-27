@@ -38,9 +38,7 @@ nav{
 #wrapper.toggled #sidebar-wrapper {
   margin-left: 0;
 }
-#wrapper.toggled  .menu-toggle{
-  
-}
+
 .menu-toggle{
   position: absolute;
   top: 0;
