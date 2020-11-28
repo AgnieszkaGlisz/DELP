@@ -21,6 +21,7 @@
 <br/>
 <br/>
 <br/>
-<button class="Check" (click)="checkWord()">Check</button>
-<button class="Next" (click)="nextWord()">Next</button>
+<button *ngIf="correctAnswer===false" class="Check" (click)="showHint()">Show a hint</button>
+<button class="Check" (click)="checkWord()">Check&Next</button>
+<!-- <button class="Next" (click)="nextWord()">Next</button> -->
 </div>
