@@ -13,6 +13,37 @@
     </a>
 </div>
 
+<div *ngIf="data.viewOption.type==ViewOption.DisplayImage">
+    <a>
+        <span>{{data.id}}  </span>
+        <span>word: {{data.word}}  </span>
+        <span>translation: {{data.translation}}  </span>
+    </a>
+    <img src="http://localhost:3500/sets/userMedia/pictures/98_1_1606244547294.png">
+</div>
+
+<div *ngIf="data.viewOption.type==ViewOption.DisplayVideo">
+    <a>
+        <span>{{data.id}}  </span>
+        <span>word: {{data.word}}  </span>
+        <span>translation: {{data.translation}}  </span>
+    </a>
+    <video controls>
+        <source src="http://localhost:3500/sets/userMedia/video/ice_video_20201128-192738.webm">
+    </video> 
+</div>
+
+<div *ngIf="data.viewOption.type==ViewOption.DisplayAudio">
+    <a>
+        <span>{{data.id}}  </span>
+        <span>word: {{data.word}}  </span>
+        <span>translation: {{data.translation}}  </span>
+    </a>
+    <audio controls>
+        <source src="http://localhost:3500/sets/userMedia/audio/88_1_1606078774500.mpeg" >
+    </audio>
+</div>
+
 <div *ngIf="data.viewOption.type==ViewOption.Learn">
     <span>{{data.id}}</span>
     <span class="word-left">{{data.word}}</span>

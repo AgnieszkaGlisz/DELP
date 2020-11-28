@@ -109,7 +109,10 @@ router.get('/:id', auth.authenticateToken, (req, res) =>{
                             leftPartOfSentence:result[i].leftPartOfSentence,
                             wordToFill:result[i].wordToFill,
                             rightPartOfSentence: result[i].rightPartOfSentence,
-                            incorrectWords: incorrectWords})
+                            incorrectWords: incorrectWords,
+                            videoPath: result[i].videoPath,
+                            audioPath: result[i].audioPath,
+                            picturePath: result[i].picturePath})
                     }
                     if(exercises.length == templates.length){
                         sortExercises(exercises,templates)
@@ -133,7 +136,10 @@ router.get('/:id', auth.authenticateToken, (req, res) =>{
                             id:result[i].id,
                             template:'TranslateSentenceExerciseTemplate',
                             oryginalSentence:result[i].oryginalSentence,
-                            translatedSentence: result[i].translatedSentence})
+                            translatedSentence: result[i].translatedSentence,
+                            videoPath: result[i].videoPath,
+                            audioPath: result[i].audioPath,
+                            picturePath: result[i].picturePath})
                     if(exercises.length == templates.length){
                         sortExercises(exercises,templates)
                         var lessonRes = {
@@ -156,7 +162,10 @@ router.get('/:id', auth.authenticateToken, (req, res) =>{
                             id:result[i].id,
                             template:'WordExerciseTemplate',
                             word: result[i].word,
-                            translation: result[i].translation})
+                            translation: result[i].translation,
+                            videoPath: result[i].videoPath,
+                            audioPath: result[i].audioPath,
+                            picturePath: result[i].picturePath})
                     if(exercises.length == templates.length){
                         sortExercises(exercises,templates)
                         var lessonRes = {

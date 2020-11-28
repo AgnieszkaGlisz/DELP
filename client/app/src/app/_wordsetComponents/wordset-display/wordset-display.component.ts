@@ -52,7 +52,7 @@ export class WordsetDisplayComponent implements OnInit, AfterViewInit {
         x.exercises.forEach(exer => {
           this.set.exercises[idx] = this.wordsetService.newExercise(exer.template);
           Object.assign(this.set.exercises[idx], exer);
-          this.set.exercises[idx].setViewOption(ViewOption.Display);
+          this.set.exercises[idx].setViewOption(ViewOption.DisplayAudio);
           idx++;
         });
         // console.log(this.set.exercises);

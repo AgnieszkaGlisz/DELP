@@ -8,7 +8,13 @@ import { Injectable } from '@angular/core';
 export enum ViewOption {
     Create,
     Learn,
-    Display
+    LearnImage,
+    LearnVideo,
+    LearnAudio,
+    Display,
+    DisplayImage,
+    DisplayVideo,
+    DisplayAudio,
   }
 
 export class View {
