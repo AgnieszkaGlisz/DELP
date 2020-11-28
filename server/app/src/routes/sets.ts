@@ -521,6 +521,10 @@ function updatePictureFileInfo(idSet:number,exerciseOrder:number,path:string){
     })
 }
 
+router.use('/UserMedia/pictures', express.static('./UserMedia/pictures'))
+router.use('/UserMedia/audio', express.static('./UserMedia/audio'))
+router.use('/UserMedia/video', express.static('./UserMedia/video'))
+
 const multer = require('multer')
 
 
@@ -588,6 +592,8 @@ router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:
     }
 })
 
-
+router.get('/xd', (req,res)=> {
+    res.send("xd");
+})
 
 module.exports = router;

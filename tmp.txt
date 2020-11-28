@@ -1,31 +1,19 @@
-//Dragover listener
-  @HostListener('dragover', ['$event']) ondragover(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-  
-    console.log("Drag Over");
-  }
+1. Dodanie preferences -> guzik zmiany preferencji (np inputy)
+2. Dodać zakładkę Sets -> wktórej będzie wyszukiwarka i będzie wyświetlanie wszytskich setów
+3. Zakładka zestawy -> favourites, my sets, dodaj
+4. Szkic -> naukę rozrysować -> poprawa tego jak to wyglą, wyniki, poprawne odpowiedzi, statyski
 
-  //Dragleave listener
-  @HostListener('dragleave', ['$event']) public ondragleave(evt){
-    evt.preventDefault();
-    evt.stopPropagation();
+Eggshell
+F4F1DE
 
-    console.log("Drag leave")
-  }
+Terra Cotta
+E07A5F
 
-  @HostListener('drop', ['$event']) public ondrop(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
+Independence
+3D405B
 
-    const files = evt.dataTransfer.files;
-    if(files.length > 0){
-      console.log(`You fropped ${files.length} files`);
-    }
-  }
+Green Sheen
+81B29A
 
-@Directive({
-  selector: '[appDnd]'
-})
-
-appDnd
+Deep Champange
+F2CC8F
