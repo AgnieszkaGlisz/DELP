@@ -20,6 +20,6 @@ export class UserLogoutComponent implements OnInit {
 
   logOut(): void{
     this.userService.deleteToken();
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('user/login');
   }
 }

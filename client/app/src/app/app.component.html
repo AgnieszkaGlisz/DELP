@@ -13,11 +13,11 @@
         </div>
         <div class="nav-list">
             <div onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);" class="nav-list-bar list-group list-group-flush">
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/favourites">Favourites</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/my-sets">My sets</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/my-sets">Explore</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/my-sets">Profile</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/logout">Logout</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/user/favourite">Favourites</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/user/sets">My sets</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/">Explore</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/">Profile</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/user/logout">Logout</a>
                 <a class="nav-link list-group-item list-group-item-action" routerLink="/wordset/create">Create
                     Wordset</a>
                 <a class="nav-link list-group-item list-group-item-action" routerLink="/lesson/create">Create
@@ -32,19 +32,19 @@
             <div class="" id="sidebar-wrapper">
                 <div class="sidebar-heading">Delp</div>
                 <div class="list-group list-group-flush">
-                    <a routerLink="/favourites"
-                        class="text-white nav-link list-group-item list-group-item-action"
-                        routerLink="/favourites">Favourites</a>
-                    <a class=" text-white nav-link list-group-item list-group-item-action"
-                        routerLink="/my-sets">My sets</a>
-                    <a class="text-white nav-link list-group-item list-group-item-action"
+                    <a
+                        class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        routerLink="/user/favourite">Favourites</a>
+                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        routerLink="/user/sets">My sets</a>
+                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
                         routerLink="/wordset/create">Create
                         Wordset</a>
                     <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
                         routerLink="/lesson/create">Create
                         Lesson</a>
                     <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
-                        routerLink="/logout">Log Out</a>
+                        routerLink="/user/logout">Log Out</a>
                 </div>
             </div>
         </nav>
