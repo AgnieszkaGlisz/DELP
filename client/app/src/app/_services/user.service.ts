@@ -16,11 +16,21 @@ const httpOptions = {
 })
 
 export class UserService {
+  public colorset: string[];
+ 
 
   constructor(
     private http: HttpClient,
     private wordsetService: WordsetService
-  ) { }
+  ) { 
+    this.colorset = new Array<string>();
+    this.colorset.push('c1');
+    this.colorset.push('c2');
+    this.colorset.push('c3');
+    this.colorset.push('c4');
+    this.colorset.push('c5');
+
+  }
 
   setToken(x: any): void{
     localStorage.setItem('token', JSON.stringify(x));

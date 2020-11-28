@@ -1,0 +1,25 @@
+.set{
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: white;
+    width: 100%;
+}
+.flags > div{
+    width: 1em;
+    height: 1.2em;
+    
+    margin-left: 0.3em;
+}   
+.setname{
+    font-size: 1.3rem;
+    
+}
+.numexercises{
+    font-size: 0.7rem;
+}
+.author{
+    font-size: 0.8rem;
+}
+.star{
+    font-size: 0.8rem;
+}

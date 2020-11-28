@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+
 /* NORMAL COLORS */
 .c5 {
     background: #f4f1de;

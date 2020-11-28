@@ -2,7 +2,7 @@ import { WordsetService } from './_services/wordset.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './_services/user.service';
-
+import * as $ from "jquery";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,17 +28,11 @@ export class AppComponent  implements OnInit {
     }
   
   logged: boolean = true;
-  colorset: string[];
+  
   title = 'lang-app-front';
 
   ngOnInit(): void {
-    this.colorset = new Array<string>();
-    this.colorset.push('c1');
-    this.colorset.push('c2');
-    this.colorset.push('c3');
-    this.colorset.push('c4');
-    this.colorset.push('c5');
-    
+   
     this.userService.getUserInfo().subscribe(
       y => {
         this.router.navigateByUrl('user/favourite');
@@ -55,4 +49,28 @@ export class AppComponent  implements OnInit {
     this.router.navigateByUrl('sets/search');
     // }
   }
+
+  toggle(){
+    $('#wrapper').toggleClass('toggled');
+  }
+
+
+  likeSet(id){
+    var setid = '#set'+id
+    var img = setid + ' .star > img'
+    var likes = setid + ' .numoflikes'
+    
+    if($(img).attr('src') == "../assets/icons/like.png"){
+      $(img).attr("src","../assets/icons/nolike.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((--num).toString())
+    }
+    else{
+      $(img).attr("src","../assets/icons/like.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((++num).toString())
+    }
+  }
+
+  
 }
