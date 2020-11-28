@@ -25,6 +25,8 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   wordIndex: number;
   result: string = "";
 
+  correctAnswer: boolean;
+
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
 
   ngOnInit(): void {
@@ -42,6 +44,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   }
 
   loadComponent(): void {
+    this.correctAnswer = true;
     this.exercise.data = this.exercise;
     this.exercise.setViewOption(ViewOption.Learn);
 
@@ -93,8 +96,10 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   }
 
   checkWord(): void {
-    if (this.exercise.checkAnswer()) {
+    this.correctAnswer = this.exercise.checkAnswer();
+    if (this.correctAnswer) {
       this.result = "Correct!";
+      this.nextWord();
     }
     else {
       this.result = "Wrong :c";

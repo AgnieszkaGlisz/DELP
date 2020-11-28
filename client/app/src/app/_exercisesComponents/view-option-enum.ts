@@ -8,7 +8,8 @@ import { Injectable } from '@angular/core';
 export enum ViewOption {
     Create,
     Learn,
-    Display
+    Display,
+    Hint
   }
 
 export class View {
