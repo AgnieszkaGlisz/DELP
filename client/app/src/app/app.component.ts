@@ -28,9 +28,17 @@ export class AppComponent  implements OnInit {
     }
   
   logged: boolean = true;
+  colorset: string[];
   title = 'lang-app-front';
 
   ngOnInit(): void {
+    this.colorset = new Array<string>();
+    this.colorset.push('c1');
+    this.colorset.push('c2');
+    this.colorset.push('c3');
+    this.colorset.push('c4');
+    this.colorset.push('c5');
+    
     this.userService.getUserInfo().subscribe(
       y => {
         this.router.navigateByUrl('favourites');

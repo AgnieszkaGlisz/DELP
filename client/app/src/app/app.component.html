@@ -4,18 +4,40 @@
         <router-outlet></router-outlet>
     </div>
 </div> -->
-<div class="d-flex" id="wrapper">
-    <div *ngIf="logged" class=" nav-menu">
+<div class="" id="wrapper">
+    <nav>
+        <div class="{{colorset[0]}} nav-bar d-flex p-2"
+            onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">
+            <span class="pr-2">☰</span>
+            <span>Delp</span>
+        </div>
+        <div class="nav-list">
+            <div onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);" class="nav-list-bar list-group list-group-flush">
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/favourites">Favourites</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/my-sets">My sets</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/my-sets">Explore</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/my-sets">Profile</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/logout">Logout</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/wordset/create">Create
+                    Wordset</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/lesson/create">Create
+                    Lesson</a>
+            </div>
+            <div class="shadow" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);"></div>
+        </div>
+    </nav>
+
+    <!-- <div *ngIf="logged" class=" nav-menu">
         <nav class="" >
-            <div class="bg-dark text-white border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading darker">Delp</div>
+            <div class="" id="sidebar-wrapper">
+                <div class="sidebar-heading">Delp</div>
                 <div class="list-group list-group-flush">
                     <a routerLink="/favourites"
-                        class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                        class="text-white nav-link list-group-item list-group-item-action"
                         routerLink="/favourites">Favourites</a>
-                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                    <a class=" text-white nav-link list-group-item list-group-item-action"
                         routerLink="/my-sets">My sets</a>
-                    <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
+                    <a class="text-white nav-link list-group-item list-group-item-action"
                         routerLink="/wordset/create">Create
                         Wordset</a>
                     <a class="bg-dark text-white nav-link list-group-item list-group-item-action"
@@ -26,14 +48,15 @@
                 </div>
             </div>
         </nav>
-    </div>
-    <div class="m-4" id="page-content-wrapper">
-        <div *ngIf="logged">
+    </div> -->
+    <div class="m-4" id="">
+        <!-- <div *ngIf="logged">
             <div class=" menu-toggle sidebar-heading darker text-white text-center " id="menu-toggle" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">
                 <span class="" >☰</span>
             </div>
-        </div>
-        <input #keyword placeholder="search for sets"/> <button (click)="goToSearchedSets(keyword.value); keyword.value=''">Search</button>
+        </div> -->
+        <input #keyword placeholder="search for sets" /> <button
+            (click)="goToSearchedSets(keyword.value); keyword.value=''">Search</button>
         <router-outlet class=""></router-outlet>
     </div>
 </div>
