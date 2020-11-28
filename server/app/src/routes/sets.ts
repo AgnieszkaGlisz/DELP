@@ -180,16 +180,16 @@ function createSqlForSets(wordsToFind:any,deaf:boolean,blind:boolean,page:number
     var limit = 20 
     var offset = 20 * page
     var sql = 'SELECT * FROM `ExerciseSets` '
-    sql += 'WHERE deleted = 0 OR deleted is null '
+    sql += 'WHERE (deleted = 0 OR deleted is null) '
     for(var i = 0;i<wordsToFind.length;i++){
         if(i==0){
-            sql+= ' AND name LIKE "' + wordsToFind[i] + '%"'
+            sql+= ' AND (name LIKE "' + wordsToFind[i] + '%"'
         }
         else{
             sql+= ' OR name LIKE "' + wordsToFind[i] + '%"'
         }
     }
-    sql+= ' ORDER BY '
+    sql+= ') ORDER BY '
     if (blind) sql+= ' ifAudio DESC,'
     if (deaf) sql+= ' ifVideo DESC,'
     sql += ' popularity DESC,ifPicture DESC'

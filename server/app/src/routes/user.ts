@@ -146,7 +146,7 @@ router.get('/user/account', auth.authenticateToken, (req:any, res) => {
 //pobieranie ulubionych setow
 router.get('/favourite', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Favourite sets.")
-    let sql = 'SELECT DISTINCT ExerciseSets.*, Users.username FROM `Users`,`FavouriteSets`,`ExerciseSets` WHERE ExerciseSets.id=FavouriteSets.idSet AND Users.id = FavouriteSets.idUser AND FavouriteSets.idUser = ' + req.user.id; 
+    let sql = 'SELECT DISTINCT ExerciseSets.*, Users.username FROM `Users`,`FavouriteSets`,`ExerciseSets` WHERE (ExerciseSets.deleted = 0 OR ExerciseSets.deleted is null) AND ExerciseSets.id=FavouriteSets.idSet AND Users.id = FavouriteSets.idUser AND FavouriteSets.idUser = ' + req.user.id; 
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "No favourite sets."})

@@ -5,22 +5,22 @@
     </div>
 </div> -->
 <div class="" id="wrapper">
-    <nav>
+    <nav *ngIf="logged">
         <div class="{{colorset[0]}} nav-bar d-flex p-2"
             onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">
             <span class="pr-2">☰</span>
             <span>Delp</span>
         </div>
         <div class="nav-list">
-            <div onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);" class="nav-list-bar list-group list-group-flush">
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/user/favourite">Favourites</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/user/sets">My sets</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/">Explore</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/">Profile</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/user/logout">Logout</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/wordset/create">Create
+            <div class="nav-list-bar list-group list-group-flush">
+                <a class="nav-link list-group-item list-group-item-action" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);" routerLink="/user/favourite">Favourites ★</a>
+                <a class="nav-link list-group-item list-group-item-action"  routerLink="/user/sets" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);" >My sets</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);" >Explore</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">Profile <div class="settings"></div></a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/user/logout" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);" >Logout</a>
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/wordset/create" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">Create
                     Wordset</a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/lesson/create">Create
+                <a class="nav-link list-group-item list-group-item-action" routerLink="/lesson/create" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);">Create
                     Lesson</a>
             </div>
             <div class="shadow" onClick="(function toggle(){$('#wrapper').toggleClass('toggled');})(window.data);"></div>
