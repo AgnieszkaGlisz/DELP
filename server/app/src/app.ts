@@ -21,6 +21,9 @@ app.use('/user',routerUser)
 const routerBasic = require('./routes/basic')
 app.use('/api',routerBasic)
 
+const routerDict = require('./routes/DictionaryAPI')
+app.use('/dict',routerDict)
+
 
 //const routerFiles = require('./routes/files')
 //app.use('/set', routerFiles)
