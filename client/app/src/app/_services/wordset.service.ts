@@ -68,6 +68,7 @@ export class WordsetService {
   }
 
   deleteSetFromFavourites(id:string): Observable<any> {
+    console.log('usuwam z fav');
     return this.http.get(`${this.url}/user/favourite/delete/${id}`);
   }
 

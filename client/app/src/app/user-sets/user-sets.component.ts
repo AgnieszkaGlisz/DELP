@@ -1,3 +1,4 @@
+import { SetInfo } from './../_interfaces/setInfo';
 import { Set } from './../_interfaces/set';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,9 +19,11 @@ export class UserSetsComponent implements OnInit {
   ) { }
 
   userSets: Set[];
+  favourites: SetInfo[];
 
   ngOnInit(): void {
     this.getUserSets();
+    this.getFavourites();
   }
 
   getUserSets(): void {
@@ -68,6 +71,50 @@ export class UserSetsComponent implements OnInit {
     $('#set'+id + ' .popwindow').addClass('invisible')
   }
 
+  getFavourites(): void {
+    this.favourites = new Array<SetInfo>();
+    this.wordsetService.getFavourites().subscribe(x => {
+      Object.assign(this.favourites, x);
+      let index = 0;
+      x.forEach(set => {
+        this.favourites[index] = new SetInfo();
+        Object.assign(this.favourites[index++], set);
+      });
+    });
+  }
+
+  isFavourite(id: string): boolean {
+    let isFav: boolean = false;
+    if (this.favourites) {
+      this.favourites.forEach(fav => {
+        var idNum: number = +id;
+        if (idNum == fav.id) {
+          isFav = true;;
+        }
+      });
+    }
+    return isFav;
+  }
+
+  addToFavourites(id: string): void {
+    this.wordsetService.addSetToFavourites(id).subscribe(x => {
+      let setInfoTmp = new SetInfo();
+      let idNum: number = + id;
+      setInfoTmp.id = idNum;
+      this.favourites.push(setInfoTmp)
+    });
+  }
+
+  deleteSetFromFavourites(id: string): void {
+    this.wordsetService.deleteSetFromFavourites(id).subscribe(x => {
+      this.favourites = this.favourites.filter(it => {
+        let idNum: number = +id;
+        return idNum !== it.id;
+      })
+      //this.getFavourites();
+    });
+  }
+
   likeSet(id){
     var setid = '#set'+id
     var img = setid + ' .star > img'
@@ -77,11 +124,13 @@ export class UserSetsComponent implements OnInit {
       $(img).attr("src","../assets/icons/nolike.png")
       var num = parseInt($.trim($(likes).html()))
       $(likes).html((--num).toString())
+      this.deleteSetFromFavourites(id);
     }
     else{
       $(img).attr("src","../assets/icons/like.png")
       var num = parseInt($.trim($(likes).html()))
       $(likes).html((++num).toString())
+      this.addToFavourites(id);
     }
   }
 
