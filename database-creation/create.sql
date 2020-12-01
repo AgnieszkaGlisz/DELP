@@ -35,6 +35,8 @@ CREATE TABLE ExerciseSets(
 );
 ALTER TABLE `ExerciseSets`
 ADD deleted INT
+ALTER TABLE `ExerciseSets`
+ADD numberOfExercises INT
 
 --tworzenie tabeli SetsExercises by połączyć zestaw z odpowiednim zadaniem 
 CREATE TABLE SetsExercises(

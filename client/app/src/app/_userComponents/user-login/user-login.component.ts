@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class UserLoginComponent implements OnInit {
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router,
     // public user: UserComponent
   ) { }

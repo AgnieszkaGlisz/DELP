@@ -1,0 +1,15 @@
+.close {
+    
+    animation: mymove 1s 1;
+    
+}
+@keyframes mymove {
+    from {opacity:  50%;
+        height: 100px;
+        margin-left:0px;
+    }
+    to {opacity: 0;
+        height: 0px;
+        margin-left:300px;
+    z-index: -100;}
+  }

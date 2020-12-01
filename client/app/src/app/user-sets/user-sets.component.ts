@@ -2,6 +2,7 @@ import { Set } from './../_interfaces/set';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WordsetService } from '../_services/wordset.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-user-sets',
@@ -12,7 +13,8 @@ export class UserSetsComponent implements OnInit {
 
   constructor(
     private wordsetService: WordsetService,
-    private router: Router
+    private router: Router,
+    public userService: UserService
   ) { }
 
   userSets: Set[];
@@ -29,7 +31,8 @@ export class UserSetsComponent implements OnInit {
       let index = 0;
       x.forEach(set => {
         this.userSets[index] = new Set();
-        Object.assign(this.userSets[index++], set);
+        Object.assign(this.userSets[index], set);
+        index++;
       });
     });
   }
@@ -50,5 +53,30 @@ export class UserSetsComponent implements OnInit {
     });
     // this.userSets = new Array<Set>();
   }
+  openSet(id){
+    $('#set'+id + ' .popwindow').removeClass('invisible')    
+  }
+  closeSet(id){
+    $('#set'+id + ' .popwindow').addClass('invisible')
+  }
+
+  likeSet(id){
+    var setid = '#set'+id
+    var img = setid + ' .star > img'
+    var likes = setid + ' .numoflikes'
+    
+    if($(img).attr('src') == "../assets/icons/like.png"){
+      $(img).attr("src","../assets/icons/nolike.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((--num).toString())
+    }
+    else{
+      $(img).attr("src","../assets/icons/like.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((++num).toString())
+    }
+  }
+
+
 
 }
