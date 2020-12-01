@@ -28,7 +28,6 @@
                 </div>
                 <div class="col-auto star d-flex justify-content-end mr-3 mb-2 d-flex align-items-end">
                     <span class="numoflikes">{{setI.popularity}}</span>
-                    
                     <img *ngIf="isFavourite(setI.id)===true" src="../assets/icons/like.png" (click)="likeSet(setI.id)">
                     <img *ngIf="isFavourite(setI.id)===false" src="../assets/icons/nolike.png" (click)="likeSet(setI.id)">
                 </div>
