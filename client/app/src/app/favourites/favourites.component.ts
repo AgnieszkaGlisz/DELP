@@ -37,7 +37,6 @@ export class FavouritesComponent implements OnInit {
       x.forEach(set => {
         this.favourites[index] = new SetInfo();
         Object.assign(this.favourites[index++], set);
-        console.log(set)
       });
     });
   }
@@ -62,6 +61,15 @@ export class FavouritesComponent implements OnInit {
     });
   }
 
+  openSet(id){
+    $('#set'+id + ' .popwindow').removeClass('invisible')
+    
+    
+  }
+  closeSet(id){
+    $('#set'+id + ' .popwindow').addClass('invisible')
+  }
+
   likeSet(id){
     var setid = '#set'+id
     var img = setid + ' .star > img'
@@ -71,21 +79,13 @@ export class FavouritesComponent implements OnInit {
       $(img).attr("src","../assets/icons/nolike.png")
       var num = parseInt($.trim($(likes).html()))
       $(likes).html((--num).toString())
+      $(setid).addClass('close')
+      setTimeout(()=>{this.deleteSetFromFavourites(id)},700)
     }
     else{
       $(img).attr("src","../assets/icons/like.png")
       var num = parseInt($.trim($(likes).html()))
       $(likes).html((++num).toString())
     }
-      
-  }
-
-  openSet(id){
-    $('#set'+id + ' .setpop').removeClass('invisible')
-    $('#set'+id + ' .setpop').addClass('')
-    
-  }
-  closeSet(){
-    alert("closeSet")
   }
 }

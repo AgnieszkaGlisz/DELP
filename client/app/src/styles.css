@@ -1,4 +1,105 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*SET LIST*/
+.set{
+  border-radius: 5px;
+  background-color: white;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.flags > div{
+  width: 0.8em;
+  height: 1em;
+  
+  margin-left: 0.3em;
+}   
+.setname{
+  font-size: 1.3rem;
+  
+}
+.numexercises{
+  font-size: 0.7rem;
+}
+.author{
+  font-size: 0.8rem;
+}
+.star{
+  font-size: 0.8rem;
+}
+
+
+
+.popwindow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+}
+.setpop{
+  width:20em;
+  max-width: 90vw;
+  background-color: #eee;
+  position: relative;
+  border-radius: 10px;
+  z-index:10;
+  height: 10em;
+ margin-top: 10em;
+}
+.popexit{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  top: 0px;
+  right: 4px;
+}
+.setpop >.popname{
+   margin-bottom: 0.4em;
+  font-size: 1.1em;
+}
+.setpop > .popbnt{
+ background-color: white;
+ font-size: 1.1em;
+  padding: 0.1em;
+  margin-top: 4px; 
+  width: 100%;
+}
+.setshadow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #00000033;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ::-webkit-scrollbar {
   width: 0px;
 }

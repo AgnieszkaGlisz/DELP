@@ -194,8 +194,8 @@ GET  http://localhost:3500/sets/41
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
 
 ###
-GET  http://localhost:3500/sets/delete/14
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+GET  http://localhost:3500/sets/delete/49
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ3a3VjaHRhIiwiaWF0IjoxNjA2ODIwNzUxfQ.YSYWA9t-M1okEiZdizh_s7oMl0e2k6RftddWuUtR_wo
 
 ###
 
@@ -203,8 +203,8 @@ GET  http://localhost:3500/sets/delete/14
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
 ###
-GET  http://localhost:3500/user/favourite/add/39
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
+GET  http://localhost:3500/user/favourite/add/116
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA2ODE5MzM3fQ.et0ka6J6A2XSeA_dCtxrp3c-tUfi2WgTrTXd55HutGU
 ###
 GET  http://localhost:3500/user/favourite/delete/39
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I

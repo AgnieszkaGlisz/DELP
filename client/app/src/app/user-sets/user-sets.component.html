@@ -1,14 +1,43 @@
-<p>user-sets works!</p>
-<div>
-    <ul *ngIf="userSets">
-        <li class=" list-group-item " *ngFor="let set of userSets">
-            <a>
-                <span class="set-id">{{set.id}}</span>
-                <span class="set-name">{{set.name}}</span>
-            </a>
-            <button class="btn btn-dark mr-1 display" title="display" (click)="goToDisplayView(set.id)">display</button>
-            <button class="btn btn-dark mr-1 learn" title="learn" (click)="goToLearnView(set.id)">learn</button>
-            <button class="btn btn-dark mr-1" (click)="deleteSet(set.id)">Delete set</button>
-        </li>
-    </ul>
+
+<div *ngIf="userSets">
+    <div class="d-flex flex-row flex-wrap justify-content-around" *ngFor="let setI of userSets">
+        <div  id="set{{setI.id}}" class="set">
+            <div (click)="openSet(setI.id)" class="row">
+                <div class="col setname ml-2 mt-2">
+                    {{setI.name}}
+                </div>
+                <div class="col flags d-flex justify-content-end mr-2">
+                    <div *ngIf="setI.isWordSet" class="{{userService.colorset[1]}}"></div>
+                    <div *ngIf="setI.ifVideo" class="{{userService.colorset[3]}}"></div>
+                    <div *ngIf="setI.ifAudio" class="{{userService.colorset[2]}}"></div>
+                    <div *ngIf="setI.ifPicture" class="{{userService.colorset[0]}}"></div>
+                </div>
+            </div>
+            <div (click)="openSet(setI.id)" class="row">
+                <div class="col numexercises ml-2">
+                    Number of exercises: {{setI.numberOfExercises}}
+                </div>
+            </div>
+            <div class="row">
+                <div (click)="openSet(setI.id)" class="col author m-2 d-flex align-items-end ">
+                    Author: {{setI.nameCreator}}
+                </div>
+                <div class="col-auto star d-flex justify-content-end mr-3 mb-2 d-flex align-items-end">
+                    <span class="numoflikes">{{setI.popularity}}</span>
+                    <img src="../assets/icons/nolike.png" (click)="likeSet(setI.id)">
+                </div>
+            </div>
+            <div class="popwindow d-flex justify-content-center invisible">
+                <div class="setpop d-flex flex-column justify-content-center align-items-center ">
+                    <span (click)="closeSet(setI.id)" class="popexit">×</span>
+                    <div class="popname d-flex justify-content-center ">{{setI.name}}</div>
+                    <div (click)="goToDisplayView(setI.id)" class="popbnt d-flex justify-content-center">Display</div>
+                    <div (click)="goToLearnView(setI.id)" class="popbnt d-flex justify-content-center">Learn</div>
+                    <div class="popbnt d-flex justify-content-center">Edit</div>
+                </div>
+                <div (click)="closeSet(setI.id)"  class="setshadow"></div>
+            </div>
+        </div>
+    </div>
 </div>
+

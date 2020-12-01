@@ -11,7 +11,7 @@ import * as $ from "jquery";
 export class AppComponent  implements OnInit {
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router,
     private wordsetService: WordsetService,
     ) {

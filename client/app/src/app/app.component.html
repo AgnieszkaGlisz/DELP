@@ -4,7 +4,7 @@
         <router-outlet></router-outlet>
     </div>
 </div> -->
-<div id="wrapper">
+<div id="wrapper" class="d-flex flex-column">
     <nav *ngIf="logged">
         <div class="{{userService.colorset[0]}} nav-bar d-flex p-2"
         (click)="toggle()">
@@ -45,9 +45,15 @@
             </div>
         </div>
     </nav>
-    <div class=" p-2 " id="content-wrapper">
+    <div class="p-2" id="content-wrapper">
         <div><input #keyword placeholder="search for sets" />
             <button (click)="goToSearchedSets(keyword.value); keyword.value=''">Search</button></div>
         <router-outlet ></router-outlet>
+        
+    </div>
+    <div id="footer" class="py-5 {{userService.colorset[1]}}">
+        <div class="container text-center">
+            <small>Copyright &copy; Delp 2020</small>
+          </div>
     </div>
 </div>

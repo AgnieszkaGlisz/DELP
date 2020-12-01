@@ -15,31 +15,29 @@
             </div>
             <div (click)="openSet(setI.id)" class="row">
                 <div class="col numexercises ml-2">
-                    Number of exercises
+                    Number of exercises: {{setI.numberOfExercises}}
                 </div>
             </div>
             <div class="row">
                 <div (click)="openSet(setI.id)" class="col author m-2 d-flex align-items-end ">
-                    {{setI.idCreator}}
+                    Author: {{setI.nameCreator}}
                 </div>
                 <div class="col-auto star d-flex justify-content-end mr-3 mb-2 d-flex align-items-end">
                     <span class="numoflikes">{{setI.popularity}}</span>
-                    <img src="../assets/icons/nolike.png" (click)="likeSet(setI.id)">
+                    <img src="../assets/icons/like.png" (click)="likeSet(setI.id)">
                 </div>
             </div>
-            <div class="popwindow">
-                <div class="setpop d-flex flex-column justify-content-around align-items-center invisible">
-                    <span class="popexit">×</span>
+            <div class="popwindow d-flex justify-content-center invisible">
+                <div class="setpop d-flex flex-column justify-content-center align-items-center ">
+                    <span (click)="closeSet(setI.id)" class="popexit">×</span>
                     <div class="popname d-flex justify-content-center ">{{setI.name}}</div>
                     <div (click)="goToDisplayView(setI.id)" class="popbnt d-flex justify-content-center">Display</div>
                     <div (click)="goToLearnView(setI.id)" class="popbnt d-flex justify-content-center">Learn</div>
                     <div class="popbnt d-flex justify-content-center">Edit</div>
                 </div>
-                <div class="setshadow"></div>
+                <div (click)="closeSet(setI.id)"  class="setshadow"></div>
             </div>
         </div>
-      
-        
     </div>
 </div>
 

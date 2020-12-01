@@ -146,7 +146,7 @@ router.get('/account', auth.authenticateToken, (req:any, res) => {
 //pobieranie ulubionych setow
 router.get('/favourite', auth.authenticateToken, (req:any, res) => {
     common.adminLog("Favourite sets.")
-    let sql = 'SELECT DISTINCT ExerciseSets.*, Users.username FROM `Users`,`FavouriteSets`,`ExerciseSets` WHERE (ExerciseSets.deleted = 0 OR ExerciseSets.deleted is null) AND ExerciseSets.id=FavouriteSets.idSet AND Users.id = FavouriteSets.idUser AND FavouriteSets.idUser = ' + req.user.id; 
+    let sql = 'SELECT DISTINCT ExerciseSets.*, Users.username FROM `Users`,`FavouriteSets`,`ExerciseSets` WHERE (ExerciseSets.deleted = 0 OR ExerciseSets.deleted is null) AND ExerciseSets.id=FavouriteSets.idSet AND Users.id = ExerciseSets.idCreator AND FavouriteSets.idUser = ' + req.user.id; 
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "No favourite sets."})
@@ -260,6 +260,7 @@ function createResponseSet(db_result:any){
         name: db_result.name,
         info: db_result.info,
         idCreator: db_result.idCreator,
+        nameCreator: db_result.username,
         setCreation: db_result.setCreation,
         idBaseLanguage: db_result.idBaseLanguage,
         idLearnLanguage: db_result.idLearnLanguage,
@@ -267,14 +268,15 @@ function createResponseSet(db_result:any){
         popularity: db_result.popularity,
         ifVideo: db_result.ifVideo,
         ifAudio: db_result.ifAudio,
-        ifPicture: db_result.ifPicture
+        ifPicture: db_result.ifPicture,
+        numberOfExercises:db_result.numberOfExercises
     }
     return setTemp;
 }
 
 router.get('/sets', auth.authenticateToken, (req:any, res) =>{
     common.adminLog("User sets search.")
-    var sql = 'SELECT * FROM `ExerciseSets` WHERE (deleted = 0 OR deleted is null) and idCreator = ' + req.user.id
+    var sql = 'SELECT ExerciseSets.*,Users.username FROM `Users`,`ExerciseSets` WHERE (deleted = 0 OR deleted is null) AND ExerciseSets.idCreator = Users.id AND idCreator = ' + req.user.id
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "No result."})

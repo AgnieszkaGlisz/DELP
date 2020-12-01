@@ -83,11 +83,14 @@ background: #00000000;
 }
 
 #content-wrapper{
-
-  height: 100%;
+  position: relative;
+  height: 100%px;
   width: 100%;
+  flex: 1 0 auto;
 }
-
+#footer{
+  flex-shrink: none;
+}
 
 
 .set{
@@ -115,3 +118,4 @@ background: #00000000;
 .star{
   font-size: 0.8rem;
 }
+
