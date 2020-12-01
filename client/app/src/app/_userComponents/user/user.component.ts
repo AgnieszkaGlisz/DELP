@@ -1,6 +1,6 @@
-import { UserService } from '../_services/user.service';
+import { UserService } from '../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_interfaces/user';
+import { User } from '../../_interfaces/user';
 import { Injectable } from '@angular/core';
 
 @Component({
