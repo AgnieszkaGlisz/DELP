@@ -1,3 +1,4 @@
+import { UserPreferences } from './../_interfaces/userPreferences';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../_interfaces/user';
@@ -30,7 +31,7 @@ export class UserService {
     localStorage.removeItem('token');
   }
 
-  getUserData(): any{
+  getUserData(): User {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData)
     return userData;
@@ -48,6 +49,10 @@ export class UserService {
 
   sendLoginInfo(username: string, password: string): Observable<any> {
     return this.http.post(`${this.wordsetService.url}/user/login`, {username, password}, httpOptions);
+  }
+
+  savePreferences(preferences: UserPreferences): Observable<any> {
+    return this.http.post(`${this.wordsetService.url}/user/preferences`, preferences, httpOptions);
   }
 
 }

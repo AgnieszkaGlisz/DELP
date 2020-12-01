@@ -8,7 +8,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WordsetCreateComponent } from './_wordsetComponents/wordset-create/wordset-create.component';
-import { UserComponent } from './_userComponents/user/user.component';
 import { UserLoginComponent } from './_userComponents/user-login/user-login.component';
 import { WordsetDisplayComponent } from './_wordsetComponents/wordset-display/wordset-display.component';
 import { LessonCreateComponent } from './_lessonComponents/lesson-create/lesson-create.component';
@@ -27,13 +26,13 @@ import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fi
 import { ExerciseListDirective } from './exercise-list.directive';
 import { SearchedSetsComponent } from './searched-sets/searched-sets.component';
 import { UserPreferencesComponent } from './_userComponents/user-preferences/user-preferences.component';
+import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     WordsetCreateComponent,
-    UserComponent,
     UserLoginComponent,
     WordsetDisplayComponent,
     LessonCreateComponent,
@@ -49,6 +48,7 @@ import { UserPreferencesComponent } from './_userComponents/user-preferences/use
     ExerciseListDirective,
     SearchedSetsComponent,
     UserPreferencesComponent,
+    UserAccountComponent,
   ],
   imports: [
     BrowserModule,

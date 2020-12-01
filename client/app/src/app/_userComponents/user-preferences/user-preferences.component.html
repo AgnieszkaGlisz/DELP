@@ -1,1 +1,34 @@
 <p>user-preferences works!</p>
+
+<div *ngIf="user">
+    <div>
+        Niedosłyszenie<br/>
+        <label>Tylko zadania z video dla niedosłyszących i brak zadań słuchowych</label>
+        <input type="checkbox" [(ngModel)]="user.preferences.noSound" value="{{user.preferences.noSound}}"/>
+        {{user.preferences.noSound}}
+    </div>
+
+    <div>
+        Niedowidzenie<br/>
+        <label>Tylko zadania z audio</label>
+        <input type="checkbox" [(ngModel)]="user.preferences.noSight" value="{{user.preferences.noSight}}"/>
+        {{user.preferences.noSight}}
+    </div>
+
+    <div>
+        Ślepota barw<br/>
+        <label>Powiększona czcionka</label>
+        <input type="checkbox" [(ngModel)]="user.preferences.fontSize" value="{{user.preferences.fontSize}}"/>
+        {{user.preferences.fontSize}}
+    </div>
+
+    <div>
+        Dyslekcja<br/>
+    </div>
+
+    <button (click)="savePreferences()">Save Preferences</button>
+    <!-- <input [(ngModel)]="user.surname" placeholder="{{user.surname}}"/>
+    <input [(ngModel)]="user.login" placeholder="{{user.login}}"/>
+    <input [(ngModel)]="user.email" placeholder="{{user.email}}"/> -->
+    
+</div>
