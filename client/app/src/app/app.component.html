@@ -43,7 +43,7 @@
                 (click)="toggle()">My sets
                     <img src="../assets/icons/tabs.png" alt="">
                 </a>
-                <a class="nav-link list-group-item list-group-item-action d-flex justify-content-between" routerLink="/"
+                <a class="nav-link list-group-item list-group-item-action d-flex justify-content-between" routerLink="/sets/search"
                 (click)="toggle()">Explore
                     <img src="../assets/icons/search.png" alt="">
                 </a>
@@ -55,22 +55,19 @@
                 (click)="toggle()">Logout
                     <img src="../assets/icons/logout.png" alt="">
                 </a>
-                <a class="nav-link list-group-item list-group-item-action" routerLink="/wordset/create"
+                <!-- <a class="nav-link list-group-item list-group-item-action" routerLink="/wordset/create"
                 (click)="toggle()">Create
                     Wordset</a>
                 <a class="nav-link list-group-item list-group-item-action" routerLink="/lesson/create"
                 (click)="toggle()">Create
-                    Lesson</a>
+                    Lesson</a> -->
             </div>
             <div class="shadow" (click)="toggle()">
             </div>
         </div>
     </nav>
     <div class="p-2" id="content-wrapper">
-        <div><input #keyword placeholder="search for sets" />
-            <button (click)="goToSearchedSets(keyword.value); keyword.value=''">Search</button></div>
         <router-outlet ></router-outlet>
-        
     </div>
     <div id="footer" class="py-5 {{userService.colorset[1]}}">
         <div class="container text-center">
