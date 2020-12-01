@@ -10,6 +10,8 @@ export class Set {
         // this.setInfo.name = null;
         // this.setInfo.info = null;
         this.setInfo.idCreator = null;
+        this.setInfo.nameCreator = null;
+        this.setInfo.numberOfExercises = 0 ;
         this.setInfo.setCreation = null;
         this.setInfo.idBaseLanguage = 0;
         this.setInfo.idLearnLanguage = 0;

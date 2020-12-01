@@ -1,12 +1,14 @@
 .set{
-    overflow: hidden;
+    position: relative;
     border-radius: 5px;
     background-color: white;
     width: 100%;
+    cursor: pointer;
+    margin-bottom: 1rem;
 }
 .flags > div{
-    width: 1em;
-    height: 1.2em;
+    width: 0.8em;
+    height: 1em;
     
     margin-left: 0.3em;
 }   
@@ -23,3 +25,49 @@
 .star{
     font-size: 0.8rem;
 }
+
+.setpop{
+    width:15em;
+    max-width: 90vw;
+    background-color: #eee;
+    position: absolute;
+    top: 0;
+    border-radius: 10px;
+    z-index:10;
+   
+}
+.popexit{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+    top: 0px;
+    right: 4px;
+}
+.setpop >.popname{
+    margin: 0.2em;
+    font-size: 1.1em;
+}
+.setpop > .popbnt{
+   background-color: white;
+   font-size: 1.1em;
+    padding: 0.1em;
+    margin-top: 4px;
+    width: 100%;
+}
+.setshadow{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #00000033;
+    z-index: -2;
+    -webkit-transition: background 0.25s ease-out;
+      -moz-transition: background 0.25s ease-out;
+      -o-transition: background 0.25s ease-out;
+      transition: background 0.25s ease-out;
+    }
+

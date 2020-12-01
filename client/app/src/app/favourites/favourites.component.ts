@@ -80,8 +80,12 @@ export class FavouritesComponent implements OnInit {
       
   }
 
-  openSet(){
-    alert("openSet")
+  openSet(id){
+    $('#set'+id + ' .setpop').removeClass('invisible')
+    $('#set'+id + ' .setpop').addClass('')
     
+  }
+  closeSet(){
+    alert("closeSet")
   }
 }

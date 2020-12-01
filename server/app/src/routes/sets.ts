@@ -33,6 +33,7 @@ function createResponseSet(db_result:any){
         name: db_result.name,
         info: db_result.info,
         idCreator: db_result.idCreator,
+        nameCreator:db_result.username,
         setCreation: db_result.setCreation,
         idBaseLanguage: db_result.idBaseLanguage,
         idLearnLanguage: db_result.idLearnLanguage,
@@ -40,7 +41,8 @@ function createResponseSet(db_result:any){
         popularity: db_result.popularity,
         ifVideo: db_result.ifVideo,
         ifAudio: db_result.ifAudio,
-        ifPicture: db_result.ifPicture
+        ifPicture: db_result.ifPicture,
+        numberOfExercises:db_result.numberOfExercises
     }
     return setTemp;
 }
@@ -179,20 +181,20 @@ LIMIT 20 OFFSET 1*/
 function createSqlForSets(wordsToFind:any,deaf:boolean,blind:boolean,page:number):string{
     var limit = 20 
     var offset = 20 * page
-    var sql = 'SELECT * FROM `ExerciseSets` '
-    sql += 'WHERE (deleted = 0 OR deleted is null) '
+    var sql = 'SELECT es.*, u.username FROM `ExerciseSets` es,`Users` u '
+    sql += 'WHERE u.id = es.idCreator AND (es.deleted = 0 OR es.deleted is null) '
     for(var i = 0;i<wordsToFind.length;i++){
         if(i==0){
-            sql+= ' AND (name LIKE "' + wordsToFind[i] + '%"'
+            sql+= ' AND (es.name LIKE "' + wordsToFind[i] + '%"'
         }
         else{
-            sql+= ' OR name LIKE "' + wordsToFind[i] + '%"'
+            sql+= ' OR es.name LIKE "' + wordsToFind[i] + '%"'
         }
     }
     sql+= ') ORDER BY '
-    if (blind) sql+= ' ifAudio DESC,'
-    if (deaf) sql+= ' ifVideo DESC,'
-    sql += ' popularity DESC,ifPicture DESC'
+    if (blind) sql+= ' es.ifAudio DESC,'
+    if (deaf) sql+= ' es.ifVideo DESC,'
+    sql += ' es.popularity DESC, es.ifPicture DESC'
     sql += ' LIMIT ' + limit + ' OFFSET ' + offset
     return sql
 }
@@ -366,8 +368,8 @@ router.post('/add', auth.authenticateToken, (req:any, res) => {
     if(setIsWordset == undefined) setIsWordset = null
 
     // Inserting data to database
-    var sql = 'INSERT INTO `ExerciseSets` (`name`, `info`, `idCreator`, `setCreation`, `idBaseLanguage`, `idLearnLanguage`,`isWordSet`, `popularity`, `ifVideo`, `ifAudio`, `ifPicture`)'
-    sql += 'VALUES ("'+setName+'", "'+setInfo+'", "'+setCreatorId+'","'+setCreationDate+'", '+setBaseLanId+', '+setLearnLanId+', '+setIsWordset+', '+setPopularity+', '+setIfVideo+', '+setIfAudio+', '+setIfPicture+')'
+    var sql = 'INSERT INTO `ExerciseSets` (`name`, `info`, `idCreator`, `setCreation`, `idBaseLanguage`, `idLearnLanguage`,`isWordSet`, `popularity`, `ifVideo`, `ifAudio`, `ifPicture`,`numberOfExercises`)'
+    sql += 'VALUES ("'+setName+'", "'+setInfo+'", "'+setCreatorId+'","'+setCreationDate+'", '+setBaseLanId+', '+setLearnLanId+', '+setIsWordset+', '+setPopularity+', '+setIfVideo+', '+setIfAudio+', '+setIfPicture+','+exercises.length+')'
     
     db.query(sql,function(result:any){
         if(result == 0){
