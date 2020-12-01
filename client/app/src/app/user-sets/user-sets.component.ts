@@ -61,6 +61,8 @@ export class UserSetsComponent implements OnInit {
     });
     // this.userSets = new Array<Set>();
   }
+
+  
   openSet(id){
     $('#set'+id + ' .popwindow').removeClass('invisible')    
   }

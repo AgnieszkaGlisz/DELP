@@ -25,6 +25,7 @@ export class UserAccountComponent implements OnInit {
       Object.assign(this.user, x);
       Object.assign(this.user.preferences, x.preferences);
       this.userService.savePreferences(this.user.preferences);
+      console.log(x)
     })
   }
 

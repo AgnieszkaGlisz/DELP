@@ -5,6 +5,7 @@ import { Set } from './../_interfaces/set';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SetInfo } from '../_interfaces/setInfo';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-searched-sets',
@@ -16,6 +17,7 @@ export class SearchedSetsComponent implements OnInit {
   constructor(
     private wordsetService: WordsetService,
     private router: Router,
+    public userService: UserService
     ) {
       // router.events.subscribe(x => {
       //   this.getSearchedSets('');
@@ -28,7 +30,7 @@ export class SearchedSetsComponent implements OnInit {
   ngOnInit(): void {
     this.searchedSets = new Array<SetInfo>();
     this.getFavourites();
-    // this.getSearchedSets()
+    this.getSearchedSets("")
   }
 
   // searchSets(keyword: string) {
@@ -90,6 +92,32 @@ isFavourite(id: string): boolean {
       setInfoTmp.id = idNum;
       this.favourites.push(setInfoTmp)
     });
+  }
+  
+
+  openSet(id){
+    $('#set'+id + ' .popwindow').removeClass('invisible')    
+  }
+  closeSet(id){
+    $('#set'+id + ' .popwindow').addClass('invisible')
+  }
+
+  likeSet(id){
+    var setid = '#set'+id
+    var img = setid + ' .star > img'
+    var likes = setid + ' .numoflikes'
+    
+    if($(img).attr('src') == "../assets/icons/like.png"){
+      $(img).attr("src","../assets/icons/nolike.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((--num).toString())
+    }
+    else{
+      this.addToFavourites(id)
+      $(img).attr("src","../assets/icons/like.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((++num).toString())
+    }
   }
 
 }
