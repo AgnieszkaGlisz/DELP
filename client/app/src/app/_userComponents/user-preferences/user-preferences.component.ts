@@ -2,6 +2,7 @@ import { UserPreferences } from './../../_interfaces/userPreferences';
 import { User } from './../../_interfaces/user';
 import { UserService } from './../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-preferences',
@@ -12,6 +13,7 @@ export class UserPreferencesComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private router: Router,
   ) { }
 
   user: User;
@@ -23,7 +25,7 @@ export class UserPreferencesComponent implements OnInit {
       Object.assign(this.user, x);
       Object.assign(this.user.preferences, x.preferences);
       this.userService.savePreferences(this.user.preferences);
-  })
+    })
   }
 
   savePreferences(): void {
@@ -31,6 +33,7 @@ export class UserPreferencesComponent implements OnInit {
     this.userService.savePreferences(this.user.preferences).subscribe(x => {
       localStorage.setItem("userData", JSON.stringify(this.user));
     });
+    this.router.navigateByUrl("/user/account")
   }
 
 }

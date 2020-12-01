@@ -1,1 +1,15 @@
 <p>user-account works!</p>
+<div *ngIf="user">
+    <a>Name: {{user.name}}</a><br/>
+    <a>Surname: {{user.surname}}</a><br/>
+    <a>Email: {{user.email}}</a><br/>
+    <a>Login: {{user.login}}</a><br/>
+
+    <br/>
+    User Preferences: <br/>
+    <a>Tylko zadania z video dla niedosłyszących i brak zadań słuchowych: {{user.preferences.noSound}}</a><br/>
+    <a>Tylko zadania z audio: {{user.preferences.noSight}}</a><br/>
+    <a>Powiększona czcionka: {{user.preferences.fontSize}}</a><br/>
+</div>
+
+<button (click)="goToPreferences()">Change preferences</button>

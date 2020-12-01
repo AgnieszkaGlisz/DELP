@@ -27,6 +27,7 @@ import { ExerciseListDirective } from './exercise-list.directive';
 import { SearchedSetsComponent } from './searched-sets/searched-sets.component';
 import { UserPreferencesComponent } from './_userComponents/user-preferences/user-preferences.component';
 import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { UserAccountComponent } from './_userComponents/user-account/user-accoun
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    BrowserAnimationsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
