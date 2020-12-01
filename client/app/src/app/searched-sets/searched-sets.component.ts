@@ -62,16 +62,16 @@ export class SearchedSetsComponent implements OnInit {
     });
   }
 
-isFavourite(id: string): boolean {
-  let isFav: boolean = false;
-  if (this.favourites) {
-    this.favourites.forEach(fav => {
-      var idNum: number = +id;
-      if (idNum == fav.id) {
-        isFav = true;;
-      }
-    });
-  }
+  isFavourite(id: string): boolean {
+    let isFav: boolean = false;
+    if (this.favourites) {
+      this.favourites.forEach(fav => {
+        var idNum: number = +id;
+        if (idNum == fav.id) {
+          isFav = true;;
+        }
+      });
+    }
     return isFav;
   }
 
@@ -118,6 +118,16 @@ isFavourite(id: string): boolean {
       var num = parseInt($.trim($(likes).html()))
       $(likes).html((++num).toString())
     }
+  }
+
+  deleteSetFromFavourites(id: string): void {
+    this.wordsetService.deleteSetFromFavourites(id).subscribe(x => {
+      this.favourites = this.favourites.filter(it => {
+        let idNum: number = +id;
+        return idNum !== it.id;
+      })
+      //this.getFavourites();
+    });
   }
 
 }
