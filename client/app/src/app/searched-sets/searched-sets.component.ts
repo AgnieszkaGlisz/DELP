@@ -93,7 +93,17 @@ export class SearchedSetsComponent implements OnInit {
       this.favourites.push(setInfoTmp)
     });
   }
+
   
+  deleteSetFromFavourites(id: string): void {
+    this.wordsetService.deleteSetFromFavourites(id).subscribe(x => {
+      this.favourites = this.favourites.filter(it => {
+        let idNum: number = +id;
+        return idNum !== it.id;
+      })
+      //this.getFavourites();
+    });
+  }
 
   openSet(id){
     $('#set'+id + ' .popwindow').removeClass('invisible')    
@@ -111,23 +121,15 @@ export class SearchedSetsComponent implements OnInit {
       $(img).attr("src","../assets/icons/nolike.png")
       var num = parseInt($.trim($(likes).html()))
       $(likes).html((--num).toString())
+      this.deleteSetFromFavourites(id);
     }
     else{
-      this.addToFavourites(id)
+      // this.addToFavourites(id)
       $(img).attr("src","../assets/icons/like.png")
       var num = parseInt($.trim($(likes).html()))
       $(likes).html((++num).toString())
+      this.addToFavourites(id);
     }
-  }
-
-  deleteSetFromFavourites(id: string): void {
-    this.wordsetService.deleteSetFromFavourites(id).subscribe(x => {
-      this.favourites = this.favourites.filter(it => {
-        let idNum: number = +id;
-        return idNum !== it.id;
-      })
-      //this.getFavourites();
-    });
   }
 
 }
