@@ -16,7 +16,7 @@ router.post('/translation', (req,res) => {
 	if(req.query.translateFromLang == undefined){
 		res.status(400).json({error: "Base language wasn't specified"})
 	}
-	if(req.query.word == undefined){
+	if(req.body.word == undefined){
 		res.status(400).json({error: "Word to translate wasn't specified"})
 	}
 
@@ -40,7 +40,7 @@ router.post('/translation', (req,res) => {
 	req2.type("json");
 	req2.send([
 		{
-			"Text": req.query.word
+			"Text": req.body.word
 		}
 	]);
 
@@ -101,8 +101,6 @@ router.post('/detect', (req,res) => {
 		res.status(400).json({error: "There is no text to detect"})
 	}
 
-	//var unirest = require("unirest");
-
 	var req2 = unirest("POST", "https://microsoft-translator-text.p.rapidapi.com/Detect");
 
 	req2.query({
@@ -131,8 +129,101 @@ router.post('/detect', (req,res) => {
 
 })
 
+//Transliterate from one language script to another
 router.post('/transliterate', (req,res) => {
-	
+
+	if(req.query.fromScript == undefined)
+	{
+		res.status(400).json({error: "Base script not specified"})
+	}
+	if(req.query.language == undefined)
+	{
+		res.status(400).json({error: "Base language not specified"})
+	}	
+	if(req.query.toScript == undefined)
+	{
+		res.status(400).json({error: "Output script not specified"})
+	}	
+	if(req.body == undefined){
+		res.status(400).json({error: "No text to transliterate"})
+	}
+	var req2 = unirest("POST", "https://microsoft-translator-text.p.rapidapi.com/transliterate");
+
+	req2.query({
+		"fromScript": req.query.fromScript,
+		"api-version": "3.0",
+		"language": req.query.language,
+		"toScript": req.query.toScript
+	});
+
+	req2.headers({
+		"content-type": "application/json",
+		"x-rapidapi-key": "ae0508a806mshd10c94e12a2d09dp1b5ca2jsn995c41aaa822",
+		"x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
+		"useQueryString": true
+	});
+
+	req2.type("json");
+	console.log(req.body);
+	req2.send(req.body);
+	/*
+		{
+			"Text": "こんにちは"
+		},
+		{
+			"Text": "さようなら"
+		}
+	*/
+
+	req2.end(function (res2:any) {
+		if (res2.error) {
+			res.status(400).json({error: "Response failed"});
+			throw new Error(res2.error);
+		}
+
+		console.log(res2.body);
+		res.send(res2.body);
+	});
+	//res.send("ok")
 }) 
+
+//Gives back examples of usage of a word in two languages
+router.post('/examples', (req,res) => {
+
+
+	var req2 = unirest("POST", "https://microsoft-translator-text.p.rapidapi.com/Dictionary/Examples");
+
+	req2.query({
+		"to": req.query.toLang,
+		"from": req.query.fromLang,
+		"api-version": "3.0"
+	});
+
+	req2.headers({
+		"content-type": "application/json",
+		"x-rapidapi-key": "ae0508a806mshd10c94e12a2d09dp1b5ca2jsn995c41aaa822",
+		"x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
+		"useQueryString": true
+	});
+
+	req2.type("json");
+	req2.send([
+		{
+			"Text": req.body.fromLangText,
+			"Translation": req.body.toLangText,
+		}
+	]);
+
+	req2.end(function (res2:any) {
+		if (res2.error) {
+			res.status(400).json({error: "Response failed"});
+			throw new Error(res2.error);
+		}
+
+		console.log(res2.body);
+		res.send(res2.body);
+	});
+
+})
 
 module.exports = router

@@ -422,7 +422,7 @@ router.get('/delete/:id', auth.authenticateToken, (req:any, res) =>{
     })
 })
 
-function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
+/*function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
     var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
     sql += ' FROM SetsExercises '
     sql += ' WHERE  SetsExercises.idSet = ' + idSet
@@ -603,6 +603,6 @@ router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:
 
 router.get('/xd', (req,res)=> {
     res.send("xd");
-})
+})*/
 
 module.exports = router;
