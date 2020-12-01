@@ -51,8 +51,8 @@ export class SearchedSetsComponent implements OnInit {
   }
 
   getFavourites(): void {
+    this.favourites = new Array<SetInfo>();
     this.wordsetService.getFavourites().subscribe(x => {
-      this.favourites = new Array<SetInfo>();
       Object.assign(this.favourites, x);
       let index = 0;
       x.forEach(set => {
