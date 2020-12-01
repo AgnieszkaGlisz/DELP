@@ -160,14 +160,15 @@ router.get('/favourite', auth.authenticateToken, (req:any, res) => {
                 name: result[i].name,
                 info: result[i].info,
                 idCreator: result[i].idCreator,
-                usernameCreator: result[i].username,
+                nameCreator: result[i].username,
                 isWordSet:  result[i].isWordSet,
                 idBaseLanguage: result[i].idBaseLanguage,
                 idLearnLanguage: result[i].idLearnLanguage,
                 popularity: result[i].popularity,
                 ifVideo: result[i].ifVideo,
                 ifAudio: result[i].ifAudio,
-                ifPicture: result[i].ifPicture
+                ifPicture: result[i].ifPicture,
+                numberOfExercises:result[i].numberOfExercises
             })  
         }
         res.json(sets)
