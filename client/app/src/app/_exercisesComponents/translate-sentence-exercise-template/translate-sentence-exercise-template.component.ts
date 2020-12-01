@@ -63,4 +63,8 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
       }
       else return false;
     }
+
+    showHint(): string {
+      return this.translatedSentence;
+    }
 }

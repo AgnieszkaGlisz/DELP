@@ -24,6 +24,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   // answer: any = { value: ''};
   wordIndex: number;
   result: string = "";
+  hint: string ="";
 
   correctAnswer: boolean;
 
@@ -81,6 +82,8 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
 
   nextWord(): void {
     this.result = "";
+    this.hint = "";
+    this.correctAnswer == true;
     this.exercise.data.answer = '';
     if(this.wordIndex < this.set.exercises.length - 1)
     {
@@ -93,6 +96,10 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
       this.result = "You've finished this set!";
     }
     this.loadComponent();
+  }
+
+  showHint(): void {
+    this.hint = this.exercise.showHint();
   }
 
   checkWord(): void {

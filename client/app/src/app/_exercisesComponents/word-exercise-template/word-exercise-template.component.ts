@@ -61,4 +61,8 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
     }
     else return false;
   }
+
+  showHint(): string {
+    return this.translation;
+  }
 }
