@@ -17,9 +17,9 @@ export class SearchedSetsComponent implements OnInit {
     private wordsetService: WordsetService,
     private router: Router,
     ) {
-      router.events.subscribe(x => {
-        this.getSearchedSets();
-      })
+      // router.events.subscribe(x => {
+      //   this.getSearchedSets('');
+      // })
      }
 
   searchedSets: SetInfo[];
@@ -28,12 +28,17 @@ export class SearchedSetsComponent implements OnInit {
   ngOnInit(): void {
     this.searchedSets = new Array<SetInfo>();
     this.getFavourites();
-    this.getSearchedSets()
+    // this.getSearchedSets()
   }
 
-  getSearchedSets() {
+  // searchSets(keyword: string) {
+  //   this.wordsetService.searchSetsKeyword = keyword;
+  //   this.router.navigateByUrl('sets/search');
+  // }
+
+  getSearchedSets(keyword: string) {
     this.searchedSets = new Array<SetInfo>();
-    this.wordsetService.getSearchedSets().subscribe(x => {
+    this.wordsetService.getSearchedSets(keyword).subscribe(x => {
       Object.assign(this.searchedSets, x);
       let index = 0;
       x.forEach(set => {

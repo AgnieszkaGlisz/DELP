@@ -40,16 +40,6 @@ export class AppComponent  implements OnInit {
     );
   }
 
-  goToSearchedSets(keyword: string) {
-    this.wordsetService.searchSetsKeyword = keyword;
-    // if (this.router.url == 'searched-sets') {
-    //   this.router.onSameUrlNavigation = 'reload';
-    // }
-    // else {
-    this.router.navigateByUrl('sets/search');
-    // }
-  }
-
   toggle(){
     $('#wrapper').toggleClass('toggled');
   }

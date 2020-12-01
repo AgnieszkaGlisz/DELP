@@ -20,7 +20,7 @@ export class WordsetService {
   urlLocal: string = `http://localhost:3500`;
   url: string = this.urlCezar;
   setToDisplayId: string = '0';
-  searchSetsKeyword: string = '';
+  // searchSetsKeyword: string = '';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -37,9 +37,9 @@ export class WordsetService {
     return this.http.get<Set[]>(`${this.url}/user/favourite`, this.httpOptions);
   }
 
-  getSearchedSets(): Observable<Set[]> {
+  getSearchedSets(keyword: string): Observable<Set[]> {
     let data = {
-      "userQuery": this.searchSetsKeyword,
+      "userQuery": keyword,
       "noSound": 0,
       "noSight": 0,
       "page": 0

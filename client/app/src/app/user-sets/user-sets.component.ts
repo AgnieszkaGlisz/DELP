@@ -47,6 +47,14 @@ export class UserSetsComponent implements OnInit {
     this.router.navigateByUrl('/wordset/learn');
   }
 
+  goToCreateWordsetView(): void {
+    this.router.navigateByUrl('/wordset/create');
+  }
+
+  goToCreateLessonView(): void {
+    this.router.navigateByUrl('/lesson/create');
+  }
+
   deleteSet(id: string): void {
     this.wordsetService.deleteSet(id).subscribe(x => {
       this.getUserSets();

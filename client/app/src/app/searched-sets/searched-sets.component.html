@@ -1,4 +1,6 @@
-<p>searched-sets works!</p>
+<div><input #keyword placeholder="search for sets" />
+    <button (click)="getSearchedSets(keyword.value); keyword.value=''">Search</button>
+</div>
 
 <div>
     <ul *ngIf="searchedSets">
