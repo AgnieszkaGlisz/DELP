@@ -57,6 +57,9 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     else if (this.exercise.videoPath) {
       this.exercise.setViewOption(ViewOption.LearnVideo);
     }
+    else {
+      this.exercise.setViewOption(ViewOption.Learn);
+    }
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
