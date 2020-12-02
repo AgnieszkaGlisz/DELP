@@ -117,3 +117,13 @@
     background-color: gray !important;
     color: white;
   } */
+
+
+  .learningwordset{
+    overflow: hidden;
+    width: 100%;
+  }
+  .image{width: 100%;}
+  .image > img{
+    width: 100%;
+  }

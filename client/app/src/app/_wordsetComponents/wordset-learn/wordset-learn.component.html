@@ -1,28 +1,8 @@
-<p>wordset-learn works!</p>
-<br>
-<div id="wordset-display">
-    <ul class="words">
-        <li>
-            <ng-template exerciseHost></ng-template>
-            
-        <!-- <a>
-            <span class="word-left">{{word.word}}</span>
-            <input [(ngModel)]="answer.value" placeholder="answer" class="word-right" />
-        </a> -->
-    </li>
-</ul>
-<br/>
-<br/>
-<br/>
-<div>{{hint}}</div>
-<br/>
-<br/>
-<div>{{result}}</div>
-<br/>
-<br/>
-<br/>
-<br/>
-<button *ngIf="correctAnswer===false" class="Check" (click)="showHint()">Show a hint</button>
-<button class="Check" (click)="checkWord()">Check&Next</button>
-<!-- <button class="Next" (click)="nextWord()">Next</button> -->
+<div id="wordset-display" class="learningwordset d-flex flex-column">
+    <ng-template exerciseHost></ng-template>
+    <div>{{hint}}</div>
+    <div>{{result}}</div>
+    <button *ngIf="correctAnswer===false" class="Check" (click)="showHint()">Show a hint</button>
+    <button class="Check" (click)="checkWord()">Check&Next</button>
+    <!-- <button class="Next" (click)="nextWord()">Next</button> -->
 </div>
