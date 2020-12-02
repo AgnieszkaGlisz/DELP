@@ -91,5 +91,8 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
     return this.translation;
   }
 
-
+  Translate() {
+    var inputValue = (<HTMLInputElement>document.getElementById("translationWord")).value;
+    console.log(inputValue);
+  }
 }
