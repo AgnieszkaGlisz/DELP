@@ -2,6 +2,7 @@ import { WordsetService } from './_services/wordset.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './_services/user.service';
+import { Location } from '@angular/common';
 import * as $ from "jquery";
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent  implements OnInit {
     public userService: UserService,
     private router: Router,
     private wordsetService: WordsetService,
+    private location: Location,
     ) {
       this.router.events.subscribe( x => {
         if (this.router.url.indexOf('login') > -1) 
@@ -38,6 +40,12 @@ export class AppComponent  implements OnInit {
         this.router.navigateByUrl('user/favourite');
        }
     );
+  }
+
+  goBack(): void {
+    this.location.back();
+    this.toggle();
+    // this.location.back();
   }
 
   toggle(){
