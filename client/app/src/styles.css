@@ -1,4 +1,302 @@
 /* You can add global styles to this file, and also import other style files */
+/* 
+html, body { height: 100%; } */
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } 
+/*SET LIST*/
+.set{
+  border-radius: 5px;
+  background-color: white;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.flags > div{
+  width: 0.8em;
+  height: 1em;
+  
+  margin-left: 0.3em;
+}   
+.setname{
+  font-size: 1.3rem;
+  
+}
+.numexercises{
+  font-size: 0.7rem;
+}
+.author{
+  font-size: 0.8rem;
+}
+.star{
+  font-size: 0.8rem;
+}
+
+
+
+.popwindow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+}
+.setpop{
+  width:20em;
+  max-width: 90vw;
+  background-color: #eee;
+  position: relative;
+  border-radius: 10px;
+  z-index:10;
+  height: 10em;
+ margin-top: 10em;
+}
+.popexit{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111;
+  top: 0px;
+  right: 4px;
+}
+.setpop >.popname{
+   margin-bottom: 0.4em;
+  font-size: 1.1em;
+}
+.setpop > .popbnt{
+ background-color: white;
+ font-size: 1.1em;
+  padding: 0.1em;
+  margin-top: 4px; 
+  width: 100%;
+}
+.setshadow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #00000033;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+
+/* NORMAL COLORS */
+.c5 {
+    background: #f4f1de;
+    color: black;
+  }
+  .c1 {
+    background: #e07a5f;
+    color: white;
+  }
+  .c2 {
+    background: #3d405b;
+    color: white;
+  }
+  .c3 {
+    background: #81b29a;
+    color: black;
+  }
+  .c4 {
+    background: #f2cc8f;
+    color: black;
+  }
+  /* PROTANOPIA COLORS */
+  .c5_protanopia {
+    background: #f2f2e2;
+    color: black;
+  }
+  .c1_protanopia {
+    background: #b2b265;
+    color: black;
+  }
+  .c2_protanopia {
+    background: #3e3e54;
+    color: white;
+  }
+  .c3_protanopia {
+    background: #96969f;
+    color: white;
+  }
+  .c4_protanopia {
+    background: #e1e19d;
+    color: black;
+  }
+  /* DEUTERANOPIA COLORS */
+  .c5_deuteranopia {
+    background: #F2F3E3;
+    color: black;
+  }
+  .c1_deuteranopia {
+    background: #B9C167;
+    color: black;
+  }
+  .c2_deuteranopia {
+    background: #3E3D52;
+    color: white;
+  }
+  .c3_deuteranopia {
+    background: #938FA1;
+    color: white;
+  }
+  .c4_deuteranopia {
+    background: #E3E6A1;
+    color: black;
+  }
+  /* TRITANOPIA COLORS */
+  .c5_tritanopia {
+    background: #F3E6E7;
+    color: black;
+  }
+  .c1_tritanopia {
+    background: #DA6A6B;
+    color: white;
+  }
+  .c2_tritanopia {
+    background: #3D4F4E;
+    color: white;
+  }
+  .c3_tritanopia {
+    background: #83A4A5;
+    color: white;
+  }
+  .c4_tritanopia {
+    background: #F0A9AB;
+    color: black;
+  }
+  /* ACHROMATOPSIA COLORS */
+  .c5_achromatopsia {
+    background: #EFEFEF;
+    color: black;
+  }
+  .c1_achromatopsia {
+    background: #959595;
+    color: white;
+  }
+  .c2_achromatopsia {
+    background: #424242;
+    color: white;
+  }
+  .c3_achromatopsia {
+    background: #A0A0A0;
+    color: black;
+  }
+  .c4_achromatopsia {
+    background: #D0D0D0;
+    color: black;
+  }
+  /* PROTANOMALY COLORS */
+  .c5_protanomaly {
+    background: #F3F1E0;
+    color: black;
+  }
+  .c1_protanomaly {
+    background: #CD9B62;
+    color: black;
+  }
+  .c2_protanomaly {
+    background: #3D3F57;
+    color: white;
+  }
+  .c3_protanomaly {
+    background: #89A19D;
+    color: white;
+  }
+  .c4_protanomaly {
+    background: #EBD896;
+    color: black;
+  }
+  /* DEUTERANOMALY COLORS */
+  .c5_deuteranomaly {
+    background: #F3F1E0;
+    color: black;
+  }
+  .c1_deuteranomaly {
+    background: #CB9462;
+    color: white;
+  }
+  .c2_deuteranomaly {
+    background: #3D3F57;
+    color: white;
+  }
+  .c3_deuteranomaly {
+    background: #8AA59D;
+    color: white;
+  }
+  .c4_deuteranomaly {
+    background: #EAD597;
+    color: black;
+  }
+  /* TRITANOMALY COLORS */
+  .c5_tritanomaly {
+    background: #F3EBE1;
+    color: black;
+  }
+  .c1_tritanomaly {
+    background: #DC7263;
+    color: white;
+  }
+  .c2_tritanomaly {
+    background: #3D4756;
+    color: white;
+  }
+  .c3_tritanomaly {
+    background: #82AB9E;
+    color: white;
+  }
+  .c4_tritanomaly {
+    background: #F0BB9A;
+    color: black;
+  }
+  /* ACHROMATOMALY COLORS */
+  .c5_achromatomaly {
+    background: #F1F0E7;
+    color: black;
+  }
+  .c1_achromatomaly {
+    background: #B7887C;
+    color: white;
+  }
+  .c2_achromatomaly {
+    background: #3F414D;
+    color: white;
+  }
+  .c3_achromatomaly {
+    background: #92A89D;
+    color: black;
+  }
+  .c4_achromatomaly {
+    background: #DFCEB2;
+    color: black;
+  }
+  
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

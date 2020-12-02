@@ -1,3 +1,4 @@
+import { Lesson } from './../../_interfaces/lesson';
 import { ViewOption } from './../../_exercisesComponents/view-option-enum';
 import { ExerciseListDirective } from './../../exercise-list.directive';
 import { FillSentenceExerciseTemplateComponent } from './../../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
@@ -40,7 +41,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   //proxy1: any; 
 
   ngOnInit(): void {
-    this.set = new Set();
+    this.set = new Lesson();
     this.set.exercises = new Array<ExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
     this.exerciseInput = false;

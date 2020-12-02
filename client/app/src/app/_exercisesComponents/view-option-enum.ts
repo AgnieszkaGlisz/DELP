@@ -11,10 +11,11 @@ export enum ViewOption {
     LearnImage,
     LearnVideo,
     LearnAudio,
-    Display,
     DisplayImage,
     DisplayVideo,
     DisplayAudio,
+    Display,
+    Hint
   }
 
 export class View {

@@ -69,5 +69,9 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
     }
     else return false;
   }
+
+  showHint(): string {
+    return this.wordToFill;
+  }
   
 }

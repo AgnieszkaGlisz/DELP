@@ -16,5 +16,6 @@ export interface ExerciseTemplateComponent {
 
     setViewOption(view: ViewOption);
     checkAnswer(): boolean;
+    showHint(): string;
     // viewOption: ViewOption;
 }

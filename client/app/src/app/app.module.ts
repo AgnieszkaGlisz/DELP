@@ -8,15 +8,14 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WordsetCreateComponent } from './_wordsetComponents/wordset-create/wordset-create.component';
-import { UserComponent } from './user/user.component';
-import { UserLoginComponent } from './user-login/user-login.component';
+import { UserLoginComponent } from './_userComponents/user-login/user-login.component';
 import { WordsetDisplayComponent } from './_wordsetComponents/wordset-display/wordset-display.component';
 import { LessonCreateComponent } from './_lessonComponents/lesson-create/lesson-create.component';
 
 import { AuthInterceptor } from './interceptor/httpconfig.interceptor';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { WordsetLearnComponent } from './_wordsetComponents/wordset-learn/wordset-learn.component';
-import { UserLogoutComponent } from './user-logout/user-logout.component';
+import { UserLogoutComponent } from './_userComponents/user-logout/user-logout.component';
 import { UserSetsComponent } from './user-sets/user-sets.component';
 import { AlertComponent } from './alert/alert.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
@@ -26,6 +25,8 @@ import { TranslateSentenceExerciseTemplateComponent } from './_exercisesComponen
 import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 import { ExerciseListDirective } from './exercise-list.directive';
 import { SearchedSetsComponent } from './searched-sets/searched-sets.component';
+import { UserPreferencesComponent } from './_userComponents/user-preferences/user-preferences.component';
+import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -33,7 +34,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     WordsetCreateComponent,
-    UserComponent,
     UserLoginComponent,
     WordsetDisplayComponent,
     LessonCreateComponent,
@@ -48,6 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FillSentenceExerciseTemplateComponent,
     ExerciseListDirective,
     SearchedSetsComponent,
+    UserPreferencesComponent,
+    UserAccountComponent,
   ],
   imports: [
     BrowserModule,

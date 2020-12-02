@@ -42,7 +42,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
   //proxy1: any; 
 
   ngOnInit(): void {
-    this.set = new Set();
+    this.set = new Wordset();
     this.set.exercises = new Array<ExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
   }

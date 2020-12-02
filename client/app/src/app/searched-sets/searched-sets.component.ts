@@ -5,6 +5,7 @@ import { Set } from './../_interfaces/set';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SetInfo } from '../_interfaces/setInfo';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-searched-sets',
@@ -16,10 +17,11 @@ export class SearchedSetsComponent implements OnInit {
   constructor(
     private wordsetService: WordsetService,
     private router: Router,
+    public userService: UserService
     ) {
-      router.events.subscribe(x => {
-        this.getSearchedSets();
-      })
+      // router.events.subscribe(x => {
+      //   this.getSearchedSets('');
+      // })
      }
 
   searchedSets: SetInfo[];
@@ -28,12 +30,17 @@ export class SearchedSetsComponent implements OnInit {
   ngOnInit(): void {
     this.searchedSets = new Array<SetInfo>();
     this.getFavourites();
-    this.getSearchedSets()
+    this.getSearchedSets("")
   }
 
-  getSearchedSets() {
+  // searchSets(keyword: string) {
+  //   this.wordsetService.searchSetsKeyword = keyword;
+  //   this.router.navigateByUrl('sets/search');
+  // }
+
+  getSearchedSets(keyword: string) {
     this.searchedSets = new Array<SetInfo>();
-    this.wordsetService.getSearchedSets().subscribe(x => {
+    this.wordsetService.getSearchedSets(keyword).subscribe(x => {
       Object.assign(this.searchedSets, x);
       let index = 0;
       x.forEach(set => {
@@ -44,8 +51,8 @@ export class SearchedSetsComponent implements OnInit {
   }
 
   getFavourites(): void {
+    this.favourites = new Array<SetInfo>();
     this.wordsetService.getFavourites().subscribe(x => {
-      this.favourites = new Array<SetInfo>();
       Object.assign(this.favourites, x);
       let index = 0;
       x.forEach(set => {
@@ -55,16 +62,16 @@ export class SearchedSetsComponent implements OnInit {
     });
   }
 
-isFavourite(id: string): boolean {
-  let isFav: boolean = false;
-  if (this.favourites) {
-    this.favourites.forEach(fav => {
-      var idNum: number = +id;
-      if (idNum == fav.id) {
-        isFav = true;;
-      }
-    });
-  }
+  isFavourite(id: string): boolean {
+    let isFav: boolean = false;
+    if (this.favourites) {
+      this.favourites.forEach(fav => {
+        var idNum: number = +id;
+        if (idNum == fav.id) {
+          isFav = true;;
+        }
+      });
+    }
     return isFav;
   }
 
@@ -85,6 +92,44 @@ isFavourite(id: string): boolean {
       setInfoTmp.id = idNum;
       this.favourites.push(setInfoTmp)
     });
+  }
+
+  
+  deleteSetFromFavourites(id: string): void {
+    this.wordsetService.deleteSetFromFavourites(id).subscribe(x => {
+      this.favourites = this.favourites.filter(it => {
+        let idNum: number = +id;
+        return idNum !== it.id;
+      })
+      //this.getFavourites();
+    });
+  }
+
+  openSet(id){
+    $('#set'+id + ' .popwindow').removeClass('invisible')    
+  }
+  closeSet(id){
+    $('#set'+id + ' .popwindow').addClass('invisible')
+  }
+
+  likeSet(id){
+    var setid = '#set'+id
+    var img = setid + ' .star > img'
+    var likes = setid + ' .numoflikes'
+    
+    if($(img).attr('src') == "../assets/icons/like.png"){
+      $(img).attr("src","../assets/icons/nolike.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((--num).toString())
+      this.deleteSetFromFavourites(id);
+    }
+    else{
+      // this.addToFavourites(id)
+      $(img).attr("src","../assets/icons/like.png")
+      var num = parseInt($.trim($(likes).html()))
+      $(likes).html((++num).toString())
+      this.addToFavourites(id);
+    }
   }
 
 }

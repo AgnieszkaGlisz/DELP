@@ -24,6 +24,9 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   // answer: any = { value: ''};
   wordIndex: number;
   result: string = "";
+  hint: string ="";
+
+  correctAnswer: boolean;
 
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
 
@@ -42,6 +45,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   }
 
   loadComponent(): void {
+    this.correctAnswer = true;
     this.exercise.data = this.exercise;
     this.exercise.setViewOption(ViewOption.Learn);
 
@@ -78,6 +82,8 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
 
   nextWord(): void {
     this.result = "";
+    this.hint = "";
+    this.correctAnswer == true;
     this.exercise.data.answer = '';
     if(this.wordIndex < this.set.exercises.length - 1)
     {
@@ -92,9 +98,15 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     this.loadComponent();
   }
 
+  showHint(): void {
+    this.hint = this.exercise.showHint();
+  }
+
   checkWord(): void {
-    if (this.exercise.checkAnswer()) {
+    this.correctAnswer = this.exercise.checkAnswer();
+    if (this.correctAnswer) {
       this.result = "Correct!";
+      this.nextWord();
     }
     else {
       this.result = "Wrong :c";

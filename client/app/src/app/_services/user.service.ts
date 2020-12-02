@@ -1,3 +1,4 @@
+import { UserPreferences } from './../_interfaces/userPreferences';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../_interfaces/user';
@@ -16,11 +17,21 @@ const httpOptions = {
 })
 
 export class UserService {
+  public colorset: string[];
+ 
 
   constructor(
     private http: HttpClient,
     private wordsetService: WordsetService
-  ) { }
+  ) { 
+    this.colorset = new Array<string>();
+    this.colorset.push('c1');
+    this.colorset.push('c2');
+    this.colorset.push('c3');
+    this.colorset.push('c4');
+    this.colorset.push('c5');
+
+  }
 
   setToken(x: any): void{
     localStorage.setItem('token', JSON.stringify(x));
@@ -30,7 +41,7 @@ export class UserService {
     localStorage.removeItem('token');
   }
 
-  getUserData(): any{
+  getUserData(): User {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData)
     return userData;
@@ -48,6 +59,10 @@ export class UserService {
 
   sendLoginInfo(username: string, password: string): Observable<any> {
     return this.http.post(`${this.wordsetService.url}/user/login`, {username, password}, httpOptions);
+  }
+
+  savePreferences(preferences: UserPreferences): Observable<any> {
+    return this.http.post(`${this.wordsetService.url}/user/preferences`, preferences, httpOptions);
   }
 
 }

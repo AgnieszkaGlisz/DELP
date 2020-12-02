@@ -1,6 +1,6 @@
 // import { UserComponent } from './../user/user.component';
-import { User } from './../_interfaces/user';
-import { UserService } from './../_services/user.service';
+import { User } from './../../_interfaces/user';
+import { UserService } from './../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class UserLoginComponent implements OnInit {
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router,
     // public user: UserComponent
   ) { }

@@ -3,6 +3,8 @@ export class SetInfo {
     name: string;
     info: string;
     idCreator: number;
+    nameCreator:string;
+    numberOfExercises:number;
     setCreation: string;
     idBaseLanguage: number;
     idLearnLanguage: number;
