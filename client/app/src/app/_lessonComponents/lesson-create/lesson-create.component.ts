@@ -141,7 +141,11 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   saveLesson(): void {
+    //console.log("lang12",this.lang1, this.lang2);
+    
     this.set.saveSet();
+    this.set.setInfo.idBaseLanguage = this.lang1.value.id;
+    this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.wordsetService.saveWordset(this.set).subscribe(x => {
     });
   }
