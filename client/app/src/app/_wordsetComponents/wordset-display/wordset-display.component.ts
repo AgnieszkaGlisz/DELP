@@ -46,13 +46,12 @@ export class WordsetDisplayComponent implements OnInit, AfterViewInit {
     this.wordsetService.getWordset().subscribe(x => {
         // this.set = new Set();
         // this.set.exercises = new Array<ExerciseTemplateComponent>();
-        // Object.assign(this.set, x);
         // this.set = x;
         let idx = 0;
         x.exercises.forEach(exer => {
           this.set.exercises[idx] = this.wordsetService.newExercise(exer.template);
           Object.assign(this.set.exercises[idx], exer);
-          this.set.exercises[idx].setViewOption(ViewOption.Display);
+          this.set.exercises[idx].setViewOption(ViewOption.DisplayVideo);
           idx++;
         });
         // console.log(this.set.exercises);

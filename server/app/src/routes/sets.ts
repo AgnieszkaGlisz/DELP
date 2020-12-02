@@ -111,7 +111,10 @@ router.get('/:id', auth.authenticateToken, (req, res) =>{
                             leftPartOfSentence:result[i].leftPartOfSentence,
                             wordToFill:result[i].wordToFill,
                             rightPartOfSentence: result[i].rightPartOfSentence,
-                            incorrectWords: incorrectWords})
+                            incorrectWords: incorrectWords,
+                            videoPath: result[i].videoPath,
+                            audioPath: result[i].audioPath,
+                            picturePath: result[i].picturePath})
                     }
                     if(exercises.length == templates.length){
                         sortExercises(exercises,templates)
@@ -135,7 +138,10 @@ router.get('/:id', auth.authenticateToken, (req, res) =>{
                             id:result[i].id,
                             template:'TranslateSentenceExerciseTemplate',
                             oryginalSentence:result[i].oryginalSentence,
-                            translatedSentence: result[i].translatedSentence})
+                            translatedSentence: result[i].translatedSentence,
+                            videoPath: result[i].videoPath,
+                            audioPath: result[i].audioPath,
+                            picturePath: result[i].picturePath})
                     if(exercises.length == templates.length){
                         sortExercises(exercises,templates)
                         var lessonRes = {
@@ -158,7 +164,10 @@ router.get('/:id', auth.authenticateToken, (req, res) =>{
                             id:result[i].id,
                             template:'WordExerciseTemplate',
                             word: result[i].word,
-                            translation: result[i].translation})
+                            translation: result[i].translation,
+                            videoPath: result[i].videoPath,
+                            audioPath: result[i].audioPath,
+                            picturePath: result[i].picturePath})
                     if(exercises.length == templates.length){
                         sortExercises(exercises,templates)
                         var lessonRes = {
@@ -415,7 +424,7 @@ router.get('/delete/:id', auth.authenticateToken, (req:any, res) =>{
     })
 })
 
-function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
+/*function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
     var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
     sql += ' FROM SetsExercises '
     sql += ' WHERE  SetsExercises.idSet = ' + idSet
@@ -523,6 +532,10 @@ function updatePictureFileInfo(idSet:number,exerciseOrder:number,path:string){
     })
 }
 
+router.use('/UserMedia/pictures', express.static('./UserMedia/pictures'))
+router.use('/UserMedia/audio', express.static('./UserMedia/audio'))
+router.use('/UserMedia/video', express.static('./UserMedia/video'))
+
 const multer = require('multer')
 
 
@@ -590,6 +603,8 @@ router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:
     }
 })
 
-
+router.get('/xd', (req,res)=> {
+    res.send("xd");
+})*/
 
 module.exports = router;

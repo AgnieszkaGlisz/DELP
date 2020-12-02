@@ -157,9 +157,6 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
     else {
       this.alertService.warn("You can only add 3 files! (One image, one video, one audio)")
     }
-    
-    
-  
     //this.files.push(...event.addedFiles);
     
     /*let imageBuble = this.f.pop();
@@ -177,5 +174,8 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
-  
+
+  Translate(){
+    
+  }
 }

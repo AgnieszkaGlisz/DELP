@@ -18,7 +18,7 @@ export class WordsetService {
   urlAga: string = `http://25.95.136.77:3500`;
   urlCezar: string = `http://25.68.211.177:3500`;
   urlLocal: string = `http://localhost:3500`;
-  url: string = this.urlCezar;
+  url: string = this.urlAga;
   setToDisplayId: string = '0';
   // searchSetsKeyword: string = '';
 
@@ -99,8 +99,12 @@ export class WordsetService {
   
   sendFile(file: fileInfo, setId: number): Observable<any> {
     //console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
-    console.log(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id)
-    return this.http.post<any>(`${this.url}/sets/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
+    //console.log(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id)
+    return this.http.post<any>(`${this.url}/files/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
   }
  
+  sendTranslationRequest(languageTo: string, languageFrom: string, text:string): Observable<JSON> {
+    //localhost:3500/dict/translation?translateToLang=es&translateFromLang=en&word=hello
+    return this.http.post<JSON>(`${this.url}/dict/translation?translateToLang=`+ languageTo + `&translateFromLang=` + languageFrom, text);
+  }
 }
