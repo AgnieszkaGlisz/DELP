@@ -12,10 +12,13 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { WordsetService } from '../../_services/wordset.service';
 import { UserService } from './../../_services/user.service';
 // import { WORDS } from './../words-mock';
-import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, QueryList, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, QueryList, ViewContainerRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { send } from 'process';
+import { FormControl } from '@angular/forms';
+import { Language } from '../../_interfaces/language';
+import { Subscription } from 'rxjs/internal/Subscription';
 //import { userInfo } from 'os';
 
 @Component({
@@ -23,7 +26,7 @@ import { send } from 'process';
   templateUrl: './wordset-create.component.html',
   styleUrls: ['./wordset-create.component.css']
 })
-export class WordsetCreateComponent implements OnInit, AfterViewInit {
+export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   constructor(
     private wordsetService: WordsetService, 
@@ -37,6 +40,11 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
   set: Set;
   exercise: ExerciseTemplateComponent;
 
+  lang1 = new FormControl();
+  lang2 = new FormControl();
+  languageList: Array<Language> = new Array<Language>();
+  languageSubscription: Subscription;
+
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
   @ViewChildren(ExerciseListDirective) exerciseHosts: QueryList<ExerciseListDirective>;
   //proxy1: any; 
@@ -49,6 +57,44 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.loadComponent();
+    this.loadLanguages();
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.languageList.length == 0 && ((!this.languageSubscription) ||
+       (this.languageSubscription && this.languageSubscription.closed)))
+      this.loadLanguages();
+  }
+
+  loadLanguages(): void {
+    console.log("waiting for languages...");
+    this.languageSubscription = this.wordsetService.getAllLanguages().subscribe( x => {
+      console.log("got languages", x);
+      let tmp = {languages:  Array<Language>()};
+      Object.assign(tmp, x);
+      let i = 0;
+      tmp.languages.forEach( l =>
+      {
+        this.languageList[i] = l;
+        i++;
+      });
+    }, err => {
+      console.log("didn't get languages", err);
+      let tmpList = new Array<Language>();
+      tmpList[0] = {code: "PL",
+      id: 1,
+      info: "PLinfo",
+      name: "Polski"};
+      tmpList[1] = {code: "EN",
+      id: 2,
+      info: "ENinfo",
+      name: "Angielski"};
+      Object.assign(this.languageList, tmpList);
+    }, 
+    () => {
+      console.log("languages", this.languageList);
+    }
+    )
   }
   
   loadComponent(): void {
@@ -103,6 +149,8 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
   }
 
   saveSet(): void {
+    this.set.setInfo.idBaseLanguage = this.lang1.value.id;
+    this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.set.saveSet();
     if (this.set.setInfo.name){
       this.wordsetService.saveWordset(this.set).subscribe(x => {

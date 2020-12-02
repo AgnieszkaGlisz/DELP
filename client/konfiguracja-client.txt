@@ -1,3 +1,6 @@
--1. Install Node.js and Angular[ (angular CLI) - npm install -g @angular/cli]
-0. Run the code - ng serve
-1. Open in the VSCode - code . (on Windows)
+0. Install Node.js and Angular[ (angular CLI) - npm install -g @angular/cli]
+1. cd app
+2. npm install
+3. ng add @angular/material
+4. Run the code - ng serve
+5. Open in the VSCode - code . (on Windows)
