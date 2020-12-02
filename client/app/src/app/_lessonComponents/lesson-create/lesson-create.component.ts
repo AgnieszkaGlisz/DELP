@@ -16,6 +16,8 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { ComponentFactoryResolver } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { Language } from '../../_interfaces/language';
 
 @Component({
   selector: 'app-lesson-create',
@@ -33,6 +35,9 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   set: Set;
   exercise: ExerciseTemplateComponent;
   createExercise: any;
+  lang1 = new FormControl();
+  lang2 = new FormControl();
+  languageList: Array<Language> = new Array<Language>();
 
   exerciseInput: boolean;  
   
@@ -49,7 +54,35 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
+    console.log("waiting for languages...");
+    this.wordsetService.getAllLanguages().subscribe( x => {
+      console.log("got languages", x);
+      let tmp = {languages:  Array<Language>()};
+      Object.assign(tmp, x);
+      let i = 0;
+      tmp.languages.forEach( l =>
+      {
+        this.languageList[i] = l;
+        i++;
+      });
+    }, err => {
+      console.log("didn't get languages", err);
+      let tmpList = new Array<Language>();
+      tmpList[0] = {code: "PL",
+      id: 1,
+      info: "PLinfo",
+      name: "Polski"};
+      tmpList[1] = {code: "EN",
+      id: 2,
+      info: "ENinfo",
+      name: "Angielski"};
+      Object.assign(this.languageList, tmpList);
+      console.log("got languages", this.languageList, tmpList);
+    }, 
+    () => {
+      console.log("languages", this.languageList);
+    }
+    )
   }
   
   loadComponent(): void {
@@ -108,7 +141,11 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   saveLesson(): void {
+    //console.log("lang12",this.lang1, this.lang2);
+    
     this.set.saveSet();
+    this.set.setInfo.idBaseLanguage = this.lang1.value.id;
+    this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.wordsetService.saveWordset(this.set).subscribe(x => {
     });
   }
