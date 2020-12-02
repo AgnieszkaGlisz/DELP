@@ -47,7 +47,16 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   loadComponent(): void {
     this.correctAnswer = true;
     this.exercise.data = this.exercise;
-    this.exercise.setViewOption(ViewOption.Learn);
+    this.exercise.setUrl(this.wordsetService.url);
+    if (this.exercise.picturePath) {
+      this.exercise.setViewOption(ViewOption.LearnImage);
+    }
+    else if (this.exercise.audioPath) {
+      this.exercise.setViewOption(ViewOption.LearnAudio);
+    }
+    else if (this.exercise.videoPath) {
+      this.exercise.setViewOption(ViewOption.LearnVideo);
+    }
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
@@ -70,6 +79,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
         x.exercises.forEach(exer => {
           this.set.exercises[idx] = this.wordsetService.newExercise(exer.template);
           Object.assign(this.set.exercises[idx], exer);
+          console.log(this.set.exercises[idx])
           idx++;
         })
 

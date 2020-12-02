@@ -24,6 +24,8 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
   ngOnInit(): void {
   }
 
+  url: string;
+
   template: "FillSentenceExerciseTemplate";
   leftPartOfSentence: string;
   wordToFill: string;
@@ -49,6 +51,10 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
     
   //   set.exercises.push(exerciseCopy);
   // }
+
+  setUrl(url: string) {
+    this.url = url;
+  }
 
   setViewOption(view: ViewOption) {
     this.viewOption.type = view;

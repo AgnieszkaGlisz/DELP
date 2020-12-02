@@ -18,6 +18,7 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
         this.viewOption = new View(ViewOption.Create);
         }
 
+    url: string;
 
     template: "TranslateSentenceExerciseTemplate";
     oryginalSentence: string;
@@ -45,6 +46,10 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
 
     setViewOption(view: ViewOption) {
       this.viewOption.type = view;
+    }
+
+    setUrl(url: string) {
+      this.url = url;
     }
 
     toJSON() {

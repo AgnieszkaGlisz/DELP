@@ -20,7 +20,7 @@
         <span>word: {{data.word}}  </span>
         <span>translation: {{data.translation}}  </span>
     </a>
-    <img src="http://localhost:3500/files/userMedia/pictures/98_1_1606244547294.png">
+    <img src={{data.picturePath}}>
 </div>
 
 <div *ngIf="data.viewOption.type==ViewOption.DisplayVideo">
@@ -49,4 +49,29 @@
     <span>{{data.id}}</span>
     <span class="word-left">{{data.word}}</span>
     <input [(ngModel)]="data.answer" placeholder="answer" class="word-right" />
+</div>
+
+<div *ngIf="data.viewOption.type==ViewOption.LearnImage">
+    <span>{{data.id}}</span>
+    <span class="word-left">{{data.word}}</span>
+    <input [(ngModel)]="data.answer" placeholder="answer" class="word-right" />
+    <img src={{data.picturePath}}>
+</div>
+
+<div *ngIf="data.viewOption.type==ViewOption.LearnAudio">
+    <span>{{data.id}}</span>
+    <span class="word-left">{{data.word}}</span>
+    <input [(ngModel)]="data.answer" placeholder="answer" class="word-right" />
+    <audio controls>
+        <source src={{data.audioPath}} >
+    </audio>
+</div>
+
+<div *ngIf="data.viewOption.type==ViewOption.LearnVideo">
+    <span>{{data.id}}</span>
+    <span class="word-left">{{data.word}}</span>
+    <input [(ngModel)]="data.answer" placeholder="answer" class="word-right" />
+    <video controls>
+        <source src={{data.videoPath}}>
+    </video> 
 </div>
