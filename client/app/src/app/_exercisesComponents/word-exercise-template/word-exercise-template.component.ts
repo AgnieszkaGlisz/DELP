@@ -1,3 +1,4 @@
+import { WordsetService } from './../../_services/wordset.service';
 import { ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
@@ -26,9 +27,12 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
     this.template = "WordExerciseTemplate";
     this.component = WordExerciseTemplateComponent;
     this.data = this;
-
     this.viewOption = new View(ViewOption.Create);
+    // console.log(this.data.picturePath);
   }
+
+  // wordsetService: WordsetService;
+  url: string;
 
   @Input() data: any;
   word: string;
@@ -51,6 +55,27 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
     return { "id" : this.id, "template" : this.template, "word": this.word, "translation" : this.translation};
   }
 
+  setUrl(url: string) {
+    this.url = url;
+    console.log(url);
+    if(this.picturePath) {
+      let tmpPicturePath = this.picturePath.substring(1);
+      this.picturePath = url+'/files'+tmpPicturePath;
+      console.log(this.picturePath);
+  }
+    if(this.audioPath) {
+      let tmpAudioPath = this.audioPath.substring(1);
+      this.audioPath = url+'/files'+tmpAudioPath;
+    }
+    if(this.videoPath) {
+      let tmpVideoPath = this.videoPath.substring(1);
+      this.videoPath = url+'/files'+tmpVideoPath;
+    }
+    // console.log(this.picturePath)
+    
+    // console.log(this.picturePath);
+  }
+
   setViewOption(view: ViewOption) {
     this.viewOption.type = view;
   }
@@ -65,4 +90,6 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   showHint(): string {
     return this.translation;
   }
+
+
 }
