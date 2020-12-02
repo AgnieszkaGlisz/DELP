@@ -8,6 +8,7 @@ import { Injectable, Type } from '@angular/core';
 import { identity, Observable, of } from 'rxjs';
 import { Set } from '../_interfaces/set';
 import {fileInfo} from '../_interfaces/files'
+import { Language } from '../_interfaces/language';
 @Injectable({
   providedIn: 'root'
 })
@@ -106,5 +107,10 @@ export class WordsetService {
   sendTranslationRequest(languageTo: string, languageFrom: string, text:string): Observable<JSON> {
     //localhost:3500/dict/translation?translateToLang=es&translateFromLang=en&word=hello
     return this.http.post<JSON>(`${this.url}/dict/translation?translateToLang=`+ languageTo + `&translateFromLang=` + languageFrom, text);
+  }
+
+  getAllLanguages(): Observable<Array<Language>> {
+    return this.http.get<Array<Language>>(`${this.url}/api/languages`, this.httpOptions);
+
   }
 }

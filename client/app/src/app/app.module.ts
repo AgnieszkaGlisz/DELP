@@ -1,7 +1,9 @@
 import { ViewOption } from './_exercisesComponents/view-option-enum';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -55,7 +57,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule,ReactiveFormsModule,
+    MatSelectModule, 
+    MatFormFieldModule,
     NgxDropzoneModule,
     BrowserAnimationsModule
   ],
