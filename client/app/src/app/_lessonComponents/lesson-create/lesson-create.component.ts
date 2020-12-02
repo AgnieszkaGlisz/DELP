@@ -54,6 +54,10 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.loadLanguages();
+  }
+
+  loadLanguages(): void {
     console.log("waiting for languages...");
     this.wordsetService.getAllLanguages().subscribe( x => {
       console.log("got languages", x);
@@ -67,7 +71,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
       });
     }, err => {
       console.log("didn't get languages", err);
-      let tmpList = new Array<Language>();
+      /*let tmpList = new Array<Language>();
       tmpList[0] = {code: "PL",
       id: 1,
       info: "PLinfo",
@@ -77,7 +81,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
       info: "ENinfo",
       name: "Angielski"};
       Object.assign(this.languageList, tmpList);
-      console.log("got languages", this.languageList, tmpList);
+      console.log("got languages", this.languageList, tmpList);*/
     }, 
     () => {
       console.log("languages", this.languageList);
@@ -142,10 +146,9 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   saveLesson(): void {
     //console.log("lang12",this.lang1, this.lang2);
-    
-    this.set.saveSet();
     this.set.setInfo.idBaseLanguage = this.lang1.value.id;
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;
+    this.set.saveSet();
     this.wordsetService.saveWordset(this.set).subscribe(x => {
     });
   }

@@ -16,6 +16,8 @@ import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, ViewChil
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { send } from 'process';
+import { FormControl } from '@angular/forms';
+import { Language } from '../../_interfaces/language';
 //import { userInfo } from 'os';
 
 @Component({
@@ -37,6 +39,10 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
   set: Set;
   exercise: ExerciseTemplateComponent;
 
+  lang1 = new FormControl();
+  lang2 = new FormControl();
+  languageList: Array<Language> = new Array<Language>();
+
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
   @ViewChildren(ExerciseListDirective) exerciseHosts: QueryList<ExerciseListDirective>;
   //proxy1: any; 
@@ -49,6 +55,38 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.loadComponent();
+    this.loadLanguages();
+  }
+
+  loadLanguages(): void {
+    console.log("waiting for languages...");
+    this.wordsetService.getAllLanguages().subscribe( x => {
+      console.log("got languages", x);
+      let tmp = {languages:  Array<Language>()};
+      Object.assign(tmp, x);
+      let i = 0;
+      tmp.languages.forEach( l =>
+      {
+        this.languageList[i] = l;
+        i++;
+      });
+    }, err => {
+      console.log("didn't get languages", err);
+      let tmpList = new Array<Language>();
+      tmpList[0] = {code: "PL",
+      id: 1,
+      info: "PLinfo",
+      name: "Polski"};
+      tmpList[1] = {code: "EN",
+      id: 2,
+      info: "ENinfo",
+      name: "Angielski"};
+      Object.assign(this.languageList, tmpList);
+    }, 
+    () => {
+      console.log("languages", this.languageList);
+    }
+    )
   }
   
   loadComponent(): void {
@@ -103,6 +141,8 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit {
   }
 
   saveSet(): void {
+    this.set.setInfo.idBaseLanguage = this.lang1.value.id;
+    this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.set.saveSet();
     if (this.set.setInfo.name){
       this.wordsetService.saveWordset(this.set).subscribe(x => {
