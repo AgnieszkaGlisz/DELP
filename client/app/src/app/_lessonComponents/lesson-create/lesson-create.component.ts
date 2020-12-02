@@ -10,12 +10,12 @@ import { TranslateSentenceExerciseTemplateComponent } from './../../_exercisesCo
 import { WordExerciseTemplateComponent } from './../../_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { WordsetService } from './../../_services/wordset.service';
 import { SetInfo } from './../../_interfaces/setInfo';
-import { AfterViewInit, Component, OnInit, QueryList, ViewChildren, ViewContainerRef, Type, ɵConsole } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren, ViewContainerRef, Type, ɵConsole, AfterViewChecked } from '@angular/core';
 import { Set } from '../../_interfaces/set';
 import { DomSanitizer } from '@angular/platform-browser'
 import { ComponentFactoryResolver } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Language } from '../../_interfaces/language';
 
@@ -25,7 +25,7 @@ import { Language } from '../../_interfaces/language';
   styleUrls: ['./lesson-create.component.css']
 })
 
-export class LessonCreateComponent implements OnInit, AfterViewInit {
+export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   constructor(
     private wordsetService: WordsetService, 
@@ -38,6 +38,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   lang1 = new FormControl();
   lang2 = new FormControl();
   languageList: Array<Language> = new Array<Language>();
+  languageSubscription: Subscription;
 
   exerciseInput: boolean;  
   
@@ -57,9 +58,16 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.loadLanguages();
   }
 
+
+  ngAfterViewChecked(): void {
+    if (this.languageList.length == 0 && ((!this.languageSubscription) ||
+       (this.languageSubscription && this.languageSubscription.closed)))
+      this.loadLanguages();
+  }
+
   loadLanguages(): void {
     console.log("waiting for languages...");
-    this.wordsetService.getAllLanguages().subscribe( x => {
+    this.languageSubscription = this.wordsetService.getAllLanguages().subscribe( x => {
       console.log("got languages", x);
       let tmp = {languages:  Array<Language>()};
       Object.assign(tmp, x);
