@@ -1,10 +1,9 @@
-
-<h4 class = "ml-2">Explore</h4>
-<input #keyword placeholder="search for sets" (input)="getSearchedSets(keyword.value);" class="searchinput form-control p-2 mb-2"/>
-
+<h4 class="ml-2">Explore</h4>
+<input #keyword placeholder="What do you want to learn?" (input)="this.page=0;getSearchedSets(keyword.value);"
+    class="searchinput form-control p-2 mb-2" />
 <div *ngIf="searchedSets">
     <div class="d-flex flex-row flex-wrap justify-content-around" *ngFor="let setI of searchedSets">
-        <div  id="set{{setI.id}}" class="set">
+        <div id="set{{setI.id}}" class="set">
             <div (click)="openSet(setI.id)" class="row">
                 <div class="col setname ml-2 mt-2">
                     {{setI.name}}
@@ -28,7 +27,8 @@
                 <div class="col-auto star d-flex justify-content-end mr-3 mb-2 d-flex align-items-end">
                     <span class="numoflikes">{{setI.popularity}}</span>
                     <img *ngIf="isFavourite(setI.id)===true" src="../assets/icons/like.png" (click)="likeSet(setI.id)">
-                    <img *ngIf="isFavourite(setI.id)===false" src="../assets/icons/nolike.png" (click)="likeSet(setI.id)">
+                    <img *ngIf="isFavourite(setI.id)===false" src="../assets/icons/nolike.png"
+                        (click)="likeSet(setI.id)">
                 </div>
             </div>
             <div class="popwindow d-flex justify-content-center invisible">
@@ -37,29 +37,15 @@
                     <div class="popname d-flex justify-content-center ">{{setI.name}}</div>
                     <div (click)="goToDisplayView(setI.id)" class="popbnt d-flex justify-content-center">Display</div>
                     <div (click)="goToLearnView(setI.id)" class="popbnt d-flex justify-content-center">Learn</div>
-                    <div class="popbnt d-flex justify-content-center">Edit</div>
                 </div>
-                <div (click)="closeSet(setI.id)"  class="setshadow"></div>
+                <div (click)="closeSet(setI.id)" class="setshadow"></div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- <div>
-    <ul *ngIf="searchedSets">
-        <li class=" list-group-item " *ngFor="let setI of searchedSets">
-            <a>
-                <span class="wordset-id">{{setI.id}}  </span>
-                <span class="wordset-name">{{setI.name}}  </span>
-                <!-- <span class="wordset-name">{{set.isWordSet}}  </span> -->
-<!--                 
-            </a>
-
-            <button class="display btn btn-dark mr-1" title="display" (click)="goToDisplayView(setI.id)">display</button>
-            <button class="learn btn btn-dark mr-1" title="learn" (click)="goToLearnView(setI.id)">learn</button>
-            <button class="btn btn-dark mr-1" *ngIf="isFavourite(setI.id)===false" (click)="addToFavourites(setI.id)">Add to Favourites</button>
-            <a *ngIf="isFavourite(setI.id)===true">Set already in Favourites!</a> -->
-            <!-- <button *ngIf="isFavourite(set)==false" (click)="addToFavourites(set.id)">Add to Favourites</button> -->
-        <!-- </li>
-    </ul>
-</div> -->
+<h5 class="text-center" *ngIf="this.endofsets">No more sets!</h5>
+<div class="pagechanger text-center text-monospace">
+    <span (click)="prevPage()" *ngIf="this.page">◀ </span>
+    <span>{{this.page+1}}</span>
+    <span (click)="nextPage()"  *ngIf="!this.endofsets"> ▶</span>
+</div>
