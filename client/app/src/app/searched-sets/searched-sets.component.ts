@@ -26,11 +26,13 @@ export class SearchedSetsComponent implements OnInit {
 
   searchedSets: SetInfo[];
   favourites: SetInfo[];
+  page:number;
 
   ngOnInit(): void {
     this.searchedSets = new Array<SetInfo>();
     this.getFavourites();
     this.getSearchedSets("")
+    this.page = 0;
   }
 
   // searchSets(keyword: string) {
@@ -130,6 +132,15 @@ export class SearchedSetsComponent implements OnInit {
       $(likes).html((++num).toString())
       this.addToFavourites(id);
     }
+  }
+  nextPage(){
+    this.page++
+    alert(this.page)
+  }
+  prevPage(){
+    if(this.page==1) return
+    this.page--
+    alert(this.page)
   }
 
 }

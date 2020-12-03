@@ -1,8 +1,7 @@
 
 <h4 class = "ml-2">Explore</h4>
-<div><input #keyword placeholder="search for sets" />
-    <button (click)="getSearchedSets(keyword.value); keyword.value=''">Search</button>
-</div>
+<input #keyword placeholder="search for sets" (input)="getSearchedSets(keyword.value);" class="searchinput form-control p-2 mb-2"/>
+
 <div *ngIf="searchedSets">
     <div class="d-flex flex-row flex-wrap justify-content-around" *ngFor="let setI of searchedSets">
         <div  id="set{{setI.id}}" class="set">
@@ -10,7 +9,7 @@
                 <div class="col setname ml-2 mt-2">
                     {{setI.name}}
                 </div>
-                <div class="col flags d-flex justify-content-end mr-2">
+                <div class="col-auto flags d-flex justify-content-end mr-2">
                     <div *ngIf="setI.isWordSet" class="{{userService.colorset[1]}}"></div>
                     <div *ngIf="setI.ifVideo" class="{{userService.colorset[3]}}"></div>
                     <div *ngIf="setI.ifAudio" class="{{userService.colorset[2]}}"></div>

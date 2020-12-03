@@ -8,7 +8,7 @@
                 <div class="col setname ml-2 mt-2">
                     {{setI.name}}
                 </div>
-                <div class="col flags d-flex justify-content-end mr-2">
+                <div class="col-auto flags d-flex justify-content-end mr-2">
                     <div *ngIf="setI.isWordSet" class="{{userService.colorset[1]}}"></div>
                     <div *ngIf="setI.ifVideo" class="{{userService.colorset[3]}}"></div>
                     <div *ngIf="setI.ifAudio" class="{{userService.colorset[2]}}"></div>

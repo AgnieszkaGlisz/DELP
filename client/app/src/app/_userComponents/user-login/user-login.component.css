@@ -1,8 +1,12 @@
 .login-page{
     height: 100%;
+   
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 .login {
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -39,3 +43,7 @@ button.link {
   .linkregister{
       text-decoration-line: underline;
   }
+
+.searchinput{
+    width: 100%;
+}
