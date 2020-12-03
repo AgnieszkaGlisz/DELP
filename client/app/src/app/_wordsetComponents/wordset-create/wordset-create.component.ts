@@ -224,6 +224,6 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
   }
 
   Translate(){
-    
+    console.log("in trnslate");
   }
 }

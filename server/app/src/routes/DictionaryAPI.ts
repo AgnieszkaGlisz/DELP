@@ -1,8 +1,8 @@
 import express = require('express')
 const router = express.Router();
-import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
+var fs = require('fs');
 
 var unirest = require("unirest");
 
@@ -68,7 +68,7 @@ router.post('/translation', (req,res) => {
 })
 
 //Gets the set of languages currently supported by other operations of the Translator Text API.
-router.get('/languages', (req,res) => {
+router.get('/Updatelanguages', (req,res) => {
 	//var unirest = require("unirest");
 
 	var req2 = unirest("GET", "https://microsoft-translator-text.p.rapidapi.com/languages");
@@ -225,5 +225,42 @@ router.post('/examples', (req,res) => {
 	});
 
 })
+
+router.post('/languageCode', (req,res) => {
+
+	var langName:any;
+
+	if (req.query.languageNameNative == undefined && req.query.languageNameEng == undefined){
+		res.status(400).json({error: "Languages are not specified"})
+	}
+	if (req.query.languageNameNative == undefined){
+		langName = req.query.languageNameEng;
+	}
+	else if (req.query.languageNameEng == undefined) {
+		langName = req.query.languageNameNative;
+	}
+
+	console.log(langName);
+	fs.readFile('./languagesResponse.txt', 'utf8', function (err:any,data:any) {
+		if (err) {
+		  return console.log(err);
+		}
+		
+		let laanguages = JSON.parse(data);
+		Object.entries(laanguages.translation).forEach(function(value : any){
+			
+			if(value[1].nativeName == langName || value[1].name == langName){
+				console.log(value[0]);
+				res.send(value[0]);
+			}
+		}); 
+
+
+	
+	})
+});
+
+
+
 
 module.exports = router

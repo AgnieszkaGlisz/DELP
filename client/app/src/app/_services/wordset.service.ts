@@ -111,6 +111,22 @@ export class WordsetService {
 
   getAllLanguages(): Observable<Array<Language>> {
     return this.http.get<Array<Language>>(`${this.url}/api/languages`, this.httpOptions);
+  }
 
+  getDictLanguageCode(nativeNameLang: string, englishNameLang: string): Observable<string> {
+    var query:string = "";
+    var isnativeNameLang = false;
+    if(nativeNameLang != undefined){
+      query='languageNameNative=' + nativeNameLang;
+      isnativeNameLang = true;
+    }
+    else if(englishNameLang != undefined){
+      if(isnativeNameLang){
+        query+='&';
+      }
+      query+='languageNameEng=' + englishNameLang;
+    }
+
+    return this.http.get<string>(`${this.url}/api/languageCode?`+query, this.httpOptions);
   }
 }
