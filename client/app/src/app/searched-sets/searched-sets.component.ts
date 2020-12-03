@@ -135,11 +135,13 @@ export class SearchedSetsComponent implements OnInit {
   nextPage(){
     if(this.endofsets==true) return
     this.page++
+    this.endofsets=true;
     this.getSearchedSets($(".searchinput").val().toString())
   }
   prevPage(){
     if(this.page==0) return
     this.page--
+    this.endofsets=false;
     this.getSearchedSets($(".searchinput").val().toString())
   }
 
