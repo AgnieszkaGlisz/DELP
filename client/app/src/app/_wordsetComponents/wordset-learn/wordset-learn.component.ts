@@ -84,7 +84,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     }
     else if (this.exercise.audioPath) {
       this.exercise.setViewOption(ViewOption.LearnAudio);
-    }
+    } 
     // else if (this.exercise.videoPath) {
     //   this.exercise.setViewOption(ViewOption.LearnVideo);
     // }
