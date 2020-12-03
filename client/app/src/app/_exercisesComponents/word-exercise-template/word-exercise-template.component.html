@@ -2,7 +2,7 @@
 <div *ngIf="data.viewOption.type==ViewOption.Create">
     <span class="word-id">?</span>
     <input class="word-left" [(ngModel)]='data.word' placeholder='word' id="translationWord"/>
-    <input class="word-right" [(ngModel)]='data.translation' placeholder='translation'/>
+    <input class="word-right" [(ngModel)]='data.translation' placeholder='translation' id="inputTranslationWord"/>
     <button type="button" (click)='Translate();'>Suggest translation</button> 
 </div>
 <!--DISPLAY-->

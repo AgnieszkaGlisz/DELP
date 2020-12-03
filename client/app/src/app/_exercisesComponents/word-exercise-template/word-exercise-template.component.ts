@@ -12,18 +12,16 @@ import { View } from '../view-option-enum';
   styleUrls: ['./word-exercise-template.component.css'],
   // providers: [ViewOption]
 })
+
+
 export class WordExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-  // constructor() {
-  // //   super();
-  //   this.template = "WordExerciseTemplate";
-  //   this.component = WordExerciseTemplateComponent;
-  //   this.data = this;
-  // }
-
-  constructor() {
-    // this.viewOption = view;
-
+  constructor(
+    //private injector:Injector
+    private wordsetService: WordsetService
+  ) 
+  {
+    //this.injector.get(WordsetService); 
     this.template = "WordExerciseTemplate";
     this.component = WordExerciseTemplateComponent;
     this.data = this;
@@ -92,8 +90,40 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
   }
 
   Translate() {
+
     var inputValue = (<HTMLInputElement>document.getElementById("translationWord")).value;
-    console.log(inputValue);
+    console.log("in translate" + inputValue + "  -  " + localStorage.getItem('targetLang'));
+    if(inputValue == undefined || inputValue == ""){
+      alert("There is no word to translate");
+    }
+    else {
+        if (localStorage.getItem('targetLang') == undefined)
+        {
+          alert("No target language specified");
+        }
+
+        else {
+          if(localStorage.getItem('startLang') == undefined){
+            this.wordsetService.detectLang(inputValue).subscribe( x => {
+              console.log(x[0].language);
+            });
+          }
+          else {
+            this.wordsetService.getDictLanguageCode(localStorage.getItem('startLang'), "").subscribe(fromLang => {
+              console.log("fromLang: " + fromLang.lang);
+              this.wordsetService.getDictLanguageCode(localStorage.getItem('targetLang'), "").subscribe(toLang => {
+                console.log("2" + toLang.lang);
+                console.log("fromLang: " + fromLang.lang);
+                this.wordsetService.sendTranslationRequest(toLang.lang, fromLang.lang, inputValue).subscribe(t => {
+                  console.log(t[0].translations[0].text);
+                  (<HTMLInputElement>document.getElementById("inputTranslationWord")).value = t[0].translations[0].text; 
+                })
+              })
+            });
+          }
+        }    
+    }
     
   }
+  
 }

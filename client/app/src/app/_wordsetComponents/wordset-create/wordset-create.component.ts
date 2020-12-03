@@ -98,7 +98,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
   }
   
   loadComponent(): void {
-    this.exercise = new WordExerciseTemplateComponent();
+    this.exercise = new WordExerciseTemplateComponent(this.wordsetService);
     // this.exercise = new WordExerciseTemplateComponent(ViewOption.Create);
     this.exercise.data = this.exercise;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
@@ -127,7 +127,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
   }
   
   createWordExercise(): void {
-    this.exercise = new WordExerciseTemplateComponent();
+    this.exercise = new WordExerciseTemplateComponent(this.wordsetService);
     this.exercise.setViewOption(ViewOption.Create);
     // this.exercise = new WordExerciseTemplateComponent(ViewOption.Create);
     this.loadComponent();
@@ -223,7 +223,16 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  Translate(){
-    console.log("in trnslate");
+  getCustType(event){
+    console.log(event.source.value.name)
+    localStorage.setItem('targetLang', event.source.value.name);
   }
+
+  getStartLang(event) {
+    console.log(event.source.value.name)
+    localStorage.setItem('startLang', event.source.value.name);
+  }
+
+ 
+
 }

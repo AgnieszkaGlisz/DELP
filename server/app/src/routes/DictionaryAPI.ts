@@ -7,7 +7,7 @@ var fs = require('fs');
 var unirest = require("unirest");
 
 //Translates text into one or more languages.
-router.post('/translation', (req,res) => {
+router.post('/translation',auth.authenticateToken, (req,res) => {
 	console.log(req.query);
 	var respo;
 	if (req.query.translateToLang == undefined){
@@ -16,7 +16,7 @@ router.post('/translation', (req,res) => {
 	if(req.query.translateFromLang == undefined){
 		res.status(400).json({error: "Base language wasn't specified"})
 	}
-	if(req.body.word == undefined){
+	if(req.query.word == undefined){
 		res.status(400).json({error: "Word to translate wasn't specified"})
 	}
 
@@ -40,7 +40,7 @@ router.post('/translation', (req,res) => {
 	req2.type("json");
 	req2.send([
 		{
-			"Text": req.body.word
+			"Text": req.query.word
 		}
 	]);
 
@@ -68,7 +68,7 @@ router.post('/translation', (req,res) => {
 })
 
 //Gets the set of languages currently supported by other operations of the Translator Text API.
-router.get('/Updatelanguages', (req,res) => {
+router.get('/Updatelanguages',auth.authenticateToken, (req,res) => {
 	//var unirest = require("unirest");
 
 	var req2 = unirest("GET", "https://microsoft-translator-text.p.rapidapi.com/languages");
@@ -96,7 +96,7 @@ router.get('/Updatelanguages', (req,res) => {
 })
 
 //Identifies the language of a string of text.
-router.post('/detect', (req,res) => {
+router.post('/detect',auth.authenticateToken, (req,res) => {
 	if (req.query.text == undefined){
 		res.status(400).json({error: "There is no text to detect"})
 	}
@@ -130,7 +130,7 @@ router.post('/detect', (req,res) => {
 })
 
 //Transliterate from one language script to another
-router.post('/transliterate', (req,res) => {
+router.post('/transliterate',auth.authenticateToken, (req,res) => {
 
 	if(req.query.fromScript == undefined)
 	{
@@ -188,7 +188,7 @@ router.post('/transliterate', (req,res) => {
 }) 
 
 //Gives back examples of usage of a word in two languages
-router.post('/examples', (req,res) => {
+router.post('/examples',auth.authenticateToken, (req,res) => {
 
 
 	var req2 = unirest("POST", "https://microsoft-translator-text.p.rapidapi.com/Dictionary/Examples");
@@ -226,7 +226,7 @@ router.post('/examples', (req,res) => {
 
 })
 
-router.post('/languageCode', (req,res) => {
+router.post('/languageCode', auth.authenticateToken, (req,res) => {
 
 	var langName:any;
 
@@ -236,7 +236,7 @@ router.post('/languageCode', (req,res) => {
 	if (req.query.languageNameNative == undefined){
 		langName = req.query.languageNameEng;
 	}
-	else if (req.query.languageNameEng == undefined) {
+	else {
 		langName = req.query.languageNameNative;
 	}
 
@@ -245,18 +245,15 @@ router.post('/languageCode', (req,res) => {
 		if (err) {
 		  return console.log(err);
 		}
-		
+		console.log(req.query.languageNameNative)
 		let laanguages = JSON.parse(data);
 		Object.entries(laanguages.translation).forEach(function(value : any){
 			
 			if(value[1].nativeName == langName || value[1].name == langName){
-				console.log(value[0]);
-				res.send(value[0]);
+				console.log(value);
+				res.send({"lang": value[0]});
 			}
 		}); 
-
-
-	
 	})
 });
 

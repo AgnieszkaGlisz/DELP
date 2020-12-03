@@ -126,7 +126,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   }
   
   createWordExercise(): void {
-    this.exercise = new WordExerciseTemplateComponent();
+    this.exercise = new WordExerciseTemplateComponent(this.wordsetService);
     this.exercise.setViewOption(ViewOption.Create);
     this.loadComponent();
   }

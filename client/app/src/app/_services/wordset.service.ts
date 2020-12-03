@@ -12,6 +12,7 @@ import { Language } from '../_interfaces/language';
 @Injectable({
   providedIn: 'root'
 })
+
 export class WordsetService {
 
   constructor(private http: HttpClient) { }
@@ -83,7 +84,7 @@ export class WordsetService {
   newExercise(template: string) {
     switch (template) {
       case "WordExerciseTemplate":
-        return new WordExerciseTemplateComponent();
+        return new WordExerciseTemplateComponent(this);
 
       case "TranslateSentenceExerciseTemplate":
         return new TranslateSentenceExerciseTemplateComponent();
@@ -106,14 +107,14 @@ export class WordsetService {
  
   sendTranslationRequest(languageTo: string, languageFrom: string, text:string): Observable<JSON> {
     //localhost:3500/dict/translation?translateToLang=es&translateFromLang=en&word=hello
-    return this.http.post<JSON>(`${this.url}/dict/translation?translateToLang=`+ languageTo + `&translateFromLang=` + languageFrom, text);
+    return this.http.post<JSON>(`${this.url}/dict/translation?translateToLang=`+ languageTo + `&translateFromLang=` + languageFrom + '&word='+text, text);
   }
 
   getAllLanguages(): Observable<Array<Language>> {
     return this.http.get<Array<Language>>(`${this.url}/api/languages`, this.httpOptions);
   }
 
-  getDictLanguageCode(nativeNameLang: string, englishNameLang: string): Observable<string> {
+  getDictLanguageCode(nativeNameLang: string, englishNameLang: string): Observable<any> {
     var query:string = "";
     var isnativeNameLang = false;
     if(nativeNameLang != undefined){
@@ -126,7 +127,12 @@ export class WordsetService {
       }
       query+='languageNameEng=' + englishNameLang;
     }
-
-    return this.http.get<string>(`${this.url}/api/languageCode?`+query, this.httpOptions);
+    console.log()
+    return this.http.post<any>(`${this.url}/dict/languageCode?`+query, this.httpOptions);
   }
+
+  detectLang(text:string): Observable<JSON>{
+    return this.http.post<JSON>(`${this.url}/dict/detect?text=`+ text, this.httpOptions);
+  }
+
 }
