@@ -1,11 +1,18 @@
-<div class="login {{userService.colorset[0]}} ">
-    <div class=" d-flex justify-content-center align-items-center login-page text-dark">
+<div class="login d-flex flex-column align-items-center justify-content-center {{userService.colorset[0]}} ">
+    <div class=" d-flex align-items-center login-page text-dark">
         <div class="d-flex bg-white flex-column  p-5 rounded">
-            <h1>Delp Login</h1>
-            <input class="p-2 m-2" #username placeholder="username" />
-            <input class="p-2 m-2" #password placeholder="password" />
-            <button class="p-2 m-2 btn {{userService.colorset[1]}}"
-                (click)="logIn(username.value, password.value); username.value=''; password.value=''">Login</button>
+            <form class="d-flex flex-column text-center" (submit)="logIn(username.value, password.value);">
+                <h1 class="m-0">Delp</h1>
+                <div id="loginalert" class="text-small text-danger">
+                    <span class="d-none"> Wrong user or password!</span>
+                </div>
+                <input id="username" class="p-2 mb-1"  (input)="cleanErrorInput('username');" #username placeholder="username" />
+                <input id="password" class="p-2 my-2" (input)="cleanErrorInput('password');" type="password" #password placeholder="password" />
+                <input class="p-2 my-2 btn {{userService.colorset[1]}}" type="submit" value="Login">
+            </form>
+            <span (click)="goToRegistration()" class="text-small text-center link">Not a member?
+            <span class="linkregister" >Register here!</span>
+            </span> 
         </div>
     </div>
 </div>

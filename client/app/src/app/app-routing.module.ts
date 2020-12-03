@@ -1,3 +1,4 @@
+import { RegistrationComponent } from './_userComponents/registration/registration.component';
 import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
 import { UserPreferencesComponent } from './_userComponents/user-preferences/user-preferences.component';
 import { FavouritesComponent } from './favourites/favourites.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'wordset/display', component: WordsetDisplayComponent},
   { path: 'wordset/learn', component: WordsetLearnComponent},
   { path: 'user/login', component: UserLoginComponent},
+  { path: 'user/register', component: RegistrationComponent},
   { path: 'lesson/create', component: LessonCreateComponent},
   { path: 'user/logout', component: UserLogoutComponent},
   { path: 'user/sets', component: UserSetsComponent},

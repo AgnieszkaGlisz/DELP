@@ -61,6 +61,11 @@ export class UserService {
     return this.http.post(`${this.wordsetService.url}/user/login`, {username, password}, httpOptions);
   }
 
+  sendRegistrationInfo(user: User): Observable<any> {
+    console.log(user);
+    return this.http.post(`${this.wordsetService.url}/user/register`, user, httpOptions);
+  }
+
   savePreferences(preferences: UserPreferences): Observable<any> {
     return this.http.post(`${this.wordsetService.url}/user/preferences`, preferences, httpOptions);
   }

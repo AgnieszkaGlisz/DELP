@@ -1,3 +1,5 @@
+import { UserService } from './../../_services/user.service';
+import { User } from './../../_interfaces/user';
 import { Set } from './../../_interfaces/set';
 import { ExerciseDirective } from './../../exercise.directive';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
@@ -16,8 +18,12 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
 
   constructor(
     private wordsetService: WordsetService,
+    private userService: UserService,
     private componentFactoryResolver: ComponentFactoryResolver,
     ) { }
+
+  user: User;
+
   set: Set;
   // exercise: ExerciseTemplateComponent;
   exercise: ExerciseTemplateComponent;// = new ExerciseTemplateComponent();
@@ -33,6 +39,8 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.wordIndex = -1;
     this.set = new Set();
+    this.user = new User();
+    this.user = this.userService.getUserData();
     // this.exercise= new ExerciseTemplateComponent();
     // this.exercise= new WordExerciseTemplateComponent();
     // this.getWordset();
@@ -44,22 +52,54 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     // this.loadComponent();
   }
 
-  loadComponent(): void {
-    this.correctAnswer = true;
-    this.exercise.data = this.exercise;
-    this.exercise.setUrl(this.wordsetService.url);
+  setLearnView(): void {
+    if (this.user.preferences.noSound) {
+      if (this.exercise.videoPath) {
+        this.exercise.setViewOption(ViewOption.LearnVideo);
+      }
+      else if (this.exercise.picturePath) {
+        this.exercise.setViewOption(ViewOption.LearnImage);
+      }
+      else {
+        this.exercise.setViewOption(ViewOption.Learn);
+      }
+      return;
+    }
+
+    if (this.user.preferences.noSight) {
+      if (this.exercise.audioPath) {
+        this.exercise.setViewOption(ViewOption.LearnAudio);
+      }
+      else if (this.exercise.picturePath) {
+        this.exercise.setViewOption(ViewOption.LearnImage);
+      }
+      else {
+        this.exercise.setViewOption(ViewOption.Learn);
+      }
+      return;
+    }
+
     if (this.exercise.picturePath) {
       this.exercise.setViewOption(ViewOption.LearnImage);
     }
     else if (this.exercise.audioPath) {
       this.exercise.setViewOption(ViewOption.LearnAudio);
-    }
-    else if (this.exercise.videoPath) {
-      this.exercise.setViewOption(ViewOption.LearnVideo);
-    }
+    } 
+    // else if (this.exercise.videoPath) {
+    //   this.exercise.setViewOption(ViewOption.LearnVideo);
+    // }
     else {
       this.exercise.setViewOption(ViewOption.Learn);
     }
+  }
+
+  loadComponent(): void {
+    this.correctAnswer = true;
+    this.exercise.data = this.exercise;
+    this.exercise.setUrl(this.wordsetService.url);
+        // this.exercise.setViewOption(ViewOption.LearnImage);
+    this.setLearnView();
+    
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;

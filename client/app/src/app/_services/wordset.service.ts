@@ -39,12 +39,16 @@ export class WordsetService {
     return this.http.get<Set[]>(`${this.url}/user/favourite`, this.httpOptions);
   }
 
-  getSearchedSets(keyword: string): Observable<Set[]> {
+  getSearchedSets(keyword: string,noSound:boolean,noSight:boolean,page:number): Observable<Set[]> {
+    if(!page) page =0
+    if(!noSound) noSound= false
+    if(!noSight) noSight= false
+    if(!keyword) keyword= ""
     let data = {
       "userQuery": keyword,
-      "noSound": 0,
-      "noSight": 0,
-      "page": 0
+      "noSound": noSound,
+      "noSight": noSight,
+      "page": page
     }
 
     return this.http.post<Set[]>(`${this.url}/sets/search`, data, this.httpOptions);

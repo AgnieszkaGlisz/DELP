@@ -215,8 +215,8 @@ router.post('/search', auth.authenticateToken, (req:any, res) => {
     var blind = false
     var wordsToFind
     if(req.body.page!= null && req.body.page!= undefined) page = req.body.page
-    if(req.body.noSound == 1) deaf = true
-    if(req.body.noSight == 1) blind = true
+    if(req.body.noSound == 1 || req.body.noSound == true) deaf = true
+    if(req.body.noSight == 1 || req.body.noSight == true) blind = true
     if(req.body.userQuery!= null && req.body.userQuery!= undefined)
         wordsToFind = req.body.userQuery.split(" ")
     else 

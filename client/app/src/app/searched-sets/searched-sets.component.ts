@@ -26,23 +26,24 @@ export class SearchedSetsComponent implements OnInit {
 
   searchedSets: SetInfo[];
   favourites: SetInfo[];
+  page:number;
+  endofsets:boolean
 
   ngOnInit(): void {
     this.searchedSets = new Array<SetInfo>();
     this.getFavourites();
     this.getSearchedSets("")
+    this.page = 0;
+    this.endofsets=true;
   }
-
-  // searchSets(keyword: string) {
-  //   this.wordsetService.searchSetsKeyword = keyword;
-  //   this.router.navigateByUrl('sets/search');
-  // }
 
   getSearchedSets(keyword: string) {
     this.searchedSets = new Array<SetInfo>();
-    this.wordsetService.getSearchedSets(keyword).subscribe(x => {
+    this.wordsetService.getSearchedSets(keyword,false,false,this.page).subscribe(x => {
       Object.assign(this.searchedSets, x);
       let index = 0;
+      if(x.length >= 20) this.endofsets =false
+      else this.endofsets =true
       x.forEach(set => {
         this.searchedSets[index] = new SetInfo();
         Object.assign(this.searchedSets[index++], set);
@@ -130,6 +131,18 @@ export class SearchedSetsComponent implements OnInit {
       $(likes).html((++num).toString())
       this.addToFavourites(id);
     }
+  }
+  nextPage(){
+    if(this.endofsets==true) return
+    this.page++
+    this.endofsets=true;
+    this.getSearchedSets($(".searchinput").val().toString())
+  }
+  prevPage(){
+    if(this.page==0) return
+    this.page--
+    this.endofsets=false;
+    this.getSearchedSets($(".searchinput").val().toString())
   }
 
 }

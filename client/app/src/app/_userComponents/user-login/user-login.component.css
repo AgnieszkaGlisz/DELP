@@ -1,10 +1,49 @@
 .login-page{
     height: 100%;
+   
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 .login {
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
+}
+
+button.link {
+    background:none;
+    border:none;
+    color: #3d405b;
+    text-align: left;
+    text-decoration: underline;
+}
+
+#loginalert{
+    height:27px;
+}
+.bg-error{
+    background: #ffacac;
+    animation: focusred 0.5s 1;
+}
+
+@keyframes focusred {
+    from {
+        background: white;
+    }
+    to {
+        background: #ffacac;
+    }
+  }
+  .link{
+      cursor: pointer;
+  }
+  .linkregister{
+      text-decoration-line: underline;
+  }
+
+.searchinput{
+    width: 100%;
 }
