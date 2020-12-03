@@ -1,9 +1,9 @@
 .close {
     
-    animation: mymove 1s 1;
+    animation: disappear 1s 1;
     
 }
-@keyframes mymove {
+@keyframes disappear {
     from {opacity:  50%;
         height: 100px;
         margin-left:0px;

@@ -16,3 +16,26 @@ button.link {
     text-align: left;
     text-decoration: underline;
 }
+
+#loginalert{
+    height:27px;
+}
+.bg-error{
+    background: #ffacac;
+    animation: focusred 0.5s 1;
+}
+
+@keyframes focusred {
+    from {
+        background: white;
+    }
+    to {
+        background: #ffacac;
+    }
+  }
+  .link{
+      cursor: pointer;
+  }
+  .linkregister{
+      text-decoration-line: underline;
+  }

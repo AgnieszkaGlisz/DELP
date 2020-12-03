@@ -10,7 +10,7 @@ import { UserPreferences } from 'src/app/_interfaces/userPreferences';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(userService: UserService) { }
+  constructor(public userService: UserService) { }
 
   user: User;
 
