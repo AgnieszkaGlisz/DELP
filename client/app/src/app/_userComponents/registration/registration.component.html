@@ -1,0 +1,16 @@
+<div class="login {{userService.colorset[0]}} ">
+    <div class=" d-flex justify-content-center align-items-center login-page text-dark">
+        <div class="d-flex bg-white flex-column  p-5 rounded">
+            <h1>Delp Register</h1>
+            <input class="p-2 m-2" [(ngModel)]="user.name" placeholder="name" />
+            <input class="p-2 m-2" [(ngModel)]="user.surname" placeholder="surname" />
+            <input class="p-2 m-2" [(ngModel)]="user.email" type="email" placeholder="email" />
+            <input class="p-2 m-2" [(ngModel)]="user.birthday" type="date" placeholder="birthday" />
+            <input class="p-2 m-2" #username placeholder="username" />
+            <input class="p-2 m-2" type="password" #password placeholder="password" />
+            <input class="p-2 m-2" type="password" #confirmPassword placeholder="confirm password" />
+            <button class="p-2 m-2 btn {{userService.colorset[1]}}"
+                (click)="register(username.value, password.value); username.value=''; password.value=''">Register</button>
+        </div>
+    </div>
+</div>

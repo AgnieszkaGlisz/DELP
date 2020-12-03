@@ -39,7 +39,10 @@ export class UserLoginComponent implements OnInit {
         );
       }
     );
-
-    // console.log("stop");
   }
+
+  goToRegistration(): void {
+    this.router.navigateByUrl('user/register');
+  }
+  
 }
