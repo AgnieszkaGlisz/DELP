@@ -2,17 +2,21 @@ import { Lesson } from './../_interfaces/lesson';
 import { Wordset } from './../_interfaces/wordset';
 import { WordsetService } from './../_services/wordset.service';
 import { Set } from './../_interfaces/set';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SetInfo } from '../_interfaces/setInfo';
 import { UserService } from '../_services/user.service';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { Language } from '../_interfaces/language';
+import { UserInfo } from '../_interfaces/userInfo';
 
 @Component({
   selector: 'app-searched-sets',
   templateUrl: './searched-sets.component.html',
   styleUrls: ['./searched-sets.component.css']
 })
-export class SearchedSetsComponent implements OnInit {
+export class SearchedSetsComponent implements OnInit, AfterViewInit, AfterViewChecked  {
 
   constructor(
     private wordsetService: WordsetService,
@@ -29,6 +33,10 @@ export class SearchedSetsComponent implements OnInit {
   page:number;
   endofsets:boolean
 
+  lang1 = new FormControl();
+  languageList: Array<Language> = new Array<Language>();
+  languageSubscription: Subscription;
+
   ngOnInit(): void {
     this.searchedSets = new Array<SetInfo>();
     this.getFavourites();
@@ -37,9 +45,47 @@ export class SearchedSetsComponent implements OnInit {
     this.endofsets=true;
   }
 
+  ngAfterViewInit(): void {
+    this.loadLanguages();
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.languageList.length == 0 && ((!this.languageSubscription) ||
+       (this.languageSubscription && this.languageSubscription.closed)))
+      this.loadLanguages();
+  }
+
+  loadLanguages(): void {
+    console.log("waiting for languages...");
+    this.languageSubscription = this.wordsetService.getAllLanguages().subscribe( x => {
+      console.log("got languages", x);
+      let tmp = {languages:  Array<Language>()};
+      Object.assign(tmp, x);
+      let i = 0;
+      tmp.languages.forEach( l =>
+      {
+        this.languageList[i] = l;
+        i++;
+      });
+    }, err => {
+      console.log("didn't get languages", err);
+    }, 
+    () => {
+      console.log("languages", this.languageList);
+    }
+    )
+  }
+
   getSearchedSets(keyword: string) {
     this.searchedSets = new Array<SetInfo>();
-    this.wordsetService.getSearchedSets(keyword,false,false,this.page).subscribe(x => {
+    let mylang = (<UserInfo><unknown>this.userService.getUserData()).idFirstLanguage;
+    let lang = 0;
+    if(this.lang1.value)
+    {
+      lang = this.lang1.value.id;
+    }
+    console.log("Langids", mylang, lang);
+    this.wordsetService.getSearchedSets(keyword,false,false,this.page, mylang, lang).subscribe(x => {
       Object.assign(this.searchedSets, x);
       let index = 0;
       if(x.length >= 20) this.endofsets =false
@@ -143,6 +189,10 @@ export class SearchedSetsComponent implements OnInit {
     this.page--
     this.endofsets=false;
     this.getSearchedSets($(".searchinput").val().toString())
+  }
+
+  getSSlangChanged(event, name){
+    this.getSearchedSets(name);
   }
 
 }

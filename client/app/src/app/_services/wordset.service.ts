@@ -20,7 +20,7 @@ export class WordsetService {
   urlAga: string = `http://25.95.136.77:3500`;
   urlCezar: string = `http://25.68.211.177:3500`;
   urlLocal: string = `http://localhost:3500`;
-  url: string = this.urlAga;
+  url: string = this.urlCezar;
   setToDisplayId: string = '0';
   // searchSetsKeyword: string = '';
 
@@ -39,7 +39,7 @@ export class WordsetService {
     return this.http.get<Set[]>(`${this.url}/user/favourite`, this.httpOptions);
   }
 
-  getSearchedSets(keyword: string,noSound:boolean,noSight:boolean,page:number): Observable<Set[]> {
+  getSearchedSets(keyword: string,noSound:boolean,noSight:boolean,page:number,langfrom:number, langto:number): Observable<Set[]> {
     if(!page) page =0
     if(!noSound) noSound= false
     if(!noSight) noSight= false
@@ -48,7 +48,9 @@ export class WordsetService {
       "userQuery": keyword,
       "noSound": noSound,
       "noSight": noSight,
-      "page": page
+      "page": page,
+      "langfrom" : langfrom,
+      "langto" : langto
     }
 
     return this.http.post<Set[]>(`${this.url}/sets/search`, data, this.httpOptions);

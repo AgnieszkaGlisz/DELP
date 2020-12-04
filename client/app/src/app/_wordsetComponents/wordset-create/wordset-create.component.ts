@@ -80,16 +80,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
       });
     }, err => {
       console.log("didn't get languages", err);
-      let tmpList = new Array<Language>();
-      tmpList[0] = {code: "PL",
-      id: 1,
-      info: "PLinfo",
-      name: "Polski"};
-      tmpList[1] = {code: "EN",
-      id: 2,
-      info: "ENinfo",
-      name: "Angielski"};
-      Object.assign(this.languageList, tmpList);
+
     }, 
     () => {
       console.log("languages", this.languageList);

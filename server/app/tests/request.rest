@@ -1,6 +1,6 @@
 ### zalogowany uzytkownik chce swoje dane
 GET http://localhost:3500/user/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA0ODQzMDU5fQ.mkuFy5_r45YEuY9AtoHcocuvdOSRjFIv2QH-1fmYTKM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsInVzZXJuYW1lIjoiYm9iIiwiaWF0IjoxNjA3MDg1NDg3fQ.EV7W3L15nV3JTd_dGaAmx3QLy_YcInXx4cLxbAkp0bI
 ### logowanie ok
 
 POST http://localhost:3500/user/login
@@ -9,6 +9,15 @@ Content-Type: application/json
 {
     "username": "wkuchta",
     "password": "wkuchta"
+}
+### logowanie ok
+
+POST http://localhost:3500/user/login
+Content-Type: application/json
+
+{
+    "username": "bob",
+    "password": "bob123"
 }
 
 ### logowanie ok

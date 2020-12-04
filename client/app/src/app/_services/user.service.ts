@@ -24,6 +24,7 @@ export class UserService {
     private http: HttpClient,
     private wordsetService: WordsetService
   ) { 
+    //style classes for main colors in app 
     this.colorset = new Array<string>();
     this.colorset.push('c1');
     this.colorset.push('c2');
@@ -37,6 +38,12 @@ export class UserService {
     localStorage.setItem('token', JSON.stringify(x));
   }
 
+  getToken(): string{
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (token)
+    return token.accessToken;
+  }
+
   deleteToken(): void{
     localStorage.removeItem('token');
   }
@@ -45,8 +52,12 @@ export class UserService {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData)
     return userData;
-}
+  }
 
+
+  deleteUserData(): void{
+    localStorage.removeItem('userData');
+  }
 
   // TODO: change to get info about only one user
   // getUserInfo(id: number): Observable<User[]> {
@@ -63,7 +74,7 @@ export class UserService {
 
   sendRegistrationInfo(user: User): Observable<any> {
     console.log(user);
-    return this.http.post(`${this.wordsetService.url}/user/register`, user, httpOptions);
+    return this.http.post(`${this.wordsetService.url}/user/register`, {user}, httpOptions);
   }
 
   savePreferences(preferences: UserPreferences): Observable<any> {

@@ -6,6 +6,7 @@ import auth = require("../auth")
 import common = require("../common")
 
 router.post('/register', (req, res) => {
+    common.adminLog(req.body)
     var username = req.body.userInfo.username
     var password = req.body.userInfo.password
     var email = req.body.userInfo.email
@@ -18,6 +19,11 @@ router.post('/register', (req, res) => {
     var noSound  = req.body.preferences.noSound
     var date = new Date()
     var accountCreation = date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()
+    common.adminLog(username + ", " + password + ", " + email + ", " + name + ", " 
+    + surname + ", " + birthday + ", " + accountCreation + ", " + idFirstLanguage  + ", " 
+    + idColorSets  + ", " + fontSize + ", " + noSound);
+
+
     try{
         if(username == undefined || password==undefined || email == undefined || idFirstLanguage==undefined){
             res.status(403).json({error: "Data error."})
@@ -114,7 +120,7 @@ router.post('/login', (req, res) => {
 //pobieranie danych uzytkownika
 router.get('/account', auth.authenticateToken, (req:any, res) => {
     common.adminLog("User info.")
-    let sql = 'SELECT U.id,U.username,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,U.isBlocked,UP.idColorSets,UP.fontSize,UP.noSound,UP.noSight, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.id and U.idFirstLanguage = L.id and U.id = ' + req.user.id
+    let sql = 'SELECT U.id,U.username,U.email,U.name,U.surname,U.birthday,U.accountCreation,U.idFirstLanguage,UP.idColorSets,UP.fontSize,UP.noSound,UP.noSight, L.code as lanCode, L.name as lanName FROM `Users` U, `UserPreferences` UP, `Languages` L WHERE U.id = UP.idUser and U.idFirstLanguage = L.id and U.id = ' + req.user.id
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "User data error."})

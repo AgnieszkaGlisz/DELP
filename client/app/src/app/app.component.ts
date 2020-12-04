@@ -18,7 +18,7 @@ export class AppComponent  implements OnInit {
     private location: Location,
     ) {
       this.router.events.subscribe( x => {
-        if (this.router.url.indexOf('login') > -1) 
+        if (this.router.url.indexOf('login') > -1 || this.router.url.indexOf('register') > -1) 
         {
           this.logged = false;
         }
