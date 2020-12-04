@@ -60,7 +60,7 @@ export class RegistrationComponent implements OnInit {
       return;
     }
     
-    this.userService.sendRegistrationInfo(this.user);
+    console.log(JSON.stringify(this.userService.sendRegistrationInfo(this.user)));
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
   }
   

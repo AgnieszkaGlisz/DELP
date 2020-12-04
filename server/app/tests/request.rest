@@ -10,6 +10,15 @@ Content-Type: application/json
     "username": "wkuchta",
     "password": "wkuchta"
 }
+### logowanie ok
+
+POST http://localhost:3500/user/login
+Content-Type: application/json
+
+{
+    "username": "bob",
+    "password": "bob123"
+}
 
 ### logowanie ok
 
