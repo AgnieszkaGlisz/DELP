@@ -429,11 +429,11 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhZ2xpc3pjenluc2thIiwiaWF0IjoxNjA1MTMyMTM5fQ.eSfjOUZKcjNuv_Z01vYUhieANB6SgAyiNHiMcvnR81I
 
 {
-    "userQuery":"ptaki a wpit",
+    "userQuery":"",
     "noSound":1,
     "noSight":0,
     "page":0, 
-    "langfrom": 1, 
+    "langfrom": 8, 
     "langto": 1
 }
 ###
@@ -474,4 +474,3 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hb
 {
     "Text": "さようなら"
 }]
-

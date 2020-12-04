@@ -20,7 +20,7 @@ export class WordsetService {
   urlAga: string = `http://25.95.136.77:3500`;
   urlCezar: string = `http://25.68.211.177:3500`;
   urlLocal: string = `http://localhost:3500`;
-  url: string = this.urlAga;
+  url: string = this.urlCezar;
   setToDisplayId: string = '0';
   // searchSetsKeyword: string = '';
 

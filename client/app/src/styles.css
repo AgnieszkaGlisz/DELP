@@ -108,26 +108,47 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 /* NORMAL COLORS */
-.c5 {
+.c5_1 {
     background: #f4f1de;
     color: black;
   }
-  .c1 {
+  .c1_1 {
     background: #e07a5f;
     color: white;
   }
-  .c2 {
+  .c2_1 {
     background: #3d405b;
     color: white;
   }
-  .c3 {
+  .c3_1 {
     background: #81b29a;
     color: black;
   }
-  .c4 {
+  .c4_1 {
     background: #f2cc8f;
     color: black;
   }
+  /* HIGH CONTRAST COLORS */
+.c5_2 {
+  background: #eeeeee;
+  color: black;
+}
+.c1_2 {
+  background: #666666;
+  color: white;
+}
+.c2_2 {
+  background: #000000;
+  color: white;
+}
+.c3_2 {
+  background: #999999;
+  color: white;
+}
+.c4_2 {
+  background: #cccccc;
+  color: black;
+}
   /* PROTANOPIA COLORS */
   .c5_protanopia {
     background: #f2f2e2;

@@ -13,26 +13,58 @@ import { UserInfo } from 'src/app/_interfaces/userInfo';
 export class UserAccountComponent implements OnInit {
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router,
   ) { }
 
   user: User;
+  contrastMenu:boolean
 
   ngOnInit(): void {
     this.user = new User();
     this.user.userInfo = new UserInfo();
     this.user.preferences = new UserPreferences();
     this.userService.getUserInfo().subscribe(x => {
-      console.log(x)
       Object.assign(this.user, x);
       Object.assign(this.user.preferences, x.preferences);
       this.userService.savePreferences(this.user.preferences);
-      console.log(x)
+      if(this.user.preferences.idColorSets == 1){
+        this.contrastMenu = false
+      }else{
+        this.contrastMenu = true
+      }
     })
   }
 
-  goToPreferences(): void {
-    this.router.navigateByUrl("/user/preferences")
+  savePreferences(): void {
+    if(this.contrastMenu) this.user.preferences.idColorSets=2
+    else this.user.preferences.idColorSets = 1
+    this.userService.savePreferences(this.user.preferences).subscribe(x => {
+      localStorage.setItem("userData", JSON.stringify(this.user));
+      this.userService.changeColorSet()
+      this.informAboutSevedPreferences()
+    });
+    this.router.navigateByUrl("/user/account")
+  }
+
+  openPrefTab(){
+    $("#infotab").removeClass("d-flex")
+    $("#infotab").addClass("d-none")
+    $("#preftab").addClass("d-flex")
+    $("#preftab").removeClass("d-none")
+  }
+  openInfoTab(){
+    $("#preftab").removeClass("d-flex")
+    $("#preftab").addClass("d-none")
+    $("#infotab").addClass("d-flex")
+    $("#infotab").removeClass("d-none")
+  }
+
+  informAboutSevedPreferences(){
+    $('#preftab>button').addClass('btn-success')
+    
+    setTimeout(()=>{
+      $('#preftab>button').removeClass('btn-success')
+ }, 1000);
   }
 }

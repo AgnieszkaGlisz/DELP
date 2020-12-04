@@ -1,14 +1,42 @@
-<div *ngIf="user">
-    <a>Name: {{user.name}}</a><br/>
-    <a>Surname: {{user.surname}}</a><br/>
-    <a>Email: {{user.email}}</a><br/>
-    <a>Login: {{user.username}}</a><br/>
+<div *ngIf="user" id="userpreferences" class="d-flex flex-column" >
+    <div id="userimg" class="d-flex align-items-end p-4">
+        <div>
+            <img src="./../../../assets/icons/user.png" alt="">
+        </div>
+        <h4>{{user.username}}</h4>
+    </div>
+    <div class="d-flex">
+        <div (click)="openInfoTab()"  class="prefbutton" class="p-2 {{userService.colorset[1]}}" >Profile</div>
+        <div (click)="openPrefTab()"  class="prefbutton" class="p-2 {{userService.colorset[1]}}">Preferences</div>
+    </div>
+    <div id="infotab" class="p-2 py-3 d-flex flex-column {{userService.colorset[1]}}">
+        <div class="d-flex align-items-center">
+            <div class="infolabel">Name:</div>
+            <div>{{user.name}}</div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="infolabel">Surname:</div>
+            <div>{{user.surname}}</div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="infolabel">Email:</div>
+            <div>{{user.email}}</div>
+        </div>
+    </div>
+    <div id="preftab" class="p-2 py-3 flex-column {{userService.colorset[1]}} d-none">
+        <div class="p-2">
+            <input type="checkbox" [(ngModel)]="user.preferences.noSound" value="{{user.preferences.noSound}}" />
+            <span class="pl-2">Turn off audio exercises</span>
+        </div>
+        <div class="p-2">
+            <input type="checkbox" [(ngModel)]="user.preferences.noSight" value="{{user.preferences.noSight}}" />
+            <span class="pl-2">Turn on videos to support hearing loss</span>
+        </div>
+        <div class="p-2">
+            <input type="checkbox" [(ngModel)]="contrastMenu" value="{{contrastMenu}}" />
+            <span class="pl-2">Increase interface contrast</span>
+        </div>
 
-    <br/>
-    User Preferences: <br/>
-    <a>Tylko zadania z video dla niedosłyszących i brak zadań słuchowych: {{user.preferences.noSound}}</a><br/>
-    <a>Tylko zadania z audio: {{user.preferences.noSight}}</a><br/>
-    <a>Powiększona czcionka: {{user.preferences.fontSize}}</a><br/>
+        <button class="btn" (click)="savePreferences()">Save Preferences</button>
+    </div>
 </div>
-
-<button (click)="goToPreferences()">Change preferences</button>
