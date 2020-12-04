@@ -1,3 +1,4 @@
+import { DisabilitySupportServiceService,  ViewProbabilities } from './../../_services/disability-support-service.service';
 import { UserService } from './../../_services/user.service';
 import { User } from './../../_interfaces/user';
 import { Set } from './../../_interfaces/set';
@@ -20,6 +21,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     private wordsetService: WordsetService,
     private userService: UserService,
     private componentFactoryResolver: ComponentFactoryResolver,
+    private disabilitySupportServiceService: DisabilitySupportServiceService,
     ) { }
 
   user: User;
@@ -52,45 +54,105 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     // this.loadComponent();
   }
 
+  recalculateProbabilities(): ViewProbabilities {
+    let viewProbabilities = new ViewProbabilities();
+
+    if (this.user.preferences.noSound && this.user.preferences.noSight) {
+      Object.assign(viewProbabilities, this.disabilitySupportServiceService.videoAudio)
+      // viewProbabilities = this.disabilitySupportServiceService.videoAudio;
+    }
+    else if (!this.user.preferences.noSound && this.user.preferences.noSight) {
+      Object.assign(viewProbabilities, this.disabilitySupportServiceService.noVideoAudio)
+      // viewProbabilities = this.disabilitySupportServiceService.noVideoAudio;
+    }
+    else if (this.user.preferences.noSound && !this.user.preferences.noSight) {
+      Object.assign(viewProbabilities, this.disabilitySupportServiceService.videoNoAudio)
+      // viewProbabilities = this.disabilitySupportServiceService.videoNoAudio;
+    }
+    else if (!this.user.preferences.noSound && !this.user.preferences.noSight) {
+      Object.assign(viewProbabilities, this.disabilitySupportServiceService.noVideoNoAudio)
+      // viewProbabilities = this.disabilitySupportServiceService.noVideoNoAudio;
+    }
+
+    if (this.exercise.audioPath && this.exercise.picturePath && this.exercise.videoPath) {
+      console.log("wszystko");
+      ;
+    }
+    else if (!this.exercise.audioPath && this.exercise.picturePath && this.exercise.videoPath) {
+      console.log("obraz i video");
+      viewProbabilities.imageProbability += viewProbabilities.audioProbability * viewProbabilities.imageProbability / (100 - viewProbabilities.audioProbability);
+      viewProbabilities.videoProbability += viewProbabilities.audioProbability * viewProbabilities.videoProbability / (100 - viewProbabilities.audioProbability);
+      viewProbabilities.nothingProbability += viewProbabilities.audioProbability * viewProbabilities.nothingProbability / (100 - viewProbabilities.audioProbability);
+      viewProbabilities.audioProbability = 0;
+    }
+    else if (this.exercise.audioPath && !this.exercise.picturePath && this.exercise.videoPath) {
+      console.log("audio i video");
+      viewProbabilities.audioProbability += viewProbabilities.imageProbability * viewProbabilities.audioProbability / (100 - viewProbabilities.imageProbability);
+      viewProbabilities.videoProbability += viewProbabilities.imageProbability * viewProbabilities.videoProbability / (100 - viewProbabilities.imageProbability);
+      viewProbabilities.nothingProbability += viewProbabilities.imageProbability * viewProbabilities.nothingProbability / (100 - viewProbabilities.imageProbability);
+      viewProbabilities.imageProbability = 0;
+    }
+    else if (this.exercise.audioPath && this.exercise.picturePath && !this.exercise.videoPath) {
+      console.log("audio i obraz");
+      viewProbabilities.audioProbability += viewProbabilities.videoProbability * viewProbabilities.audioProbability / (100 - viewProbabilities.videoProbability);
+      viewProbabilities.imageProbability += viewProbabilities.videoProbability * viewProbabilities.imageProbability / (100 - viewProbabilities.videoProbability);
+      viewProbabilities.nothingProbability += viewProbabilities.videoProbability * viewProbabilities.nothingProbability / (100 - viewProbabilities.videoProbability);
+      viewProbabilities.videoProbability = 0;
+    }
+    else if (!this.exercise.audioPath && !this.exercise.picturePath && this.exercise.videoPath) {
+      console.log("video");
+      viewProbabilities.videoProbability += (viewProbabilities.audioProbability + viewProbabilities.imageProbability) * viewProbabilities.videoProbability / (100 - viewProbabilities.imageProbability - viewProbabilities.audioProbability);
+      viewProbabilities.nothingProbability += (viewProbabilities.audioProbability + viewProbabilities.imageProbability) * viewProbabilities.nothingProbability / (100 - viewProbabilities.imageProbability - viewProbabilities.audioProbability);
+      viewProbabilities.imageProbability = 0;
+      viewProbabilities.audioProbability = 0;
+    }
+    else if (this.exercise.audioPath && !this.exercise.picturePath && !this.exercise.videoPath) {
+      console.log("audio");
+      viewProbabilities.audioProbability += (viewProbabilities.videoProbability + viewProbabilities.imageProbability) * viewProbabilities.audioProbability / (100 - viewProbabilities.imageProbability - viewProbabilities.videoProbability);
+      viewProbabilities.nothingProbability += (viewProbabilities.videoProbability + viewProbabilities.imageProbability) * viewProbabilities.nothingProbability / (100 - viewProbabilities.imageProbability - viewProbabilities.videoProbability);
+      viewProbabilities.videoProbability = 0;
+      viewProbabilities.imageProbability = 0;
+    }
+    else if (!this.exercise.audioPath && this.exercise.picturePath && !this.exercise.videoPath) {
+      console.log("obraz");
+      viewProbabilities.imageProbability += (viewProbabilities.videoProbability + viewProbabilities.audioProbability) * viewProbabilities.imageProbability / (100 - viewProbabilities.audioProbability - viewProbabilities.videoProbability);
+      viewProbabilities.nothingProbability += (viewProbabilities.videoProbability + viewProbabilities.audioProbability) * viewProbabilities.nothingProbability / (100 - viewProbabilities.audioProbability - viewProbabilities.videoProbability);
+      viewProbabilities.videoProbability = 0;
+      viewProbabilities.audioProbability = 0;
+    }
+    else if (!this.exercise.audioPath && !this.exercise.picturePath && !this.exercise.videoPath) {
+      console.log("nic");
+      viewProbabilities.nothingProbability = 100;
+      viewProbabilities.audioProbability = 0;
+      viewProbabilities.videoProbability = 0;
+      viewProbabilities.imageProbability = 0;
+    }
+
+    return viewProbabilities;
+  }
+
   setLearnView(): void {
-    if (this.user.preferences.noSound) {
-      if (this.exercise.videoPath) {
-        this.exercise.setViewOption(ViewOption.LearnVideo);
-      }
-      else if (this.exercise.picturePath) {
-        this.exercise.setViewOption(ViewOption.LearnImage);
-      }
-      else {
-        this.exercise.setViewOption(ViewOption.Learn);
-      }
-      return;
-    }
+    let viewProbabilities = this.recalculateProbabilities();
 
-    if (this.user.preferences.noSight) {
-      if (this.exercise.audioPath) {
-        this.exercise.setViewOption(ViewOption.LearnAudio);
-      }
-      else if (this.exercise.picturePath) {
-        this.exercise.setViewOption(ViewOption.LearnImage);
-      }
-      else {
-        this.exercise.setViewOption(ViewOption.Learn);
-      }
-      return;
+    let percent = Math.random() * 100;
+    console.log(percent)
+    console.log("audio: ", viewProbabilities.audioProbability);
+    console.log("image: ", viewProbabilities.imageProbability);
+    console.log("video: ", viewProbabilities.videoProbability);
+    console.log("nothing: ", viewProbabilities.nothingProbability);
+    if (percent < viewProbabilities.audioProbability) {
+      this.exercise.setViewOption(ViewOption.LearnAudio);
     }
-
-    if (this.exercise.picturePath) {
+    else if (percent < viewProbabilities.audioProbability + viewProbabilities.imageProbability) {
       this.exercise.setViewOption(ViewOption.LearnImage);
     }
-    else if (this.exercise.audioPath) {
-      this.exercise.setViewOption(ViewOption.LearnAudio);
-    } 
-    // else if (this.exercise.videoPath) {
-    //   this.exercise.setViewOption(ViewOption.LearnVideo);
-    // }
+    else if (percent < viewProbabilities.audioProbability + viewProbabilities.imageProbability + viewProbabilities.videoProbability) {
+      this.exercise.setViewOption(ViewOption.LearnVideo);
+    }
     else {
       this.exercise.setViewOption(ViewOption.Learn);
     }
+
   }
 
   loadComponent(): void {
