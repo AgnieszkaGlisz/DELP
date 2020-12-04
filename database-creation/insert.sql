@@ -10,7 +10,11 @@ INSERT INTO `Users` (`id`, `username`, `password`, `email`, `name`, `surname`, `
 
 INSERT INTO `Languages` (`id`, `code`, `name`, `info`) VALUES 
     (NULL, 'eng', 'English', 'Język Angielski'),
-    (NULL, 'pol', 'Polski', 'Język Polski');
+    (NULL, 'pol', 'Polski', 'Język Polski'),
+    (NULL, 'de', 'Deutsch', 'Język Niemiecki'),
+    (NULL, 'es', 'Español', 'Język Hiszpański'),
+    (NULL, 'it', 'Italiano', 'Język Włoski'),
+    (NULL, 'ru', 'Русский', 'Język Rosyjski');
 
 INSERT INTO `ExerciseSets` (`id`,`name`, `info`, `idCreator`, `setCreation`, `idBaseLanguage`, `idLearnLanguage`,`isWordSet`, `popularity`, `ifVideo`, `ifAudio`, `ifPicture`) VALUES 
     (NULL, 'Ptaki', 'Ptaki Polski', '1','2020-10-29', '1', '2', TRUE, '1', NULL, NULL, NULL),

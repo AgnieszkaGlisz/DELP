@@ -18,7 +18,7 @@ router.get('/info', (req, res) => {
 })
 
 //pobieranie informacji o jezyku
-router.get('/languageinfo/:id', auth.authenticateToken, (req:any, res) => {
+router.get('/languageinfo/:id', (req:any, res) => {
     common.adminLog("Language info.")
     let sql = 'SELECT * FROM `Languages` WHERE id = ' + req.params.id
     db.query(sql,function(result:any){
@@ -38,7 +38,7 @@ router.get('/languageinfo/:id', auth.authenticateToken, (req:any, res) => {
 })
 
 //pobieranie informacji o wszystkich jezykach
-router.get('/languages', auth.authenticateToken, (req:any, res) => {
+router.get('/languages', (req:any, res) => {
     common.adminLog("Language info.")
     let sql = 'SELECT * FROM `Languages`'
     db.query(sql,function(result:any){
