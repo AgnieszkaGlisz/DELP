@@ -33,6 +33,9 @@ export class UserLoginComponent implements OnInit {
           y => {
             localStorage.setItem('userData', JSON.stringify(y));
             this.router.navigateByUrl('user/favourite');
+          }, 
+          err => {
+            console.log("cannot get user data");
           }
         );
       }
