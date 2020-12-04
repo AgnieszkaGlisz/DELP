@@ -5,5 +5,5 @@ export class UserInfo {
     name: string;
     surname: string;
     birthday: string;
-    firstLanguage: number;
+    idFirstLanguage: number;
 }

@@ -2,10 +2,10 @@ import { Language } from './../../_interfaces/language';
 import { User } from './../../_interfaces/user';
 import { UserService } from './../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { UserPreferences } from 'src/app/_interfaces/userPreferences';
+import { UserPreferences } from '../../_interfaces/userPreferences';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserInfo } from 'src/app/_interfaces/userInfo';
+import { UserInfo } from '../../_interfaces/userInfo';
 
 @Component({
   selector: 'app-registration',
@@ -57,11 +57,25 @@ export class RegistrationComponent implements OnInit {
     // stop here if form is invalid
     this.writeFormDataInUser();
     if (this.registerForm.invalid) {
-      return;
+      //return;
     }
     
+    this.writeTestDataInUser();
     this.userService.sendRegistrationInfo(this.user).subscribe();
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
+  }
+
+  writeTestDataInUser(): void {
+    this.user.userInfo.name = "Steve";
+    this.user.userInfo.surname = "Stevens";
+    this.user.userInfo.email = "steve@s.s";
+    this.user.userInfo.password = "steve123";
+    this.user.userInfo.idFirstLanguage = 1;
+    this.user.userInfo.birthday = this.registerForm.value.birthday;
+    this.user.userInfo.username = "steve";
+    this.user.preferences.noSound = this.registerForm.value.hearingDisability;
+    this.user.preferences.noSight = this.registerForm.value.colorBlindness;
+    this.user.preferences.fontSize = this.registerForm.value.sightDisability;
   }
   
   writeFormDataInUser(): void {
@@ -69,7 +83,7 @@ export class RegistrationComponent implements OnInit {
     this.user.userInfo.surname = this.registerForm.value.lastName;
     this.user.userInfo.email = this.registerForm.value.email;
     this.user.userInfo.password = this.registerForm.value.password;
-    this.user.userInfo.firstLanguage = 1;
+    this.user.userInfo.idFirstLanguage = 1;
     this.user.userInfo.birthday = this.registerForm.value.birthday;
     this.user.userInfo.username = this.registerForm.value.username;
     this.user.preferences.noSound = this.registerForm.value.hearingDisability;

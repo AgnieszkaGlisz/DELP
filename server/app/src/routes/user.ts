@@ -6,6 +6,7 @@ import auth = require("../auth")
 import common = require("../common")
 
 router.post('/register', (req, res) => {
+    common.adminLog(req.body)
     var username = req.body.userInfo.username
     var password = req.body.userInfo.password
     var email = req.body.userInfo.email
@@ -18,6 +19,11 @@ router.post('/register', (req, res) => {
     var noSound  = req.body.preferences.noSound
     var date = new Date()
     var accountCreation = date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()
+    common.adminLog(username + ", " + password + ", " + email + ", " + name + ", " 
+    + surname + ", " + birthday + ", " + accountCreation + ", " + idFirstLanguage  + ", " 
+    + idColorSets  + ", " + fontSize + ", " + noSound);
+
+
     try{
         if(username == undefined || password==undefined || email == undefined || idFirstLanguage==undefined){
             res.status(403).json({error: "Data error."})
