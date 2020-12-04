@@ -173,6 +173,25 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     componentRef.changeDetectorRef.detectChanges();
   }
 
+  shuffle(array): any {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
+
   getWordset(): void {
     this.wordsetService.getWordset().subscribe(
       x => {
@@ -187,7 +206,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
           console.log(this.set.exercises[idx])
           idx++;
         })
-
+        this.shuffle(this.set.exercises)
         this.nextWord();
         // this.loadComponent();
   },
