@@ -24,6 +24,7 @@ export class UserService {
     private http: HttpClient,
     private wordsetService: WordsetService
   ) { 
+    //style classes for main colors in app 
     this.colorset = new Array<string>();
     this.colorset.push('c1');
     this.colorset.push('c2');
@@ -63,7 +64,7 @@ export class UserService {
 
   sendRegistrationInfo(user: User): Observable<any> {
     console.log(user);
-    return this.http.post(`${this.wordsetService.url}/user/register`, user, httpOptions);
+    return this.http.post(`${this.wordsetService.url}/user/register`, {user}, httpOptions);
   }
 
   savePreferences(preferences: UserPreferences): Observable<any> {

@@ -45,7 +45,7 @@ export class UserLoginComponent implements OnInit {
         $("#password").addClass("bg-error")
         $("#username").addClass("bg-error")
       }
-    });
+    })
   }
 
   goToRegistration(): void {
