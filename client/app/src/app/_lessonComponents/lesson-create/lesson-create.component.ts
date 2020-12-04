@@ -190,6 +190,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
 
   deleteExercise(exerciseI: ExerciseTemplateComponent): void {
     this.set.deleteExercise(exerciseI);
+    this.addedFile = this.addedFile.filter(iteam => iteam.id !== exerciseI.id);
   }
 
   onSelect(event) {
@@ -230,5 +231,6 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   onRemove(event) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
+    
   }
 }
