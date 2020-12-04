@@ -11,21 +11,19 @@ import { Router } from '@angular/router';
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { UserService } from '../_services/user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     constructor(
         private router: Router,
+        public userService: UserService,
         ) { }
 
-    getToken(): string{
-        const token = JSON.parse(localStorage.getItem('token'));
-        if (token)
-        return token.accessToken;
-    }
+    
     
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const idToken = this.getToken();
+        const idToken = this.userService.getToken();
         if (idToken) {
             const cloned = req.clone({
                 headers: req.headers.set("Authorization",

@@ -79,16 +79,6 @@ export class RegistrationComponent implements OnInit, AfterViewInit, AfterViewCh
       });
     }, err => {
       console.log("didn't get languages", err);
-      let tmpList = new Array<Language>();
-      tmpList[0] = {code: "PL",
-      id: 1,
-      info: "PLinfo",
-      name: "Polski"};
-      tmpList[1] = {code: "EN",
-      id: 2,
-      info: "ENinfo",
-      name: "Angielski"};
-      Object.assign(this.languageList, tmpList);
     }, 
     () => {
       console.log("languages", this.languageList);
@@ -111,19 +101,6 @@ export class RegistrationComponent implements OnInit, AfterViewInit, AfterViewCh
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
   }
 
-  writeTestDataInUser(): void {
-    this.user.userInfo.name = "Steve";
-    this.user.userInfo.surname = "Stevens";
-    this.user.userInfo.email = "steve@s.s";
-    this.user.userInfo.password = "steve123";
-    this.user.userInfo.idFirstLanguage = 1;
-    this.user.userInfo.birthday = this.registerForm.value.birthday;
-    this.user.userInfo.username = "steve";
-    this.user.preferences.noSound = this.registerForm.value.hearingDisability;
-    this.user.preferences.noSight = this.registerForm.value.colorBlindness;
-    this.user.preferences.fontSize = this.registerForm.value.sightDisability;
-  }
-  
   writeFormDataInUser(): void {
     this.user.userInfo.name = this.registerForm.value.firstName;
     this.user.userInfo.surname = this.registerForm.value.lastName;
@@ -137,10 +114,10 @@ export class RegistrationComponent implements OnInit, AfterViewInit, AfterViewCh
     this.user.preferences.fontSize = this.registerForm.value.sightDisability;
   }
 
-onReset() {
-    this.submitted = false;
-    this.registerForm.reset();
-}
+  onReset() {
+      this.submitted = false;
+      this.registerForm.reset();
+  }
 
   MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
