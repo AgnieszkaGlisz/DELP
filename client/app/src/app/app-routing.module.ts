@@ -1,3 +1,4 @@
+import { FinishedSetComponent } from './_wordsetComponents/finished-set/finished-set.component';
 import { RegistrationComponent } from './_userComponents/registration/registration.component';
 import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
 import { UserPreferencesComponent } from './_userComponents/user-preferences/user-preferences.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'user/favourite', component: FavouritesComponent},
   { path: 'wordset/create', component: WordsetCreateComponent},
   { path: 'wordset/display', component: WordsetDisplayComponent},
-  { path: 'wordset/learn', component: WordsetLearnComponent},
+  { path: 'set/learn', component: WordsetLearnComponent},
+  { path: 'set/result', component: FinishedSetComponent},
   { path: 'user/login', component: UserLoginComponent},
   { path: 'user/register', component: RegistrationComponent},
   { path: 'lesson/create', component: LessonCreateComponent},

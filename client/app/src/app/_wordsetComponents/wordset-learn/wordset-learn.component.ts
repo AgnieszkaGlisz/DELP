@@ -9,6 +9,7 @@ import { Wordset } from './../../_interfaces/wordset';
 import { WordsetService } from './../../_services/wordset.service';
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
 import { ViewOption } from 'src/app/_exercisesComponents/view-option-enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wordset-learn',
@@ -22,6 +23,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private disabilitySupportServiceService: DisabilitySupportServiceService,
+    private router: Router,
     ) { }
 
   user: User;
@@ -34,6 +36,9 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   result: string = "";
   hint: string ="";
 
+  points: number;
+  exerciseIndex: number;
+
   correctAnswer: boolean;
 
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
@@ -43,10 +48,16 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     this.set = new Set();
     this.user = new User();
     this.user = this.userService.getUserData();
+    this.points = 0;
+    this.exerciseIndex = 0;
     // this.exercise= new ExerciseTemplateComponent();
     // this.exercise= new WordExerciseTemplateComponent();
     // this.getWordset();
     // this.exercise= <WordExerciseTemplateComponent>this.wordset.exercises[0];
+  }
+
+  addPoint(): void {
+    this.points++;
   }
 
   ngAfterViewInit(): void {
@@ -219,6 +230,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     this.hint = "";
     this.correctAnswer == true;
     this.exercise.data.answer = '';
+    this.exerciseIndex++;
     if(this.wordIndex < this.set.exercises.length - 1)
     {
       this.wordIndex += 1;
@@ -227,7 +239,10 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     }
     else
     {
-      this.result = "You've finished this set!";
+      this.wordsetService.correctExercises = this.points;
+      this.wordsetService.numberOfExercises = this.set.exercises.length;
+      this.router.navigateByUrl('set/result')
+      // this.result = "You've finished this set!";
     }
     this.loadComponent();
   }
@@ -240,6 +255,7 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     this.correctAnswer = this.exercise.checkAnswer();
     if (this.correctAnswer) {
       this.result = "Correct!";
+      this.addPoint();
       this.nextWord();
     }
     else {

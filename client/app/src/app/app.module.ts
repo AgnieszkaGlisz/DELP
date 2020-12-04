@@ -31,6 +31,7 @@ import { UserPreferencesComponent } from './_userComponents/user-preferences/use
 import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './_userComponents/registration/registration.component';
+import { FinishedSetComponent } from './_wordsetComponents/finished-set/finished-set.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { RegistrationComponent } from './_userComponents/registration/registrati
     UserPreferencesComponent,
     UserAccountComponent,
     RegistrationComponent,
+    FinishedSetComponent,
   ],
   imports: [
     BrowserModule,

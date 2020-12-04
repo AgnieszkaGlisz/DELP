@@ -47,7 +47,7 @@ export class UserSetsComponent implements OnInit {
 
   goToLearnView(id: string): void {
     this.wordsetService.setToDisplayId = id;
-    this.router.navigateByUrl('/wordset/learn');
+    this.router.navigateByUrl('/set/learn');
   }
 
   goToCreateWordsetView(): void {
