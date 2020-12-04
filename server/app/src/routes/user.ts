@@ -7,16 +7,16 @@ import common = require("../common")
 
 router.post('/register', (req, res) => {
     common.adminLog(req.body)
-    var username = req.body.userInfo.username
-    var password = req.body.userInfo.password
-    var email = req.body.userInfo.email
-    var name = req.body.userInfo.name
-    var surname  = req.body.userInfo.surname
-    var birthday  = req.body.userInfo.birthday
-    var idFirstLanguage = req.body.userInfo.idFirstLanguage
-    var idColorSets = req.body.preferences.idColorSets
-    var fontSize = req.body.preferences.fontSize
-    var noSound  = req.body.preferences.noSound
+    var username = req.body.user.userInfo.username
+    var password = req.body.user.userInfo.password
+    var email = req.body.user.userInfo.email
+    var name = req.body.user.userInfo.name
+    var surname  = req.body.user.userInfo.surname
+    var birthday  = req.body.user.userInfo.birthday
+    var idFirstLanguage = req.body.user.userInfo.idFirstLanguage
+    var idColorSets = req.body.user.preferences.idColorSets
+    var fontSize = req.body.user.preferences.fontSize
+    var noSound  = req.body.user.preferences.noSound
     var date = new Date()
     var accountCreation = date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()
     common.adminLog(username + ", " + password + ", " + email + ", " + name + ", " 
