@@ -106,7 +106,7 @@ export class RegistrationComponent implements OnInit, AfterViewInit, AfterViewCh
     this.user.userInfo.surname = this.registerForm.value.lastName;
     this.user.userInfo.email = this.registerForm.value.email;
     this.user.userInfo.password = this.registerForm.value.password;
-    this.user.userInfo.idFirstLanguage = this.lang1.value.id;;
+    this.user.userInfo.idFirstLanguage = this.lang1.value.id;
     this.user.userInfo.birthday = this.registerForm.value.birthday;
     this.user.userInfo.username = this.registerForm.value.username;
     this.user.preferences.noSound = this.registerForm.value.hearingDisability;

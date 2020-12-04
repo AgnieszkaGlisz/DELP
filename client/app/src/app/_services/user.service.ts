@@ -56,7 +56,7 @@ export class UserService {
 
 
   deleteUserData(): void{
-    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
   }
 
   // TODO: change to get info about only one user
