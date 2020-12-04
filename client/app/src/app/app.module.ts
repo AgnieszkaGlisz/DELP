@@ -27,7 +27,6 @@ import { TranslateSentenceExerciseTemplateComponent } from './_exercisesComponen
 import { FillSentenceExerciseTemplateComponent } from './_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 import { ExerciseListDirective } from './exercise-list.directive';
 import { SearchedSetsComponent } from './searched-sets/searched-sets.component';
-import { UserPreferencesComponent } from './_userComponents/user-preferences/user-preferences.component';
 import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './_userComponents/registration/registration.component';
@@ -51,7 +50,6 @@ import { RegistrationComponent } from './_userComponents/registration/registrati
     FillSentenceExerciseTemplateComponent,
     ExerciseListDirective,
     SearchedSetsComponent,
-    UserPreferencesComponent,
     UserAccountComponent,
     RegistrationComponent,
   ],

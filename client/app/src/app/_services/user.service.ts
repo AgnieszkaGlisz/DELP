@@ -18,44 +18,54 @@ const httpOptions = {
 
 export class UserService {
   public colorset: string[];
- 
+
 
   constructor(
     private http: HttpClient,
     private wordsetService: WordsetService
-  ) { 
+  ) {
     //style classes for main colors in app 
-    this.colorset = new Array<string>();
-    this.colorset.push('c1');
-    this.colorset.push('c2');
-    this.colorset.push('c3');
-    this.colorset.push('c4');
-    this.colorset.push('c5');
-
+    this.changeColorSet()
   }
 
-  setToken(x: any): void{
+  changeColorSet() {
+    if(!this.colorset)
+      this.colorset = new Array<string>()
+    let length = this.colorset.length
+    for (var i = 0; i < length; i++)
+      this.colorset.pop()
+    let userColorset = 1
+    if(this.getUserData() && this.getUserData().preferences && this.getUserData().preferences.idColorSets)
+      userColorset = this.getUserData().preferences.idColorSets
+    this.colorset.push('c1_' + userColorset);
+    this.colorset.push('c2_' + userColorset);
+    this.colorset.push('c3_' + userColorset);
+    this.colorset.push('c4_' + userColorset);
+    this.colorset.push('c5_' + userColorset);
+  }
+
+  setToken(x: any): void {
     localStorage.setItem('token', JSON.stringify(x));
   }
 
-  getToken(): string{
+  getToken(): string {
     const token = JSON.parse(localStorage.getItem('token'));
     if (token)
-    return token.accessToken;
+      return token.accessToken;
   }
 
-  deleteToken(): void{
+  deleteToken(): void {
     localStorage.removeItem('token');
   }
 
   getUserData(): User {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData)
-    return userData;
+      return userData;
   }
 
 
-  deleteUserData(): void{
+  deleteUserData(): void {
     localStorage.removeItem('userData');
   }
 
@@ -63,18 +73,18 @@ export class UserService {
   // getUserInfo(id: number): Observable<User[]> {
   //   return this.http.get<User[]>(this.url);
   // }
-  
+
   getUserInfo(): Observable<User> {
-      return this.http.get<User>(`${this.wordsetService.url}/user/account`, httpOptions);
-    }
+    return this.http.get<User>(`${this.wordsetService.url}/user/account`, httpOptions);
+  }
 
   sendLoginInfo(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.wordsetService.url}/user/login`, {username, password}, httpOptions);
+    return this.http.post(`${this.wordsetService.url}/user/login`, { username, password }, httpOptions);
   }
 
   sendRegistrationInfo(user: User): Observable<any> {
     console.log(user);
-    return this.http.post(`${this.wordsetService.url}/user/register`, {user}, httpOptions);
+    return this.http.post(`${this.wordsetService.url}/user/register`, { user }, httpOptions);
   }
 
   savePreferences(preferences: UserPreferences): Observable<any> {

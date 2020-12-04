@@ -1,0 +1,17 @@
+#userpreferences{
+    background: white;
+}
+
+#userimg>div>img{
+width: 5em;
+}
+#infotab>div{
+    border-bottom: 1px solid white;
+}
+.infolabel{
+    width: 6em;
+    margin: 0.5em;
+}
+.prefbutton{
+    cursor: pointer;
+}

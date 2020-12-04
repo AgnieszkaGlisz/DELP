@@ -61,12 +61,7 @@ CREATE TABLE WordExerciseTemplate(
     PRIMARY KEY (id)
 );
 
-<<<<<<< HEAD
-
---stworzenie tabeli FillSentanceExerciseTemplate by przechować wszystkie zadania tego typu
-=======
 --stworzenie tabeli FillSentenceExerciseTemplate by przechować wszystkie zadania tego typu
->>>>>>> origin/front-view-container
 CREATE TABLE FillSentenceExerciseTemplate(
     id INT NOT NULL AUTO_INCREMENT,
     idSet INT NOT NULL,

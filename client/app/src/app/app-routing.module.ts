@@ -1,6 +1,5 @@
 import { RegistrationComponent } from './_userComponents/registration/registration.component';
 import { UserAccountComponent } from './_userComponents/user-account/user-account.component';
-import { UserPreferencesComponent } from './_userComponents/user-preferences/user-preferences.component';
 import { FavouritesComponent } from './favourites/favourites.component';
 import { LessonCreateComponent } from './_lessonComponents/lesson-create/lesson-create.component';
 import { WordsetDisplayComponent } from './_wordsetComponents/wordset-display/wordset-display.component';
@@ -24,7 +23,6 @@ const routes: Routes = [
   { path: 'user/logout', component: UserLogoutComponent},
   { path: 'user/sets', component: UserSetsComponent},
   { path: 'sets/search', component: SearchedSetsComponent, runGuardsAndResolvers: 'always'},
-  { path: 'user/preferences', component: UserPreferencesComponent},
   { path: 'user/account', component: UserAccountComponent},
 ];
 
