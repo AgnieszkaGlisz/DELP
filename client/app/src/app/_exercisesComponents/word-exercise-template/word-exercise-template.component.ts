@@ -123,7 +123,5 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
           }
         }    
     }
-    
   }
-  
 }

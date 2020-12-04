@@ -7,11 +7,17 @@
 </div>
 <!--DISPLAY-->
 <div *ngIf="data.viewOption.type==ViewOption.Display">
-    <a>
-        <span>{{data.id}}  </span>
-        <span>word: {{data.word}}  </span>
-        <span>translation: {{data.translation}}  </span>
-    </a>
+    <div class="addedWord">
+        <a>
+            <span>{{data.id}}  </span>
+            <span>{{data.word}}      -      </span>
+            <span>{{data.translation}}  </span>
+            <img *ngIf="data.audioPath==1"src= "./../../../assets/icons/audio.png">
+            <img *ngIf="data.videoPath==1" src="./../../../assets/icons/video.png">
+            <img *ngIf="data.picturePath==1" src="./../../../assets/icons/image.png">
+        </a>
+    </div>
+
 </div>
 
 <div *ngIf="data.viewOption.type==ViewOption.DisplayImage">

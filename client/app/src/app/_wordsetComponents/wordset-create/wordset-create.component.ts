@@ -136,6 +136,22 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
 
   addExercise(): void {
     this.exercise.setViewOption(ViewOption.Display);
+    
+    if(this.files.length >0 ){
+      for ( var i =0; i < this.files.length; i++) {
+        console.log(this.files[i])
+        if(this.files[i].type.split("/", 1)[0] == 'image'){
+          this.exercise.picturePath = '1';
+        }
+        else if(this.files[i].type.split("/", 1)[0] == 'video'){
+          this.exercise.videoPath = '1';
+        }
+        else if(this.files[i].type.split("/", 1)[0] == 'audio'){
+          this.exercise.audioPath = '1';
+        }
+      }
+    }
+
     let id = this.set.addExerciseToSet(this.exercise);
     // this.set.addExerciseToSet(this.exercise);
     this.createWordExercise(); 
@@ -223,16 +239,17 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  getCustType(event){
-    console.log(event.source.value.name)
-    localStorage.setItem('targetLang', event.source.value.name);
+  getCustType(event, name){
+    if (name == 'startLang'){
+      console.log(event.source.value.name)
+      localStorage.setItem('startLang', event.source.value.name);
+    }
+    else if (name == 'targetLang'){
+      console.log(event.source.value.name)
+      localStorage.setItem('targetLang', event.source.value.name);
+    }
+    else {
+      console.log(":(")
+    }
   }
-
-  getStartLang(event) {
-    console.log(event.source.value.name)
-    localStorage.setItem('startLang', event.source.value.name);
-  }
-
- 
-
 }
