@@ -187,11 +187,13 @@ sql += 'WHERE deleted = 0 OR deleted is null '
 AND name LIKE 'ptaki%' OR name LIKE 'a%'
 ORDER BY ifAudio DESC,ifVideo DESC,popularity DESC,ifPicture DESC 
 LIMIT 20 OFFSET 1*/
-function createSqlForSets(wordsToFind:any,deaf:boolean,blind:boolean,page:number):string{
+function createSqlForSets(wordsToFind:any,deaf:boolean,blind:boolean,page:number,langfrom:number,langto:number):string{
     var limit = 20 
     var offset = 20 * page
     var sql = 'SELECT es.*, u.username FROM `ExerciseSets` es,`Users` u '
     sql += 'WHERE u.id = es.idCreator AND (es.deleted = 0 OR es.deleted is null) '
+    if(langfrom>0 && langto>0)  sql+= ' AND ((es.idBaseLanguage= '+langfrom + ' AND es.idLearnLanguage= '+langto+') OR (es.idBaseLanguage= '+langto + ' AND es.idLearnLanguage= '+langto+')) '
+    else if(langfrom>0)  sql+= ' AND es.idBaseLanguage = '+langfrom
     for(var i = 0;i<wordsToFind.length;i++){
         if(i==0){
             sql+= ' AND (es.name LIKE "' + wordsToFind[i] + '%"'
@@ -213,15 +215,18 @@ router.post('/search', auth.authenticateToken, (req:any, res) => {
     var page = 0
     var deaf = false 
     var blind = false
+    var langfrom = 0
+    var langto = 0
     var wordsToFind
     if(req.body.page!= null && req.body.page!= undefined) page = req.body.page
     if(req.body.noSound == 1 || req.body.noSound == true) deaf = true
-    if(req.body.noSight == 1 || req.body.noSight == true) blind = true
+    if(req.body.langfrom  > 0) langfrom = req.body.langfrom
+    if(req.body.langto > 0 ) langto = req.body.langto
     if(req.body.userQuery!= null && req.body.userQuery!= undefined)
         wordsToFind = req.body.userQuery.split(" ")
     else 
         wordsToFind = [""]
-    var sql = createSqlForSets(wordsToFind,deaf,blind,page)
+    var sql = createSqlForSets(wordsToFind,deaf,blind,page,langfrom,langto)
     db.query(sql,function(result:any){
         if(result == 0){
             res.status(404).json({error: "No result."})

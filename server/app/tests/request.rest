@@ -432,7 +432,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hb
     "userQuery":"ptaki a wpit",
     "noSound":1,
     "noSight":0,
-    "page":0
+    "page":0, 
+    "langfrom": 1, 
+    "langto": 1
 }
 ###
 POST http://localhost:3500/sets/search
