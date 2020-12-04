@@ -1,0 +1,17 @@
+.customDropzone{
+    height: 100px;  
+    width: 500px;
+   }
+  
+   .customFilesPreview {
+    height: 80px !important;
+    min-height: 40px !important;
+    min-width: 40px !important;
+    max-width: 90px !important;
+   }
+  
+   .customFilesNamesText{
+     font-size: 10px;
+   }
+  
+  

@@ -1,3 +1,4 @@
+import { fileInfo } from './../../_interfaces/files';
 import { Lesson } from './../../_interfaces/lesson';
 import { ViewOption } from './../../_exercisesComponents/view-option-enum';
 import { ExerciseListDirective } from './../../exercise-list.directive';
@@ -32,6 +33,8 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
     private componentFactoryResolver: ComponentFactoryResolver,
   ) { }
 
+  files: File[] = [];
+  addedFile: fileInfo[] = [];
   set: Set;
   exercise: ExerciseTemplateComponent;
   createExercise: any;
@@ -135,7 +138,29 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   addExercise(): void {
     // console.log(this.exercise);
     this.exercise.setViewOption(ViewOption.Display);
-    this.set.addExerciseToSet(this.exercise);   
+
+    if(this.files.length >0 ){
+      for ( var i =0; i < this.files.length; i++) {
+        console.log(this.files[i])
+        if(this.files[i].type.split("/", 1)[0] == 'image'){
+          this.exercise.picturePath = '1';
+        }
+        else if(this.files[i].type.split("/", 1)[0] == 'video'){
+          this.exercise.videoPath = '1';
+        }
+        else if(this.files[i].type.split("/", 1)[0] == 'audio'){
+          this.exercise.audioPath = '1';
+        }
+      }
+    }
+
+    let id = this.set.addExerciseToSet(this.exercise);   
+    while (this.files.length != 0){
+      let newFile = new fileInfo();
+      let imageBuble = this.files.pop();
+      newFile.add(imageBuble, id, imageBuble.type)
+      this.addedFile.push(newFile);
+    }
     // console.log("this.set",this.set.exercises[0]);
     this.loadComponent();
     this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
@@ -146,11 +171,64 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
     this.set.setInfo.idBaseLanguage = this.lang1.value.id;
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.set.saveSet();
+    if (this.set.setInfo.name){
     this.wordsetService.saveWordset(this.set).subscribe(x => {
-    });
+      console.log("in save set");
+        console.log(this.addedFile.length)
+        while(this.addedFile.length > 0){
+            this.wordsetService.sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {
+             console.log(x)
+         });
+        }
+      });
+    }
+    else {
+      console.log("Didn't give set name")
+      alert("Fill set name!")
+    }
   }
 
   deleteExercise(exerciseI: ExerciseTemplateComponent): void {
     this.set.deleteExercise(exerciseI);
+  }
+
+  onSelect(event) {
+    console.log(event);
+    console.log("In the on select" + this.files.length)
+    if (this.files.length < 3) {
+      let canAddTheFile = true;
+      let correctTypes = true;
+      let imageBuble = event.addedFiles[0];
+  
+      console.log(event.addedFiles[0])
+      this.files.forEach(function(value){
+        console.log(value.type.split("/", 1)[0] == imageBuble.type.split("/", 1)[0])
+        if(value.type.split("/", 1)[0] == imageBuble.type.split("/", 1)[0]){
+          canAddTheFile = false;
+        }
+      })
+      if( imageBuble.type.split("/", 1)[0] != 'image' && imageBuble.type.split("/", 1)[0] != 'video' && imageBuble.type.split("/", 1)[0] != 'audio'){
+        correctTypes = false;
+        alert("Can't add the file of a type " + imageBuble.type.split("/", 1)[0] + '!')
+      }
+  
+      if(canAddTheFile && correctTypes){
+        this.files.push(...event.addedFiles);
+      }
+  
+      if (!canAddTheFile) {
+        alert("There is already one " + imageBuble.type.split("/", 1)[0] + '!')
+      }
+    }
+    else {
+      alert("You can only add 3 files! (One image, one video, one audio)")
+    }
+  }
+
+
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
   }
 }
