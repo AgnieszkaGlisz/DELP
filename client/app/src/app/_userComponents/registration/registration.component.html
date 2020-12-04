@@ -33,6 +33,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <mat-form-field>
+                                <mat-label>My language</mat-label>
+                                <mat-select [formControl]="lang1">
+                                    <mat-option *ngFor="let language of languageList" [value]="language">{{language.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group">
                             <input placeholder="email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                             <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                 <div *ngIf="f.email.errors.required">Email is required</div>
