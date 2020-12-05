@@ -52,12 +52,16 @@ export class UserAccountComponent implements OnInit {
     $("#infotab").addClass("d-none")
     $("#preftab").addClass("d-flex")
     $("#preftab").removeClass("d-none")
+    $("#infobutton").addClass("bg-secondary")
+    $("#prefbutton").removeClass("bg-secondary")
   }
   openInfoTab(){
     $("#preftab").removeClass("d-flex")
     $("#preftab").addClass("d-none")
     $("#infotab").addClass("d-flex")
     $("#infotab").removeClass("d-none")
+    $("#infobutton").removeClass("bg-secondary")
+    $("#prefbutton").addClass("bg-secondary")
   }
 
   informAboutSevedPreferences(){
@@ -67,4 +71,7 @@ export class UserAccountComponent implements OnInit {
       $('#preftab>button').removeClass('btn-success')
  }, 1000);
   }
+
+
+
 }

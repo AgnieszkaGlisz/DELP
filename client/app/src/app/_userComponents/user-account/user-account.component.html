@@ -6,8 +6,8 @@
         <h4>{{user.username}}</h4>
     </div>
     <div class="d-flex">
-        <div (click)="openInfoTab()"  class="prefbutton" class="p-2 {{userService.colorset[1]}}" >Profile</div>
-        <div (click)="openPrefTab()"  class="prefbutton" class="p-2 {{userService.colorset[1]}}">Preferences</div>
+        <div (click)="openInfoTab()"  id="infobutton" class="p-2 {{userService.colorset[1]}}" >Profile</div>
+        <div (click)="openPrefTab()"  id="prefbutton" class="p-2 bg-secondary {{userService.colorset[1]}} ">Preferences</div>
     </div>
     <div id="infotab" class="p-2 py-3 d-flex flex-column {{userService.colorset[1]}}">
         <div class="d-flex align-items-center">
