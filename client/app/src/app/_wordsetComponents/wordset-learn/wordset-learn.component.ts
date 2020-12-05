@@ -76,7 +76,6 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
 
     if (this.exercise.audioPath && this.exercise.picturePath && this.exercise.videoPath) {
       console.log("wszystko");
-      ;
     }
     else if (!this.exercise.audioPath && this.exercise.picturePath && this.exercise.videoPath) {
       console.log("obraz i video");
