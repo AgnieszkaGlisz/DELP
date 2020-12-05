@@ -129,7 +129,7 @@ export class SearchedSetsComponent implements OnInit, AfterViewInit, AfterViewCh
 
   goToLearnView(id: string): void {
     this.wordsetService.setToDisplayId = id;
-    this.router.navigateByUrl('/wordset/learn');
+    this.router.navigateByUrl('/set/learn');
   }
 
   addToFavourites(id: string): void {

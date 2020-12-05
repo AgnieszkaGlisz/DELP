@@ -22,6 +22,9 @@ export class WordsetService {
   urlLocal: string = `http://localhost:3500`;
   url: string = this.urlCezar;
   setToDisplayId: string = '0';
+
+  correctExercises: number;
+  numberOfExercises: number;
   // searchSetsKeyword: string = '';
 
   httpOptions = {
