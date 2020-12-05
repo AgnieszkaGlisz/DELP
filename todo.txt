@@ -1,0 +1,20 @@
+TODO:
+* poprawić menu kontekstowe (bez edycji)
+* menu kontekstowe w user sets dodać przycisk usuń zestaw
+* style nauki zestawu
+* style tworzenia wordsetu
+* style tworzenia lekcji
+* dodanie widoku ukończenia zestawu (done)
+* style widoku ukończenia zestawu
+* style profilu użytkownika i preferencji (poprawić)
+* rejestracja
+* ogarnąć guzik back, żeby cofać się z nauki do interfejsu, z którego weszło się w naukę
+* wyszukiwanie po preferancjach
+* wyświetlenie 'brak zestawów' w przypadku braku ulubionych lub setów użytkownika
+* tłumaczenie interfejsu
+* obsłużyć przypadek braku połączenia z internetem
+* domyślne ustawianie języka przy dodawaniu setu
+preferencja kolejności zadań w nauce zestawu
+( wyrejestrowanie
+(* edycja zestawów)
+(* generowanie kodu do wieloplatformowości)
