@@ -1,6 +1,13 @@
-<p>finished-set works!</p>
-<div *ngIf="correctExercises&&numberOfExercises">
-    <a>Correct answers: {{correctExercises}}</a><br/>
-    <a>Wrong answers: {{numberOfExercises - correctExercises}}</a><br/>
-    <a>All exercises: {{numberOfExercises}}</a><br/>
+<div class="d-flex p-2 bg-white flex-column text-center" *ngIf="numberOfExercises">
+    <h3>Congrats!</h3>
+    <h5>You've finished set.</h5>
+    <div id="chart" class="d-flex rounded my-2">
+        <div class="chartgood">
+        </div>
+    </div>
+    <p class="my-2">{{correctExercises}}/{{numberOfExercises}} exercises done right</p>
+    <div class="d-flex justify-content-between">
+        <button class="p-2 m-2 btn w-50 {{userService.colorset[1]}} " (click)="app.goBack()">Again</button>
+        <button class="p-2 m-2 btn w-50 btn-success" (click)="userService.goBack()">Finish</button>
+    </div>
 </div>

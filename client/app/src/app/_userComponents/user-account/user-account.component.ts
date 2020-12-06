@@ -18,7 +18,7 @@ export class UserAccountComponent implements OnInit {
   ) { }
 
   user: User;
-  contrastMenu:boolean
+  contrastMenu: boolean
 
   ngOnInit(): void {
     this.user = new User();
@@ -28,16 +28,16 @@ export class UserAccountComponent implements OnInit {
       Object.assign(this.user, x);
       Object.assign(this.user.preferences, x.preferences);
       this.userService.savePreferences(this.user.preferences);
-      if(this.user.preferences.idColorSets == 1){
+      if (this.user.preferences.idColorSets == 1) {
         this.contrastMenu = false
-      }else{
+      } else {
         this.contrastMenu = true
       }
     })
   }
 
   savePreferences(): void {
-    if(this.contrastMenu) this.user.preferences.idColorSets=2
+    if (this.contrastMenu) this.user.preferences.idColorSets = 2
     else this.user.preferences.idColorSets = 1
     this.userService.savePreferences(this.user.preferences).subscribe(x => {
       localStorage.setItem("userData", JSON.stringify(this.user));
@@ -47,7 +47,7 @@ export class UserAccountComponent implements OnInit {
     this.router.navigateByUrl("/user/account")
   }
 
-  openPrefTab(){
+  openPrefTab() {
     $("#infotab").removeClass("d-flex")
     $("#infotab").addClass("d-none")
     $("#preftab").addClass("d-flex")
@@ -55,7 +55,7 @@ export class UserAccountComponent implements OnInit {
     $("#infobutton").addClass("bg-secondary")
     $("#prefbutton").removeClass("bg-secondary")
   }
-  openInfoTab(){
+  openInfoTab() {
     $("#preftab").removeClass("d-flex")
     $("#preftab").addClass("d-none")
     $("#infotab").addClass("d-flex")
@@ -64,12 +64,12 @@ export class UserAccountComponent implements OnInit {
     $("#prefbutton").addClass("bg-secondary")
   }
 
-  informAboutSevedPreferences(){
+  informAboutSevedPreferences() {
     $('#preftab>button').addClass('btn-success')
-    
-    setTimeout(()=>{
+
+    setTimeout(() => {
       $('#preftab>button').removeClass('btn-success')
- }, 1000);
+    }, 1000);
   }
 
 

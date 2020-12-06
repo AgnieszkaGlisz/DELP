@@ -44,7 +44,7 @@ export class AppComponent  implements OnInit {
 
   goBack(): void {
     this.location.back();
-    this.toggle();
+    //this.toggle();
     // this.location.back();
   }
 

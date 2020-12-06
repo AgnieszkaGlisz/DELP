@@ -4,6 +4,7 @@ import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
 import { Component, Inject, Input, OnInit, Type } from '@angular/core';
 import { View } from '../view-option-enum';
+import { UserService } from 'src/app/_services/user.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
 
   constructor(
     //private injector:Injector
+    public userService: UserService,
     private wordsetService: WordsetService
   ) 
   {
@@ -85,12 +87,15 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
     else return false;
   }
 
+  removeError(idclass:string){
+    $(idclass).removeClass('bg-error')
+  }
+
   showHint(): string {
     return this.translation;
   }
 
   Translate() {
-
     var inputValue = (<HTMLInputElement>document.getElementById("translationWord")).value;
     console.log("in translate" + inputValue + "  -  " + localStorage.getItem('targetLang'));
     if(inputValue == undefined || inputValue == ""){

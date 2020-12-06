@@ -25,12 +25,16 @@
     </div>
     <div id="preftab" class="p-2 py-3 flex-column {{userService.colorset[1]}} d-none">
         <div class="p-2">
-            <input type="checkbox" [(ngModel)]="user.preferences.noSound" value="{{user.preferences.noSound}}" />
+            <input type="checkbox" [(ngModel)]="user.preferences.noSight" value="{{user.preferences.noSight}}" />
             <span class="pl-2">Turn off audio exercises</span>
         </div>
         <div class="p-2">
-            <input type="checkbox" [(ngModel)]="user.preferences.noSight" value="{{user.preferences.noSight}}" />
+            <input type="checkbox" [(ngModel)]="user.preferences.noSound" value="{{user.preferences.noSound}}" />
             <span class="pl-2">Turn on videos to support hearing loss</span>
+        </div>
+        <div class="p-2">
+            <input type="checkbox" [(ngModel)]="user.preferences.randomExercises" value="{{user.preferences.randomExercises}}" />
+            <span class="pl-2">Randomize exercises</span>
         </div>
         <div class="p-2">
             <input type="checkbox" [(ngModel)]="contrastMenu" value="{{contrastMenu}}" />

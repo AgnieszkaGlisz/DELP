@@ -1,142 +1,39 @@
+.learningwordset {
+  overflow: hidden;
+  width: 100%;
+}
 
+.videoimage {
+  width: 100%;
+  height: 15em;
+}
+.videoimage > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.bg-error {
+  background: #ffacac;
+  animation: focusred 0.5s 1;
+}
 
-/* .words {
-    margin: 0 0 2em 0;
-    list-style-type: none;
-    padding: 0;
-    width: 15em;
+@keyframes focusred {
+  from {
+    background: white;
   }
-  .words li {
-    position: relative;
-    cursor: pointer;
-    background-color: #EEE;
-    margin: .5em;
-    padding: .3em 0;
-    height: 1.6em;
-    border-radius: 4px;
+  to {
+    background: #ffacac;
   }
+}
+.bg-suc {
+  background: #69ac60;
+  animation: focusgreen 0.5s 1;
+}
 
-  input {
-    border-radius: 4px;
-    width: 5.2em;
-    height: 1.8em;
-    position: relative;
-    left: 5px;
-    top: -3px;
+@keyframes focusgreen {
+  from {
+    background: white;
   }
-  
-  .words li:hover {
-    color: #607D8B;
-    background-color: #DDD;
-    left: .1em;
+  to {
+    background: #69ac60;
   }
-  
-  .words a {
-    color: #333;
-    text-decoration: none;
-    position: relative;
-    display: block;
-    width: 250px;
-  }
-  
-  .words a:hover {
-    color:#607D8B;
-  }
-  
-  .word-id {
-    display: inline-block;
-    font-size: small;
-    color: white;
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color:#405061;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    height: 1.8em;
-    min-width: 16px;
-    text-align: right;
-    border-radius: 4px 0 0 4px;
-  }
-
-  .word-left {
-    display: inline-block;
-    font-size: small;
-    color: rgb(0, 0, 0);
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color:#abb3bd;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    height: 1.8em;
-    min-width: 16px;
-    text-align: right;
-    width: 5em;
-    border-radius: 0px 4px 4px 0px;
-  }
-
-  .word-right {
-    display: inline-block;
-    font-size: small;
-    color: rgb(0, 0, 0);
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color:#EEE;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    height: 1.8em;
-    min-width: 16px;
-    text-align: left;
-    margin-right: .8em;
-    width: 4em;
-    border-radius: 4px 4px 4px 4px;
-  }
-
-  button {
-    color: white;
-    background-color: gray;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    cursor: hand;
-    font-family: Arial;
-    position: relative;
-    left: -1px;
-    top: -3px;
-  }
-  
-  button:hover {
-    background-color: #cfd8dc;
-  }
-  
-  button.load {
-    position: relative;
-    left: 194px;
-    top: -32px;
-    background-color: gray !important;
-    color: white;
-  } */
-
-
-  .learningwordset{
-    overflow: hidden;
-    width: 100%;
-  }
-  .image{width: 100%;}
-  .image > img{
-    width: 100%;
-  }
-
-  video {
-    width: 100%;
-  }
-  /* .video > img{
-    width: 100%;
-  } */
-
-  .addedWord{
-    background-color: white;
-  }
+}

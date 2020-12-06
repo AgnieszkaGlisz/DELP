@@ -20,10 +20,12 @@ export class UserSetsComponent implements OnInit {
 
   userSets: Set[];
   favourites: SetInfo[];
+  endofsets:boolean
 
   ngOnInit(): void {
     this.getUserSets();
     this.getFavourites();
+    this.endofsets=true
   }
 
   getUserSets(): void {
@@ -32,6 +34,8 @@ export class UserSetsComponent implements OnInit {
     this.userSets = new Array<Set>();
     Object.assign(this.userSets, x);
       let index = 0;
+      if(x.length <= 0) this.endofsets =true
+      else this.endofsets =false
       x.forEach(set => {
         this.userSets[index] = new Set();
         Object.assign(this.userSets[index], set);
@@ -47,6 +51,7 @@ export class UserSetsComponent implements OnInit {
 
   goToLearnView(id: string): void {
     this.wordsetService.setToDisplayId = id;
+    this.userService.lastPage="user/sets"
     this.router.navigateByUrl('/set/learn');
   }
 

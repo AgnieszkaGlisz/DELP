@@ -2,6 +2,7 @@ import { View, ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
 import { Component, Input, OnInit, Type } from '@angular/core';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-translate-sentence-exercise-template',
@@ -10,7 +11,7 @@ import { Component, Input, OnInit, Type } from '@angular/core';
 })
 export class TranslateSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-    constructor() {
+    constructor(public userService: UserService) {
         this.template = "TranslateSentenceExerciseTemplate";
         this.component = TranslateSentenceExerciseTemplateComponent;
         this.data = this;
@@ -71,5 +72,8 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
 
     showHint(): string {
       return this.translatedSentence;
+    }
+    removeError(idclass:string){
+      $(idclass).removeClass('bg-error')
     }
 }

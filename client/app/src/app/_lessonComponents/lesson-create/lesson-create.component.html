@@ -1,81 +1,98 @@
-<p>lesson-create works!</p>
+<!-- <div class="d-flex p-2 flex-column" id="lesson-create">
+    <input class="wordsetname my-1 p-2" (input)="removeError('.wordsetname')" [(ngModel)]="set.setInfo.name" placeholder="Lesson Name" />
+    <input class="wordsetinfo my-1 p-2" (input)="removeError('.wordsetinfo')" [(ngModel)]="set.setInfo.info" placeholder="Lesson Info" />
+    <div class="d-flex">
+        <mat-form-field class=" w-50">
+            <mat-label>MyLanguage</mat-label>
+            <mat-select class="fromlang" [formControl]="lang1" (selectionChange)="removeError('.fromlang'); getCustType($event, 'startLang')">
+                <mat-option *ngFor="let language of languageList" [value]="language">{{language.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-50">
+            <mat-label>LearnedLanguage</mat-label>
+            <mat-select class="tolang" [formControl]="lang2" (selectionChange)="removeError('.tolang'); getCustType($event, 'targetLang')">
+                <mat-option *ngFor="let language of languageList" [value]="language">{{language.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="d-flex ">
+    <div class="p-2 mx-1 {{userService.colorset[1]}}" title="WordExerciseTemplate" (click)="createWordExercise()">Word</div>
+    <div class="p-2 mx-1 {{userService.colorset[1]}}" title="TranslateSentenceExerciseTemplate" (click)="createTranslateSentenceExercise()">Sentence</div>
+    <div class="p-2 mx-1 {{userService.colorset[1]}}" title="FillSentenceExerciseTemplate" (click)="createFillSentenceExercise()">FillGap</div>
+</div>
+    <div class="d-flex flex-column words">
+        <ng-template exerciseHost></ng-template>
+        <button class="p-2 my-1 rounded {{userService.colorset[0]}}" (click)="addExercise();">+</button>
+    </div>
+    <ngx-dropzone class="customDropzone my-1" (change)="onSelect($event)">
+        <ngx-dropzone-label>Add files to exercises!</ngx-dropzone-label>
+        <ngx-dropzone-preview class="customFilesPreview" *ngFor="let f of files" [removable]="true"
+            (removed)="onRemove(f)">
+            <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+    </ngx-dropzone>
+    <div *ngIf="set" class="words d-flex flex-column">
+        <div class="d-flex" *ngFor="let exerciseI of set.exercises">
+            <ng-template class="p-2" exerciseListHost></ng-template>
+            <div class="p-2 {{userService.colorset[1]}} delete" title="delete exercise" (click)="deleteExercise(exerciseI)">x</div>
+        </div>
+    </div>
+    <button class="p-2 my-1 rounded {{userService.colorset[1]}}" (click)="saveLesson()">Save Set</button>
+</div>
+
+
+
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="lesson-create">
     <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.name" placeholder="Lesson Name"/>
     <input *ngIf="set.setInfo" [(ngModel)]="set.setInfo.info" placeholder="Lesson Info"/>
-    <br/>
     <mat-form-field>
         <mat-label>MyLanguage</mat-label>
         <mat-select [formControl]="lang1">
-            <!--mat-select-trigger>
-            {{languages.value ? languages.value[0] : ''}}
-            <span *ngIf="languages.value?.length > 1">
-                (+{{languages.value.length - 1}} {{languages.value?.length === 2 ? 'other' : 'others'}})
-            </span>
-            </mat-select-trigger-->
+           
             <mat-option *ngFor="let language of languageList" [value]="language">{{language.name}}</mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>
         <mat-label>LearnedLanguage</mat-label>
         <mat-select [formControl]="lang2">
-            <!--mat-select-trigger>
-            {{languages.value ? languages.value[0] : ''}}
-            <span *ngIf="languages.value?.length > 1">
-                (+{{languages.value.length - 1}} {{languages.value?.length === 2 ? 'other' : 'others'}})
-            </span>
-            </mat-select-trigger-->
+        
             <mat-option *ngFor="let language of languageList" [value]="language">{{language.name}}</mat-option>
         </mat-select>
     </mat-form-field>
     <ul class="words">
         <li>
-            <ng-template exerciseHost></ng-template><button (click)="addExercise();">+</button>
+            <ng-template exerciseHost></ng-template>
+            <button (click)="addExercise();">+</button>
         </li>
     </ul>
     
     <ul *ngIf="set" class="words">
         <li *ngFor="let exerciseI of set.exercises" id="exercise-in-lesson-create">
             <br/><ng-template exerciseListHost></ng-template>
-            <!--a *ngIf="exerciseI.template=='WordExerciseTemplate'">
-                <span>{{exerciseI.data.id}}  </span>
-                <span>{{exerciseI.data.word}}  </span>
-                <span>{{exerciseI.data.translation}}  </span>
-            </a>
-            <a *ngIf="exerciseI.template=='TranslateSentenceExerciseTemplate'">
-                <span>{{exerciseI.data.id}}  </span>
-                <span>{{exerciseI.data.oryginalSentence}}  </span>
-                <span>{{exerciseI.data.translatedSentence}}  </span>
-            </a>
-            <a *ngIf="exerciseI.template=='FillSentenceExerciseTemplate'">
-                <span>{{exerciseI.data.id}}  </span>
-                <span>{{exerciseI.data.leftPartOfSentence}}  </span>
-                <span>{{exerciseI.data.wordToFill}}  </span>
-                <span>{{exerciseI.data.rightPartOfSentence}}  </span>
-            </a-->
+         
         <button class="delete" title="delete exercise" (click)="deleteExercise(exerciseI)">x</button>
         </li>
     </ul>
-    <!--div *ngIf="exerciseInput">
-        <a *ngIf="exercise.template=='WordExerciseTemplate'">
-            <input [(ngModel)]='exercise.data.word' placeholder='word'/>
-            <input [(ngModel)]='exercise.data.translation' placeholder='translation'/>
-        </a>
-        <a *ngIf="exercise.template=='TranslateSentenceExerciseTemplate'">
-            <input [(ngModel)]='exercise.data.oryginalSentence' placeholder='oryginalSentence'/>
-            <input [(ngModel)]='exercise.data.translatedSentence' placeholder='translatedSentence'/>
-        </a>
-        <a *ngIf="exercise.template=='FillSentenceExerciseTemplate'">
-            <input [(ngModel)]='exercise.data.leftPartOfSentence' placeholder='leftPartOfSentence'/>
-            <input [(ngModel)]='exercise.data.wordToFill' placeholder='wordToFill'/>
-            <input [(ngModel)]='exercise.data.rightPartOfSentence' placeholder='rightPartOfSentence'/>
-        </a>
-        <button (click)='addExercise()'>+</button>
-    </div-->
-    <!-- <div [innerHTML]="createExercise"></div> -->
-    <!-- <button (click)='test()'>siema2</button> -->
-    <!-- <div [innerHTML]="createExercise | safeHtml"></div> -->
-    <!-- <div id="create-exercise"></div> -->
 
     <button title="WordExerciseTemplate" (click)="createWordExercise()">WordExerciseTemplate</button>
     <button title="TranslateSentenceExerciseTemplate" (click)="createTranslateSentenceExercise()">TranslateSentenceExerciseTemplate</button>
@@ -88,4 +105,4 @@
             <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>
     </ngx-dropzone>
-</div>
+</div> 

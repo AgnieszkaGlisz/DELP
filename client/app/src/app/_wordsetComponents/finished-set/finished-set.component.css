@@ -1,0 +1,10 @@
+#chart{
+    height:3em;
+    width: 100%;
+    background-color: #e64545;
+    overflow: hidden;
+}
+.chartgood{
+    height: 100%;
+    background-color: #81b29a;
+}

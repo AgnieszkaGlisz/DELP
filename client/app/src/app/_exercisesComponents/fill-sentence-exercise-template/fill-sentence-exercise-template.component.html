@@ -1,22 +1,84 @@
-<div *ngIf="data.viewOption.type==ViewOption.Create">
+<!-- <div *ngIf="data.viewOption.type==ViewOption.Create">
     <span class="word-id">?</span>
     <input class="word-left" [(ngModel)]='data.leftPartOfSentence' placeholder='first half-sentence'/>
-    <input class="word-right" [(ngModel)]='data.wordToFill' placeholder='word'/>
+    <input class="word-fill" [(ngModel)]='data.wordToFill' placeholder='word'/>
     <input class="word-right" [(ngModel)]='data.rightPartOfSentence' placeholder='second half-sentence'/>
-</div>
+</div> -->
 
-<div *ngIf="data.viewOption.type==ViewOption.Display">
+<div class="d-flex flex-column" *ngIf="data.viewOption.type==ViewOption.Create">
+    <input class="word-left  p-2 my-1" (input)="removeError('.word-left')" [(ngModel)]='data.oryginalSentence' placeholder='first half of sentence' />
+    <input class="word-fill  p-2 my-1" (input)="removeError('.word-fill')" [(ngModel)]='data.oryginalSentence' placeholder='gap to fill'  />
+    <input class="word-right p-2 my-1" (input)="removeError('.word-right')" [(ngModel)]='data.translatedSentence' placeholder='second half of sentence' />
+    <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button>
+</div>
+<!-- <div *ngIf="data.viewOption.type==ViewOption.Display">
     <a>
         <span>{{data.id}}</span>
         <span>left: {{data.leftPartOfSentence}}  </span>
         <span>word: {{data.wordToFill}}  </span>
         <span>right: {{data.rightPartOfSentence}}  </span>
     </a>
+</div> -->
+
+<div class="d-flex justify-content-between p-2 my-1 bg-white rounded" *ngIf="data.viewOption.type==ViewOption.Display">
+    <span>{{data.leftPartOfSentence}} - {{data.wordToFill}} - {{data.rightPartOfSentence}}</span>
+    <div>
+        <img *ngIf="data.audioPath==1" src="./../../../assets/icons/audio.png">
+        <img *ngIf="data.videoPath==1" src="./../../../assets/icons/video.png">
+        <img *ngIf="data.picturePath==1" src="./../../../assets/icons/image.png">
+    </div>
 </div>
 
+<!--LEARN-->
 <div *ngIf="data.viewOption.type==ViewOption.Learn">
-    <a>{{data.id}}</a>
-    <a>{{data.leftPartOfSentence}}  </a>
-    <input class="word-right" [(ngModel)]='data.answer' placeholder='word'/>
-    <a>{{data.rightPartOfSentence}}  </a>
+    <h4 class="text-center mt-4">Fill the gap</h4>
+    <div class="videoimage d-flex  bg-white p-2">
+        <h5 class="mx-auto my-auto d-block word-left text-center  rounded p-3">{{data.leftPartOfSentence}} ... {{data.rightPartOfSentence}} </h5>
+    </div>
+    <div class="invisible">
+        <h5 class="word-left rounded p-3 text-center">{{data.leftPartOfSentence}} ... {{data.rightPartOfSentence}} </h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control  answerinput" />
+    </div>
+</div>
+<div class="image" *ngIf="data.viewOption.type==ViewOption.LearnImage">
+    <h4 class="text-center mt-4">Fill the gap</h4>
+    <div class="videoimage d-flex  bg-white p-2">
+        <img class="mx-auto d-block rounded" src={{data.picturePath}}>
+    </div>
+    <div class=" bg-white">
+        <h5 class="word-left rounded p-3 text-center">{{data.leftPartOfSentence}} ... {{data.rightPartOfSentence}} </h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
+    </div>
+</div>
+<div class="audio" *ngIf="data.viewOption.type==ViewOption.LearnAudio">
+    <h4 class="text-center mt-4">Fill the gap</h4>
+    <div class="videoimage d-flex bg-white p-2">
+        <audio class="mx-auto my-auto" controls>
+            <source src={{data.audioPath}}>
+        </audio>
+    </div>
+    <div class=" bg-white">
+        <h5 class="word-left rounded p-3 text-center">{{data.leftPartOfSentence}} ... {{data.rightPartOfSentence}} </h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
+    </div>
+</div>
+<div class="video" *ngIf="data.viewOption.type==ViewOption.LearnVideo">
+    <h4 class="text-center mt-4">Fill the gap</h4>
+    <div class="videoimage videoimage d-flex  bg-white p-2">
+        <video controls>
+            <source src={{data.videoPath}}>
+        </video>
+    </div>
+    <div class=" bg-white">
+        <h5 class="word-left rounded p-3 text-center">{{data.leftPartOfSentence}} ... {{data.rightPartOfSentence}} </h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
+    </div>
 </div>

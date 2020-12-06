@@ -3,4 +3,5 @@ export class UserPreferences {
     noSight: boolean;
     fontSize: boolean;
     idColorSets: number;
+    randomExercises:boolean;
 }

@@ -1,11 +1,9 @@
-<div id="wordset-display" class="learningwordset d-flex flex-column">
-    <a *ngIf="points">Points: {{points}}</a>
-    <a *ngIf="exerciseIndex && set">Exercise: {{exerciseIndex}}/{{set.exercises.length}}</a>
+<div id="wordset-display" class="learningwordset d-flex py-2 flex-column">
     <ng-template exerciseHost></ng-template>
-    <div>{{hint}}</div>
-    <div>{{result}}</div>
-    <button *ngIf="correctAnswer===false" class="Check" (click)="showHint()">Show a hint</button>
-    <button *ngIf="correctAnswer===false" class="Check" (click)="addPoint(); nextWord()">I was right</button>
-    <button class="Check" (click)="checkWord()">Check&Next</button>
-    <!-- <button class="Next" (click)="nextWord()">Next</button> -->
+    <div class="hint text-center text-success invisible" >CORRECT: {{hint}}</div>
+    <div class="d-flex justify-content-between setbuttons" >
+        <button *ngIf="correctAnswer===false" class="iwasright p-2 m-2 Check btn bg-warning" (click)="iWasRight()">I was right</button>
+        <button class="nextcheck Check p-2 ml-auto m-2 btn {{userService.colorset[1]}}" (click)="checkWord()">Check</button>
+    </div>
+    <div class="text-center text-small" *ngIf="exerciseIndex && set">Exercise: {{exerciseIndex}}/{{set.exercises.length}}</div>
 </div>

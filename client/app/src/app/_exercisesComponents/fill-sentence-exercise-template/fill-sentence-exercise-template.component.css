@@ -1,0 +1,39 @@
+.learningwordset {
+  overflow: hidden;
+  width: 100%;
+}
+
+.videoimage {
+  width: 100%;
+  height: 15em;
+}
+.videoimage > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.bg-error {
+  background: #ffacac;
+  animation: focusred 0.5s 1;
+}
+
+@keyframes focusred {
+  from {
+    background: white;
+  }
+  to {
+    background: #ffacac;
+  }
+}
+.bg-suc {
+  background: #69ac60;
+  animation: focusgreen 0.5s 1;
+}
+
+@keyframes focusgreen {
+  from {
+    background: white;
+  }
+  to {
+    background: #69ac60;
+  }
+}

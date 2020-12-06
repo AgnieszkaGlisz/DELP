@@ -1,4 +1,4 @@
-import { DisabilitySupportServiceService,  ViewProbabilities } from './../../_services/disability-support-service.service';
+import { DisabilitySupportServiceService, ViewProbabilities } from './../../_services/disability-support-service.service';
 import { UserService } from './../../_services/user.service';
 import { User } from './../../_interfaces/user';
 import { Set } from './../../_interfaces/set';
@@ -20,11 +20,11 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
 
   constructor(
     private wordsetService: WordsetService,
-    private userService: UserService,
+    public userService: UserService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private disabilitySupportServiceService: DisabilitySupportServiceService,
     private router: Router,
-    ) { }
+  ) { }
 
   user: User;
 
@@ -33,15 +33,14 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
   exercise: ExerciseTemplateComponent;// = new ExerciseTemplateComponent();
   // answer: any = { value: ''};
   wordIndex: number;
-  result: string = "";
-  hint: string ="";
+  hint: string = "";
 
   points: number;
   exerciseIndex: number;
 
   correctAnswer: boolean;
 
-  @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
+  @ViewChild(ExerciseDirective, { static: true }) exerciseHost: ExerciseDirective;
 
   ngOnInit(): void {
     this.wordIndex = -1;
@@ -169,9 +168,9 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
     this.correctAnswer = true;
     this.exercise.data = this.exercise;
     this.exercise.setUrl(this.wordsetService.url);
-        // this.exercise.setViewOption(ViewOption.LearnImage);
+    // this.exercise.setViewOption(ViewOption.LearnImage);
     this.setLearnView();
-    
+
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
@@ -185,20 +184,20 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
 
   shuffle(array): any {
     var currentIndex = array.length, temporaryValue, randomIndex;
-  
+
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-  
+
       // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-  
+
       // And swap it with the current element.
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
     }
-  
+
     return array;
   }
 
@@ -216,60 +215,73 @@ export class WordsetLearnComponent implements OnInit, AfterViewInit {
           console.log(this.set.exercises[idx])
           idx++;
         })
-        this.shuffle(this.set.exercises)
+        if(this.userService.getUserData().preferences.randomExercises)
+          this.shuffle(this.set.exercises)
         this.nextWord();
         // this.loadComponent();
-  },
+      },
       err => console.log('HTTP Error: ', err)
     )
   }
 
   nextWord(): void {
-    this.result = "";
-    this.hint = "";
-    this.correctAnswer == true;
-    this.exercise.data.answer = '';
-    this.exerciseIndex++;
-    if(this.wordIndex < this.set.exercises.length - 1)
-    {
-      this.wordIndex += 1;
-      // this.word
-      this.exercise= this.set.exercises[this.wordIndex];
+    $('.nextcheck').html("Check")
+    $('.hint').addClass('invisible')
+    $('.nextcheck').removeClass('bg-success')
+    $('.nextcheck').removeClass('bg-danger')
+    $('.nextcheck').prop('disabled', false)
+    $('.iwasright').prop('disabled', false)
+    this.hint = ""
+    this.correctAnswer == true
+    this.exercise.data.answer = ''
+    this.exerciseIndex++
+    if (this.wordIndex < this.set.exercises.length - 1) {
+      this.wordIndex += 1
+      this.exercise = this.set.exercises[this.wordIndex]
     }
-    else
-    {
-      this.wordsetService.correctExercises = this.points;
-      this.wordsetService.numberOfExercises = this.set.exercises.length;
+    else {
+      this.wordsetService.correctExercises = this.points
+      this.wordsetService.numberOfExercises = this.set.exercises.length
       this.router.navigateByUrl('set/result')
-      // this.result = "You've finished this set!";
     }
-    this.loadComponent();
-  }
-
-  showHint(): void {
-    this.hint = this.exercise.showHint();
+    this.loadComponent()
   }
 
   checkWord(): void {
-    this.correctAnswer = this.exercise.checkAnswer();
+    if ($('.nextcheck').html() == "Next") {
+      this.nextWord()
+      return
+    }
+    this.correctAnswer = this.exercise.checkAnswer()
     if (this.correctAnswer) {
-      this.result = "Correct!";
-      this.addPoint();
-      this.nextWord();
+      $('.nextcheck').html("Correct")
+      $('.nextcheck').addClass('bg-success')
+      $('.answerinput').addClass('bg-suc')
+      $('.nextcheck').prop('disabled', true)
+      $('.iwasright').prop('disabled', true)
+      this.addPoint()
+      setTimeout(() => {
+        this.nextWord()
+      }, 1000)
     }
     else {
-      this.result = "Wrong :c";
+      $('.nextcheck').html("Next")
+      $('.nextcheck').addClass('bg-danger')
+      this.hint = this.exercise.showHint()
+      $('.hint').removeClass('invisible')
+      $('.answerinput').addClass('bg-error')
     }
-    // if (this.exercise.data.answer == this.exercise.translation.toString())
-    // {
-    //     this.result = "Correct!";
-    // }
-    // else
-    // {
-    //     this.result = "Wrong :c";
-    // }
-    // console.log(this.exercise.translation);
-    // console.log(this.answer.value);
   }
-
+  iWasRight() {
+    $('.nextcheck').removeClass('bg-danger')
+    $('.nextcheck').html("Correct")
+    $('.nextcheck').prop('disabled', true)
+    $('.iwasright').prop('disabled', true)
+    $('.nextcheck').addClass('bg-success')
+    $('.answerinput').addClass('bg-suc')
+    this.addPoint()
+    setTimeout(() => {
+      this.nextWord()
+    }, 1000)
+  }
 }

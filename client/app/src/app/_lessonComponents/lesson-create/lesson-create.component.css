@@ -1,17 +1,28 @@
-.customDropzone{
-    height: 100px;  
-    width: 500px;
-   }
-  
-   .customFilesPreview {
-    height: 80px !important;
-    min-height: 40px !important;
-    min-width: 40px !important;
-    max-width: 90px !important;
-   }
-  
-   .customFilesNamesText{
-     font-size: 10px;
-   }
-  
-  
+.customDropzone {
+  height: 100px;
+  width: 100%;
+}
+
+.customFilesPreview {
+  height: 80px !important;
+  min-height: 40px !important;
+  min-width: 40px !important;
+  max-width: 90px !important;
+}
+
+.customFilesNamesText {
+  font-size: 10px;
+}
+.bg-error {
+  background: #ffacac;
+  animation: focusred 0.5s 1;
+}
+
+@keyframes focusred {
+  from {
+    background: white;
+  }
+  to {
+    background: #ffacac;
+  }
+}

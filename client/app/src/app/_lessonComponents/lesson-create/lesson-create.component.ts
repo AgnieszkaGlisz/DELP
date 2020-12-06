@@ -19,6 +19,7 @@ import { ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Language } from '../../_interfaces/language';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-lesson-create',
@@ -31,6 +32,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   constructor(
     private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
+    public userService: UserService
   ) { }
 
   files: File[] = [];
@@ -137,6 +139,12 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
 
   addExercise(): void {
     // console.log(this.exercise);
+    // if(!$(".word-left").val() || !$(".word-right").val()){
+    //   if(!$(".word-left").val()) $(".word-left").addClass('bg-error')
+    //   if(!$(".word-right").val())$(".word-right").addClass('bg-error')
+    //   return
+    // }
+
     this.exercise.setViewOption(ViewOption.Display);
 
     if(this.files.length >0 ){
@@ -166,7 +174,20 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
     this.exerciseHosts.changes.subscribe( x => {this.loadComponent2();})
   }
 
+  removeError(idclass:string){
+    $(idclass).removeClass('bg-error')
+  }
+
   saveLesson(): void {
+    alert("Aaaaaaaa")
+    if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
+      !this.lang1.value || !this.lang2.value){
+      if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
+      if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
+      if(!this.lang1.value) $(".fromlang").addClass('bg-error')
+      if(!this.lang2.value) $(".tolang").addClass('bg-error')
+      return
+    }
     //console.log("lang12",this.lang1, this.lang2);
     this.set.setInfo.idBaseLanguage = this.lang1.value.id;
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;

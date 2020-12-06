@@ -34,6 +34,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     private componentFactoryResolver: ComponentFactoryResolver,
     private alertService: AlertService,
     private router: Router,
+    public userService: UserService
     ) { }
 
   files: File[] = [];
@@ -119,6 +120,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     }
   }
   
+  
   createWordExercise(): void {
     this.exercise = new WordExerciseTemplateComponent(this.wordsetService);
     this.exercise.setViewOption(ViewOption.Create);
@@ -126,10 +128,17 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     this.loadComponent();
   }
   
+  removeError(idclass:string){
+    $(idclass).removeClass('bg-error')
+  }
 
   addExercise(): void {
+    if(!$(".word-left").val() ||!$(".word-right").val()){
+      if(!$(".word-left").val()) $(".word-left").addClass('bg-error')
+      if(!$(".word-right").val())$(".word-right").addClass('bg-error')
+      return
+    }
     this.exercise.setViewOption(ViewOption.Display);
-    
     if(this.files.length >0 ){
       for ( var i =0; i < this.files.length; i++) {
         console.log(this.files[i])
@@ -158,13 +167,20 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
   }
 
   saveSet(): void {
+    if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
+      !this.lang1.value || !this.lang2.value){
+      if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
+      if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
+      if(!this.lang1.value) $(".fromlang").addClass('bg-error')
+      if(!this.lang2.value) $(".tolang").addClass('bg-error')
+      return
+    }
     this.set.setInfo.idBaseLanguage = this.lang1.value.id;
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.router.navigateByUrl('user/sets');
     this.set.saveSet();
     if (this.set.setInfo.name){
       this.wordsetService.saveWordset(this.set).subscribe(x => {
-        console.log("in save set");
         console.log(this.addedFile.length)
         while(this.addedFile.length > 0){
             this.wordsetService.sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {

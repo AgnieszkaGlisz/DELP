@@ -37,11 +37,11 @@
                     <div class="popname d-flex justify-content-center ">{{setI.name}}</div>
                     <div (click)="goToDisplayView(setI.id)" class="popbnt d-flex justify-content-center">Display</div>
                     <div (click)="goToLearnView(setI.id)" class="popbnt d-flex justify-content-center">Learn</div>
-                    <div class="popbnt d-flex justify-content-center">Edit</div>
+                    <div (click)="deleteSet(setI.id)" class="popbnt d-flex justify-content-center">Delete</div>
                 </div>
                 <div (click)="closeSet(setI.id)"  class="setshadow"></div>
             </div>
         </div>
     </div>
 </div>
-
+<h5 class="text-center" *ngIf="this.endofsets">No sets, add one :)</h5>

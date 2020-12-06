@@ -21,19 +21,22 @@ export class FavouritesComponent implements OnInit {
     ) { }
 
   favourites: SetInfo[];
+  endofsets:boolean
 
   ngOnInit(): void {
     // this.favourites = <Set[]>{};
     this.getFavourites();
+    this.endofsets=true
   }
 
   getFavourites(): void {
-    
     this.favourites = new Array<SetInfo>();
     this.wordsetService.getFavourites().subscribe(x => {
       this.favourites = new Array<SetInfo>();
       Object.assign(this.favourites, x);
       let index = 0;
+      if(x.length <= 0) this.endofsets =true
+      else this.endofsets =false
       x.forEach(set => {
         this.favourites[index] = new SetInfo();
         Object.assign(this.favourites[index++], set);
@@ -48,6 +51,7 @@ export class FavouritesComponent implements OnInit {
 
   goToLearnView(id: string): void {
     this.wordsetService.setToDisplayId = id;
+    this.userService.lastPage="user/favourite"
     this.router.navigateByUrl('/set/learn');
   }
 

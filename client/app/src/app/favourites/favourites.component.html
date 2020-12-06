@@ -33,18 +33,10 @@
                     <div class="popname d-flex justify-content-center ">{{setI.name}}</div>
                     <div (click)="goToDisplayView(setI.id)" class="popbnt d-flex justify-content-center">Display</div>
                     <div (click)="goToLearnView(setI.id)" class="popbnt d-flex justify-content-center">Learn</div>
-                    <div class="popbnt d-flex justify-content-center">Edit</div>
                 </div>
                 <div (click)="closeSet(setI.id)"  class="setshadow"></div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- <a>
-    <span class="wordset-id"> </span>
-    <span class="wordset-name"> </span>
-</a>
-<button class="" title="display" (click)="goToDisplayView(setI.id)">display</button>
-<button class="" title="learn" (click)="goToLearnView(setI.id)">learn</button>
-<button class=" " (click)="deleteSetFromFavourites(setI.id)">Delete from Favourites</button> -->
+<h5 class="text-center" *ngIf="this.endofsets">No sets, Explore :)</h5>

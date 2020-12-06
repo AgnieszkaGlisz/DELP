@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../_interfaces/user';
 import { Observable, of } from 'rxjs';
 import { WordsetService } from './wordset.service';
+import { Router } from '@angular/router';
 
 
 const httpOptions = {
@@ -18,24 +19,27 @@ const httpOptions = {
 
 export class UserService {
   public colorset: string[];
+  public lastPage: string
 
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private wordsetService: WordsetService
   ) {
     //style classes for main colors in app 
     this.changeColorSet()
+    this.lastPage = ""
   }
 
   changeColorSet() {
-    if(!this.colorset)
+    if (!this.colorset)
       this.colorset = new Array<string>()
     let length = this.colorset.length
     for (var i = 0; i < length; i++)
       this.colorset.pop()
     let userColorset = 1
-    if(this.getUserData() && this.getUserData().preferences && this.getUserData().preferences.idColorSets)
+    if (this.getUserData() && this.getUserData().preferences && this.getUserData().preferences.idColorSets)
       userColorset = this.getUserData().preferences.idColorSets
     this.colorset.push('c1_' + userColorset);
     this.colorset.push('c2_' + userColorset);
@@ -89,6 +93,17 @@ export class UserService {
 
   savePreferences(preferences: UserPreferences): Observable<any> {
     return this.http.post(`${this.wordsetService.url}/user/preferences`, preferences, httpOptions);
+  }
+
+  goBack() {
+    if(this.lastPage=="user/favourite")
+      this.router.navigateByUrl('user/favourite')
+    else if(this.lastPage=="user/sets")
+      this.router.navigateByUrl('user/sets')
+    // else if(this.lastPage=="user/search")
+    //   this.router.navigateByUrl('user/search')
+    else
+      this.router.navigateByUrl('user/favourite')
   }
 
 }

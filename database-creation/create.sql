@@ -129,6 +129,8 @@ CREATE TABLE UserPreferences(
 );
 ALTER TABLE `UserPreferences`
 ADD noSight BOOLEAN
+ALTER TABLE `UserPreferences`
+ADD randomExercises BOOLEAN
 
 --tworzenie tabeli Languages przechowujacej dane o wszystkich mozliwych jezykach do uzycia przez uzytkownikow
 CREATE TABLE Languages(

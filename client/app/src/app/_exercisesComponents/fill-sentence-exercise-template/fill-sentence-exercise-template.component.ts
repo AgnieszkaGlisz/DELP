@@ -4,6 +4,7 @@ import { Set } from './../../_interfaces/set';
 // import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
 // import { ExerciseTemplate } from '../_interfaces/exerciseTemplate';
 import { Component, Input, OnInit, Type } from '@angular/core';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-fill-sentence-exercise-template',
@@ -12,7 +13,7 @@ import { Component, Input, OnInit, Type } from '@angular/core';
 })
 export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-  constructor() {
+  constructor(public userService: UserService) {
     //   super();
       this.template = "FillSentenceExerciseTemplate";
       this.component = FillSentenceExerciseTemplateComponent;
@@ -79,5 +80,7 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
   showHint(): string {
     return this.wordToFill;
   }
-  
+  removeError(idclass:string){
+    $(idclass).removeClass('bg-error')
+  }
 }

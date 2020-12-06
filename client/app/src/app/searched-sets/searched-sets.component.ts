@@ -84,8 +84,9 @@ export class SearchedSetsComponent implements OnInit, AfterViewInit, AfterViewCh
     {
       lang = this.lang1.value.id;
     }
-    console.log("Langids", mylang, lang);
-    this.wordsetService.getSearchedSets(keyword,false,false,this.page, mylang, lang).subscribe(x => {
+    let noSound = this.userService.getUserData().preferences.noSound
+    let noSight = this.userService.getUserData().preferences.noSight
+    this.wordsetService.getSearchedSets(keyword,noSound,noSight,this.page, mylang, lang).subscribe(x => {
       Object.assign(this.searchedSets, x);
       let index = 0;
       if(x.length >= 20) this.endofsets =false
@@ -129,6 +130,7 @@ export class SearchedSetsComponent implements OnInit, AfterViewInit, AfterViewCh
 
   goToLearnView(id: string): void {
     this.wordsetService.setToDisplayId = id;
+    this.userService.lastPage="user/search"
     this.router.navigateByUrl('/set/learn');
   }
 
