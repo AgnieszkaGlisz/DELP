@@ -9,7 +9,7 @@ import { UserService } from 'src/app/_services/user.service';
   templateUrl: './translate-sentence-exercise-template.component.html',
   styleUrls: ['./translate-sentence-exercise-template.component.css']
 })
-export class TranslateSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
+export class TranslateSentenceExerciseTemplateComponent implements ExerciseTemplateComponent, OnInit {
 
     constructor(private injector:Injector) {
         this.template = "TranslateSentenceExerciseTemplate";
@@ -17,9 +17,14 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
         this.data = this;
 
         this.viewOption = new View(ViewOption.Create);
-        }
+    }
+
+    ngOnInit() {
+      this.userService = this.injector.get(UserService);
+    }
 
     url: string;
+    userService: UserService;
 
     template: "TranslateSentenceExerciseTemplate";
     oryginalSentence: string;

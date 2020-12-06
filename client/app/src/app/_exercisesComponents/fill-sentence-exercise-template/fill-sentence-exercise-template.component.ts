@@ -13,7 +13,9 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-  constructor(private injector:Injector) {
+  constructor(
+    private injector:Injector
+    ) {
     //   super();
       this.template = "FillSentenceExerciseTemplate";
       this.component = FillSentenceExerciseTemplateComponent;
@@ -23,9 +25,11 @@ export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateCo
     }
 
   ngOnInit(): void {
+    this.userService = this.injector.get(UserService);
   }
 
   url: string;
+  userService: UserService;
 
   template: "FillSentenceExerciseTemplate";
   leftPartOfSentence: string;

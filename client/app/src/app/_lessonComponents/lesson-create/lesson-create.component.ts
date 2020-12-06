@@ -180,15 +180,18 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   }
 
   saveLesson(): void {
-    alert("Aaaaaaaa")
-    if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
-      !this.lang1.value || !this.lang2.value){
-      if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
-      if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
-      if(!this.lang1.value) $(".fromlang").addClass('bg-error')
-      if(!this.lang2.value) $(".tolang").addClass('bg-error')
-      return
-    }
+    // alert("Aaaaaaaa")
+    // console.log("jestem w saveLesson")
+    // if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
+    //   !this.lang1.value || !this.lang2.value){
+    //   if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
+    //   if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
+    //   if(!this.lang1.value) $(".fromlang").addClass('bg-error')
+    //   if(!this.lang2.value) $(".tolang").addClass('bg-error')
+    //   console.log("wchodze do ifa")
+    //   return
+    // }
+    // console.log("nie wszedlem do ifa")
     //console.log("lang12",this.lang1, this.lang2);
     this.set.setInfo.idBaseLanguage = this.lang1.value.id;
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;

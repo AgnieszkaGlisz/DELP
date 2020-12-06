@@ -1,3 +1,4 @@
+import { userInfo } from 'os';
 import { WordsetService } from './../../_services/wordset.service';
 import { ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
@@ -15,10 +16,10 @@ import { UserService } from 'src/app/_services/user.service';
 })
 
 
-export class WordExerciseTemplateComponent implements ExerciseTemplateComponent {
+export class WordExerciseTemplateComponent implements ExerciseTemplateComponent, OnInit {
 
   constructor(
-    private injector:Injector
+    private injector: Injector
     //public userService: UserService,
     //private wordsetService: WordsetService
   ) 
@@ -28,11 +29,17 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
     this.component = WordExerciseTemplateComponent;
     this.data = this;
     this.viewOption = new View(ViewOption.Create);
+    // this.userService = injector.get(UserService);
     // console.log(this.data.picturePath);
+  }
+
+  ngOnInit() {
+    this.userService = this.injector.get(UserService);
   }
 
   // wordsetService: WordsetService;
   url: string;
+  userService: UserService;
 
   @Input() data: any;
   word: string;

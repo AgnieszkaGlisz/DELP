@@ -1,3 +1,4 @@
+import { User } from './../../_interfaces/user';
 import { fileInfo } from './../../_interfaces/files';
 import { AlertService } from './../../_services/alert.service';
 import { ViewOption } from './../../_exercisesComponents/view-option-enum';
@@ -43,7 +44,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
   
   set: Set;
   exercise: ExerciseTemplateComponent;
-  //userService : UserService;
+  // userService: UserService;
   lang1 = new FormControl();
   lang2 = new FormControl();
   languageList: Array<Language> = new Array<Language>();
@@ -57,7 +58,10 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     this.set = new Wordset();
     this.set.exercises = new Array<ExerciseTemplateComponent>();
     this.set.setInfo = new SetInfo();
-    //this.userService = this.injector.get(UserService);
+    this.userService.getUserInfo().subscribe(x => console.log(x));
+    // this.userService = new UserService();
+    // this.userService = this.injector
+    // this.userService = this.injector.get(UserService);
   }
 
   ngAfterViewInit(): void {
