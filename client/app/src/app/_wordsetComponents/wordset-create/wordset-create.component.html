@@ -17,7 +17,7 @@
     </div>
     <div class="d-flex flex-column words">
         <ng-template exerciseHost></ng-template>
-        <button class="p-2 my-1 rounded {{userService.colorset[0]}}" (click)="addExercise();">+</button>
+        <button class="p-2 my-1 rounded {{userService?.colorset[0]}}" (click)="addExercise();">+</button>
     </div>
     <ngx-dropzone class="customDropzone my-1" (change)="onSelect($event)">
         <ngx-dropzone-label>Add files to exercises!</ngx-dropzone-label>
@@ -29,8 +29,8 @@
     <div *ngIf="set" class="words d-flex flex-column">
         <div class="d-flex" *ngFor="let exerciseI of set.exercises">
             <ng-template class="p-2" exerciseListHost></ng-template>
-            <div class="p-2 {{userService.colorset[1]}} delete" title="delete exercise" (click)="deleteExercise(exerciseI)">x</div>
+            <div class="p-2 {{userService?.colorset[1]}} delete" title="delete exercise" (click)="deleteExercise(exerciseI)">x</div>
         </div>
     </div>
-    <button class="p-2 my-1 rounded {{userService.colorset[1]}}" (click)="saveSet()">Save Set</button>
+    <button class="p-2 my-1 rounded {{userService?.colorset[1]}}" (click)="saveSet()">Save Set</button>
 </div>

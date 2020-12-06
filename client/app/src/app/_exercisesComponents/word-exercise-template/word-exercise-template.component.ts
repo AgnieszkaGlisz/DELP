@@ -2,7 +2,7 @@ import { WordsetService } from './../../_services/wordset.service';
 import { ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
-import { Component, Inject, Input, OnInit, Type } from '@angular/core';
+import { Component, Inject, Input, OnInit, Type, Injector } from '@angular/core';
 import { View } from '../view-option-enum';
 import { UserService } from 'src/app/_services/user.service';
 
@@ -18,9 +18,9 @@ import { UserService } from 'src/app/_services/user.service';
 export class WordExerciseTemplateComponent implements ExerciseTemplateComponent {
 
   constructor(
-    //private injector:Injector
-    public userService: UserService,
-    private wordsetService: WordsetService
+    private injector:Injector
+    //public userService: UserService,
+    //private wordsetService: WordsetService
   ) 
   {
     //this.injector.get(WordsetService); 
@@ -109,17 +109,17 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent 
 
         else {
           if(localStorage.getItem('startLang') == undefined){
-            this.wordsetService.detectLang(inputValue).subscribe( x => {
+            this.injector.get(WordsetService).detectLang(inputValue).subscribe( x => {
               console.log(x[0].language);
             });
           }
           else {
-            this.wordsetService.getDictLanguageCode(localStorage.getItem('startLang'), "").subscribe(fromLang => {
+            this.injector.get(WordsetService).getDictLanguageCode(localStorage.getItem('startLang'), "").subscribe(fromLang => {
               console.log("fromLang: " + fromLang.lang);
-              this.wordsetService.getDictLanguageCode(localStorage.getItem('targetLang'), "").subscribe(toLang => {
+              this.injector.get(WordsetService).getDictLanguageCode(localStorage.getItem('targetLang'), "").subscribe(toLang => {
                 console.log("2" + toLang.lang);
                 console.log("fromLang: " + fromLang.lang);
-                this.wordsetService.sendTranslationRequest(toLang.lang, fromLang.lang, inputValue).subscribe(t => {
+                this.injector.get(WordsetService).sendTranslationRequest(toLang.lang, fromLang.lang, inputValue).subscribe(t => {
                   console.log(t[0].translations[0].text);
                   (<HTMLInputElement>document.getElementById("inputTranslationWord")).value = t[0].translations[0].text; 
                 })

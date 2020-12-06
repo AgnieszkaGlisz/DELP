@@ -3,7 +3,7 @@ import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
 // import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
 // import { ExerciseTemplate } from '../_interfaces/exerciseTemplate';
-import { Component, Input, OnInit, Type } from '@angular/core';
+import { Component, Input, OnInit, Type, Injector } from '@angular/core';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class FillSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-  constructor(public userService: UserService) {
+  constructor(private injector:Injector) {
     //   super();
       this.template = "FillSentenceExerciseTemplate";
       this.component = FillSentenceExerciseTemplateComponent;

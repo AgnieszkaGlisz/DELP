@@ -1,7 +1,7 @@
 import { View, ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
-import { Component, Input, OnInit, Type } from '@angular/core';
+import { Component, Input, OnInit, Type, Injector } from '@angular/core';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class TranslateSentenceExerciseTemplateComponent implements ExerciseTemplateComponent {
 
-    constructor(public userService: UserService) {
+    constructor(private injector:Injector) {
         this.template = "TranslateSentenceExerciseTemplate";
         this.component = TranslateSentenceExerciseTemplateComponent;
         this.data = this;

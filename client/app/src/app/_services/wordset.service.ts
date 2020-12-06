@@ -4,23 +4,24 @@ import { TranslateSentenceExerciseTemplateComponent } from './../_exercisesCompo
 import { WordExerciseTemplateComponent } from './../_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, Type } from '@angular/core';
+import { Injectable, Injector, Type } from '@angular/core';
 import { identity, Observable, of } from 'rxjs';
 import { Set } from '../_interfaces/set';
 import {fileInfo} from '../_interfaces/files'
 import { Language } from '../_interfaces/language';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
 
 export class WordsetService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private injector:Injector) { }
 
   urlAga: string = `http://25.95.136.77:3500`;
   urlCezar: string = `http://25.68.211.177:3500`;
   urlLocal: string = `http://localhost:3500`;
-  url: string = this.urlCezar;
+  url: string = this.urlAga;
   setToDisplayId: string = '0';
 
   correctExercises: number;
@@ -93,13 +94,13 @@ export class WordsetService {
   newExercise(template: string) {
     switch (template) {
       case "WordExerciseTemplate":
-        return new WordExerciseTemplateComponent(this);
+        return new WordExerciseTemplateComponent(this.injector);
 
       case "TranslateSentenceExerciseTemplate":
-        return new TranslateSentenceExerciseTemplateComponent();
+        return new TranslateSentenceExerciseTemplateComponent(this.injector);
 
       case "FillSentenceExerciseTemplate":
-        return new FillSentenceExerciseTemplateComponent();
+        return new FillSentenceExerciseTemplateComponent(this.injector);
     }
   }
 

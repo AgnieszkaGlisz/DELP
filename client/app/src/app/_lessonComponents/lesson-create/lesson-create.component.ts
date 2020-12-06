@@ -14,7 +14,7 @@ import { SetInfo } from './../../_interfaces/setInfo';
 import { AfterViewInit, Component, OnInit, QueryList, ViewChildren, ViewContainerRef, Type, ɵConsole, AfterViewChecked } from '@angular/core';
 import { Set } from '../../_interfaces/set';
 import { DomSanitizer } from '@angular/platform-browser'
-import { ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, Injector } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -30,9 +30,10 @@ import { UserService } from 'src/app/_services/user.service';
 export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   constructor(
-    private wordsetService: WordsetService, 
+    //private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
-    public userService: UserService
+    //public userService: UserService
+    private injector:Injector
   ) { }
 
   files: File[] = [];
@@ -72,7 +73,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
 
   loadLanguages(): void {
     console.log("waiting for languages...");
-    this.languageSubscription = this.wordsetService.getAllLanguages().subscribe( x => {
+    this.languageSubscription =  this.injector.get(WordsetService).getAllLanguages().subscribe( x => {
       console.log("got languages", x);
       let tmp = {languages:  Array<Language>()};
       Object.assign(tmp, x);
@@ -92,7 +93,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   }
   
   loadComponent(): void {
-    this.exercise = this.wordsetService.newExercise(this.exercise.template);
+    this.exercise = this.injector.get(WordsetService).newExercise(this.exercise.template);
     this.exercise.data = this.exercise;
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.exercise.component);
     const viewContainerRef = this.exerciseHost.viewContainerRef;
@@ -120,19 +121,19 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   }
   
   createWordExercise(): void {
-    this.exercise = new WordExerciseTemplateComponent(this.wordsetService);
+    this.exercise = new WordExerciseTemplateComponent(this.injector);
     this.exercise.setViewOption(ViewOption.Create);
     this.loadComponent();
   }
   
   createTranslateSentenceExercise(): void {
-    this.exercise = new TranslateSentenceExerciseTemplateComponent();
+    this.exercise = new TranslateSentenceExerciseTemplateComponent(this.injector);
     this.exercise.setViewOption(ViewOption.Create);
     this.loadComponent();
   }
   
   createFillSentenceExercise(): void {
-    this.exercise = new FillSentenceExerciseTemplateComponent();
+    this.exercise = new FillSentenceExerciseTemplateComponent(this.injector);
     this.exercise.setViewOption(ViewOption.Create);
     this.loadComponent();
   }
@@ -193,11 +194,11 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.set.saveSet();
     if (this.set.setInfo.name){
-    this.wordsetService.saveWordset(this.set).subscribe(x => {
+      this.injector.get(WordsetService).saveWordset(this.set).subscribe(x => {
       console.log("in save set");
         console.log(this.addedFile.length)
         while(this.addedFile.length > 0){
-            this.wordsetService.sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {
+          this.injector.get(WordsetService).sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {
              console.log(x)
          });
         }
