@@ -1,4 +1,4 @@
-import { userInfo } from 'os';
+// import { userInfo } from 'os';
 import { WordsetService } from './../../_services/wordset.service';
 import { ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
