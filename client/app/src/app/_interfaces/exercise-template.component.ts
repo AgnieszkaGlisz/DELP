@@ -1,13 +1,12 @@
 import { ViewOption } from '../_sets/_exercisesComponents/view-option-enum';
-import { Set } from './set';
 import { Type } from '@angular/core';
 export interface ExerciseTemplateComponent {
     data: any;
     component: Type<any>;
 
-    picturePath: string
     id: number;
     template: string;
+    picturePath: string
     videoPath: string;
     audioPath: string;
 
@@ -15,5 +14,5 @@ export interface ExerciseTemplateComponent {
     setUrl(url: string);
     checkAnswer(): boolean;
     showHint(): string;
-    // viewOption: ViewOption;
 }
+

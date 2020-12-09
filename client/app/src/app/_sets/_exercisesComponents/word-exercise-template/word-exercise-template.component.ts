@@ -12,7 +12,6 @@ import { UserService } from 'src/app/_services/user.service';
   selector: 'app-word-exercise-template',
   templateUrl: './word-exercise-template.component.html',
   styleUrls: ['./word-exercise-template.component.css'],
-  // providers: [ViewOption]
 })
 
 
@@ -20,24 +19,18 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent,
 
   constructor(
     private injector: Injector
-    //public userService: UserService,
-    //private wordsetService: WordsetService
   ) 
   {
-    //this.injector.get(WordsetService); 
     this.template = "WordExerciseTemplate";
     this.component = WordExerciseTemplateComponent;
     this.data = this;
     this.viewOption = new View(ViewOption.Create);
-    // this.userService = injector.get(UserService);
-    // console.log(this.data.picturePath);
   }
 
   ngOnInit() {
     this.userService = this.injector.get(UserService);
   }
 
-  // wordsetService: WordsetService;
   url: string;
   userService: UserService;
 
@@ -64,7 +57,6 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent,
 
   setUrl(url: string) {
     this.url = url;
-    console.log(url);
     if(this.picturePath) {
       let tmpPicturePath = this.picturePath.substring(1);
       this.picturePath = url+'/files'+tmpPicturePath;
@@ -78,9 +70,6 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent,
       let tmpVideoPath = this.videoPath.substring(1);
       this.videoPath = url+'/files'+tmpVideoPath;
     }
-    // console.log(this.picturePath)
-    
-    // console.log(this.picturePath);
   }
 
   setViewOption(view: ViewOption) {

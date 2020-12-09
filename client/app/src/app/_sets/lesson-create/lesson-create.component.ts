@@ -49,6 +49,8 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   
   @ViewChild(ExerciseDirective, {static: true}) exerciseHost: ExerciseDirective;
   @ViewChildren(ExerciseListDirective) exerciseHosts: QueryList<ExerciseListDirective>;
+
+  
   //proxy1: any; 
 
   ngOnInit(): void {

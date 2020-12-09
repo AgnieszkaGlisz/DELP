@@ -5,8 +5,23 @@
         id="inputTranslationWord" />
     <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button>
 </div>
-<!--DISPLAY-->
 
+<!--LEARN IMAGE VIEW-->
+<div class="image" *ngIf="data.viewOption.type==ViewOption.LearnImage">
+    <h4 class="text-center mt-4">Translate a word</h4>
+    <div class="videoimage d-flex  bg-white p-2">
+        <img class="mx-auto d-block rounded" src={{data.picturePath}}>
+    </div>
+    <div class=" bg-white">
+        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
+    </div>
+</div>
+
+
+<!--DISPLAY-->
 <div class="d-flex justify-content-between p-2 my-1 bg-white rounded" *ngIf="data.viewOption.type==ViewOption.Display">
     <span>{{data.word}} - {{data.translation}}</span>
     <div>
@@ -15,6 +30,55 @@
         <img *ngIf="data.picturePath==1" src="./../../../assets/icons/image.png">
     </div>
 </div>
+
+
+<!--LEARN-->
+<div *ngIf="data.viewOption.type==ViewOption.Learn">
+    <h4 class="text-center mt-4">Translate a word</h4>
+    <div class="videoimage d-flex  bg-white p-2">
+        <h5 class="mx-auto my-auto d-block word-left text-center  rounded p-3">{{data.word}}</h5>
+    </div>
+    <div class="invisible">
+        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control  answerinput" />
+    </div>
+</div>
+
+
+<!--LEARN AUDIO VIEW-->
+<div class="audio" *ngIf="data.viewOption.type==ViewOption.LearnAudio">
+    <h4 class="text-center mt-4">Translate a word</h4>
+    <div class="videoimage d-flex bg-white p-2">
+        <audio class="mx-auto my-auto" controls>
+            <source src={{data.audioPath}}>
+        </audio>
+    </div>
+    <div class=" bg-white">
+        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
+    </div>
+</div>
+
+<!--LEARN VIDEO VIEW-->
+<div class="video" *ngIf="data.viewOption.type==ViewOption.LearnVideo">
+    <h4 class="text-center mt-4">Translate a word</h4>
+    <div class="videoimage videoimage d-flex  bg-white p-2">
+        <video controls>
+            <source src={{data.videoPath}}>
+        </video>
+    </div>
+    <div class=" bg-white">
+        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
+    </div>
+    <div class="p-2">
+        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
+    </div>
+</div>
+
 
 
 <div *ngIf="data.viewOption.type==ViewOption.DisplayImage">
@@ -46,58 +110,4 @@
     <audio controls>
         <source src="{{data.audioPath}}">
     </audio>
-</div>
-
-<!--LEARN-->
-<div *ngIf="data.viewOption.type==ViewOption.Learn">
-    <h4 class="text-center mt-4">Translate a word</h4>
-    <div class="videoimage d-flex  bg-white p-2">
-        <h5 class="mx-auto my-auto d-block word-left text-center  rounded p-3">{{data.word}}</h5>
-    </div>
-    <div class="invisible">
-        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
-    </div>
-    <div class="p-2">
-        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control  answerinput" />
-    </div>
-</div>
-<div class="image" *ngIf="data.viewOption.type==ViewOption.LearnImage">
-    <h4 class="text-center mt-4">Translate a word</h4>
-    <div class="videoimage d-flex  bg-white p-2">
-        <img class="mx-auto d-block rounded" src={{data.picturePath}}>
-    </div>
-    <div class=" bg-white">
-        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
-    </div>
-    <div class="p-2">
-        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
-    </div>
-</div>
-<div class="audio" *ngIf="data.viewOption.type==ViewOption.LearnAudio">
-    <h4 class="text-center mt-4">Translate a word</h4>
-    <div class="videoimage d-flex bg-white p-2">
-        <audio class="mx-auto my-auto" controls>
-            <source src={{data.audioPath}}>
-        </audio>
-    </div>
-    <div class=" bg-white">
-        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
-    </div>
-    <div class="p-2">
-        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
-    </div>
-</div>
-<div class="video" *ngIf="data.viewOption.type==ViewOption.LearnVideo">
-    <h4 class="text-center mt-4">Translate a word</h4>
-    <div class="videoimage videoimage d-flex  bg-white p-2">
-        <video controls>
-            <source src={{data.videoPath}}>
-        </video>
-    </div>
-    <div class=" bg-white">
-        <h5 class="word-left rounded p-3 text-center">{{data.word}}</h5>
-    </div>
-    <div class="p-2">
-        <input [(ngModel)]="data.answer" placeholder="answer" class="form-control answerinput" />
-    </div>
 </div>
