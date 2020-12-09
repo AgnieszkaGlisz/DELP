@@ -1,6 +1,5 @@
 import { User } from './../../_interfaces/user';
 import { fileInfo } from './../../_interfaces/files';
-import { AlertService } from './../../_services/alert.service';
 import { ViewOption } from './../../_exercisesComponents/view-option-enum';
 import { ExerciseListDirective } from './../../exercise-list.directive';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
@@ -33,7 +32,6 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
   constructor(
     //private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
-    private alertService: AlertService,
     private router: Router,
     public userService: UserService, 
     public injector:Injector
@@ -197,7 +195,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     }
     else {
       console.log("Didn't give set name")
-        this.alertService.error("Fill set name!")
+        //this.alertService.error("Fill set name!")
     }
   }
 
@@ -223,7 +221,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
       })
       if( imageBuble.type.split("/", 1)[0] != 'image' && imageBuble.type.split("/", 1)[0] != 'video' && imageBuble.type.split("/", 1)[0] != 'audio'){
         correctTypes = false;
-        this.alertService.error("Can't add the file of a type " + imageBuble.type.split("/", 1)[0] + '!')
+        //this.alertService.error("Can't add the file of a type " + imageBuble.type.split("/", 1)[0] + '!')
       }
   
       if(canAddTheFile && correctTypes){
@@ -231,11 +229,11 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
       }
   
       if (!canAddTheFile) {
-        this.alertService.error("There is already one " + imageBuble.type.split("/", 1)[0] + '!')
+        //this.alertService.error("There is already one " + imageBuble.type.split("/", 1)[0] + '!')
       }
     }
     else {
-      this.alertService.warn("You can only add 3 files! (One image, one video, one audio)")
+      //this.alertService.warn("You can only add 3 files! (One image, one video, one audio)")
     }
     //this.files.push(...event.addedFiles);
     

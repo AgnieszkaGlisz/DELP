@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+/*import { TestBed } from '@angular/core/testing';
 
 import { WordsetService } from './wordset.service';
 
@@ -13,4 +13,4 @@ describe('WordsetService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-});
+});*/
