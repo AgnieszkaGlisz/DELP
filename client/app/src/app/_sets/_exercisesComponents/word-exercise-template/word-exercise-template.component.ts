@@ -1,8 +1,8 @@
 // import { userInfo } from 'os';
-import { WordsetService } from './../../_services/wordset.service';
+import { WordsetService } from './../../../_services/wordset.service';
 import { ViewOption } from './../view-option-enum';
-import { ExerciseTemplateComponent } from './../../exercise-template.component';
-import { Set } from './../../_interfaces/set';
+import { ExerciseTemplateComponent } from '../../../_interfaces/exercise-template.component';
+import { Set } from './../../../_interfaces/set';
 import { Component, Inject, Input, OnInit, Type, Injector } from '@angular/core';
 import { View } from '../view-option-enum';
 import { UserService } from 'src/app/_services/user.service';

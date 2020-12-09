@@ -1,7 +1,7 @@
-import { ExerciseTemplateComponent } from './../exercise-template.component';
-import { FillSentenceExerciseTemplateComponent } from './../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
-import { TranslateSentenceExerciseTemplateComponent } from './../_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
-import { WordExerciseTemplateComponent } from './../_exercisesComponents/word-exercise-template/word-exercise-template.component';
+import { ExerciseTemplateComponent } from '../_interfaces/exercise-template.component';
+import { FillSentenceExerciseTemplateComponent } from './../_sets/_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
+import { TranslateSentenceExerciseTemplateComponent } from './../_sets/_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
+import { WordExerciseTemplateComponent } from './../_sets/_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, Injector, Type } from '@angular/core';

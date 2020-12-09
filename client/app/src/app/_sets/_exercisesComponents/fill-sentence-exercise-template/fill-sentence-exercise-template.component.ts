@@ -1,6 +1,6 @@
 import { View, ViewOption } from './../view-option-enum';
-import { ExerciseTemplateComponent } from './../../exercise-template.component';
-import { Set } from './../../_interfaces/set';
+import { ExerciseTemplateComponent } from '../../../_interfaces/exercise-template.component';
+import { Set } from './../../../_interfaces/set';
 // import { FillSentenceExerciseTemplate } from './../_interfaces/fillSentenceTemplate';
 // import { ExerciseTemplate } from '../_interfaces/exerciseTemplate';
 import { Component, Input, OnInit, Type, Injector } from '@angular/core';

@@ -1,11 +1,9 @@
-import { SetInfo } from './../_interfaces/setInfo';
-import { Lesson } from './../_interfaces/lesson';
-import { Wordset } from './../_interfaces/wordset';
+import { SetInfo } from './../../_interfaces/setInfo';
 import { Component, OnInit } from '@angular/core';
-import { WordsetService } from '../_services/wordset.service';
-import { Set } from '../_interfaces/set';
+import { WordsetService } from '../../_services/wordset.service';
+import { Set } from '../../_interfaces/set';
 import { Router } from '@angular/router';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-favourites',

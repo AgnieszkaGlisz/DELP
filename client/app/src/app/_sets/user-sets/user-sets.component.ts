@@ -1,9 +1,9 @@
-import { SetInfo } from './../_interfaces/setInfo';
-import { Set } from './../_interfaces/set';
+import { SetInfo } from './../../_interfaces/setInfo';
+import { Set } from './../../_interfaces/set';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WordsetService } from '../_services/wordset.service';
-import { UserService } from '../_services/user.service';
+import { WordsetService } from '../../_services/wordset.service';
+import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-user-sets',

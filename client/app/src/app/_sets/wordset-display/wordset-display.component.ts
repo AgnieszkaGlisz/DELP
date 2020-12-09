@@ -1,15 +1,11 @@
-import { ViewOption } from './../../_exercisesComponents/view-option-enum';
-import { ExerciseListDirective } from './../../exercise-list.directive';
-import { FillSentenceExerciseTemplateComponent } from './../../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
-import { TranslateSentenceExerciseTemplateComponent } from './../../_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
-import { WordExerciseTemplateComponent } from './../../_exercisesComponents/word-exercise-template/word-exercise-template.component';
-import { ExerciseTemplateComponent } from './../../exercise-template.component';
-import { ExerciseItem } from './../../exercise-item';
+import { ViewOption } from '../_exercisesComponents/view-option-enum';
+import { ExerciseListDirective } from './../exercise-list.directive';
+import { ExerciseTemplateComponent } from '../../_interfaces/exercise-template.component';
 import { Wordset } from './../../_interfaces/wordset';
 import { Set } from './../../_interfaces/set';
 import { WordsetService } from './../../_services/wordset.service';
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, ViewChildren, Input, Type, QueryList, AfterViewInit } from '@angular/core';
-import { ExerciseDirective } from './../../exercise.directive';
+import { ExerciseDirective } from '../exercise.directive';
 import { SetInfo } from './../../_interfaces/setInfo';
 
 @Component({

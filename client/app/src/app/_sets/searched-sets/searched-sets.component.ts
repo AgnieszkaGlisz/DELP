@@ -1,15 +1,15 @@
-import { Lesson } from './../_interfaces/lesson';
-import { Wordset } from './../_interfaces/wordset';
-import { WordsetService } from './../_services/wordset.service';
-import { Set } from './../_interfaces/set';
+import { Lesson } from './../../_interfaces/lesson';
+import { Wordset } from './../../_interfaces/wordset';
+import { WordsetService } from './../../_services/wordset.service';
+import { Set } from './../../_interfaces/set';
 import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SetInfo } from '../_interfaces/setInfo';
-import { UserService } from '../_services/user.service';
+import { SetInfo } from '../../_interfaces/setInfo';
+import { UserService } from '../../_services/user.service';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Language } from '../_interfaces/language';
-import { UserInfo } from '../_interfaces/userInfo';
+import { Language } from '../../_interfaces/language';
+import { UserInfo } from '../../_interfaces/userInfo';
 
 @Component({
   selector: 'app-searched-sets',

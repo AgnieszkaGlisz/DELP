@@ -2,13 +2,13 @@ import { DisabilitySupportServiceService, ViewProbabilities } from './../../_ser
 import { UserService } from './../../_services/user.service';
 import { User } from './../../_interfaces/user';
 import { Set } from './../../_interfaces/set';
-import { ExerciseDirective } from './../../exercise.directive';
-import { ExerciseTemplateComponent } from './../../exercise-template.component';
-import { WordExerciseTemplateComponent } from './../../_exercisesComponents/word-exercise-template/word-exercise-template.component';
+import { ExerciseDirective } from '../exercise.directive';
+import { ExerciseTemplateComponent } from '../../_interfaces/exercise-template.component';
+import { WordExerciseTemplateComponent } from './../../_sets/_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { Wordset } from './../../_interfaces/wordset';
 import { WordsetService } from './../../_services/wordset.service';
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
-import { ViewOption } from 'src/app/_exercisesComponents/view-option-enum';
+import { ViewOption } from 'src/app/_sets/_exercisesComponents/view-option-enum';
 import { Router } from '@angular/router';
 
 @Component({

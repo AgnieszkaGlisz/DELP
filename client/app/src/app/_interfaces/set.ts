@@ -1,4 +1,4 @@
-import { ExerciseTemplateComponent } from './../exercise-template.component';
+import { ExerciseTemplateComponent } from './exercise-template.component';
 import { SetInfo } from './setInfo';
 
 export class Set {
