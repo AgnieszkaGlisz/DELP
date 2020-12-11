@@ -32,7 +32,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   constructor(
     //private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
-    //public userService: UserService
+    public userService: UserService,
     private injector:Injector
   ) { }
 
@@ -139,12 +139,12 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   }
 
   addExercise(): void {
-    // console.log(this.exercise);
-    // if(!$(".word-left").val() || !$(".word-right").val()){
-    //   if(!$(".word-left").val()) $(".word-left").addClass('bg-error')
-    //   if(!$(".word-right").val())$(".word-right").addClass('bg-error')
-    //   return
-    // }
+    if(!$(".word-left").val() || !$(".word-right").val() || ($(".word-fill").length != 0 && !$(".word-fill").val())){
+      if(!$(".word-left").val()) $(".word-left").addClass('bg-error')
+      if(!$(".word-right").val())$(".word-right").addClass('bg-error')
+      if($(".word-fill") && !$(".word-fill").val())$(".word-fill").addClass('bg-error')
+      return
+    }
 
     this.exercise.setViewOption(ViewOption.Display);
 
@@ -180,25 +180,20 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   }
 
   saveLesson(): void {
-    // alert("Aaaaaaaa")
-    // console.log("jestem w saveLesson")
-    // if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
-    //   !this.lang1.value || !this.lang2.value){
-    //   if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
-    //   if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
-    //   if(!this.lang1.value) $(".fromlang").addClass('bg-error')
-    //   if(!this.lang2.value) $(".tolang").addClass('bg-error')
-    //   console.log("wchodze do ifa")
-    //   return
-    // }
-    // console.log("nie wszedlem do ifa")
-    //console.log("lang12",this.lang1, this.lang2);
+    if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
+      !this.lang1.value || !this.lang2.value
+      ||this.set.exercises.length==0){
+      if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
+      if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
+      if(!this.lang1.value) $(".fromlang").addClass('bg-error')
+      if(!this.lang2.value) $(".tolang").addClass('bg-error')
+      return
+    }
     this.set.setInfo.idBaseLanguage = this.lang1.value.id;
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;
     this.set.saveSet();
     if (this.set.setInfo.name){
       this.injector.get(WordsetService).saveWordset(this.set).subscribe(x => {
-      console.log("in save set");
         console.log(this.addedFile.length)
         while(this.addedFile.length > 0){
           this.injector.get(WordsetService).sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {

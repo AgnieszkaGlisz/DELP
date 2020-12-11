@@ -174,7 +174,8 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
 
   saveSet(): void {
     if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
-      !this.lang1.value || !this.lang2.value){
+      !this.lang1.value || !this.lang2.value
+      ||this.set.exercises.length==0){
       if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
       if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
       if(!this.lang1.value) $(".fromlang").addClass('bg-error')
@@ -186,14 +187,14 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     this.router.navigateByUrl('user/sets');
     this.set.saveSet();
     if (this.set.setInfo.name){
-     this.injector.get(WordsetService).saveWordset(this.set).subscribe(x => {
+      this.injector.get(WordsetService).saveWordset(this.set).subscribe(x => {
         console.log(this.addedFile.length)
         while(this.addedFile.length > 0){
           this.injector.get(WordsetService).sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {
              console.log(x)
          });
         }
-     });
+      });
     }
     else {
       console.log("Didn't give set name")

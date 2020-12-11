@@ -9,7 +9,7 @@
     <input class="word-left  p-2 my-1" (input)="removeError('.word-left')" [(ngModel)]='data.leftPartOfSentence' placeholder='first half of sentence' />
     <input class="word-fill  p-2 my-1" (input)="removeError('.word-fill')" [(ngModel)]='data.wordToFill' placeholder='gap to fill'  />
     <input class="word-right p-2 my-1" (input)="removeError('.word-right')" [(ngModel)]='data.rightPartOfSentence' placeholder='second half of sentence' />
-    <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button>
+    <!-- <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button> -->
 </div>
 <!-- <div *ngIf="data.viewOption.type==ViewOption.Display">
     <a>
