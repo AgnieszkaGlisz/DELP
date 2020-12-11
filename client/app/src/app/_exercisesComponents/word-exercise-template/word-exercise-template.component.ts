@@ -103,6 +103,7 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent,
   }
 
   Translate() {
+    console.log("xd")
     var inputValue = (<HTMLInputElement>document.getElementById("translationWord")).value;
     console.log("in translate" + inputValue + "  -  " + localStorage.getItem('targetLang'));
     if(inputValue == undefined || inputValue == ""){

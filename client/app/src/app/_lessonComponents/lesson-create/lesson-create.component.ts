@@ -258,4 +258,18 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
     this.files.splice(this.files.indexOf(event), 1);
     
   }
+
+  getCustType(event, name){
+    if (name == 'startLang'){
+      console.log(event.source.value.name)
+      localStorage.setItem('startLang', event.source.value.name);
+    }
+    else if (name == 'targetLang'){
+      console.log(event.source.value.name)
+      localStorage.setItem('targetLang', event.source.value.name);
+    }
+    else {
+      console.log(":(")
+    }
+  }
 }

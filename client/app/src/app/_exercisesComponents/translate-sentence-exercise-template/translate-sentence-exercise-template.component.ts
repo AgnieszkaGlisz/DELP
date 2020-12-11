@@ -3,6 +3,7 @@ import { ExerciseTemplateComponent } from './../../exercise-template.component';
 import { Set } from './../../_interfaces/set';
 import { Component, Input, OnInit, Type, Injector } from '@angular/core';
 import { UserService } from 'src/app/_services/user.service';
+import { WordsetService } from 'src/app/_services/wordset.service';
 
 @Component({
   selector: 'app-translate-sentence-exercise-template',
@@ -81,4 +82,41 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
     removeError(idclass:string){
       $(idclass).removeClass('bg-error')
     }
+
+    
+  Translate() {
+    console.log("xd")
+    var inputValue = (<HTMLInputElement>document.getElementById("translationWord")).value;
+    console.log("in translate" + inputValue + "  -  " + localStorage.getItem('targetLang'));
+    if(inputValue == undefined || inputValue == ""){
+      alert("There is no word to translate");
+    }
+    else {
+        if (localStorage.getItem('targetLang') == undefined)
+        {
+          alert("No target language specified");
+        }
+
+        else {
+          if(localStorage.getItem('startLang') == undefined){
+            this.injector.get(WordsetService).detectLang(inputValue).subscribe( x => {
+              console.log(x[0].language);
+            });
+          }
+          else {
+            this.injector.get(WordsetService).getDictLanguageCode(localStorage.getItem('startLang'), "").subscribe(fromLang => {
+              console.log("fromLang: " + fromLang.lang);
+              this.injector.get(WordsetService).getDictLanguageCode(localStorage.getItem('targetLang'), "").subscribe(toLang => {
+                console.log("2" + toLang.lang);
+                console.log("fromLang: " + fromLang.lang);
+                this.injector.get(WordsetService).sendTranslationRequest(toLang.lang, fromLang.lang, inputValue).subscribe(t => {
+                  console.log(t[0].translations[0].text);
+                  (<HTMLInputElement>document.getElementById("inputTranslationWord")).value = t[0].translations[0].text; 
+                })
+              })
+            });
+          }
+        }    
+    }
+  }
 }
