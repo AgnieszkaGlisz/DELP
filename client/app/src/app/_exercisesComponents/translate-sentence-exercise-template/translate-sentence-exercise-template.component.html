@@ -5,9 +5,15 @@
 </div> -->
 
 <div class="d-flex flex-column" *ngIf="data.viewOption.type==ViewOption.Create">
+<<<<<<< HEAD
     <input class="word-left  p-2 my-1" (input)="removeError('.word-left')" [(ngModel)]='data.oryginalSentence' placeholder='sentence' />
     <input class="word-right p-2 my-1" (input)="removeError('.word-right')" [(ngModel)]='data.translatedSentence' placeholder='translation' />
     <!-- <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button> -->
+=======
+    <input class="word-left  p-2 my-1" (input)="removeError('.word-left')" [(ngModel)]='data.oryginalSentence' placeholder='sentence' id="translationWord"/>
+    <input class="word-right p-2 my-1" (input)="removeError('.word-right')" [(ngModel)]='data.translatedSentence' placeholder='translation'  id="inputTranslationWord" />
+    <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button>
+>>>>>>> b90b3ab80a9ac7db35f89f84a62a67197a7c0ccd
 </div>
 
 <!-- <div *ngIf="data.viewOption.type==ViewOption.Display">

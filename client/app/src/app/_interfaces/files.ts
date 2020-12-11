@@ -9,8 +9,7 @@ export class fileInfo {
         var splitted = type.split("/", 1);
         this.file.set(splitted[0], imageBulb);
         this.type = splitted[0];
-        console.log("In the fileInfo setter");
+
         this.id = num;
-        console.log(this.id)
     }
 }

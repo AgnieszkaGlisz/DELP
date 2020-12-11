@@ -19,6 +19,7 @@
         <ng-template exerciseHost></ng-template>
         <button class="p-2 my-1 rounded {{userService?.colorset[0]}}" (click)="addExercise();">+</button>
     </div>
+
     <ngx-dropzone class="customDropzone my-1" (change)="onSelect($event)">
         <ngx-dropzone-label>Add files to exercises!</ngx-dropzone-label>
         <ngx-dropzone-preview class="customFilesPreview" *ngFor="let f of files" [removable]="true"
@@ -26,6 +27,7 @@
             <ngx-dropzone-label class="customFilesNamesText">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>
     </ngx-dropzone>
+    
     <div *ngIf="set" class="words d-flex flex-column">
         <div class="d-flex" *ngFor="let exerciseI of set.exercises">
             <ng-template class="p-2" exerciseListHost></ng-template>
