@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path:'test.env'})
 const express = require("express")
 const serverRoutes = require("../build/routes/sets")
 const request = require("supertest")
@@ -6,21 +6,13 @@ const app = express()
 const cors = require('cors')
 app.use(cors({origin:"*"}))
 app.use(express.json())
-app.use(serverRoutes)
+app.use('/sets',serverRoutes)
 
 var good_token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA"
 
-test('Should get sets created by user',async () => {
-    await request(app)
-    .get('/my-sets')
-    .set('authorization', good_token)
-    .send()
-    .expect(200)
-})
-
 test('Should get set',async () => {
     await request(app)
-    .get('/set/1')
+    .get('/sets/1')
     .set('authorization', good_token)
     .send()
     .expect(200)
@@ -33,7 +25,7 @@ test('Should get set',async () => {
 
 test('Should not get set',async () => {
     await request(app)
-    .get('/set/0')
+    .get('/sets/0')
     .set('authorization', good_token)
     .send()
     .expect(404)

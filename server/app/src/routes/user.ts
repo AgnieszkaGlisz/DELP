@@ -26,7 +26,17 @@ router.post('/register', (req, res) => {
 
 
     try{
-        if(username == undefined || password==undefined || email == undefined || idFirstLanguage==undefined){
+        if(username == undefined || 
+            username == null  || 
+            username.length < 3  || 
+            password==undefined ||
+            password==null ||
+            password.length < 3 || 
+            email == undefined || 
+            email == null || 
+            email.length < 5 || 
+            idFirstLanguage==undefined||
+            idFirstLanguage==null){
             res.status(403).json({error: "Data error."})
             return
         }
@@ -224,6 +234,12 @@ router.get('/favourite/delete/:id', auth.authenticateToken, (req:any, res) => {
 })
 
 function createSqlUpdatePreferences(req:any):string{
+    if((req.body.fontSize==undefined || req.body.fontSize==null) && 
+       (req.body.noSound==undefined || req.body.noSound==null) && 
+       (req.body.idColorSets==undefined || req.body.idColorSets==null) && 
+       (req.body.noSight==undefined || req.body.noSight==null)&& 
+       (req.body.randomExercises==undefined || req.body.randomExercises==null))
+       return ""
     var sql = 'UPDATE `UserPreferences` SET '
     var first = true
     if((req.body.fontSize!=undefined || req.body.fontSize!=null)){
