@@ -1,4 +1,5 @@
-/*import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from './../../app.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserLogoutComponent } from './user-logout.component';
 
@@ -8,7 +9,8 @@ describe('UserLogoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserLogoutComponent ]
+      declarations: [ UserLogoutComponent ],
+      imports: [ AppModule ],
     })
     .compileComponents();
   });
@@ -22,4 +24,4 @@ describe('UserLogoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
+});

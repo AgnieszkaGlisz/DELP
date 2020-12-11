@@ -83,6 +83,7 @@ export class UserService {
   }
 
   sendLoginInfo(username: string, password: string): Observable<any> {
+    console.log("sendLoginInfo")
     return this.http.post(`${this.wordsetService.url}/user/login`, { username, password }, httpOptions);
   }
 

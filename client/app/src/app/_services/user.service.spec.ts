@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+/*import { TestBed } from '@angular/core/testing';
 
 import { UserService } from './user.service';
 import { UserPreferences } from './../_interfaces/userPreferences';
@@ -74,8 +74,8 @@ describe('UserService', () => {
     idFirstLanguage: number;
 }
 
-    */
 }
 
 
 });
+    */

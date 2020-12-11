@@ -1,4 +1,5 @@
-/*import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from './../../app.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserAccountComponent } from './user-account.component';
 
@@ -8,7 +9,8 @@ describe('UserAccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserAccountComponent ]
+      declarations: [ UserAccountComponent ],
+      imports: [ AppModule ]
     })
     .compileComponents();
   });
@@ -22,4 +24,4 @@ describe('UserAccountComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
+});

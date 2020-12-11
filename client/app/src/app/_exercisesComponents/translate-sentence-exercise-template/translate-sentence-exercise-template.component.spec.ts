@@ -1,4 +1,5 @@
-/*import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from './../../app.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TranslateSentenceExerciseTemplateComponent } from './translate-sentence-exercise-template.component';
 
@@ -8,7 +9,8 @@ describe('TranslateSentenceExerciseTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TranslateSentenceExerciseTemplateComponent ]
+      declarations: [ TranslateSentenceExerciseTemplateComponent ],
+      imports: [AppModule]
     })
     .compileComponents();
   });
@@ -22,4 +24,4 @@ describe('TranslateSentenceExerciseTemplateComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
+});

@@ -1,4 +1,5 @@
-/*import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from './../../app.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WordExerciseTemplateComponent } from './word-exercise-template.component';
 
@@ -8,7 +9,8 @@ describe('WordExerciseTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WordExerciseTemplateComponent ]
+      declarations: [ WordExerciseTemplateComponent ],
+      imports: [ AppModule ],
     })
     .compileComponents();
   });
@@ -22,4 +24,4 @@ describe('WordExerciseTemplateComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
+});

@@ -1,4 +1,5 @@
-/*import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from './../../app.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserLoginComponent } from './user-login.component';
 
@@ -8,7 +9,8 @@ describe('UserLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserLoginComponent ]
+      declarations: [ UserLoginComponent ],
+      imports: [ AppModule ],
     })
     .compileComponents();
   });
@@ -22,4 +24,4 @@ describe('UserLoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
+});

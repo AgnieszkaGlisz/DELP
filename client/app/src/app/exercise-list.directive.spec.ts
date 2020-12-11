@@ -1,8 +1,10 @@
-/*import { ExerciseListDirective } from './exercise-list.directive';
+import { ViewContainerRef } from '@angular/core';
+import { ExerciseListDirective } from './exercise-list.directive';
 
 describe('ExerciseListDirective', () => {
   it('should create an instance', () => {
-    //const directive = new ExerciseListDirective();
-    //expect(directive).toBeTruthy();
+    let contRef: ViewContainerRef;
+    const directive = new ExerciseListDirective(contRef);
+    expect(directive).toBeTruthy();
   });
-});*/
+});
