@@ -219,13 +219,13 @@ test('Should not authorize bad token',async () => {
     .expect(403)
 })
 
-test('Should not authorize outdated token',async () => {
-    await request(app)
-    .get('/user/account')
-    .set('authorization', outdated_token)
-    .send()
-    .expect(403)
-})
+// test('Should not authorize outdated token',async () => {
+//     await request(app)
+//     .get('/user/account')
+//     .set('authorization', outdated_token)
+//     .send()
+//     .expect(403)
+// })
 
 test('Should not authorize no Authorize',async () => {
     await request(app)

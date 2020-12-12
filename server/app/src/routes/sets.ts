@@ -188,6 +188,12 @@ AND name LIKE 'ptaki%' OR name LIKE 'a%'
 ORDER BY ifAudio DESC,ifVideo DESC,popularity DESC,ifPicture DESC 
 LIMIT 20 OFFSET 1*/
 function createSqlForSets(wordsToFind:any,deaf:boolean,blind:boolean,page:number,langfrom:number,langto:number):string{
+    if(!wordsToFind) wordsToFind=""
+    if(!deaf) deaf=false
+    if(!blind) blind=false
+    if(!page) page=0
+    if(!langfrom) langfrom=0
+    if(!langto) langto=0
     var limit = 20 
     var offset = 20 * page
     var sql = 'SELECT es.*, u.username FROM `ExerciseSets` es,`Users` u '

@@ -103,7 +103,6 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent,
   }
 
   Translate() {
-    console.log("xd")
     var inputValue = (<HTMLInputElement>document.getElementById("translationWord")).value;
     console.log("in translate" + inputValue + "  -  " + localStorage.getItem('targetLang'));
     if(inputValue == undefined || inputValue == ""){
@@ -130,6 +129,7 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent,
                 this.injector.get(WordsetService).sendTranslationRequest(toLang.lang, fromLang.lang, inputValue).subscribe(t => {
                   console.log(t[0].translations[0].text);
                   (<HTMLInputElement>document.getElementById("inputTranslationWord")).value = t[0].translations[0].text; 
+                  this.data.translation =  t[0].translations[0].text;
                 })
               })
             });

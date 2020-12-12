@@ -112,6 +112,7 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
                 this.injector.get(WordsetService).sendTranslationRequest(toLang.lang, fromLang.lang, inputValue).subscribe(t => {
                   console.log(t[0].translations[0].text);
                   (<HTMLInputElement>document.getElementById("inputTranslationWord")).value = t[0].translations[0].text; 
+                  this.data.translatedSentence =  t[0].translations[0].text;
                 })
               })
             });
