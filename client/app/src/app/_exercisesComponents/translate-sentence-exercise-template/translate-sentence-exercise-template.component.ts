@@ -57,6 +57,23 @@ export class TranslateSentenceExerciseTemplateComponent implements ExerciseTempl
 
     setUrl(url: string) {
       this.url = url;
+      console.log(url);
+      if(this.picturePath) {
+        let tmpPicturePath = this.picturePath.substring(1);
+        this.picturePath = url+'/files'+tmpPicturePath;
+        console.log(this.picturePath);
+    }
+      if(this.audioPath) {
+        let tmpAudioPath = this.audioPath.substring(1);
+        this.audioPath = url+'/files'+tmpAudioPath;
+      }
+      if(this.videoPath) {
+        let tmpVideoPath = this.videoPath.substring(1);
+        this.videoPath = url+'/files'+tmpVideoPath;
+      }
+      // console.log(this.picturePath)
+      
+      // console.log(this.picturePath);
     }
 
     toJSON() {
