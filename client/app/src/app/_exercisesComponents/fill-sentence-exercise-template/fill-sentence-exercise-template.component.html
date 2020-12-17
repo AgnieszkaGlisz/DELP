@@ -1,27 +1,18 @@
-<!-- <div *ngIf="data.viewOption.type==ViewOption.Create">
-    <span class="word-id">?</span>
-    <input class="word-left" [(ngModel)]='data.leftPartOfSentence' placeholder='first half-sentence'/>
-    <input class="word-fill" [(ngModel)]='data.wordToFill' placeholder='word'/>
-    <input class="word-right" [(ngModel)]='data.rightPartOfSentence' placeholder='second half-sentence'/>
-</div> -->
-
+<!--CREATE-->
 <div class="d-flex flex-column" *ngIf="data.viewOption.type==ViewOption.Create">
     <input class="word-left  p-2 my-1" (input)="removeError('.word-left')" [(ngModel)]='data.leftPartOfSentence' placeholder='first half of sentence' />
     <input class="word-fill  p-2 my-1" (input)="removeError('.word-fill')" [(ngModel)]='data.wordToFill' placeholder='gap to fill'  />
     <input class="word-right p-2 my-1" (input)="removeError('.word-right')" [(ngModel)]='data.rightPartOfSentence' placeholder='second half of sentence' />
-    <!-- <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button> -->
 </div>
-<!-- <div *ngIf="data.viewOption.type==ViewOption.Display">
-    <a>
-        <span>{{data.id}}</span>
-        <span>left: {{data.leftPartOfSentence}}  </span>
-        <span>word: {{data.wordToFill}}  </span>
-        <span>right: {{data.rightPartOfSentence}}  </span>
-    </a>
-</div> -->
 
+<!--DISPLAY-->
 <div class="d-flex justify-content-between p-2 my-1 bg-white rounded" *ngIf="data.viewOption.type==ViewOption.Display">
-    <span>{{data.leftPartOfSentence}} - {{data.wordToFill}} - {{data.rightPartOfSentence}}</span>
+    <div class="d-flex flex-column">
+        <h6>Fill Sentence</h6>
+        <span>Left: {{data.leftPartOfSentence}}  </span>
+        <span>Word: {{data.wordToFill}}  </span>
+        <span>Right: {{data.rightPartOfSentence}}  </span>
+    </div>
     <div>
         <img *ngIf="data.audioPath==1" src="./../../../assets/icons/audio.png">
         <img *ngIf="data.videoPath==1" src="./../../../assets/icons/video.png">

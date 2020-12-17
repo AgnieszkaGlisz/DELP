@@ -1,24 +1,17 @@
-<!-- <div *ngIf="data.viewOption.type==ViewOption.Create">
-    <span class="word-id">?</span>
-    <input class="word-left" [(ngModel)]='data.oryginalSentence' placeholder='sentence'/>
-    <input class="word-right" [(ngModel)]='data.translatedSentence' placeholder='translation'/>
-</div> -->
-
+<!--CREATE-->
 <div class="d-flex flex-column" *ngIf="data.viewOption.type==ViewOption.Create">
     <input class="word-left  p-2 my-1" (input)="removeError('.word-left')" [(ngModel)]='data.oryginalSentence' placeholder='sentence' id="translationWord"/>
     <input class="word-right p-2 my-1" (input)="removeError('.word-right')" [(ngModel)]='data.translatedSentence' placeholder='translation'  id="inputTranslationWord" />
     <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button>
 </div>
 
-<!-- <div *ngIf="data.viewOption.type==ViewOption.Display">
-    <a>
-        <span>{{data.id}}  </span>
-        <span>original: {{data.oryginalSentence}}  </span>
-        <span>translated: {{data.translatedSentence}}  </span>
-    </a>
-</div> -->
-<div class="d-flex justify-content-between p-2 my-1 bg-white rounded" *ngIf="data.viewOption.type==ViewOption.Display">
-    <span>{{data.oryginalSentence}} - {{data.translatedSentence}}</span>
+<!--DISPLAY-->
+<div class="d-flex d-column w-100 justify-content-between my-1 p-2 rounded bg-white" *ngIf="data.viewOption.type==ViewOption.Display">
+    <div class="d-flex flex-column">
+        <h6>Translate Sentence</h6>
+        <span>Sentence: {{data.oryginalSentence}}  </span>
+        <span>Translated: {{data.translatedSentence}}  </span>
+    </div>
     <div>
         <img *ngIf="data.audioPath==1" src="./../../../assets/icons/audio.png">
         <img *ngIf="data.videoPath==1" src="./../../../assets/icons/video.png">

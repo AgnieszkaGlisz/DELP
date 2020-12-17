@@ -5,47 +5,19 @@
         id="inputTranslationWord" />
     <button class="p-2 rounded  {{userService.colorset[1]}}" (click)='Translate();'>Translate</button>
 </div>
+
 <!--DISPLAY-->
-
-<div class="d-flex justify-content-between p-2 my-1 bg-white rounded" *ngIf="data.viewOption.type==ViewOption.Display">
-    <span>{{data.word}} - {{data.translation}}</span>
-    <div>
-        <img *ngIf="data.audioPath==1" src="./../../../assets/icons/audio.png">
-        <img *ngIf="data.videoPath==1" src="./../../../assets/icons/video.png">
-        <img *ngIf="data.picturePath==1" src="./../../../assets/icons/image.png">
+<div *ngIf="data.viewOption.type==ViewOption.Display" class="d-flex w-100 justify-content-between my-1 p-2 rounded bg-white">
+    <div class="d-flex flex-column">
+        <h6>Word</h6>
+        <span>Word: {{data.word}} </span>
+        <span>Translation: {{data.translation}} </span>
     </div>
-</div>
-
-
-<div *ngIf="data.viewOption.type==ViewOption.DisplayImage">
-    <a>
-        <span>{{data.id}} </span>
-        <span>word: {{data.word}} </span>
-        <span>translation: {{data.translation}} </span>
-    </a>
-    <img src={{data.picturePath}}>
-</div>
-
-<div *ngIf="data.viewOption.type==ViewOption.DisplayVideo">
-    <a>
-        <span>{{data.id}} </span>
-        <span>word: {{data.word}} </span>
-        <span>translation: {{data.translation}} </span>
-    </a>
-    <video controls>
-        <source src="{{data.videoPath}}">
-    </video>
-</div>
-
-<div *ngIf="data.viewOption.type==ViewOption.DisplayAudio">
-    <a>
-        <span>{{data.id}} </span>
-        <span>word: {{data.word}} </span>
-        <span>translation: {{data.translation}} </span>
-    </a>
-    <audio controls>
-        <source src="{{data.audioPath}}">
-    </audio>
+    <div class="">
+        <img *ngIf="data.audioPath" src="./../../../assets/icons/audio.png">
+        <img *ngIf="data.videoPath" src="./../../../assets/icons/video.png">
+        <img *ngIf="data.picturePath" src="./../../../assets/icons/image.png">
+    </div>
 </div>
 
 <!--LEARN-->
