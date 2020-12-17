@@ -65,14 +65,14 @@ function createSqlForSets(wordsToFind,deaf,blind,page,langfrom,langto){
   sql += ' LIMIT ' + limit + ' OFFSET ' + offset
   return sql
 }
-sqlresultgood = "SELECT es.*, u.username FROM `ExerciseSets` es,`Users` u WHERE u.id = es.idCreator AND (es.deleted = 0 OR es.deleted is null)  AND ((es.idBaseLanguage= 1 AND es.idLearnLanguage= 2) OR (es.idBaseLanguage= 2 AND es.idLearnLanguage= 2))  AND (es.name LIKE \"w%\" OR es.name LIKE \"o%\" OR es.name LIKE \"r%\" OR es.name LIKE \"d%\") ORDER BY  es.popularity DESC, es.ifPicture DESC LIMIT 20 OFFSET 0" 
-sqlresultgood1 = "SELECT es.*, u.username FROM `ExerciseSets` es,`Users` u WHERE u.id = es.idCreator AND (es.deleted = 0 OR es.deleted is null)  ORDER BY  es.popularity DESC, es.ifPicture DESC LIMIT 20 OFFSET 0"
+sqlresultgood1 = "SELECT es.*, u.username FROM `ExerciseSets` es,`Users` u WHERE u.id = es.idCreator AND (es.deleted = 0 OR es.deleted is null)  AND ((es.idBaseLanguage= 1 AND es.idLearnLanguage= 2) OR (es.idBaseLanguage= 2 AND es.idLearnLanguage= 2))  AND (es.name LIKE \"w%\" OR es.name LIKE \"o%\" OR es.name LIKE \"r%\" OR es.name LIKE \"d%\") ORDER BY  es.popularity DESC, es.ifPicture DESC LIMIT 20 OFFSET 0" 
+sqlresultgood = "SELECT es.*, u.username FROM `ExerciseSets` es,`Users` u WHERE u.id = es.idCreator AND (es.deleted = 0 OR es.deleted is null)  ORDER BY  es.popularity DESC, es.ifPicture DESC LIMIT 20 OFFSET 0"
 
 test("Should return working sql", function() {
   expect(createSqlForSets("word",0,0,0,1,2))
-  .toBe(sqlresultgood);
+  .toBe(sqlresultgood1);
 });
 test("Should return working sql", function() {
   expect(createSqlForSets(undefined,undefined,undefined,undefined,undefined,undefined))
-  .toBe(sqlresultgood1);
+  .toBe(sqlresultgood);
 });

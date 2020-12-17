@@ -1,0 +1,84 @@
+WYKAZ RYSUNKÓW
+Rysunek 2.1 tytuldopoprawy (źródło: [])
+Rysunek 3.1 tytuldopoprawy 
+Rysunek 4.1 tytuldopoprawy 
+Rysunek 4.2 tytuldopoprawy 
+Rysunek 4.3 Wizualna reprezentacja mapy witryny
+Rysunek 4.4 Projekt układu strony dla urządzeń mobilnych (źródło: [])
+Rysunek 4.5 Projekt nawigacji (źródło: [])
+Rysunek 4.6 Projekt widoku ulubionych zestawów (źródło: [])
+Rysunek 4.7 Projekt widoku preferencji użytkownika (źródło: [])
+Rysunek 4.8 Projekt widoku nauki zestawu (źródło: [])
+Rysunek 4.9 Projekt widoku nauki zestawu, błędne dane (źródło: [])
+Rysunek 4.10 Projekt widoku nauki zestawu (źródło: [])
+Rysunek 4.11 Projekt widoku tworzenia zestawu (źródło: [])
+Rysunek 4.12 Projekt bazy danych
+Rysunek 5.1 Struktura Kodu Klienta
+Rysunek 5.2 Struktura Kodu Serwera 
+Rysunek 5.3 Aplikacja, strona logowania  
+Rysunek 5.4 Aplikacja, strona preferencji użytkownika  
+Rysunek 5.5 Aplikacja, strona ulubionych zestawów 
+Rysunek 5.6 Aplikacja, strona zestawów użytkownika
+Rysunek 5.7 Aplikacja, strona tworzenia zestawu
+Rysunek 5.8 Aplikacja, strona nauki zestawu, podczas błędu
+Rysunek 5.9 Aplikacja, strona ukończonego zestawu
+Rysunek 5.10 Aplikacja, strona wyszukiwania zestawów
+
+WYKAZ LISTINGÓW
+Listing 5.1 Tablica Routingu
+Listing 5.2 navigateByUrl
+Listing 5.3 Przykładowe widoki zadania ‘przetłumacz słówko’
+Listing 5.4 tytuldopoprawy
+Listing 5.5 tytuldopoprawy
+Listing 5.6 tytuldopoprawy
+Listing 5.7 tytuldopoprawy
+Listing 5.8 Klasa AuthInterceptor
+Listing 5.9 Dodanie funkcjonalności autoryzacji do węzła końcowego
+Listing 5.10 Funkcja tworząca zapytanie SQL dla wyszukiwania zestawu
+Listing 5.11 tytuldopoprawy
+Listing 5.12 IExerciseTemplateCOmponent
+Listing 5.13 ExerciseDirective
+Listing 5.14 LoadComponent
+Listing 6.1 Parametry zapytania
+Listing 6.2 Testy autoryzacji
+Listing 6.3 Test funkcji tworzącej zapytanie SQL
+Listing 6.4 tytuldopoprawy
+Listing 6.5 tytuldopoprawy
+
+
+WYKAZ TABEL
+Tabela 2.1 Wsparcie dysfunkcji przez aplikacje dostępne na rynku
+Tabela 2.2 Porównanie API słowników
+Tabela 3.1 tytuldopoprawy
+Tabela 3.2 tytuldopoprawy
+Tabela 3.3 Przypadek użycia “Zmiana preferencji użytkownika”
+Tabela 3.4 Przypadek użycia “Utworzenie zestawu słówek”
+Tabela 3.5 Przypadek użycia “Dodanie słówka do zestawu słówek lub lekcji”
+Tabela 3.6 Przypadek użycia “Podpowiedź tłumaczenia”
+Tabela 3.7 Przypadek użycia “Utworzenie lekcji”
+Tabela 3.8 Przypadek użycia “Dodanie zadania do lekcji”
+Tabela 3.9 Przypadek użycia “Wyszukiwanie zestawów słówek i lekcji”
+Tabela 3.10 Przypadek użycia “Dodanie zestawu słówek/lekcji do ulubionych”
+Tabela 3.11 Przypadek użycia “Wyświetlanie ulubionych zestawów”
+Tabela 3.12 Przypadek użycia “Usunięcie zestawu słówek/lekcji z ulubionych”
+Tabela 3.13 Przypadek użycia “Nauka zestawu słówek”
+Tabela 3.14 Przypadek użycia “Nauka lekcji”
+Tabela 4.1 tytuldopoprawy
+Tabela 4.2 tytuldopoprawy
+Tabela 4.3 Komponenty serwera
+Tabela 4.4 Węzły końcowe komponentu zarządzania danymi użytkownika
+Tabela 4.5 Węzły końcowe komponentu zarządzania zestawami zadań
+Tabela 4.6 Węzły końcowe komponentu zewnętrznego API słownika
+Tabela 4.7 Węzły końcowe komponentu zarządzania plikami
+Tabela 4.8 Węzły końcowe komponentu informacji
+Tabela 6.1 Przypadki testowe
+Tabela 6.2 Przypadek testowy “Wyświetlenie zadania osobie niedosłyszącej”
+Tabela 6.3 Przypadek testowy “Wprowadzenie niepoprawnej odpowiedzi zadania”
+Tabela 7.1 tytuldopoprawy   
+
+
+
+
+
+
+
