@@ -1,15 +1,13 @@
-import { ExerciseTemplateComponent } from './../exercise-template.component';
 import { FillSentenceExerciseTemplateComponent } from './../_exercisesComponents/fill-sentence-exercise-template/fill-sentence-exercise-template.component';
 import { TranslateSentenceExerciseTemplateComponent } from './../_exercisesComponents/translate-sentence-exercise-template/translate-sentence-exercise-template.component';
 import { WordExerciseTemplateComponent } from './../_exercisesComponents/word-exercise-template/word-exercise-template.component';
 import { Wordset } from './../_interfaces/wordset';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, Injector, Type } from '@angular/core';
-import { identity, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Set } from '../_interfaces/set';
 import {fileInfo} from '../_interfaces/files'
 import { Language } from '../_interfaces/language';
-import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +24,6 @@ export class WordsetService {
 
   correctExercises: number;
   numberOfExercises: number;
-  // searchSetsKeyword: string = '';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -110,13 +107,10 @@ export class WordsetService {
   }
   
   sendFile(file: fileInfo, setId: number): Observable<any> {
-    //console.log(`${this.url}/file/`+ file.type + '?idSet=' +setId +'&id='+ file.id)
-    //console.log(`${this.url}/`+file.type+'?idSet='+setId+'&id='+file.id)
     return this.http.post<any>(`${this.url}/files/`+file.type+'?idSet='+setId+'&id='+file.id, file.file);
   }
  
   sendTranslationRequest(languageTo: string, languageFrom: string, text:string): Observable<JSON> {
-    //localhost:3500/dict/translation?translateToLang=es&translateFromLang=en&word=hello
     return this.http.post<JSON>(`${this.url}/dict/translation?translateToLang=`+ languageTo + `&translateFromLang=` + languageFrom + '&word='+text, text);
   }
 

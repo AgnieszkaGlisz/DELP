@@ -32,6 +32,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
   constructor(
     //private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
+    private router: Router,
     public userService: UserService,
     private injector:Injector
   ) { }
@@ -191,6 +192,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit, AfterViewCh
     }
     this.set.setInfo.idBaseLanguage = this.lang1.value.id;
     this.set.setInfo.idLearnLanguage = this.lang2.value.id;
+    this.router.navigateByUrl('user/sets');
     this.set.saveSet();
     if (this.set.setInfo.name){
       this.injector.get(WordsetService).saveWordset(this.set).subscribe(x => {
