@@ -94,9 +94,8 @@
                         <!-- <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Accept Ts & Cs is required</div> -->
                     </div>
                     <div class="text-center">
+                        <button class="p-2 m-2 btn {{userService.colorset[1]}}" (click)="goToLogin()">Cancel</button>                  
                         <button class="p-2 m-2 btn {{userService.colorset[1]}}">Register</button>
-                        <button class="p-2 m-2 btn {{userService.colorset[1]}}" type="reset" (click)="onReset()">Reset data</button>
-                        <button class="p-2 m-2 btn {{userService.colorset[1]}}" (click)="goToLogin()">Cancel</button>
                     </div>
                 </form>
         </div>
