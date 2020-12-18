@@ -97,7 +97,9 @@ export class RegistrationComponent implements OnInit, AfterViewInit, AfterViewCh
     }
     
     //this.writeTestDataInUser();
-    this.userService.sendRegistrationInfo(this.user).subscribe();
+    this.userService.sendRegistrationInfo(this.user).subscribe(x => {
+      this.router.navigateByUrl('user/login');
+     });
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
   }
 
