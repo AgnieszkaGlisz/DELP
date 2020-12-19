@@ -26,7 +26,7 @@ export class AppComponent  implements OnInit {
         {
           this.logged = true;
         }
-      }) 
+      }); 
     }
   
   logged: boolean = true;
@@ -41,6 +41,19 @@ export class AppComponent  implements OnInit {
        }
     );
   }
+
+  checkIfLogin(): boolean {
+    const idToken = this.userService.getToken();
+    if (idToken) 
+    {
+      return true; 
+    }
+    else
+    {
+      this.router.navigateByUrl('user/login');
+      return false; 
+    }
+  }      
 
   goBack(): void {
     this.location.back();

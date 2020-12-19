@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+//import { userInfo } from 'os';
+>>>>>>> 95f7744392119eded8d63444b39448dbdfd8aefc
 import { WordsetService } from './../../_services/wordset.service';
 import { ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
@@ -129,6 +133,7 @@ export class WordExerciseTemplateComponent implements ExerciseTemplateComponent,
                 this.injector.get(WordsetService).sendTranslationRequest(toLang.lang, fromLang.lang, inputValue).subscribe(t => {
                   console.log(t[0].translations[0].text);
                   (<HTMLInputElement>document.getElementById("inputTranslationWord")).value = t[0].translations[0].text; 
+                  this.data.translation =  t[0].translations[0].text;
                 })
               })
             });

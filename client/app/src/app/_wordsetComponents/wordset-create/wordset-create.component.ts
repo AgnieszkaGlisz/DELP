@@ -1,6 +1,5 @@
 import { User } from './../../_interfaces/user';
 import { fileInfo } from './../../_interfaces/files';
-import { AlertService } from './../../_services/alert.service';
 import { ViewOption } from './../../_exercisesComponents/view-option-enum';
 import { ExerciseListDirective } from './../../exercise-list.directive';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';
@@ -33,7 +32,6 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
   constructor(
     //private wordsetService: WordsetService, 
     private componentFactoryResolver: ComponentFactoryResolver,
-    private alertService: AlertService,
     private router: Router,
     public userService: UserService, 
     public injector:Injector
@@ -174,7 +172,8 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
 
   saveSet(): void {
     if(!$(".wordsetname").val() ||!$(".wordsetinfo").val()||
-      !this.lang1.value || !this.lang2.value){
+      !this.lang1.value || !this.lang2.value
+      ||this.set.exercises.length==0){
       if(!$(".wordsetname").val()) $(".wordsetname").addClass('bg-error')
       if(!$(".wordsetinfo").val()) $(".wordsetinfo").addClass('bg-error')
       if(!this.lang1.value) $(".fromlang").addClass('bg-error')
@@ -186,18 +185,18 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
     this.router.navigateByUrl('user/sets');
     this.set.saveSet();
     if (this.set.setInfo.name){
-     this.injector.get(WordsetService).saveWordset(this.set).subscribe(x => {
+      this.injector.get(WordsetService).saveWordset(this.set).subscribe(x => {
         console.log(this.addedFile.length)
         while(this.addedFile.length > 0){
           this.injector.get(WordsetService).sendFile(this.addedFile.pop(), x['setId']).subscribe(x => {
              console.log(x)
          });
         }
-     });
+      });
     }
     else {
       console.log("Didn't give set name")
-        this.alertService.error("Fill set name!")
+        //this.alertService.error("Fill set name!")
     }
   }
 
@@ -223,7 +222,7 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
       })
       if( imageBuble.type.split("/", 1)[0] != 'image' && imageBuble.type.split("/", 1)[0] != 'video' && imageBuble.type.split("/", 1)[0] != 'audio'){
         correctTypes = false;
-        this.alertService.error("Can't add the file of a type " + imageBuble.type.split("/", 1)[0] + '!')
+        //this.alertService.error("Can't add the file of a type " + imageBuble.type.split("/", 1)[0] + '!')
       }
   
       if(canAddTheFile && correctTypes){
@@ -231,11 +230,11 @@ export class WordsetCreateComponent implements OnInit, AfterViewInit, AfterViewC
       }
   
       if (!canAddTheFile) {
-        this.alertService.error("There is already one " + imageBuble.type.split("/", 1)[0] + '!')
+        //this.alertService.error("There is already one " + imageBuble.type.split("/", 1)[0] + '!')
       }
     }
     else {
-      this.alertService.warn("You can only add 3 files! (One image, one video, one audio)")
+      //this.alertService.warn("You can only add 3 files! (One image, one video, one audio)")
     }
     //this.files.push(...event.addedFiles);
     

@@ -51,7 +51,7 @@ export class WordsetDisplayComponent implements OnInit, AfterViewInit {
         x.exercises.forEach(exer => {
           this.set.exercises[idx] = this.wordsetService.newExercise(exer.template);
           Object.assign(this.set.exercises[idx], exer);
-          this.set.exercises[idx].setViewOption(ViewOption.DisplayVideo);
+          this.set.exercises[idx].setViewOption(ViewOption.Display);
           idx++;
         });
         // console.log(this.set.exercises);
@@ -65,10 +65,9 @@ export class WordsetDisplayComponent implements OnInit, AfterViewInit {
     console.log(this.set.exercises);
     if(this.exerciseHosts){
       let index = 0;
-      console.log(this.exerciseHosts)
-      console.log(this.exerciseHosts.length)
+      // console.log(this.exerciseHosts)
+      // console.log(this.exerciseHosts.length)
       this.exerciseHosts.forEach(ex => {
-        console.log("jestem w pętli")
         const viewContainer = ex.viewContainerRef;
         viewContainer.clear();
         const factory = this.componentFactoryResolver.resolveComponentFactory(this.set.exercises[index].component);

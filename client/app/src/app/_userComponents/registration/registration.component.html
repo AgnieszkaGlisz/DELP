@@ -1,4 +1,4 @@
-<div class="login {{userService.colorset[0]}}">
+<div class="login ">
     <div class=" d-flex justify-content-center align-items-center login-page text-dark">
         <div class="d-flex bg-white flex-column p-5 rounded">
             <!-- <h1>Delp Register</h1>
@@ -94,9 +94,8 @@
                         <!-- <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Accept Ts & Cs is required</div> -->
                     </div>
                     <div class="text-center">
+                        <button class="p-2 m-2 btn {{userService.colorset[1]}}" (click)="goToLogin()">Cancel</button>                  
                         <button class="p-2 m-2 btn {{userService.colorset[1]}}">Register</button>
-                        <button class="p-2 m-2 btn {{userService.colorset[1]}}" type="reset" (click)="onReset()">Reset data</button>
-                        <button class="p-2 m-2 btn {{userService.colorset[1]}}" (click)="goToLogin()">Cancel</button>
                     </div>
                 </form>
         </div>

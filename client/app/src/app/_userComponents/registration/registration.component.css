@@ -1,11 +1,11 @@
 .login-page{
     height: 100%;
 }
-.login {
-    position: fixed;
+
+nav{
+    display: none;
+}
+#wrapper{
     width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    overflow: scroll;
+background-color: white;
 }

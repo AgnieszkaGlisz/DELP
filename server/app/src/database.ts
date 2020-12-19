@@ -2,7 +2,6 @@ var mysql = require('mysql')
 import common = require("./common")
 
 class Database {
-
     private dbconfig = {
         connectionLimit : 10,
         host: process.env.DB_HOST,

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WordExerciseTemplateComponent } from './word-exercise-template.component';
 
@@ -22,4 +22,4 @@ describe('WordExerciseTemplateComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+});*/

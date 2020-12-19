@@ -19,7 +19,6 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { WordsetLearnComponent } from './_wordsetComponents/wordset-learn/wordset-learn.component';
 import { UserLogoutComponent } from './_userComponents/user-logout/user-logout.component';
 import { UserSetsComponent } from './user-sets/user-sets.component';
-import { AlertComponent } from './alert/alert.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ExerciseDirective } from './exercise.directive';
 import { WordExerciseTemplateComponent } from './_exercisesComponents/word-exercise-template/word-exercise-template.component';
@@ -44,7 +43,6 @@ import { FinishedSetComponent } from './_wordsetComponents/finished-set/finished
     WordsetLearnComponent,
     UserLogoutComponent,
     UserSetsComponent,
-    AlertComponent,
     ExerciseDirective,
     WordExerciseTemplateComponent,
     TranslateSentenceExerciseTemplateComponent,

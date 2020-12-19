@@ -2,7 +2,7 @@ import { UserPreferences } from './../_interfaces/userPreferences';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../_interfaces/user';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { WordsetService } from './wordset.service';
 import { Router } from '@angular/router';
 
@@ -72,11 +72,6 @@ export class UserService {
   deleteUserData(): void {
     localStorage.removeItem('userData');
   }
-
-  // TODO: change to get info about only one user
-  // getUserInfo(id: number): Observable<User[]> {
-  //   return this.http.get<User[]>(this.url);
-  // }
 
   getUserInfo(): Observable<User> {
     return this.http.get<User>(`${this.wordsetService.url}/user/account`, httpOptions);
