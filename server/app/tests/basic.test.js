@@ -8,7 +8,6 @@ app.use(cors({origin:"*"}))
 app.use(express.json())
 app.use('/api',serverRoutes)
 
-
 test('Should get api info',async () => {
     await request(app)
     .get('/api/info')
@@ -26,8 +25,6 @@ test('Should get languages list',async () => {
         
       });
 })
-
-
 
 test('Should get language info',async () => {
     await request(app)
@@ -48,13 +45,3 @@ test('Should not get language info',async () => {
         .send()
         .expect(404)
 })
-
-
-
-
-
-
-
-
-
-  

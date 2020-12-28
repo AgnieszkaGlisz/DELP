@@ -35,7 +35,6 @@ test('Should not get set',async () => {
       })
 })
 
-
 function createSqlForSets(wordsToFind,deaf,blind,page,langfrom,langto){
   if(!wordsToFind) wordsToFind=""
   if(!deaf) deaf=false

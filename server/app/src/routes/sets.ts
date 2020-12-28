@@ -4,7 +4,6 @@ import {db} from '../database'
 import auth = require("../auth")
 import common = require("../common")
 
-
 function sortExercises(exercises:any,templates:any){
     common.adminLog('Sorting exercises.')
     var tmpExercises = new Array(templates.length);
@@ -246,7 +245,6 @@ router.post('/search', auth.authenticateToken, (req:any, res) => {
     })
 })
 
-
 function insertIntoSetsExercises(setId:any,templateId:any,exerciseId:any,exerciseOrder:any){
     var sql='INSERT INTO `SetsExercises` (`idSet`, `idTemplate`, `idExercise`,`exerciseOrder`)'
     sql+='VALUES ('+setId+', '+templateId+', '+exerciseId+','+exerciseOrder+')'
@@ -303,6 +301,7 @@ function insertIntoWordTemplate(exercise:any,setId:any,insertedExercises:any,cli
         insertIntoSetsExercises(setId,1,exerciseId,exercise.id)
     })
 }
+
 function insertTranslateSentenceTemplate(exercise:any,setId:any,insertedExercises:any,clientRes:any,exercisesLength:number){
     var sql = ' INSERT INTO `TranslateSentenceExerciseTemplate` (`idSet`, `oryginalSentence`, `translatedSentence`,`videoPath`, `audioPath`, `picturePath`) '
     sql +='VALUES ('+setId+', "'+exercise.oryginalSentence+'", "'+exercise.translatedSentence+'", NULL, NULL, NULL)'
@@ -322,7 +321,6 @@ function resSetInserted(insertedExercises:number,allExercises:number,setId:numbe
     if(insertedExercises>=allExercises)
         res.status(200).json({setId: setId})
 }
-
 
 router.post('/add', auth.authenticateToken, (req:any, res) => {
     common.adminLog(req.body)
@@ -434,188 +432,5 @@ router.get('/delete/:id', auth.authenticateToken, (req:any, res) =>{
         })
     })
 })
-
-/*function updateAudioFileInfo(idSet:number,exerciseOrder:number,path:string){
-    var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
-    sql += ' FROM SetsExercises '
-    sql += ' WHERE  SetsExercises.idSet = ' + idSet
-    db.query(sql, function(result:any){
-        if(result == 0) 
-            return
-        for(var i = 0; i < result.length;i++){
-            if( result[i].exerciseOrder == exerciseOrder){
-                var template
-                if(result[i].idTemplate == 1){
-                    template = 'WordExerciseTemplate'
-                }
-                else if(result[i].idTemplate == 2){
-                    template = 'FillSentenceExerciseTemplate'
-                }
-                else if(result[i].idTemplate == 3){
-                    template = 'TranslateSentenceExerciseTemplate'
-                }
-                if(template != undefined){
-                    sql = 'UPDATE `'+template+'`'
-                    sql+= ' SET audioPath = "' + path + '"'
-                    sql+= ' WHERE id=' + result[i].idExercise
-                    db.query(sql, function(result:any){})
-
-                    sql = 'UPDATE `ExerciseSets`' 
-                    sql+= ' SET ifAudio = 1 '
-                    sql+= ' WHERE id= ' + idSet
-                    db.query(sql,function(result:any){})
-                    }
-                break
-            }
-        }
-    })
-}
-
-function updateVideoFileInfo(idSet:number,exerciseOrder:number,path:string){
-    var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
-    sql += ' FROM SetsExercises '
-    sql += ' WHERE  SetsExercises.idSet = ' + idSet
-    db.query(sql, function(result:any){
-        if(result == 0) 
-            return
-        for(var i = 0; i < result.length;i++){
-            if( result[i].exerciseOrder == exerciseOrder){
-                var template
-                if(result[i].idTemplate == 1){
-                    template = 'WordExerciseTemplate'
-                }
-                else if(result[i].idTemplate == 2){
-                    template = 'FillSentenceExerciseTemplate'
-                }
-                else if(result[i].idTemplate == 3){
-                    template = 'TranslateSentenceExerciseTemplate'
-                }
-                if(template != undefined){
-                    sql = 'UPDATE `'+template+'`'
-                    sql+= ' SET videoPath = "' + path + '"'
-                    sql+= ' WHERE id=' + result[i].idExercise
-                    db.query(sql, function(result:any){})
-
-                    sql = 'UPDATE `ExerciseSets`' 
-                    sql+= ' SET ifVideo = 1 '
-                    sql+= ' WHERE id= ' + idSet
-                    db.query(sql,function(result:any){})
-                    }
-                break
-            }
-        }
-    })
-}
-
-function updatePictureFileInfo(idSet:number,exerciseOrder:number,path:string){
-    var sql = 'SELECT SetsExercises.id,SetsExercises.idExercise,SetsExercises.idTemplate,SetsExercises.exerciseOrder '
-    sql += ' FROM SetsExercises '
-    sql += ' WHERE  SetsExercises.idSet = ' + idSet
-    db.query(sql, function(result:any){
-        if(result == 0) 
-            return
-        for(var i = 0; i < result.length;i++){
-            if( result[i].exerciseOrder == exerciseOrder){
-                var template
-                if(result[i].idTemplate == 1){
-                    template = 'WordExerciseTemplate'
-                }
-                else if(result[i].idTemplate == 2){
-                    template = 'FillSentenceExerciseTemplate'
-                }
-                else if(result[i].idTemplate == 3){
-                    template = 'TranslateSentenceExerciseTemplate'
-                }
-                if(template != undefined){
-                    sql = 'UPDATE `'+template+'`'
-                    sql+= ' SET picturePath = "' + path + '"'
-                    sql+= ' WHERE id=' + result[i].idExercise
-                    db.query(sql, function(result:any){})
-
-                    sql = 'UPDATE `ExerciseSets`' 
-                    sql+= ' SET ifPicture = 1 '
-                    sql+= ' WHERE id= ' + idSet
-                    db.query(sql,function(result:any){})
-                    }
-                break
-            }
-        }
-    })
-}
-
-router.use('/UserMedia/pictures', express.static('./UserMedia/pictures'))
-router.use('/UserMedia/audio', express.static('./UserMedia/audio'))
-router.use('/UserMedia/video', express.static('./UserMedia/video'))
-
-const multer = require('multer')
-
-
-const storage = multer.diskStorage({
-    destination: './userMedia/pictures',
-    filename: function(req:any,file:any,cb:any){
-        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
-    }
-})
-
-const videoStorage = multer.diskStorage({
-    destination: './userMedia/video',
-    filename: function(req:any,file:any,cb:any){
-        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
-    }
-})
-
-const audioStorage = multer.diskStorage({
-    destination: './userMedia/audio',
-    filename: function(req:any,file:any,cb:any){
-        cb(null,req.query.idSet + '_' + req.query.id + '_' + Date.now() + '.' + file.mimetype.split('/')[1])
-    }
-})
-
-const upload = multer({storage: storage})
-const uploadVideo = multer({storage: videoStorage})
-const uploadAudio = multer({storage: audioStorage})
-
-router.post('/image', auth.authenticateToken, upload.single('image'), (req:any,res) => { // 
-    console.log("in the image")
-    common.adminLog(req.file)
-    common.adminLog(req.query)
-    if(req.file){
-        updatePictureFileInfo(req.query.idSet, req.query.id, req.file.destination + '/' + req.file.filename);
-        res.send({message: "ok"})
-    }
-    else {
-        res.send({message: "Couldn't save the file, received undefined"})
-    }
-})
-
-router.post('/video', auth.authenticateToken, uploadVideo.single('video'), (req:any,res) => { // 
-    console.log("in the video")
-    common.adminLog(req.file)
-    common.adminLog(req.query)
-    if(req.file){
-        updateVideoFileInfo(req.query.idSet, req.query.id, req.file.destination + '/' + req.file.filename);
-        res.send({message: "ok"})
-    }
-    else {
-        res.send({message: "Couldn't save the file, received undefined"})
-    }
-})
-
-router.post('/audio', auth.authenticateToken, uploadAudio.single('audio'), (req:any,res) => { // 
-    console.log("in the audio")
-    common.adminLog(req.file)
-    common.adminLog(req.query)
-    if(req.file){
-        updateAudioFileInfo(req.query.idSet, req.query.id, req.file.destination + '/' + req.file.filename);
-        res.send({message: "ok"})
-    }
-    else {
-        res.send({message: "Couldn't save the file, received undefined"})
-    }
-})
-
-router.get('/xd', (req,res)=> {
-    res.send("xd");
-})*/
 
 module.exports = router;

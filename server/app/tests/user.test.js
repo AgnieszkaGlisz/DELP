@@ -45,7 +45,6 @@ test('Should not register, data error', async () => {
         .expect(403)
 })
 
-
 test('Should not register, user exists', async () => {
     await request(app)
         .post('/user/register')
@@ -159,7 +158,6 @@ test('Should return user info', async () => {
         });
 })
 
-
 //ADD FAVOURITES
 test('Should add set to favourite set list', async () => {
     await request(app)
@@ -167,7 +165,6 @@ test('Should add set to favourite set list', async () => {
         .set('authorization', good_token)
         .expect(200)
 })
-
 
 //FAVOURITES
 test('Should get favourite set list', async () => {
@@ -188,7 +185,6 @@ test('Should delete set from favourite set list', async () => {
         .set('authorization', good_token)
         .expect(200)
 })
-
 
 var good_token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJjZ3JhYm93c2tpIiwiaWF0IjoxNjA1MjE2NTI0fQ.4OXehw3gBqpkx7boTY_AKc63QFDZOGDNsg0wSJhy_hA"
 var no_token = "Bearer"

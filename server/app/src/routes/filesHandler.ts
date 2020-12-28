@@ -10,7 +10,6 @@ router.use('/UserMedia/video', express.static('./UserMedia/video'))
 
 const multer = require('multer')
 
-
 const storage = multer.diskStorage({
     destination: './userMedia/pictures',
     filename: function(req:any,file:any,cb:any){

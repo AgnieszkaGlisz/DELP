@@ -1,7 +1,6 @@
 import express = require('express')
 const router = express.Router();
 import {db} from '../database'
-import auth = require("../auth")
 import common = require("../common")
 
 //informacje o mozliwych funkcjach api
@@ -61,7 +60,5 @@ router.get('/languages', (req:any, res) => {
         res.json(lanRes)
     })
 })
-
-
 
 module.exports = router

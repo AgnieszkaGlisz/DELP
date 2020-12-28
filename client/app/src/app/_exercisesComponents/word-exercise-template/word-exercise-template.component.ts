@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
-=======
 //import { userInfo } from 'os';
->>>>>>> 95f7744392119eded8d63444b39448dbdfd8aefc
 import { WordsetService } from './../../_services/wordset.service';
 import { ViewOption } from './../view-option-enum';
 import { ExerciseTemplateComponent } from './../../exercise-template.component';

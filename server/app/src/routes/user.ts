@@ -133,7 +133,6 @@ router.post('/login', (req, res) => {
     })
 })
 
-
 //pobieranie danych uzytkownika
 router.get('/account', auth.authenticateToken, (req:any, res) => {
     common.adminLog("User info.")
@@ -289,6 +288,7 @@ router.post('/preferences', auth.authenticateToken, (req:any, res) => {
         res.json({message:"Preferences updated."})
     })
 })
+
 function createResponseSet(db_result:any){
     var setTemp = {
         id: db_result.id,
